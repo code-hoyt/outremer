@@ -1,4 +1,4 @@
-# Outremer — Design Notes (v0.3, first playable slice + FFTA2 controls + context-aware pad)
+# Outremer — Design Notes (v0.4, slice + FFTA2 controls + context-aware pad + class abilities)
 
 > **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 — combat prototype).
 
@@ -64,6 +64,40 @@ All constants: `CONFIG.combat`.
 ## Enemy AI (simple scoring)
 For every reachable tile × every target attackable from it: `100 + expectedDamage + killBonus(25×hit) + sideBonus(4)/backBonus(10) + 2×tileHeight − 0.35×danger`. If no attack is possible: move toward the nearest foe (`−1.5 × distance`). Archers avoid ending closer than 3 tiles. Weights: `CONFIG.ai`.
 
+## Abilities (v0.4) — two per class, all about position
+Every class gets two abilities that **make or punish a position**, not bigger numbers. Raiders use the same kit as their Templar counterpart (Swordsman = knight, Bowman = archer, Skirmisher has its own). All numbers live in `CONFIG.abilities`.
+
+**Cost model: cooldowns, counted in the user's own turns.** An ability takes your Action (like Attack). After you use it, it's unavailable for the next *N* of your turns ("CD n" shows greyed in the Action menu and in unit info). We went with this over MP because it's one number per ability, easy to read on a phone, and keeps Attack the reliable default, so you're always choosing *when* to spend a cooldown. MP pools can come later with items or jobs (open question below).
+
+| Class | Ability | What it does | CD | Why it's here |
+|---|---|---|---|---|
+| Knight / Swordsman | **Shield Bash** | Adjacent hit at ×0.6 that shoves the target 1 tile away from you. Off a ledge: +5 per level dropped. Into a wall or the map edge: +6. Into another unit: +6 to the target, +4 to the other unit. | 1 | Displacement. It turns cliffs, edges and crowds into damage and lets you pry a foe out of a flank. Its weak base damage means it only pays off when the terrain behind the target does. |
+| Knight / Swordsman | **Shield Wall** | Stance until your next turn. Front damage ×0.5, and allies orthogonally next to you are *covered*: side and back hits on them count as front (flank bonuses still apply). **Trade-off:** MOV −1 on your next turn (Slowed). | 2 | Protects flanks and shapes a formation. It's the slow, heavy knight's answer to fast skirmishers, at the cost of tempo. |
+| Sergeant | **Brace** | Stance until your next turn. The first foe that **voluntarily walks** into the 2 tiles in front of you (along the facing you pick at turn end, within height reach) is stopped there and takes an automatic full thrust. No prompt. | 1 | Zone control with no interrupts (pillar 1): you make the choice on your own turn and it resolves itself. The zone is always drawn on the map, so the enemy can read it and route around it. |
+| Sergeant | **Hook** | Target exactly 2 tiles away in a straight line, ×0.5 damage. Pulls the target 1 tile toward you (up at most 1 level; drops deal fall damage). If the tile is blocked, there's no pull and no extra damage. | 2 | The inverse of Bash. Drags an archer off its perch or pulls a foe into your flankers. Fits the polearm's reach. |
+| Archer / Bowman | **Pinning Shot** | ×0.6 damage. The target is Pinned for its next turn: MOV −2, JUMP ≤1. | 2 | Slows a fast unit (skirmisher, knight charge) so the formation can close or escape. It trades damage for tempo. |
+| Archer / Bowman | **Plunging Shot** | Needs height advantage (≥1 level). +15% damage per level of advantage, and it **never counts as a front hit** (at least a side hit). **Trade-off:** the archer is Exposed (DEF −3) until its next turn. | 2 | Rewards taking and holding high ground and gets around a shield's facing, but leaves the archer vulnerable on its perch. |
+| Skirmisher | **Feint** | Adjacent, ×0.4 damage. The target turns to face you. | 1 | Facing manipulation. Pin a foe's front toward you so an ally can hit its back next turn. |
+| Skirmisher | **Vault Strike** | Leap over an adjacent foe to the empty tile behind it (within JUMP), then strike at ×0.8 from the landing tile, usually its back. Doesn't use your Move, so you can still walk away after. | 2 | Uses the skirmisher's high JUMP and gets behind a front line. Landing deep is the risk. |
+
+Statuses show as letter pips above the HP bar (W/B/P/E/S) and as a line in unit info. Brace zones are drawn in orange on the map for both sides.
+
+**Rules worth knowing**
+- Only a *voluntary* walk triggers Brace. Shoves, pulls and vaults don't. A brace that triggers is used up. A move stopped by a brace can't be undone.
+- Cover from Shield Wall changes the hit *side* only. Flank bonuses and height still apply.
+- The vault landing must be in bounds, empty, and within the skirmisher's JUMP of its start height.
+
+**UI flow (FFTA2):** Action → submenu lists **Attack** plus the class's two abilities (▲▼ on the pad; greyed with "CD n" or "no target" when unavailable). Targeting uses the map pad. The red tiles show the ability's reach, and orange tiles show where things will end up: the shove/pull destination, the vault landing, covered allies, the brace zone. The confirm box shows hit %, damage + extra (fall/slam), HP before→after, and plain-language effects. Stances target yourself. Brace sends you to the facing step so you can aim the zone.
+
+**AI:** the planner considers every (tile × ability × target) next to plain attacks. Abilities are scored by what they set up: fall/slam damage, a shove or pull that ends next to one of its own units, pins on fast units, back/side exposure after a feint, landing danger after a vault, Exposed danger after a plunge. A damaging ability has to beat the best plain attack by `abilityMinGain`. Stances (Wall, Brace) compete with *repositioning*, not with attacks, so a knight doesn't stand still walling when it should advance. Paths that run into a visible brace zone are penalised (`wAvoidBrace`). If a brace stops the AI anyway, it re-plans from where it stands.
+
+**Balance (AI-vs-AI sim, `node tools/sim.mjs 3000`, seeds 1..N):**
+- Before abilities: Templar win rate **0.460** (loss 0.529, stalled 0.011, avg 28.6 turns).
+- First ability pass: **~0.85**. The swing came almost entirely from Plunging Shot's original **+1 range**. It let archers duel from their spawn heights, and removing just that put the rate back near baseline (ablations: no enemy plunge → 0.41; plunge range 0 → 0.40).
+- **Nudge:** Plunging Shot lost its +1 range (`rangeBonus: 0`). It still has the height requirement, the bonus per level, and the never-front rule. The Shield Wall/Brace AI was also re-scored as described above.
+- After: **0.373** (loss 0.609, stalled 0.018, avg 26.4 turns). That's a bit harder than before, which is within "modest", so we left it. Stat bonuses are unchanged (Templars +6 HP / +1 DEF).
+- How often the AI uses each ability per battle: Shield Wall ~1.9 per side, Plunging Shot (Raiders) 1.7, Vault Strike 1.0, Brace 0.6. Brace almost never *triggers*, because the AI routes around visible zones, so it works as area denial. Bash, Hook, Pin and Feint are rarely chosen by the AI. They need a specific setup (a ledge or a foe exactly 2 tiles away), and the AI's one-ply look-ahead undervalues them. They're there for players. Better AI use is a Stage 1 balance-pass item.
+
 ## Controls (v0.2 — modelled on FFTA2)
 Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-facing / starting the turn already in Move mode felt wrong. He wants the controls to match FFTA2 to start with; we may change them later. So the battle UI is now a **cursor + command menu + A/B** scheme, with taps as a shortcut.
 
@@ -123,7 +157,7 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 
 ## What's placeholder
 - All art: procedural canvas shapes (shaded iso blocks, simple figures with team colors, Templar red cross on tunic/shield). No sound.
-- One hand-made map, fixed deployment, no squad building, no abilities, no items, no XP.
+- One hand-made map, fixed deployment, no squad building, two abilities per class only (no jobs/secondary sets), no items, no XP.
 - Raider faction is a generic stand-in. Names are generic.
 - AI is a one-ply greedy scorer.
 
@@ -131,7 +165,8 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 - Squad building: classes vs. "races"/origins (Frankish knights, local Turcopoles, Armenian/Syriac allies?) and how they gate movement profiles.
 - Trade-off upgrades: armor weight ⇄ MOV/JUMP, shield ⇄ side-hit protection, banners that grant flank bonuses to nearby allies?
 - Should facing protect more (e.g. shields block some front damage) to make flanking even more decisive?
-- Reactions/zones of control vs. keeping turns snappy (pillar 1).
+- Reactions/zones of control vs. keeping turns snappy (pillar 1). v0.4 answer: only Brace, set on your own turn and resolved automatically. Should more reactions follow this pattern?
+- Abilities: keep cooldowns, or move to MP once items/jobs exist? Should Shield Wall cover also cancel flank bonuses (it doesn't now)? Should shoves/pulls into a brace zone trigger it (they don't now)?
 - Per-playthrough variety: procedural maps? random events? relic draft?
 - Mythology layer: relics, saints' legends, djinn/desert folklore — when and how much?
 - Permadeath or wounds?

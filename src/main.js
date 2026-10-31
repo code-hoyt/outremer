@@ -19,7 +19,7 @@ const makeRng = () => (seedParam ? mulberry32(Number(seedParam)) : Math.random);
 let S, ui, anims, floats, layout;
 function reset() {
   S = G.createState(makeRng());
-  ui = { mode: 'busy', cursor: { x: 0, y: 0 }, menu: null, menuIndex: 0, moveInfo: null, target: null, rangeOf: null, lastTap: null };
+  ui = { mode: 'busy', cursor: { x: 0, y: 0 }, menu: null, menuIndex: 0, moveInfo: null, target: null, rangeOf: null, lastTap: null, ability: null };
   anims = new Map(); floats = [];
   $('overlay').classList.add('hidden');
   nextTurn();
@@ -236,8 +236,27 @@ function drawUnit(u, now) {
   ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(bx - 1, by - 1, bw + 2, bh + 2);
   const f = u.hp / u.maxHp;
   ctx.fillStyle = f > 0.5 ? P.hpGood : f > 0.25 ? P.hpMid : P.hpLow; ctx.fillRect(bx, by, bw * f, bh);
+  // status pips (one letter each) above the bar
+  const st = Object.keys(u.status || {});
+  if (st.length) {
+    ctx.font = `bold ${Math.round(10 * Math.max(0.8, k))}px system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const pw = 13 * Math.max(0.8, k), y0 = by - pw * 0.75;
+    st.forEach((key, i) => {
+      const cx = x + (i - (st.length - 1) / 2) * (pw + 2);
+      ctx.fillStyle = 'rgba(0,0,0,.7)'; ctx.fillRect(cx - pw / 2, y0 - pw / 2, pw, pw);
+      ctx.fillStyle = P.status[key] || '#fff'; ctx.fillText(STATUS[key] ? STATUS[key].pip : '?', cx, y0 + 0.5);
+    });
+    ctx.textBaseline = 'alphabetic';
+  }
   ctx.globalAlpha = 1;
 }
+const STATUS = {
+  wall: { pip: 'W', name: 'Shield Wall', text: 'front dmg ×½, covers adjacent allies' },
+  brace: { pip: 'B', name: 'Braced', text: 'strikes the first foe entering its front zone' },
+  pinned: { pip: 'P', name: 'Pinned', text: 'MOV −2, JUMP ≤1 this turn' },
+  exposed: { pip: 'E', name: 'Exposed', text: 'DEF −3 until its next turn' },
+  slowed: { pip: 'S', name: 'Slowed', text: 'MOV −1 this turn (after Shield Wall)' },
+};
 
 function render(now) {
   const { w, h } = layout;
@@ -246,8 +265,15 @@ function render(now) {
   const hl = new Map();
   const key = (x, y) => y * S.w + x;
   if (ui.mode === 'move' && ui.moveInfo) for (const t of ui.moveInfo.tiles) hl.set(key(t.x, t.y), P.moveHighlight);
+  // brace zones are always visible: a stance the other side can read and route around
+  for (const b of S.units) if (b.hp > 0 && b.status.brace) for (const z of G.braceZone(S, b)) hl.set(key(z.x, z.y), P.zoneHighlight);
+  if (ui.mode === 'facing' && S.active && S.active.status.brace) for (const z of G.braceZone(S, S.active)) hl.set(key(z.x, z.y), P.effectHighlight);
   if ((ui.mode === 'target' || ui.mode === 'confirm') && S.active) {
-    for (const t of G.attackTiles(S, S.active)) hl.set(key(t.x, t.y), P.attackHighlight);
+    const u = S.active;
+    const tiles = ui.ability ? G.abilityRangeTiles(S, u, ui.ability) : G.attackTiles(S, u);
+    for (const t of tiles) hl.set(key(t.x, t.y), P.attackHighlight);
+    const tgt = ui.mode === 'confirm' ? ui.target : validTargetAt(ui.cursor.x, ui.cursor.y);
+    if (ui.ability && tgt) for (const t of G.abilityPreview(S, u, ui.ability, tgt).tiles) hl.set(key(t.x, t.y), P.effectHighlight);
     if (ui.target) hl.set(key(ui.target.x, ui.target.y), P.targetHighlight);
   }
   if (ui.mode === 'free' && ui.rangeOf && ui.rangeOf.hp > 0) for (const t of G.reachable(S, ui.rangeOf).tiles) hl.set(key(t.x, t.y), P.rangeHighlight);
@@ -383,7 +409,14 @@ function setCursor(x, y) {
 const cursorUnit = () => G.unitAt(S, ui.cursor.x, ui.cursor.y);
 
 function menuItems() {
-  if (ui.mode === 'actmenu') return [{ id: 'attack', label: 'Attack', on: true }];
+  if (ui.mode === 'actmenu') {
+    const u = S.active;
+    return [{ id: 'attack', label: 'Attack', on: true }].concat(G.abilitiesOf(u).map((a) => {
+      const cd = u.cd[a.id] || 0;
+      const any = G.abilityTargets(S, u, a.id).length > 0;
+      return { id: 'ab:' + a.id, ability: a.id, label: a.name, on: cd === 0 && any, note: cd > 0 ? `CD ${cd}` : any ? '' : 'no target' };
+    }));
+  }
   return [
     { id: 'move', label: 'Move', on: !S.moved },
     { id: 'action', label: 'Action', on: !S.acted },
@@ -392,27 +425,32 @@ function menuItems() {
 }
 function openMenu(focusId) {
   const u = S.active;
-  ui.mode = 'menu'; ui.target = null; ui.rangeOf = null; ui.lastTap = null;
+  ui.mode = 'menu'; ui.target = null; ui.rangeOf = null; ui.lastTap = null; ui.ability = null;
   const items = menuItems();
   let i = focusId ? items.findIndex((it) => it.id === focusId && it.on) : -1;
   if (i < 0) i = items.findIndex((it) => it.on); // FFTA2: highlight the first available command
   ui.menuIndex = Math.max(0, i);
   setCursor(u.x, u.y);
 }
-function openActMenu() { ui.mode = 'actmenu'; ui.menuIndex = 0; updatePanel(); }
+function openActMenu(focusId) {
+  ui.mode = 'actmenu'; ui.ability = null;
+  const i = focusId ? menuItems().findIndex((it) => it.id === focusId) : 0;
+  ui.menuIndex = Math.max(0, i); updatePanel();
+}
 function enterMove() {
   const u = S.active;
   ui.mode = 'move'; ui.moveInfo = G.reachable(S, u); ui.lastTap = null;
   setCursor(u.x, u.y);
 }
-function enterTarget() {
+function enterTarget(ability = null) {
   const u = S.active;
-  ui.mode = 'target'; ui.target = null; ui.lastTap = null;
-  setCursor(u.x, u.y); // FFTA2: cursor starts on the acting unit
+  ui.mode = 'target'; ui.target = null; ui.lastTap = null; ui.ability = ability;
+  setCursor(u.x, u.y); // FFTA2: cursor starts on the acting unit (which is the target for stances)
 }
 function enterFacing() { ui.mode = 'facing'; ui.facingTap = null; updatePanel(); }
 const validTargetAt = (x, y) => {
   const t = G.unitAt(S, x, y), u = S.active;
+  if (ui.ability) return t && G.abilityCanTarget(S, u, ui.ability, t) ? t : null;
   return t && t.team !== u.team && G.canAttackFrom(S, u, u.x, u.y, x, y) ? t : null;
 };
 
@@ -422,6 +460,7 @@ function selectMenuItem(it) {
   else if (it.id === 'action') openActMenu();
   else if (it.id === 'wait') enterFacing();
   else if (it.id === 'attack') enterTarget();
+  else if (it.ability) enterTarget(it.ability);
 }
 
 function pressDir(d) {
@@ -476,7 +515,7 @@ function pressA() {
       if (ui.moveInfo.tiles.some((t) => t.x === x && t.y === y) && !(x === u.x && y === u.y)) return doPlayerMove(x, y);
       return;
     case 'target': { const t = validTargetAt(x, y); if (t) { ui.target = t; ui.mode = 'confirm'; updatePanel(); } return; }
-    case 'confirm': return doPlayerAttack(ui.target);
+    case 'confirm': return ui.ability ? doPlayerAbility(ui.ability, ui.target) : doPlayerAttack(ui.target);
     case 'facing': return playerEnd();
   }
 }
@@ -486,7 +525,7 @@ function pressB() {
   const u = S.active;
   switch (ui.mode) {
     case 'menu':
-      if (S.moved && !S.acted) { G.undoMove(S, u); return openMenu('move'); } // FFTA2: B undoes the move
+      if (S.moved && !S.acted && !S.intercepted) { G.undoMove(S, u); return openMenu('move'); } // FFTA2: B undoes the move
       ui.mode = 'free'; ui.rangeOf = null; updatePanel(); return;              // look around the field
     case 'actmenu': return openMenu('action');
     case 'free': {
@@ -495,7 +534,7 @@ function pressB() {
       return openMenu();
     }
     case 'move': return openMenu('move');
-    case 'target': return openMenu('action');
+    case 'target': { const ab = ui.ability; ui.ability = null; openActMenu(ab ? 'ab:' + ab : null); return; }
     case 'confirm': ui.mode = 'target'; ui.target = null; updatePanel(); return;
     case 'facing': return openMenu('wait');
   }
@@ -521,7 +560,7 @@ function onCanvasTap(px, py) {
     setCursor(hit.x, hit.y); ui.target = validTargetAt(hit.x, hit.y); ui.mode = 'confirm'; updatePanel(); return;
   }
   if (ui.mode === 'confirm') {
-    if (ui.target && hit.x === ui.target.x && hit.y === ui.target.y) return doPlayerAttack(ui.target);
+    if (ui.target && hit.x === ui.target.x && hit.y === ui.target.y) return pressA();
     ui.mode = 'target'; ui.target = null; setCursor(hit.x, hit.y); return;
   }
   if (same && C.tapConfirmsSecondTap) { if (ui.mode === 'menu' || ui.mode === 'actmenu') { ui.mode = 'free'; } return pressA(); }
@@ -531,16 +570,47 @@ function onCanvasTap(px, py) {
 
 async function doPlayerMove(x, y) {
   const u = S.active;
-  const path = ui.moveInfo.pathTo(x, y);
   ui.mode = 'busy'; updatePanel();
-  await animateMove(u, path);
-  G.moveUnit(S, u, x, y, path);
-  openMenu(); // menu returns; Move is greyed, B undoes the move
+  await moveWithBrace(u, ui.moveInfo.pathTo(x, y));
+  if (S.over) return finish();
+  if (u.hp <= 0) { G.endTurn(S); updatePanel(); setTimeout(nextTurn, 300); return; }
+  openMenu(); // menu returns; Move is greyed, B undoes the move (unless a brace stopped it)
+}
+// walk a path; a braced foe's zone stops the walk and its thrust lands automatically (no prompt)
+async function moveWithBrace(u, path) {
+  const ic = G.braceIntercept(S, u, path);
+  const walk = ic ? path.slice(0, ic.index + 1) : path;
+  await animateMove(u, walk);
+  const end = walk[walk.length - 1];
+  G.moveUnit(S, u, end.x, end.y, walk);
+  setCursor(u.x, u.y);
+  if (!ic) return null;
+  const b = ic.by;
+  b.facing = G.facingTo(b.x, b.y, u.x, u.y, b.facing);
+  floats.push({ x: b.x, y: b.y, text: 'BRACE!', color: P.status.brace, t0: performance.now() });
+  anims.set(b.id, { type: 'lunge', tx: u.x, ty: u.y, t0: performance.now() });
+  await wait(V.attackLungeMs * 0.5);
+  const r = G.braceStrike(S, b, u);
+  lastResult = { ...r, brace: true, by: b.id, target: u.id };
+  showHit(u, r);
+  await wait(V.attackLungeMs * 0.5);
+  anims.delete(b.id);
+  await afterHit(u, r.killed || u.hp <= 0);
+  return r;
+}
+
+async function doPlayerAbility(id, t) {
+  const u = S.active;
+  ui.mode = 'busy'; ui.target = null; ui.ability = null; updatePanel();
+  await abilitySequence(u, id, t);
+  if (S.over) return finish();
+  if (S.moved || id === 'brace') return enterFacing(); // brace: the zone follows the facing you pick now
+  openMenu();
 }
 
 async function doPlayerAttack(t) {
   const u = S.active;
-  ui.mode = 'busy'; ui.target = null; updatePanel();
+  ui.mode = 'busy'; ui.target = null; ui.ability = null; updatePanel();
   await attackSequence(u, t);
   if (S.over) return finish();
   if (S.moved) return enterFacing(); // moved + acted: straight to facing (FFTA2)
@@ -612,6 +682,42 @@ async function attackSequence(u, t) {
   return res;
 }
 let lastResult = null;
+function showHit(t, r) {
+  if (r.miss) { floats.push({ x: t.x, y: t.y, text: 'MISS', color: '#cfd6df', t0: performance.now() }); return; }
+  floats.push({ x: t.x, y: t.y, text: String(r.amount) + (r.crit ? '!' : ''), color: r.crit ? '#ffd85a' : '#ffffff', big: r.crit, t0: performance.now() });
+  if (r.side && r.side !== 'front') floats.push({ x: t.x, y: t.y, text: r.side === 'back' ? 'BACK' : 'SIDE', color: '#ff9a5a', t0: performance.now() - V.damageFloatMs * 0.35 });
+  anims.set(t.id, { type: 'flash', t0: performance.now() });
+}
+async function afterHit(t, killed) {
+  if (killed) { anims.set(t.id, { type: 'die', t0: performance.now() }); await wait(600); }
+  else await wait(V.hitFlashMs);
+  if (anims.get(t.id)) anims.delete(t.id);
+  updateOrder(); updatePanel();
+}
+async function abilitySequence(u, id, t) {
+  const self = CONFIG.abilities[id].kind === 'self';
+  floats.push({ x: u.x, y: u.y, text: CONFIG.abilities[id].name, color: '#ffe9a8', t0: performance.now() - V.damageFloatMs * 0.2 });
+  if (!self && id !== 'vaultStrike') {
+    u.facing = G.facingTo(u.x, u.y, t.x, t.y, u.facing);
+    anims.set(u.id, { type: 'lunge', tx: t.x, ty: t.y, t0: performance.now() });
+    await wait(V.attackLungeMs * 0.5);
+  }
+  const res = G.useAbility(S, u, id, t);
+  lastResult = res;
+  if (self) { await wait(V.hitFlashMs); updatePanel(); return res; }
+  const hop = res.moves.find((m) => m.hop);
+  if (hop) { await animateMove(u, [hop.from, hop.to]); anims.set(u.id, { type: 'lunge', tx: t.x, ty: t.y, t0: performance.now() }); await wait(V.attackLungeMs * 0.5); }
+  const tx = res.moves.find((m) => !m.hop);
+  showHit(tx ? { id: t.id, x: tx.from.x, y: tx.from.y } : t, res);
+  if (tx) await animateMove(t, [tx.from, tx.to]);
+  for (const g of res.tags) floats.push({ x: g.x, y: g.y, text: g.text, color: '#ffb36b', t0: performance.now() - V.damageFloatMs * 0.15 });
+  await wait(V.attackLungeMs * 0.5);
+  anims.delete(u.id);
+  if (res.collided != null) { const o = S.units[res.collided]; if (o.hp <= 0) anims.set(o.id, { type: 'die', t0: performance.now() }); }
+  await afterHit(t, t.hp <= 0);
+  setCursor(u.x, u.y);
+  return res;
+}
 
 function banner(text, team) {
   const b = $('banner'); b.textContent = text; b.className = team;
@@ -629,15 +735,20 @@ async function nextTurn() {
   } else {
     await banner(u.name, 'enemy');
     await wait(CONFIG.ai.thinkDelayMs);
-    const plan = planTurn(S, u);
+    let plan = planTurn(S, u);
     if (plan.path && plan.path.length > 1) {
-      await animateMove(u, plan.path);
-      G.moveUnit(S, u, plan.tile.x, plan.tile.y, plan.path);
-      setCursor(u.x, u.y);
+      const ic = await moveWithBrace(u, plan.path);
+      if (S.over) return finish();
+      if (u.hp <= 0) { G.endTurn(S); await wait(200); return nextTurn(); }
+      if (ic) plan = planTurn(S, u, { fixed: true }); // stopped short: act from where it stands
     }
-    if (plan.target && G.canAttackFrom(S, u, u.x, u.y, plan.target.x, plan.target.y)) {
+    const a = plan.action;
+    if (a && a.type === 'attack' && G.canAttackFrom(S, u, u.x, u.y, a.target.x, a.target.y)) {
       await wait(150);
-      await attackSequence(u, plan.target);
+      await attackSequence(u, a.target);
+    } else if (a && a.type === 'ability' && G.abilityReady(u, a.id) && G.abilityCanTarget(S, u, a.id, a.target)) {
+      await wait(150);
+      await abilitySequence(u, a.id, a.target);
     }
     if (S.over) return finish();
     G.faceNearestFoe(S, u);
@@ -679,10 +790,38 @@ function unitInfo(u) {
     <div class="hpbar"><div style="width:${f * 100}%;background:${col}"></div></div>
     <div class="stats"><span>ATK <b>${u.atk}</b></span><span>DEF <b>${u.def}</b></span><span>SPD <b>${u.spd}</b></span>
     <span>MOV <b>${u.move}</b></span><span>JMP <b>${u.jump}</b></span><span>RNG <b>${r.minRange}-${r.maxRange}${r.straightLine ? 'L' : ''}</b></span>
-    <span>Face <b>${FACE_ARROW[u.facing]}</b></span>${terr ? `<span>Terr <b>${terr}</b></span>` : ''}</div>`;
+    <span>Face <b>${FACE_ARROW[u.facing]}</b></span>${terr ? `<span>Terr <b>${terr}</b></span>` : ''}</div>
+    ${statusLine(u)}`;
 }
 
+function statusLine(u) {
+  const st = Object.keys(u.status || {}).filter((k) => STATUS[k]);
+  const cds = Object.entries(u.cd || {}).filter(([, v]) => v > 0).map(([id, v]) => `${CONFIG.abilities[id].short} CD${v}`);
+  if (!st.length && !cds.length) return '';
+  return `<div class="status">${st.map((k) => `<span style="color:${P.status[k]}" title="${STATUS[k].text}">● ${STATUS[k].name}</span>`).join('')}${cds.map((c) => `<span class="cd">${c}</span>`).join('')}</div>`;
+}
+function abilityPredictionHtml(u, id, t, confirming) {
+  const pv = G.abilityPreview(S, u, id, t);
+  const tags = [];
+  if (pv.p) {
+    const p = pv.p;
+    tags.push(p.side === 'front' ? (p.cover ? 'Front (covered)' : 'Front') : `${p.side === 'back' ? 'Back' : 'Side'} +${Math.round((p.facingMod - 1) * 100)}%`);
+    if (p.nFlank) tags.push(`Flank ×${p.nFlank}`);
+    if (p.hAdv) tags.push(`Height ${p.hAdv > 0 ? '+' : ''}${Math.round((p.heightMod - 1) * 100)}%`);
+    if (p.wallMod && p.wallMod < 1) tags.push('Shield Wall ×½');
+    if (p.exposed) tags.push('Exposed');
+  }
+  const main = pv.p
+    ? `<span>Hit <b>${pv.hit}%</b></span><span>Dmg <b>~${pv.dmg}${pv.extra ? '+' + pv.extra : ''}</b></span><span>HP ${t.hp}→${Math.max(0, t.hp - pv.dmg - (pv.extra || 0))}</span>`
+    : `<span>Stance · CD ${CONFIG.abilities[id].cooldown}</span>`;
+  return `<div class="pv-title">${pv.name} → ${pv.p ? t.name : 'self'}</div>
+    <div class="pv-main">${main}</div>
+    ${tags.length ? `<div class="pv-tags">${tags.join(' · ')}</div>` : ''}
+    <div class="pv-fx">${pv.effects.map((e) => `<div>${e}</div>`).join('')}</div>
+    ${confirming ? '<div class="pv-confirm"><b>A</b> Execute &nbsp; <b>B</b> Back</div>' : ''}`;
+}
 function predictionHtml(u, t, confirming) {
+  if (ui.ability) return abilityPredictionHtml(u, ui.ability, t, confirming);
   const p = G.preview(S, u, t);
   const tags = [];
   tags.push(p.side === 'front' ? 'Front' : `${p.side === 'back' ? 'Back' : 'Side'} +${Math.round((p.facingMod - 1) * 100)}%`);
@@ -695,11 +834,11 @@ function predictionHtml(u, t, confirming) {
 }
 
 const HINTS = {
-  menu: () => (S.moved && !S.acted ? '▲▼ choose · A select · B undo move' : '◆ choose · A select · B look around'),
+  menu: () => (S.moved && !S.acted && !S.intercepted ? '▲▼ choose · A select · B undo move' : '▲▼ choose · A select · B look around'),
   actmenu: () => '▲▼ choose · A select · B back',
   free: () => '◆ look around · B show range / return · A back to unit',
   move: () => '◆ move cursor to a blue tile · A move · B back',
-  target: () => '◆ pick a foe in red · A select · B back',
+  target: () => (ui.ability && CONFIG.abilities[ui.ability].kind === 'self' ? 'A select (yourself) · B back' : '◆ pick a target in red · A select · B back'),
   confirm: () => 'A execute · B back',
   facing: () => '◆ choose facing · A confirm · B back',
 };
@@ -719,7 +858,7 @@ function updatePanel() {
   if (isPlayerTurn() && (ui.mode === 'menu' || ui.mode === 'actmenu')) {
     const items = menuItems();
     cmd.innerHTML = `<div class="cmd-title">${ui.mode === 'actmenu' ? 'Action' : u.name}</div>` + items.map((it, i) =>
-      `<button class="cmd-item ${i === ui.menuIndex ? 'sel' : ''}" data-cmd="${i}" ${it.on ? '' : 'disabled'}>${it.label}</button>`).join('');
+      `<button class="cmd-item ${i === ui.menuIndex ? 'sel' : ''}" data-cmd="${i}" data-id="${it.id}" ${it.on ? '' : 'disabled'}>${it.label}${it.note ? `<small>${it.note}</small>` : ''}</button>`).join('');
     cmd.classList.remove('hidden');
   } else cmd.classList.add('hidden');
   // prediction (middle of the field, like FFTA2)
@@ -756,6 +895,9 @@ window.__outremer = {
   get state() { return S; }, get mode() { return ui.mode; }, get cursor() { return { ...ui.cursor }; },
   get menuIndex() { return ui.menuIndex; }, get lastResult() { return lastResult; },
   get camSettled() { return !cam.follow; }, get padMode() { return padMode(); },
+  get ability() { return ui.ability; }, get target() { return ui.target ? ui.target.id : null; },
+  get menu() { return isPlayerTurn() && ['menu', 'actmenu'].includes(ui.mode) ? menuItems().map((it) => ({ id: it.id, label: it.label, on: it.on })) : []; },
+  abilityPreview(uid, id, tid) { return G.abilityPreview(S, S.units[uid], id, S.units[tid]); },
   tileClient(x, y) { const r = cv.getBoundingClientRect(); const c = tileTop(x, y); return { x: r.left + c.x, y: r.top + c.y }; },
   unitClient(id) { const u = S.units[id]; const r = cv.getBoundingClientRect(); const p = unitScreenPos(u, performance.now()); return { x: r.left + p.x, y: r.top + p.y - 25 * layout.k }; },
   facingClient(d) { const r = cv.getBoundingClientRect(); const p = facingArrowPos(S.active, d); return { x: r.left + p.x, y: r.top + p.y }; },

@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.1.0',
+  version: '0.4.0',
 
   // ---------------------------------------------------------------- map
   map: {
@@ -53,6 +53,7 @@ export const CONFIG = {
       terrainCost: { s: 2, r: 3 },
       minRange: 1, maxRange: 1, straightLine: false,
       maxHeightReach: 1, // melee can only reach targets within this height difference
+      abilities: ['shieldBash', 'shieldWall'],
     },
     sergeant: {
       // spear: solid all-rounder, reaches 2 tiles in a straight line
@@ -60,6 +61,7 @@ export const CONFIG = {
       terrainCost: {},
       minRange: 1, maxRange: 2, straightLine: true,
       maxHeightReach: 2,
+      abilities: ['brace', 'hook'],
     },
     archer: {
       // light-footed: high jump, rock is easy going, fragile
@@ -68,6 +70,7 @@ export const CONFIG = {
       minRange: 2, maxRange: 4, straightLine: false,
       maxHeightReach: 99,
       rangeBonusPerHeight: 2, // +1 max range for every N levels above the target
+      abilities: ['pinningShot', 'plungingShot'],
     },
     skirmisher: {
       // nimble: fast, long move, big jump, ignores rough terrain; hits weakly — wants backs
@@ -75,6 +78,50 @@ export const CONFIG = {
       terrainCost: { s: 1, r: 1 },
       minRange: 1, maxRange: 1, straightLine: false,
       maxHeightReach: 2,
+      abilities: ['feint', 'vaultStrike'],
+    },
+  },
+
+  // ---------------------------------------------------------------- abilities (Action ▸ submenu)
+  // Cost model: per-ability COOLDOWN in the user's own turns. Using an ability takes the Action.
+  // `cooldown: N` = after use, unavailable for your next N turns (0 = usable every turn).
+  // Damage abilities run through the normal formula (facing, flank, height) times `dmgMul`.
+  // Statuses end at the start ('start') or end ('end') of the affected unit's next turn.
+  abilities: {
+    shieldBash: { // knight: shove 1 tile straight away. Off a ledge = fall damage; into a wall/unit = slam
+      name: 'Shield Bash', short: 'Bash', kind: 'unit', cooldown: 1,
+      dmgMul: 0.6, fallDmgPerLevel: 5, slamDmg: 6, collideDmg: 4,
+    },
+    shieldWall: { // knight stance: front hits halved; adjacent allies can't be hit for side/back bonus
+      name: 'Shield Wall', short: 'Wall', kind: 'self', cooldown: 2,
+      frontDmgMul: 0.5, // knight's own front damage taken
+      coverAllies: true, // orthogonally adjacent allies: side/back hits count as front
+      slowNextTurn: 1,   // trade-off: MOV −1 on the knight's next turn (setting down the wall)
+    },
+    brace: { // sergeant stance: the first foe to step into the 2 tiles in front gets a free thrust and stops
+      name: 'Brace', short: 'Brace', kind: 'self', cooldown: 1,
+      zoneLength: 2, dmgMul: 1.0, // zone follows the facing you pick at end of turn
+    },
+    hook: { // sergeant: spear-hook a foe exactly 2 tiles away in a line, pulling it 1 tile in
+      name: 'Hook', short: 'Hook', kind: 'unit', cooldown: 2,
+      range: 2, dmgMul: 0.5, fallDmgPerLevel: 5, maxPullUp: 1, // can't drag a foe up more than this
+    },
+    pinningShot: { // archer: weak shot, target's next turn: MOV −2 and JUMP capped
+      name: 'Pinning Shot', short: 'Pin', kind: 'unit', cooldown: 2,
+      dmgMul: 0.6, pinMovePenalty: 2, pinJumpCap: 1,
+    },
+    plungingShot: { // archer: only from higher ground; never counts as a front hit; leaves archer Exposed
+      name: 'Plunging Shot', short: 'Plunge', kind: 'unit', cooldown: 2,
+      minHeightAdv: 1, rangeBonus: 0, // was 1: +1 reach let archers duel from spawn heights and swung the sim 46%→85%
+      dmgBonusPerLevel: 0.15, dmgMul: 1.0,
+      exposedDefPenalty: 3, // trade-off: archer DEF −3 until its next turn
+    },
+    feint: { // skirmisher: light hit that turns the target to face the skirmisher (its back to everyone else)
+      name: 'Feint', short: 'Feint', kind: 'unit', cooldown: 1, dmgMul: 0.4,
+    },
+    vaultStrike: { // skirmisher: leap over an adjacent foe to the tile behind it and strike as you land
+      name: 'Vault Strike', short: 'Vault', kind: 'unit', cooldown: 2, dmgMul: 0.8,
+      // landing tile must be empty and within the skirmisher's JUMP of its start height. Doesn't use Move.
     },
   },
 
@@ -168,6 +215,18 @@ export const CONFIG = {
     archerKeepDistance: 3, // archers try not to end turn closer than this
     wArcherSpacing: 4,
     thinkDelayMs: 350,
+    // abilities
+    wFall: 1.0,          // expected extra (fall/slam) damage, like normal damage
+    wWallBase: 4,        // Shield Wall when foes threaten this tile
+    wWallPerAlly: 7,     // + per adjacent ally it covers
+    wBrace: 12,          // Brace when a foe could walk into the zone next turn
+    wPullIntoFlank: 6,   // Hook/Bash that leaves the target next to one of our units
+    wPin: 3,             // Pinning Shot: × target's MOV / 2
+    wExposed: 4,         // penalty for leaving the archer Exposed
+    wFeintBack: 8,       // Feint: per ally who'd then be behind the target
+    wFeintSide: 3,
+    wAvoidBrace: 22,     // penalty for a path that walks into a braced spear
+    abilityMinGain: 2,   // ability must beat a plain attack by this much to be picked
     // AI picks its own end-of-turn facing: toward the nearest foe
   },
 
@@ -203,6 +262,9 @@ export const CONFIG = {
     attackHighlight: 'rgba(255,80,70,0.45)',
     targetHighlight: 'rgba(255,220,80,0.65)',
     rangeHighlight: 'rgba(150,120,255,0.40)', // another unit's move range (B in free look)
+    effectHighlight: 'rgba(255,150,40,0.70)', // ability destination (shove/pull/landing) or covered tile
+    zoneHighlight: 'rgba(255,120,40,0.30)',   // braced spear zones (always shown)
+    status: { wall: '#7fb2ff', brace: '#ff9a3c', pinned: '#e8534a', exposed: '#e8c547', slowed: '#b0a4c8' },
     player: { body: '#ece6d6', trim: '#b8141c', accent: '#d8d2c0' },
     enemy: { body: '#2f5d5a', trim: '#d4a73c', accent: '#1f3d3b' },
     hpGood: '#5fd36a', hpMid: '#e8c547', hpLow: '#e8534a',
