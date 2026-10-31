@@ -81,10 +81,13 @@ export const CONFIG = {
   teams: {
     player: {
       label: 'Templars',
+      // flat per-team stat adjustments (difficulty knob): added to the role's base stats
+      statBonus: { hp: 6, def: 1 },
       names: { knight: 'Templar Knight', sergeant: 'Sergeant', archer: 'Turcopole Archer', skirmisher: 'Scout' },
     },
     enemy: {
       label: 'Raiders',
+      statBonus: {},
       names: { knight: 'Raider Swordsman', sergeant: 'Raider Spearman', archer: 'Raider Bowman', skirmisher: 'Raider Skirmisher' },
     },
   },
@@ -160,6 +163,7 @@ export const CONFIG = {
     baseTileWidth: 64,
     mapPaddingPx: 4,
     zoom: 1.3,               // >1 zooms past fit-to-width on phones; drag to pan
+    zoomBelowWidthPx: 520,   // only zoom/pan on narrow (phone) stages
     camFollow: 0.15,         // camera easing toward active unit per frame
     dragThresholdPx: 12,     // movement before a touch counts as a pan instead of a tap
     moveStepMs: 140,         // per tile of movement

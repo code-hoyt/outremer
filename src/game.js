@@ -9,7 +9,8 @@ export function createState(rng = Math.random) {
   let id = 0;
   for (const team of ['player', 'enemy']) {
     for (const [role, x, y, facing] of CONFIG.deployment[team]) {
-      const r = CONFIG.roles[role];
+      const b = CONFIG.teams[team].statBonus || {};
+      const r = Object.fromEntries(Object.entries(CONFIG.roles[role]).map(([k, v]) => [k, typeof v === 'number' && b[k] ? v + b[k] : v]));
       units.push({
         id: id++, team, role, name: CONFIG.teams[team].names[role],
         x, y, facing,

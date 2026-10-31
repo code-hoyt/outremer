@@ -35,6 +35,10 @@ Movement is Dijkstra over **move points**: each step costs the destination tile'
 
 Base terrain: Grass 1, Road 1, Sand 2, Rock 2. `CONFIG.terrain`, `CONFIG.roles[*].terrainCost`, `CONFIG.climbCostPerLevel` (0 for now).
 
+**Difficulty knob:** `CONFIG.teams.player.statBonus` (currently HP +6, DEF +1 on Templars). With it, a greedy-AI-vs-greedy-AI headless sim wins ~43% for the Templars over 1000 runs (~25 turns); without it ~20% — the raiders start with the high ground. A human using flanks should do better. Retune once real playtests exist.
+
+**Phone camera:** on narrow screens the map is zoomed 1.3× past fit-width; drag to pan, and the camera eases to each active unit (`CONFIG.view.zoom`, `zoomBelowWidthPx`, `camFollow`).
+
 ## Facing, flanking & positioning
 - Every unit has a **facing** (N/E/S/W, shown as a ground arrow wedge and in the info panel).
 - Hits are classed by where the attacker stands relative to the target's facing: **Front / Side / Back**.

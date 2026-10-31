@@ -38,7 +38,8 @@ function resize() {
   const head = 62; // unit headroom above the highest tile, in base px
   const fitH = (r.height - pad * 2) / (n / 4 + ((maxH + 1) * V.tileHeightPx + head) / V.baseTileWidth);
   // zoom past fit-to-width on narrow screens (drag to pan), but never taller than the stage
-  const tw = Math.min(((r.width - pad * 2) / (n / 2)) * V.zoom, fitH);
+  const zoom = r.width < V.zoomBelowWidthPx ? V.zoom : 1;
+  const tw = Math.min(((r.width - pad * 2) / (n / 2)) * zoom, fitH);
   const k = tw / V.baseTileWidth;
   const hz = V.tileHeightPx * k;
   const top = maxH * hz + tw / 4 + head * k;        // above oy
