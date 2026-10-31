@@ -33,6 +33,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 - [x] **2 abilities per class** (v0.4): Shield Bash / Shield Wall, Brace / Hook, Pinning / Plunging Shot, Feint / Vault Strike. They run on cooldowns, enemies use them too, and the AI-vs-AI sim is in `tools/sim.mjs`. See [DESIGN.md → Abilities](DESIGN.md#abilities-v04--two-per-class-all-about-position). *Still to do: a playtest of whether positioning stays interesting, and better AI use of Bash/Hook/Pin/Feint.*
 
 **Left in this stage** *(proposals, to be confirmed by Cletus)*
+- **Research:** [Why players just attack (and how to fix it)](research/abilities-vs-attack.md): what makes players pick abilities over Attack in other tactics games, and the top 5 proposals for this slice (frontal riposte, an "attack-plus" retune, Map 2 with edges and an objective, visible enemy intent, and an Action-menu forecast plus action tally)
 - **Balance pass** from playtests: win rate (sim now 0.37 vs 0.46 before abilities), fight length, whether every class pulls its weight, and AI use of the setup abilities
 - **A second map** with different terrain and height, to check the systems aren't specific to one map
 - *(maybe)* a race or origin modifier on movement, if it's cheap to test here rather than in Stage 2
