@@ -1,5 +1,7 @@
 # Outremer — Design Notes (v0.3, first playable slice + FFTA2 controls + context-aware pad)
 
+> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 — combat prototype).
+
 Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the Crusades.
 **Story is deliberately undecided.** Unit names are generic (Templar Knight, Sergeant, Turcopole Archer; Raider Swordsman / Skirmisher / Bowman) so nothing is locked in.
 

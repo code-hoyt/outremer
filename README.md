@@ -8,6 +8,7 @@ An isometric tactics prototype in the spirit of *Final Fantasy Tactics A2*, them
 
 - Plain JS + Canvas, ES modules, no build step, no engine. GitHub Pages serves the repo root.
 - All tuning lives in [`src/config.js`](src/config.js).
+- **Roadmap (stages, current goal, done-when criteria): [`docs/ROADMAP.md`](docs/ROADMAP.md)**. Now: Stage 1, combat prototype.
 - Design decisions and open questions: [`docs/DESIGN.md`](docs/DESIGN.md).
 
 Run locally: `python3 -m http.server` in the repo root, open http://localhost:8000. Add `?seed=7` for a deterministic run.
