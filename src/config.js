@@ -117,6 +117,11 @@ export const CONFIG = {
     repeatDelayMs: 320,     // hold a d-pad arm: delay before auto-repeat starts
     repeatRateMs: 120,      // then one step per this many ms
     menuItemHeightPx: 44,   // command menu row height
+    // Context-aware d-pad: the pad shows only the directions that mean something right now.
+    //   map cursor (free/move/target) = four diagonal quadrants; menus = vertical ▲▼;
+    //   facing step = four facing arrows; nothing to steer (enemy turn, animations, confirm, end screen) = dimmed.
+    padMorphMs: 140,        // cross-fade/morph time between pad layouts
+    padDimOpacity: 0.35,    // opacity of the pad (and A/B) when there is no input to give
     tapConfirmsSecondTap: true, // tap a tile once = move cursor there; tap it again = A
     keyboard: true,         // desktop: arrows/WASD move cursor, Z/Enter/Space = A, X/Esc/Backspace = B
   },

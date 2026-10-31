@@ -26,12 +26,26 @@
       <div id="info"></div>
       <div id="hint"></div>
       <div id="pad">
-        <div id="dpad" aria-label="D-pad">
-          <button data-dir="3" class="q nw" aria-label="cursor up-left">◤</button>
-          <button data-dir="0" class="q ne" aria-label="cursor up-right">◥</button>
-          <button data-dir="2" class="q sw" aria-label="cursor down-left">◣</button>
-          <button data-dir="1" class="q se" aria-label="cursor down-right">◢</button>
-          <div class="hub"></div>
+        <!-- context-aware d-pad: one fixed footprint, three layers that cross-fade (see controls.pad* in config) -->
+        <div id="dpad" class="off" data-mode="off" aria-label="D-pad">
+          <div class="lay lay-map on" aria-label="move cursor">
+            <button data-dir="3" class="q nw" aria-label="cursor up-left (west)">◤</button>
+            <button data-dir="0" class="q ne" aria-label="cursor up-right (north)">◥</button>
+            <button data-dir="2" class="q sw" aria-label="cursor down-left (south)">◣</button>
+            <button data-dir="1" class="q se" aria-label="cursor down-right (east)">◢</button>
+            <div class="hub"></div>
+          </div>
+          <div class="lay lay-menu" aria-label="menu up/down">
+            <button data-step="-1" class="v up" aria-label="menu up">▲</button>
+            <button data-step="1" class="v down" aria-label="menu down">▼</button>
+          </div>
+          <div class="lay lay-face" aria-label="choose facing">
+            <button data-face="3" class="q nw" aria-label="face up-left (west)">⬉</button>
+            <button data-face="0" class="q ne" aria-label="face up-right (north)">⬈</button>
+            <button data-face="2" class="q sw" aria-label="face down-left (south)">⬋</button>
+            <button data-face="1" class="q se" aria-label="face down-right (east)">⬊</button>
+            <div class="hub">✠</div>
+          </div>
         </div>
         <div id="ab">
           <button id="btnB" class="round b" aria-label="B (back)">B</button>

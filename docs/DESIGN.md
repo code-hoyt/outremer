@@ -1,4 +1,4 @@
-# Outremer — Design Notes (v0.2, first playable slice + FFTA2 controls)
+# Outremer — Design Notes (v0.3, first playable slice + FFTA2 controls + context-aware pad)
 
 Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the Crusades.
 **Story is deliberately undecided.** Unit names are generic (Templar Knight, Sergeant, Turcopole Archer; Raider Swordsman / Skirmisher / Bowman) so nothing is locked in.
@@ -67,12 +67,20 @@ Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-fa
 
 **On-screen pad (bottom of the screen, under the battlefield so it never covers the action):**
 - **D-pad (left thumb):** a disc split into four diagonal quadrants, ◤ ◥ ◣ ◢. **Mapping: each quadrant moves the cursor one tile along the iso axis it points to on screen.** ◥ = north (−y, up-right), ◢ = east (+x, down-right), ◣ = south (+y, down-left), ◤ = west (−x, up-left). The cursor goes exactly where the arrow points. A plain ↑→↓← pad on an iso map makes you translate directions in your head; that's a known annoyance of DS iso tactics. Holding a quadrant auto-repeats (`controls.repeatDelayMs`, `repeatRateMs`).
+- **Context-aware d-pad (v0.3, from Cletus's playtest):** the pad only shows directions that do something right now. It keeps one fixed footprint, so A/B and the layout never shift. Changes are a quick cross-fade/morph (`controls.padMorphMs`, 140 ms).
+  | State | Pad |
+  |---|---|
+  | Map cursor: free look, Move, Attack targeting | four diagonal quadrants ◤◥◣◢ (cursor moves along the iso axes) |
+  | Command menu, Action submenu | **vertical ▲ ▼**: two big half-disc buttons; hold to repeat |
+  | Facing step | four facing arrows ⬉⬈⬋⬊ on the iso facings, with the current facing lit; tap or press A to confirm |
+  | Confirm prediction, enemy turn, animations, victory/defeat | dimmed and inert (`controls.padDimOpacity`). A/B are dimmed too whenever it isn't your input; in Confirm, A/B stay live |
 - **A (right thumb, upper):** confirm. **B (lower-left of A):** cancel / back. Same layout as the DS.
 - Sizes: `controls.dpadSizePx` (156), `abSizePx` (70), `menuItemHeightPx` (44).
-- **Keyboard (desktop):** arrows/WASD = d-pad (↑ = ◥ north, → = ◢ east, ↓ = ◣ south, ← = ◤ west); Z/Enter/Space = A; X/Esc/Backspace = B.
+- **Keyboard (desktop):** arrows/WASD = d-pad (↑ = ◥ north, → = ◢ east, ↓ = ◣ south, ← = ◤ west). In menus only ↑/↓ (W/S) move the highlight and ←/→ do nothing, matching the ▲▼ pad. Z/Enter/Space = A; X/Esc/Backspace = B.
 
 **Turn flow (player unit):**
 1. **Turn starts:** the camera and cursor go to the active unit, and the **command menu** opens (bottom-right of the field) with **Move / Action / Wait**. Move gets the default highlight, but nothing is auto-entered. ◥◤ step up the list and ◢◣ step down it; used commands are greyed and skipped.
+   Menus use the ▲▼ pad.
 2. **Move:** blue tiles show the range. Move the cursor (the cursor can roam anywhere, but only blue tiles accept A), then press **A** to walk there. **B** goes back to the menu. After moving, the menu returns with Move greyed and **Action** highlighted. **B on the menu after moving, before acting, undoes the move** (unit and facing go back), as in FFTA2.
 3. **Action → Attack:** the Action submenu currently holds only **Attack**; ability sets come later. Red tiles show the attack range and the cursor starts on the acting unit. Hovering a valid foe shows the **prediction box** (hit %, damage, HP after, Front/Side/Back, flank, height). **A** selects the target and opens the confirm step (prediction plus "A Execute · B Back"); **A** executes and **B** returns to targeting.
 4. **Facing:** reached after moving and acting, or by choosing **Wait**. Four arrows appear around the unit, and the d-pad turns the unit immediately. **A** confirms and ends the turn; **B** returns to the command menu.
@@ -99,6 +107,7 @@ What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from
 | Camera | Fixed isometric view, no rotation; the view follows the cursor. | Series behaviour (not spelled out in the manual) |
 
 ### Where we deliberately differ (for now)
+- **Context-aware pad.** A DS has one physical d-pad that never changes. Ours is drawn on screen, so it changes shape to show what you can steer: ▲▼ in menus, quadrants on the map, facing arrows at turn end, dimmed when there's nothing to steer. Cletus asked for this; the mappings themselves are unchanged.
 - **Diagonal d-pad.** Our on-screen pad's quadrants point along the iso axes, so the direction you press is the direction the cursor goes. A physical DS pad can't do that. Keyboard arrows map ↑ = north (up-right) and so on.
 - **Live prediction while hovering.** FFTA2 shows the prediction after you select a target. We also show it while the cursor hovers a valid target, then show it again in the confirm step. The flow is the same; you just see the numbers sooner.
 - **Tapping a target skips the hover step** (tap = select → confirm, tap again = execute). On tiles, tapping only moves the cursor, and a second tap confirms. FFTA2's battle stylus is one-touch, but its world map already uses touch-then-touch-again, and one-touch is exactly what failed in Cletus's playtest.

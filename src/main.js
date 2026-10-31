@@ -317,7 +317,7 @@ function drawFacingArrows(u, now) {
 
 function loop(now) {
   if (cam.follow) { cam.x += (cam.tx - cam.x) * V.camFollow; cam.y += (cam.ty - cam.y) * V.camFollow; if (Math.abs(cam.tx - cam.x) < 0.5) cam.follow = false; }
-  applyCam(); render(now); requestAnimationFrame(loop);
+  applyCam(); render(now); syncPad(); requestAnimationFrame(loop);
 }
 
 // ---------------------------------------------------------------- picking
@@ -426,17 +426,44 @@ function selectMenuItem(it) {
 
 function pressDir(d) {
   if (!isPlayerTurn()) return;
-  if (ui.mode === 'menu' || ui.mode === 'actmenu') {
-    const items = menuItems();
-    const step = d === 0 || d === 3 ? -1 : 1; // ↗/↖ = up the list, ↘/↙ = down
-    let i = ui.menuIndex;
-    for (let n = 0; n < items.length; n++) { i = (i + step + items.length) % items.length; if (items[i].on) break; }
-    ui.menuIndex = i; updatePanel(); return;
+  if (ui.mode === 'menu' || ui.mode === 'actmenu') { // menus only go up/down (keyboard ↑/↓); left/right do nothing
+    if (d === 0) pressStep(-1); else if (d === 2) pressStep(1);
+    return;
   }
   if (ui.mode === 'facing') { S.active.facing = d; ui.facingTap = null; updatePanel(); return; }
   if (ui.mode === 'confirm') return;
   const [dx, dy] = G.DIRS[d];
   setCursor(ui.cursor.x + dx, ui.cursor.y + dy);
+}
+
+function pressStep(step) { // vertical pad: move the menu highlight, skipping greyed items
+  if (!isPlayerTurn() || !(ui.mode === 'menu' || ui.mode === 'actmenu')) return;
+  const items = menuItems();
+  let i = ui.menuIndex;
+  for (let n = 0; n < items.length; n++) { i = (i + step + items.length) % items.length; if (items[i].on) break; }
+  ui.menuIndex = i; updatePanel();
+}
+
+// which pad layout fits the current state
+function padMode() {
+  if (!isPlayerTurn()) return 'off';
+  if (ui.mode === 'menu' || ui.mode === 'actmenu') return 'menu';
+  if (ui.mode === 'facing') return 'facing';
+  if (ui.mode === 'free' || ui.mode === 'move' || ui.mode === 'target') return 'map';
+  return 'off'; // confirm: only A/B mean anything
+}
+let padShown = null, padFacing = null;
+function syncPad() {
+  const m = padMode(), el = $('dpad');
+  if (m !== padShown) {
+    padShown = m; el.dataset.mode = m; el.classList.toggle('off', m === 'off');
+    if (m !== 'off') { const lay = m === 'menu' ? 'lay-menu' : m === 'facing' ? 'lay-face' : 'lay-map';
+      el.querySelectorAll('.lay').forEach((l) => l.classList.toggle('on', l.classList.contains(lay))); }
+    // 'off' keeps the last layout on screen, just dimmed and inert, so nothing jumps
+    $('ab').classList.toggle('off', !isPlayerTurn());
+  }
+  const f = m === 'facing' ? S.active.facing : null;
+  if (f !== padFacing) { padFacing = f; el.querySelectorAll('.lay-face [data-face]').forEach((b) => b.classList.toggle('cur', Number(b.dataset.face) === f)); }
 }
 
 function pressA() {
@@ -538,6 +565,10 @@ function bindPress(el, fn) {
   for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) el.addEventListener(ev, () => el.classList.remove('held'));
 }
 document.querySelectorAll('#dpad [data-dir]').forEach((b) => bindHold(b, () => pressDir(Number(b.dataset.dir))));
+document.querySelectorAll('#dpad [data-step]').forEach((b) => bindHold(b, () => pressStep(Number(b.dataset.step))));
+document.querySelectorAll('#dpad [data-face]').forEach((b) => bindPress(b, () => pressDir(Number(b.dataset.face))));
+document.documentElement.style.setProperty('--pad-ms', C.padMorphMs + 'ms');
+document.documentElement.style.setProperty('--pad-dim', String(C.padDimOpacity));
 bindPress($('btnA'), pressA);
 bindPress($('btnB'), pressB);
 document.documentElement.style.setProperty('--dpad', C.dpadSizePx + 'px');
@@ -664,8 +695,8 @@ function predictionHtml(u, t, confirming) {
 }
 
 const HINTS = {
-  menu: () => (S.moved && !S.acted ? '◆ choose · A select · B undo move' : '◆ choose · A select · B look around'),
-  actmenu: () => '◆ choose · A select · B back',
+  menu: () => (S.moved && !S.acted ? '▲▼ choose · A select · B undo move' : '◆ choose · A select · B look around'),
+  actmenu: () => '▲▼ choose · A select · B back',
   free: () => '◆ look around · B show range / return · A back to unit',
   move: () => '◆ move cursor to a blue tile · A move · B back',
   target: () => '◆ pick a foe in red · A select · B back',
@@ -698,6 +729,7 @@ function updatePanel() {
   else pv.className = 'hidden';
   $('facing-tip').className = isPlayerTurn() && ui.mode === 'facing' ? '' : 'hidden';
   updateOrder();
+  syncPad();
 }
 
 // tap a menu item = highlight + A (stylus behaviour)
@@ -723,7 +755,7 @@ requestAnimationFrame(loop);
 window.__outremer = {
   get state() { return S; }, get mode() { return ui.mode; }, get cursor() { return { ...ui.cursor }; },
   get menuIndex() { return ui.menuIndex; }, get lastResult() { return lastResult; },
-  get camSettled() { return !cam.follow; },
+  get camSettled() { return !cam.follow; }, get padMode() { return padMode(); },
   tileClient(x, y) { const r = cv.getBoundingClientRect(); const c = tileTop(x, y); return { x: r.left + c.x, y: r.top + c.y }; },
   unitClient(id) { const u = S.units[id]; const r = cv.getBoundingClientRect(); const p = unitScreenPos(u, performance.now()); return { x: r.left + p.x, y: r.top + p.y - 25 * layout.k }; },
   facingClient(d) { const r = cv.getBoundingClientRect(); const p = facingArrowPos(S.active, d); return { x: r.left + p.x, y: r.top + p.y }; },

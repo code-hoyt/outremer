@@ -4,7 +4,7 @@ An isometric tactics prototype in the spirit of *Final Fantasy Tactics A2*, them
 
 **Play:** https://code-hoyt.github.io/outremer/ (phone portrait or desktop)
 
-**Controls (FFTA2-style):** the on-screen diagonal d-pad moves the cursor along the iso axes; A confirms, B cancels or goes back. Each turn: command menu (Move / Action / Wait), then choose a facing. Taps work too: tap once to place the cursor, tap again to confirm. Desktop: arrows/WASD, Z/Enter = A, X/Esc = B.
+**Controls (FFTA2-style):** the on-screen diagonal d-pad moves the cursor along the iso axes; A confirms, B cancels or goes back. The pad changes with context: ▲▼ in menus, quadrants on the map, facing arrows at turn end, dimmed otherwise. Each turn: command menu (Move / Action / Wait), then choose a facing. Taps work too: tap once to place the cursor, tap again to confirm. Desktop: arrows/WASD, Z/Enter = A, X/Esc = B.
 
 - Plain JS + Canvas, ES modules, no build step, no engine. GitHub Pages serves the repo root.
 - All tuning lives in [`src/config.js`](src/config.js).
