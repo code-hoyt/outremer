@@ -49,15 +49,14 @@ export function nextActor(units) {
 
 export function startNextTurn(s) {
   const u = nextActor(s.units);
-  s.active = u; s.moved = false; s.acted = false; s.manualFacing = null; s.turnCount++;
-  s.startPos = u ? { x: u.x, y: u.y } : null;
+  s.active = u; s.moved = false; s.acted = false; s.turnCount++;
+  s.startPos = u ? { x: u.x, y: u.y, facing: u.facing } : null;
   return u;
 }
 
 export function endTurn(s) {
   const t = CONFIG.turn;
   const u = s.active;
-  if (u) autoFace(s, u);
   if (u) u.ct -= s.moved && s.acted ? t.costMovedAndActed : s.moved || s.acted ? t.costOneOf : t.costNeither;
   s.active = null;
 }
@@ -225,11 +224,15 @@ export function checkOver(s) {
   return s.over;
 }
 
-// Auto-facing at end of turn: keep the attack facing if the unit attacked,
-// otherwise turn toward the nearest foe. A manual override (one tap) wins.
-export function autoFace(s, u) {
-  if (s.manualFacing != null) { u.facing = s.manualFacing; return; }
-  if (s.acted || !CONFIG.facing.autoFaceNearestFoe) return;
+// Undo a move (FFTA2: B after moving, as long as the unit has not acted yet).
+export function undoMove(s, u) {
+  if (!s.moved || s.acted || !s.startPos) return false;
+  u.x = s.startPos.x; u.y = s.startPos.y; u.facing = s.startPos.facing; s.moved = false;
+  return true;
+}
+
+// Used by the enemy AI only: face the nearest foe. Player facing is always chosen explicitly.
+export function faceNearestFoe(s, u) {
   const foes = alive(s).filter((f) => f.team !== u.team);
   if (!foes.length) return;
   foes.sort((a, b) => (Math.abs(a.x - u.x) + Math.abs(a.y - u.y)) - (Math.abs(b.x - u.x) + Math.abs(b.y - u.y)));

@@ -1,6 +1,6 @@
 // Simple scoring AI: evaluate every reachable tile × every attackable target, pick the best.
 import { CONFIG } from './config.js';
-import { reachable, targetsFrom, preview, heightAt, alive, canAttackFrom } from './game.js';
+import { reachable, targetsFrom, preview, heightAt, alive, canAttackFrom, faceNearestFoe } from './game.js';
 
 const manhattan = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 
@@ -44,4 +44,4 @@ export function planTurn(s, u) {
   return { tile: best.tile, path: pathTo(best.tile.x, best.tile.y), target: best.target };
 }
 
-export { canAttackFrom };
+export { canAttackFrom, faceNearestFoe };

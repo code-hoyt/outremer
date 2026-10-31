@@ -19,7 +19,7 @@ const makeRng = () => (seedParam ? mulberry32(Number(seedParam)) : Math.random);
 let S, ui, anims, floats, layout;
 function reset() {
   S = G.createState(makeRng());
-  ui = { mode: 'busy', inspect: null, moveInfo: null, target: null };
+  ui = { mode: 'busy', cursor: { x: 0, y: 0 }, menu: null, menuIndex: 0, moveInfo: null, target: null, rangeOf: null, lastTap: null };
   anims = new Map(); floats = [];
   $('overlay').classList.add('hidden');
   nextTurn();
@@ -55,9 +55,10 @@ function resize() {
 const cam = { x: 0, y: 0, tx: 0, ty: 0 };
 const clampCam = (c) => { c.x = Math.max(-layout.panX, Math.min(layout.panX, c.x)); c.y = Math.max(-layout.panY, Math.min(layout.panY, c.y)); };
 function applyCam() { clampCam(cam); layout.ox = layout.bx + cam.x; layout.oy = layout.by + cam.y; }
-function focusOn(u) {
-  if (!layout || !u) return;
-  const c = { x: -(u.x - u.y) * layout.tw / 2 + (S.w - S.h) * layout.tw / 4, y: 0 };
+// ease the camera so tile (x,y) is centred horizontally (only matters when zoomed past fit)
+function focusTile(x, y) {
+  if (!layout) return;
+  const c = { x: -(x - y) * layout.tw / 2 + (S.w - S.h) * layout.tw / 4, y: 0 };
   clampCam(c); cam.tx = c.x; cam.ty = c.y; cam.follow = true;
 }
 // top-center of tile (x,y) at height h, in CSS px
@@ -245,10 +246,11 @@ function render(now) {
   const hl = new Map();
   const key = (x, y) => y * S.w + x;
   if (ui.mode === 'move' && ui.moveInfo) for (const t of ui.moveInfo.tiles) hl.set(key(t.x, t.y), P.moveHighlight);
-  if ((ui.mode === 'attack' || ui.mode === 'confirm') && S.active) {
+  if ((ui.mode === 'target' || ui.mode === 'confirm') && S.active) {
     for (const t of G.attackTiles(S, S.active)) hl.set(key(t.x, t.y), P.attackHighlight);
     if (ui.target) hl.set(key(ui.target.x, ui.target.y), P.targetHighlight);
   }
+  if (ui.mode === 'free' && ui.rangeOf && ui.rangeOf.hp > 0) for (const t of G.reachable(S, ui.rangeOf).tiles) hl.set(key(t.x, t.y), P.rangeHighlight);
   // painter's order: back (low x+y) to front
   const order = [];
   for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) order.push([x, y]);
@@ -262,6 +264,8 @@ function render(now) {
     drawTile(x, y, hl.get(key(x, y)));
   }
   while (ui2 < units.length) drawUnit(units[ui2++].u, now);
+  if (ui.mode === 'facing' && S.active) drawFacingArrows(S.active, now);
+  if (showCursor()) drawCursor(now);
   // floating numbers
   floats = floats.filter((f) => now - f.t0 < V.damageFloatMs);
   for (const f of floats) {
@@ -276,6 +280,41 @@ function render(now) {
   }
 }
 
+const showCursor = () => S.active && S.active.team === 'player' && !S.over && ['menu', 'actmenu', 'free', 'move', 'target', 'confirm'].includes(ui.mode);
+function drawCursor(now) {
+  const { x, y } = ui.cursor;
+  const c = tileTop(x, y), tw = layout.tw, k = layout.k;
+  const pulse = 0.75 + 0.25 * Math.sin(now * CONFIG.view.cursorPulseSpeed);
+  diamond(c.x, c.y, tw * 0.98);
+  ctx.lineWidth = 3 * Math.max(0.8, k); ctx.strokeStyle = `rgba(255,216,90,${pulse})`; ctx.stroke();
+  // bouncing pointer above the tile (FFTA-style)
+  const u = G.unitAt(S, x, y);
+  const top = c.y - (u ? 70 : 18) * k - Math.abs(Math.sin(now * 0.006)) * 6 * k;
+  ctx.beginPath(); ctx.moveTo(c.x, top + 10 * k); ctx.lineTo(c.x - 7 * k, top); ctx.lineTo(c.x + 7 * k, top); ctx.closePath();
+  ctx.fillStyle = '#ffd85a'; ctx.fill(); ctx.strokeStyle = '#3a2a00'; ctx.lineWidth = 1.5; ctx.stroke();
+}
+// FFTA2-style facing picker: four arrows on the ground around the unit
+function facingArrowPos(u, d) {
+  const c = tileTop(u.x, u.y), k = layout.k, v = FACE_VEC[d];
+  return { x: c.x + v[0] * 34 * k, y: c.y + v[1] * 34 * k };
+}
+function drawFacingArrows(u, now) {
+  const k = layout.k;
+  for (let d = 0; d < 4; d++) {
+    const p = facingArrowPos(u, d), v = FACE_VEC[d];
+    const len = Math.hypot(v[0], v[1]), ux = v[0] / len, uy = v[1] / len;
+    const sel = u.facing === d;
+    const sz = (sel ? 15 + 2 * Math.sin(now * 0.008) : 12) * k;
+    ctx.beginPath();
+    ctx.moveTo(p.x + ux * sz, p.y + uy * sz);
+    ctx.lineTo(p.x - ux * sz * 0.6 - uy * sz, p.y - uy * sz * 0.6 + ux * sz);
+    ctx.lineTo(p.x - ux * sz * 0.6 + uy * sz, p.y - uy * sz * 0.6 - ux * sz);
+    ctx.closePath();
+    ctx.fillStyle = sel ? '#ffd85a' : 'rgba(255,255,255,.55)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,.6)'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+}
+
 function loop(now) {
   if (cam.follow) { cam.x += (cam.tx - cam.x) * V.camFollow; cam.y += (cam.ty - cam.y) * V.camFollow; if (Math.abs(cam.tx - cam.x) < 0.5) cam.follow = false; }
   applyCam(); render(now); requestAnimationFrame(loop);
@@ -286,14 +325,15 @@ function pointInDiamond(px, py, cx, cy, tw) {
   return Math.abs(px - cx) / (tw / 2) + Math.abs(py - cy) / (tw / 4) <= 1;
 }
 function pick(px, py) {
-  // units first (front-most first), using a body-sized box
+  // units: among sprites under the finger, prefer valid targets while targeting, then the closest body centre
   const now = performance.now();
-  let unitHit = null;
-  const us = G.alive(S).map((u) => ({ u, p: unitScreenPos(u, now) })).sort((a, b) => b.p.depth - a.p.depth);
-  for (const { u, p } of us) {
-    const k = layout.k;
-    if (px > p.x - 16 * k && px < p.x + 16 * k && py > p.y - 58 * k && py < p.y + 6 * k) { unitHit = u; break; }
-  }
+  const k = layout.k;
+  const hits = G.alive(S).map((u) => ({ u, p: unitScreenPos(u, now) }))
+    .filter(({ p }) => px > p.x - 16 * k && px < p.x + 16 * k && py > p.y - 58 * k && py < p.y + 6 * k)
+    .map((h) => ({ ...h, d: Math.hypot(px - h.p.x, py - (h.p.y - 25 * k)) }));
+  const targeting = (ui.mode === 'target' || ui.mode === 'confirm') && S.active;
+  hits.sort((a, b) => (targeting ? (validTargetAt(b.u.x, b.u.y) ? 1 : 0) - (validTargetAt(a.u.x, a.u.y) ? 1 : 0) : 0) || a.d - b.d);
+  const unitHit = hits.length ? hits[0].u : null;
   const tileHit = pickTile(px, py);
   // In move mode an exact hit on a highlighted empty tile wins over a sprite overlapping it.
   if (tileHit && ui.mode === 'move' && ui.moveInfo && !tileHit.unit &&
@@ -327,62 +367,192 @@ cv.addEventListener('pointerup', (e) => {
   down = null;
   if (wasDrag) return;
   const r = cv.getBoundingClientRect();
-  onTap(pick(e.clientX - r.left, e.clientY - r.top));
+  onCanvasTap(e.clientX - r.left, e.clientY - r.top);
 });
 
-// ---------------------------------------------------------------- player input
+// ---------------------------------------------------------------- player input (FFTA2-style state machine)
+// modes: busy | menu | actmenu | free | move | target | confirm | facing
+const C = CONFIG.controls;
 const isPlayerTurn = () => S.active && S.active.team === 'player' && !S.over && ui.mode !== 'busy';
 
-function onTap(hit) {
-  if (!hit) { if (isPlayerTurn() && ui.mode === 'confirm') { ui.mode = 'attack'; ui.target = null; } updatePanel(); return; }
-  const u = S.active;
-  if (isPlayerTurn() && ui.mode === 'move' && ui.moveInfo.tiles.some((t) => t.x === hit.x && t.y === hit.y) && !(hit.x === u.x && hit.y === u.y)) {
-    doPlayerMove(hit.x, hit.y); return;
-  }
-  if (isPlayerTurn() && (ui.mode === 'attack' || ui.mode === 'confirm') && hit.unit && hit.unit.team !== u.team &&
-      G.canAttackFrom(S, u, u.x, u.y, hit.unit.x, hit.unit.y)) {
-    if (ui.mode === 'confirm' && ui.target === hit.unit) { doPlayerAttack(hit.unit); return; }
-    ui.mode = 'confirm'; ui.target = hit.unit; ui.inspect = null; updatePanel(); return;
-  }
-  // otherwise: inspect (select) whatever unit was tapped
-  ui.inspect = hit.unit && hit.unit !== u ? hit.unit : null;
-  if (ui.mode === 'confirm') { ui.mode = 'attack'; ui.target = null; }
+function setCursor(x, y) {
+  ui.cursor = { x: Math.max(0, Math.min(S.w - 1, x)), y: Math.max(0, Math.min(S.h - 1, y)) };
+  focusTile(ui.cursor.x, ui.cursor.y);
   updatePanel();
+}
+const cursorUnit = () => G.unitAt(S, ui.cursor.x, ui.cursor.y);
+
+function menuItems() {
+  if (ui.mode === 'actmenu') return [{ id: 'attack', label: 'Attack', on: true }];
+  return [
+    { id: 'move', label: 'Move', on: !S.moved },
+    { id: 'action', label: 'Action', on: !S.acted },
+    { id: 'wait', label: 'Wait', on: true },
+  ];
+}
+function openMenu(focusId) {
+  const u = S.active;
+  ui.mode = 'menu'; ui.target = null; ui.rangeOf = null; ui.lastTap = null;
+  const items = menuItems();
+  let i = focusId ? items.findIndex((it) => it.id === focusId && it.on) : -1;
+  if (i < 0) i = items.findIndex((it) => it.on); // FFTA2: highlight the first available command
+  ui.menuIndex = Math.max(0, i);
+  setCursor(u.x, u.y);
+}
+function openActMenu() { ui.mode = 'actmenu'; ui.menuIndex = 0; updatePanel(); }
+function enterMove() {
+  const u = S.active;
+  ui.mode = 'move'; ui.moveInfo = G.reachable(S, u); ui.lastTap = null;
+  setCursor(u.x, u.y);
+}
+function enterTarget() {
+  const u = S.active;
+  ui.mode = 'target'; ui.target = null; ui.lastTap = null;
+  setCursor(u.x, u.y); // FFTA2: cursor starts on the acting unit
+}
+function enterFacing() { ui.mode = 'facing'; ui.facingTap = null; updatePanel(); }
+const validTargetAt = (x, y) => {
+  const t = G.unitAt(S, x, y), u = S.active;
+  return t && t.team !== u.team && G.canAttackFrom(S, u, u.x, u.y, x, y) ? t : null;
+};
+
+function selectMenuItem(it) {
+  if (!it || !it.on) return;
+  if (it.id === 'move') enterMove();
+  else if (it.id === 'action') openActMenu();
+  else if (it.id === 'wait') enterFacing();
+  else if (it.id === 'attack') enterTarget();
+}
+
+function pressDir(d) {
+  if (!isPlayerTurn()) return;
+  if (ui.mode === 'menu' || ui.mode === 'actmenu') {
+    const items = menuItems();
+    const step = d === 0 || d === 3 ? -1 : 1; // ↗/↖ = up the list, ↘/↙ = down
+    let i = ui.menuIndex;
+    for (let n = 0; n < items.length; n++) { i = (i + step + items.length) % items.length; if (items[i].on) break; }
+    ui.menuIndex = i; updatePanel(); return;
+  }
+  if (ui.mode === 'facing') { S.active.facing = d; ui.facingTap = null; updatePanel(); return; }
+  if (ui.mode === 'confirm') return;
+  const [dx, dy] = G.DIRS[d];
+  setCursor(ui.cursor.x + dx, ui.cursor.y + dy);
+}
+
+function pressA() {
+  if (!isPlayerTurn()) return;
+  const u = S.active, { x, y } = ui.cursor;
+  switch (ui.mode) {
+    case 'menu': case 'actmenu': return selectMenuItem(menuItems()[ui.menuIndex]);
+    case 'free': return openMenu(); // A: cursor back to the active unit, show commands
+    case 'move':
+      if (ui.moveInfo.tiles.some((t) => t.x === x && t.y === y) && !(x === u.x && y === u.y)) return doPlayerMove(x, y);
+      return;
+    case 'target': { const t = validTargetAt(x, y); if (t) { ui.target = t; ui.mode = 'confirm'; updatePanel(); } return; }
+    case 'confirm': return doPlayerAttack(ui.target);
+    case 'facing': return playerEnd();
+  }
+}
+
+function pressB() {
+  if (!isPlayerTurn()) return;
+  const u = S.active;
+  switch (ui.mode) {
+    case 'menu':
+      if (S.moved && !S.acted) { G.undoMove(S, u); return openMenu('move'); } // FFTA2: B undoes the move
+      ui.mode = 'free'; ui.rangeOf = null; updatePanel(); return;              // look around the field
+    case 'actmenu': return openMenu('action');
+    case 'free': {
+      const cu = cursorUnit();
+      if (cu && cu !== u && ui.rangeOf !== cu) { ui.rangeOf = cu; updatePanel(); return; } // show its move range
+      return openMenu();
+    }
+    case 'move': return openMenu('move');
+    case 'target': return openMenu('action');
+    case 'confirm': ui.mode = 'target'; ui.target = null; updatePanel(); return;
+    case 'facing': return openMenu('wait');
+  }
+}
+
+function onCanvasTap(px, py) {
+  if (!isPlayerTurn()) return;
+  const u = S.active;
+  if (ui.mode === 'facing') {
+    // pick the arrow closest to the tap direction; tapping the same arrow again confirms
+    const c = tileTop(u.x, u.y);
+    const vx = px - c.x, vy = (py - c.y) * 2;
+    let best = 0, bd = -Infinity;
+    for (let d = 0; d < 4; d++) { const v = FACE_VEC[d]; const dot = v[0] * vx + v[1] * 2 * vy; if (dot > bd) { bd = dot; best = d; } }
+    if (ui.facingTap === best && C.tapConfirmsSecondTap) return playerEnd();
+    u.facing = best; ui.facingTap = best; updatePanel(); return;
+  }
+  const hit = pick(px, py);
+  if (!hit) return;
+  const same = ui.cursor.x === hit.x && ui.cursor.y === hit.y && ui.lastTap === `${hit.x},${hit.y}`;
+  ui.lastTap = `${hit.x},${hit.y}`;
+  if (ui.mode === 'target' && validTargetAt(hit.x, hit.y)) { // stylus: touching a target selects it
+    setCursor(hit.x, hit.y); ui.target = validTargetAt(hit.x, hit.y); ui.mode = 'confirm'; updatePanel(); return;
+  }
+  if (ui.mode === 'confirm') {
+    if (ui.target && hit.x === ui.target.x && hit.y === ui.target.y) return doPlayerAttack(ui.target);
+    ui.mode = 'target'; ui.target = null; setCursor(hit.x, hit.y); return;
+  }
+  if (same && C.tapConfirmsSecondTap) { if (ui.mode === 'menu' || ui.mode === 'actmenu') { ui.mode = 'free'; } return pressA(); }
+  if (ui.mode === 'menu' || ui.mode === 'actmenu') ui.mode = 'free';
+  setCursor(hit.x, hit.y);
 }
 
 async function doPlayerMove(x, y) {
   const u = S.active;
   const path = ui.moveInfo.pathTo(x, y);
-  ui.mode = 'busy'; ui.inspect = null; updatePanel();
+  ui.mode = 'busy'; updatePanel();
   await animateMove(u, path);
   G.moveUnit(S, u, x, y, path);
-  afterPlayerStep();
+  openMenu(); // menu returns; Move is greyed, B undoes the move
 }
 
 async function doPlayerAttack(t) {
   const u = S.active;
   ui.mode = 'busy'; ui.target = null; updatePanel();
   await attackSequence(u, t);
-  afterPlayerStep();
-}
-
-function afterPlayerStep() {
   if (S.over) return finish();
-  if (S.moved && S.acted) return playerEnd(); // nothing left to do: no extra button press
-  enterDefaultMode();
-}
-
-function enterDefaultMode() {
-  const u = S.active;
-  ui.target = null;
-  if (!S.acted && G.targetsFrom(S, u).length) ui.mode = 'attack';
-  else if (!S.moved) { ui.mode = 'move'; ui.moveInfo = G.reachable(S, u); }
-  else ui.mode = 'menu';
-  updatePanel();
+  if (S.moved) return enterFacing(); // moved + acted: straight to facing (FFTA2)
+  openMenu();
 }
 
 function playerEnd() { ui.mode = 'busy'; G.endTurn(S); updatePanel(); setTimeout(nextTurn, 150); }
 
+// ---------------------------------------------------------------- on-screen pad + keyboard
+function bindHold(el, fn) {
+  let t1 = null, t2 = null;
+  const stop = () => { clearTimeout(t1); clearInterval(t2); t1 = t2 = null; el.classList.remove('held'); };
+  el.addEventListener('pointerdown', (e) => {
+    e.preventDefault(); stop(); el.classList.add('held');
+    try { el.setPointerCapture(e.pointerId); } catch (_) { /* synthetic */ }
+    fn(); t1 = setTimeout(() => { t2 = setInterval(fn, C.repeatRateMs); }, C.repeatDelayMs);
+  });
+  for (const ev of ['pointerup', 'pointercancel', 'lostpointercapture']) el.addEventListener(ev, stop);
+}
+function bindPress(el, fn) {
+  el.addEventListener('pointerdown', (e) => { e.preventDefault(); el.classList.add('held'); fn(); });
+  for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) el.addEventListener(ev, () => el.classList.remove('held'));
+}
+document.querySelectorAll('#dpad [data-dir]').forEach((b) => bindHold(b, () => pressDir(Number(b.dataset.dir))));
+bindPress($('btnA'), pressA);
+bindPress($('btnB'), pressB);
+document.documentElement.style.setProperty('--dpad', C.dpadSizePx + 'px');
+document.documentElement.style.setProperty('--ab', C.abSizePx + 'px');
+document.documentElement.style.setProperty('--menu-h', C.menuItemHeightPx + 'px');
+
+if (C.keyboard) {
+  const KEYS = { ArrowUp: 0, KeyW: 0, ArrowRight: 1, KeyD: 1, ArrowDown: 2, KeyS: 2, ArrowLeft: 3, KeyA: 3 };
+  let last = 0;
+  window.addEventListener('keydown', (e) => {
+    if (e.code in KEYS) { e.preventDefault(); const now = performance.now(); if (e.repeat && now - last < C.repeatRateMs) return; last = now; pressDir(KEYS[e.code]); }
+    else if (['KeyZ', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); if (!e.repeat) pressA(); }
+    else if (['KeyX', 'Escape', 'Backspace'].includes(e.code)) { e.preventDefault(); if (!e.repeat) pressB(); }
+  });
+}
 // ---------------------------------------------------------------- shared sequences
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 function animateMove(u, path) {
@@ -420,11 +590,11 @@ function banner(text, team) {
 async function nextTurn() {
   if (S.over) return finish();
   const u = G.startNextTurn(S);
-  ui.inspect = null; ui.mode = 'busy'; updatePanel();
-  focusOn(u);
+  ui.mode = 'busy'; ui.rangeOf = null; updatePanel();
+  setCursor(u.x, u.y);
   if (u.team === 'player') {
     banner(u.name, 'player');
-    enterDefaultMode();
+    openMenu();
   } else {
     await banner(u.name, 'enemy');
     await wait(CONFIG.ai.thinkDelayMs);
@@ -432,12 +602,14 @@ async function nextTurn() {
     if (plan.path && plan.path.length > 1) {
       await animateMove(u, plan.path);
       G.moveUnit(S, u, plan.tile.x, plan.tile.y, plan.path);
+      setCursor(u.x, u.y);
     }
     if (plan.target && G.canAttackFrom(S, u, u.x, u.y, plan.target.x, plan.target.y)) {
       await wait(150);
       await attackSequence(u, plan.target);
     }
     if (S.over) return finish();
+    G.faceNearestFoe(S, u);
     G.endTurn(S);
     await wait(200);
     nextTurn();
@@ -456,82 +628,84 @@ function finish() {
 function updateOrder() {
   const list = G.previewOrder(S);
   $('order').innerHTML = list.map((u, i) =>
-    `<div class="chip ${u.team} ${i === 0 && S.active ? 'now' : ''}" title="${u.name}">${roleGlyph(u.role)}<small>${i === 0 ? '' : i}</small></div>`).join('');
+    `<button class="chip ${u.team} ${i === 0 && S.active ? 'now' : ''}" data-uid="${u.id}" title="${u.name}">${roleGlyph(u.role)}<small>${i === 0 ? '' : i}</small></button>`).join('');
 }
 const roleGlyph = (r) => ({ knight: '⚔', sergeant: '↟', archer: '➶', skirmisher: '»' }[r] || '?');
+// tapping a chip = FFTA2's L/R unit cycling: look at that unit
+$('order').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-uid]'); if (!b || !isPlayerTurn() || ui.mode === 'confirm' || ui.mode === 'facing') return;
+  const u = S.units[Number(b.dataset.uid)];
+  if (['menu', 'actmenu'].includes(ui.mode)) ui.mode = 'free';
+  setCursor(u.x, u.y);
+});
 
 function unitInfo(u) {
   const f = u.hp / u.maxHp;
   const col = f > 0.5 ? P.hpGood : f > 0.25 ? P.hpMid : P.hpLow;
   const r = CONFIG.roles[u.role];
-  const terr = Object.entries(r.terrainCost || {}).map(([k, v]) => `${CONFIG.terrain[k].name} ${v}`).join(', ');
-  return `<div><span class="name ${u.team}">${u.name}</span><span class="team">${CONFIG.teams[u.team].label} · facing ${FACE_ARROW[u.facing]}</span></div>
+  const terr = Object.entries(r.terrainCost || {}).map(([k, v]) => `${CONFIG.terrain[k].name[0]}${v}`).join(' ');
+  return `<div class="row1"><span class="name ${u.team}">${u.name}</span><span class="hpt">HP <b>${u.hp}</b>/${u.maxHp}</span></div>
     <div class="hpbar"><div style="width:${f * 100}%;background:${col}"></div></div>
-    <div class="stats"><span>HP <b>${u.hp}/${u.maxHp}</b></span><span>ATK <b>${u.atk}</b></span><span>DEF <b>${u.def}</b></span>
-    <span>SPD <b>${u.spd}</b></span><span>MOV <b>${u.move}</b></span><span>JMP <b>${u.jump}</b></span>
-    <span>RNG <b>${r.minRange}-${r.maxRange}${r.straightLine ? ' line' : ''}</b></span>${terr ? `<span>Terrain: ${terr}</span>` : ''}</div>`;
+    <div class="stats"><span>ATK <b>${u.atk}</b></span><span>DEF <b>${u.def}</b></span><span>SPD <b>${u.spd}</b></span>
+    <span>MOV <b>${u.move}</b></span><span>JMP <b>${u.jump}</b></span><span>RNG <b>${r.minRange}-${r.maxRange}${r.straightLine ? 'L' : ''}</b></span>
+    <span>Face <b>${FACE_ARROW[u.facing]}</b></span>${terr ? `<span>Terr <b>${terr}</b></span>` : ''}</div>`;
 }
 
-function previewHtml(u, t) {
+function predictionHtml(u, t, confirming) {
   const p = G.preview(S, u, t);
   const tags = [];
-  if (p.side !== 'front') tags.push(`${p.side === 'back' ? 'Back' : 'Side'} +${Math.round((p.facingMod - 1) * 100)}%`);
+  tags.push(p.side === 'front' ? 'Front' : `${p.side === 'back' ? 'Back' : 'Side'} +${Math.round((p.facingMod - 1) * 100)}%`);
   if (p.nFlank) tags.push(`Flank ×${p.nFlank} +${Math.round((p.flankMod - 1) * 100)}%`);
   if (p.hAdv) tags.push(`Height ${p.hAdv > 0 ? '+' : ''}${Math.round((p.heightMod - 1) * 100)}%`);
-  return `<div class="pv">→ ${t.name}: <b>~${p.dmg}</b> dmg · <b>${p.hit}%</b> hit${tags.length ? ' · ' + tags.join(' · ') : ' · Front'}</div>`;
+  return `<div class="pv-title">Attack → ${t.name}</div>
+    <div class="pv-main"><span>Hit <b>${p.hit}%</b></span><span>Dmg <b>~${p.dmg}</b></span><span>HP ${t.hp}→${Math.max(0, t.hp - p.dmg)}</span></div>
+    <div class="pv-tags">${tags.join(' · ')}</div>
+    ${confirming ? '<div class="pv-confirm"><b>A</b> Execute &nbsp; <b>B</b> Back</div>' : ''}`;
 }
 
-function btn(label, act, opts = {}) {
-  return `<button class="btn ${opts.cls || ''}" data-act="${act}" ${opts.disabled ? 'disabled' : ''}>${label}</button>`;
-}
+const HINTS = {
+  menu: () => (S.moved && !S.acted ? '◆ choose · A select · B undo move' : '◆ choose · A select · B look around'),
+  actmenu: () => '◆ choose · A select · B back',
+  free: () => '◆ look around · B show range / return · A back to unit',
+  move: () => '◆ move cursor to a blue tile · A move · B back',
+  target: () => '◆ pick a foe in red · A select · B back',
+  confirm: () => 'A execute · B back',
+  facing: () => '◆ choose facing · A confirm · B back',
+};
 
 function updatePanel() {
   const u = S.active;
-  const shown = ui.inspect || u;
-  let info = shown ? unitInfo(shown) : '';
-  if (ui.mode === 'confirm' && ui.target) info = unitInfo(ui.target) + previewHtml(u, ui.target);
-  $('info').innerHTML = info;
-  let hint = '', acts = '';
-  if (S.over) { hint = S.over === 'victory' ? 'Victory!' : 'Defeat.'; }
-  else if (!u || ui.mode === 'busy') { hint = u && u.team === 'enemy' ? `${u.name} is acting…` : ''; }
-  else if (u.team === 'player') {
-    if (ui.mode === 'move') hint = 'Tap a blue tile to move.';
-    else if (ui.mode === 'attack') hint = G.targetsFrom(S, u).length ? 'Tap a foe in red range to aim.' : 'No foe in range from here.';
-    else if (ui.mode === 'confirm') hint = 'Tap the foe again or Confirm. Tap elsewhere to cancel.';
-    else hint = 'Done? End turn — you\'ll auto-face the nearest foe.';
-    if (ui.mode === 'confirm') {
-      acts = btn('Confirm', 'confirm', { cls: 'primary' }) + btn('Cancel', 'cancel');
-    } else {
-      acts = btn('Move', 'move', { cls: ui.mode === 'move' ? 'on' : '', disabled: S.moved }) +
-        btn('Attack', 'attack', { cls: ui.mode === 'attack' ? 'on' : '', disabled: S.acted }) +
-        btn('End Turn', 'end');
-    }
-    // optional one-tap facing override (default is automatic)
-    const cur = S.manualFacing;
-    acts += `<div class="facing"><span>Face</span>${[3, 0, 2, 1].map((d) =>
-      `<button class="fbtn ${cur === d ? 'on' : ''}" data-face="${d}" aria-label="face ${FACE_ARROW[d]}">${FACE_ARROW[d]}</button>`).join('')}
-      <button class="fbtn ${cur == null ? 'on' : ''}" data-face="auto">auto</button></div>`;
-  }
+  const cu = cursorUnit && S.units ? G.unitAt(S, ui.cursor.x, ui.cursor.y) : null;
+  const shown = ui.mode === 'facing' ? u : (showCursor() && cu) || u;
+  $('info').innerHTML = shown ? unitInfo(shown) : '';
+  let hint = '';
+  if (S.over) hint = S.over === 'victory' ? 'Victory!' : 'Defeat.';
+  else if (!u || ui.mode === 'busy') hint = u && u.team === 'enemy' ? `${u.name} is acting…` : '';
+  else if (u.team === 'player') hint = (HINTS[ui.mode] || (() => ''))();
   $('hint').textContent = hint;
-  $('actions').innerHTML = acts;
+  // command menu (right side of the field, like FFTA2)
+  const cmd = $('cmd');
+  if (isPlayerTurn() && (ui.mode === 'menu' || ui.mode === 'actmenu')) {
+    const items = menuItems();
+    cmd.innerHTML = `<div class="cmd-title">${ui.mode === 'actmenu' ? 'Action' : u.name}</div>` + items.map((it, i) =>
+      `<button class="cmd-item ${i === ui.menuIndex ? 'sel' : ''}" data-cmd="${i}" ${it.on ? '' : 'disabled'}>${it.label}</button>`).join('');
+    cmd.classList.remove('hidden');
+  } else cmd.classList.add('hidden');
+  // prediction (middle of the field, like FFTA2)
+  const pv = $('pv');
+  const tgt = ui.mode === 'confirm' ? ui.target : ui.mode === 'target' ? validTargetAt(ui.cursor.x, ui.cursor.y) : null;
+  if (isPlayerTurn() && tgt) { pv.innerHTML = predictionHtml(u, tgt, ui.mode === 'confirm'); pv.className = ui.mode === 'confirm' ? 'confirm' : ''; }
+  else pv.className = 'hidden';
+  $('facing-tip').className = isPlayerTurn() && ui.mode === 'facing' ? '' : 'hidden';
   updateOrder();
 }
 
-$('actions').addEventListener('click', (e) => {
-  const b = e.target.closest('button'); if (!b || !isPlayerTurn()) return;
-  const u = S.active;
-  if (b.dataset.face) {
-    S.manualFacing = b.dataset.face === 'auto' ? null : Number(b.dataset.face);
-    if (S.manualFacing != null) u.facing = S.manualFacing;
-    updatePanel(); return;
-  }
-  const act = b.dataset.act;
-  if (act === 'move' && !S.moved) { ui.mode = ui.mode === 'move' ? 'menu' : 'move'; ui.moveInfo = G.reachable(S, u); }
-  else if (act === 'attack' && !S.acted) { ui.mode = ui.mode === 'attack' ? 'menu' : 'attack'; ui.target = null; }
-  else if (act === 'confirm' && ui.target) return doPlayerAttack(ui.target);
-  else if (act === 'cancel') { ui.mode = 'attack'; ui.target = null; }
-  else if (act === 'end') return playerEnd();
-  updatePanel();
+// tap a menu item = highlight + A (stylus behaviour)
+$('cmd').addEventListener('pointerdown', (e) => {
+  const b = e.target.closest('[data-cmd]'); if (!b || b.disabled || !isPlayerTurn()) return;
+  e.preventDefault();
+  ui.menuIndex = Number(b.dataset.cmd);
+  selectMenuItem(menuItems()[ui.menuIndex]);
 });
 $('restart').addEventListener('click', reset);
 
@@ -547,9 +721,11 @@ requestAnimationFrame(loop);
 
 // ---------------------------------------------------------------- test/debug hook
 window.__outremer = {
-  get state() { return S; }, get mode() { return ui.mode; }, get lastResult() { return lastResult; },
+  get state() { return S; }, get mode() { return ui.mode; }, get cursor() { return { ...ui.cursor }; },
+  get menuIndex() { return ui.menuIndex; }, get lastResult() { return lastResult; },
   get camSettled() { return !cam.follow; },
   tileClient(x, y) { const r = cv.getBoundingClientRect(); const c = tileTop(x, y); return { x: r.left + c.x, y: r.top + c.y }; },
   unitClient(id) { const u = S.units[id]; const r = cv.getBoundingClientRect(); const p = unitScreenPos(u, performance.now()); return { x: r.left + p.x, y: r.top + p.y - 25 * layout.k }; },
+  facingClient(d) { const r = cv.getBoundingClientRect(); const p = facingArrowPos(S.active, d); return { x: r.left + p.x, y: r.top + p.y }; },
   G, CONFIG,
 };

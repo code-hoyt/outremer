@@ -107,10 +107,18 @@ export const CONFIG = {
   },
 
   // ---------------------------------------------------------------- turn order (CT)
-  // End-of-turn facing: auto-face (target if attacked, else nearest foe), with an
-  // optional one-tap override in the panel. No mandatory facing step.
-  facing: {
-    autoFaceNearestFoe: true,
+  // ---------------------------------------------------------------- controls (FFTA2-style)
+  controls: {
+    // On-screen d-pad is a classic cross rotated 45° so each arm points along an iso grid axis:
+    //   ↗ = north (-y)   ↘ = east (+x)   ↙ = south (+y)   ↖ = west (-x)
+    // i.e. the cursor moves exactly where the arrow points on screen.
+    dpadSizePx: 156,        // overall d-pad footprint (square, before rotation)
+    abSizePx: 70,           // A / B button diameter
+    repeatDelayMs: 320,     // hold a d-pad arm: delay before auto-repeat starts
+    repeatRateMs: 120,      // then one step per this many ms
+    menuItemHeightPx: 44,   // command menu row height
+    tapConfirmsSecondTap: true, // tap a tile once = move cursor there; tap it again = A
+    keyboard: true,         // desktop: arrows/WASD move cursor, Z/Enter/Space = A, X/Esc/Backspace = B
   },
 
   turn: {
@@ -155,6 +163,7 @@ export const CONFIG = {
     archerKeepDistance: 3, // archers try not to end turn closer than this
     wArcherSpacing: 4,
     thinkDelayMs: 350,
+    // AI picks its own end-of-turn facing: toward the nearest foe
   },
 
   // ---------------------------------------------------------------- presentation
@@ -164,7 +173,7 @@ export const CONFIG = {
     mapPaddingPx: 4,
     zoom: 1.3,               // >1 zooms past fit-to-width on phones; drag to pan
     zoomBelowWidthPx: 520,   // only zoom/pan on narrow (phone) stages
-    camFollow: 0.15,         // camera easing toward active unit per frame
+    camFollow: 0.15,         // camera easing toward the cursor per frame
     dragThresholdPx: 12,     // movement before a touch counts as a pan instead of a tap
     moveStepMs: 140,         // per tile of movement
     attackLungeMs: 220,
@@ -174,6 +183,7 @@ export const CONFIG = {
     hitFlashMs: 200,
     bobAmplitudePx: 2,
     bobSpeed: 0.005,
+    cursorPulseSpeed: 0.008,
   },
 
   palette: {
@@ -187,6 +197,7 @@ export const CONFIG = {
     moveHighlight: 'rgba(80,170,255,0.45)',
     attackHighlight: 'rgba(255,80,70,0.45)',
     targetHighlight: 'rgba(255,220,80,0.65)',
+    rangeHighlight: 'rgba(150,120,255,0.40)', // another unit's move range (B in free look)
     player: { body: '#ece6d6', trim: '#b8141c', accent: '#d8d2c0' },
     enemy: { body: '#2f5d5a', trim: '#d4a73c', accent: '#1f3d3b' },
     hpGood: '#5fd36a', hpMid: '#e8c547', hpLow: '#e8534a',
