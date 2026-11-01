@@ -2,6 +2,7 @@
 import { CONFIG } from './config.js';
 import * as G from './game.js';
 import { planTurn } from './ai.js';
+import { MAPS, resolveMap } from './maps.js';
 
 const V = CONFIG.view, P = CONFIG.palette;
 const $ = (id) => document.getElementById(id);
@@ -12,18 +13,61 @@ function mulberry32(a) {
   return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a);
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
-const seedParam = new URLSearchParams(location.search).get('seed');
+const params = new URLSearchParams(location.search);
+const seedParam = params.get('seed');
 const makeRng = () => (seedParam ? mulberry32(Number(seedParam)) : Math.random);
+// ?map=<id|number> starts that map directly; otherwise the title screen offers a map picker
+const mapParam = resolveMap(params.get('map'));
+const MAP_KEY = 'outremer.map';
+const lastMap = () => { try { return resolveMap(localStorage.getItem(MAP_KEY)); } catch (_) { return null; } };
 
 // ---------------------------------------------------------------- state
 let S, ui, anims, floats, layout;
-function reset() {
-  S = G.createState(makeRng());
+let mapId = (mapParam || lastMap() || resolveMap(CONFIG.defaultMap) || MAPS[0]).id;
+let picker = null; // { kind: 'title'|'end', items: [{ label, sub, act }], index } while the overlay menu is up
+function reset(id = mapId, { start = true } = {}) {
+  mapId = id;
+  try { localStorage.setItem(MAP_KEY, id); } catch (_) { /* private mode */ }
+  S = G.createState(makeRng(), id);
   ui = { mode: 'busy', cursor: { x: 0, y: 0 }, menu: null, menuIndex: 0, moveInfo: null, target: null, rangeOf: null, lastTap: null, ability: null };
   anims = new Map(); floats = [];
-  $('overlay').classList.add('hidden');
+  $('title').querySelector('span').textContent = S.mapName;
+  if (layout) resize();
+  if (!start) return;
+  closePicker();
   nextTurn();
 }
+
+// ---------------------------------------------------------------- map picker (title + Victory/Defeat overlay)
+// Same flow as the command menu: d-pad/keys up/down move the highlight, A picks, taps pick directly.
+const mapLabel = (m, i) => `${i + 1} · ${m.name}`;
+function openPicker(kind) {
+  const cur = MAPS.findIndex((m) => m.id === mapId);
+  let items;
+  if (kind === 'title') {
+    items = MAPS.map((m, i) => ({ label: mapLabel(m, i), sub: m.blurb, act: () => reset(m.id) }));
+    $('ov-title').textContent = 'OUTREMER';
+    $('ov-text').textContent = 'Choose a battlefield';
+  } else {
+    const next = MAPS[(cur + 1) % MAPS.length];
+    items = [{ id: 'restart', label: 'Play again', sub: MAPS[cur].name, act: () => reset(mapId) }];
+    if (MAPS.length > 1) items.push({ id: 'next-map', label: `Next map: ${next.name}`, act: () => reset(next.id) });
+    items.push({ id: 'choose-map', label: 'Choose map', act: () => openPicker('title') });
+  }
+  picker = { kind, items, index: kind === 'title' ? Math.max(0, cur) : 0 };
+  $('ov-list').innerHTML = items.map((it, i) =>
+    `<button class="btn pick" ${it.id ? `id="${it.id}"` : ''} data-pick="${i}">${it.label}${it.sub ? `<small>${it.sub}</small>` : ''}</button>`).join('');
+  syncPicker();
+  $('overlay').classList.remove('hidden');
+  syncPad();
+}
+function closePicker() { picker = null; $('overlay').classList.add('hidden'); syncPad(); }
+function syncPicker() {
+  if (!picker) return;
+  $('ov-list').querySelectorAll('[data-pick]').forEach((b) => b.classList.toggle('sel', Number(b.dataset.pick) === picker.index));
+}
+function pickerStep(step) { picker.index = (picker.index + step + picker.items.length) % picker.items.length; syncPicker(); }
+function pickerChoose(i = picker.index) { const it = picker.items[i]; if (it) it.act(); }
 
 // ---------------------------------------------------------------- layout / projection
 function resize() {
@@ -464,6 +508,7 @@ function selectMenuItem(it) {
 }
 
 function pressDir(d) {
+  if (picker) { if (d === 0) pickerStep(-1); else if (d === 2) pickerStep(1); return; }
   if (!isPlayerTurn()) return;
   if (ui.mode === 'menu' || ui.mode === 'actmenu') { // menus only go up/down (keyboard ↑/↓); left/right do nothing
     if (d === 0) pressStep(-1); else if (d === 2) pressStep(1);
@@ -476,6 +521,7 @@ function pressDir(d) {
 }
 
 function pressStep(step) { // vertical pad: move the menu highlight, skipping greyed items
+  if (picker) return pickerStep(step);
   if (!isPlayerTurn() || !(ui.mode === 'menu' || ui.mode === 'actmenu')) return;
   const items = menuItems();
   let i = ui.menuIndex;
@@ -485,6 +531,7 @@ function pressStep(step) { // vertical pad: move the menu highlight, skipping gr
 
 // which pad layout fits the current state
 function padMode() {
+  if (picker) return 'menu';
   if (!isPlayerTurn()) return 'off';
   if (ui.mode === 'menu' || ui.mode === 'actmenu') return 'menu';
   if (ui.mode === 'facing') return 'facing';
@@ -499,13 +546,14 @@ function syncPad() {
     if (m !== 'off') { const lay = m === 'menu' ? 'lay-menu' : m === 'facing' ? 'lay-face' : 'lay-map';
       el.querySelectorAll('.lay').forEach((l) => l.classList.toggle('on', l.classList.contains(lay))); }
     // 'off' keeps the last layout on screen, just dimmed and inert, so nothing jumps
-    $('ab').classList.toggle('off', !isPlayerTurn());
   }
+  $('ab').classList.toggle('off', !(picker || isPlayerTurn()));
   const f = m === 'facing' ? S.active.facing : null;
   if (f !== padFacing) { padFacing = f; el.querySelectorAll('.lay-face [data-face]').forEach((b) => b.classList.toggle('cur', Number(b.dataset.face) === f)); }
 }
 
 function pressA() {
+  if (picker) return pickerChoose();
   if (!isPlayerTurn()) return;
   const u = S.active, { x, y } = ui.cursor;
   switch (ui.mode) {
@@ -521,6 +569,7 @@ function pressA() {
 }
 
 function pressB() {
+  if (picker) { if (picker.kind === 'title' && S.over) openPicker('end'); return; } // B on "Choose map" goes back
   if (!isPlayerTurn()) return;
   const u = S.active;
   switch (ui.mode) {
@@ -761,9 +810,11 @@ async function nextTurn() {
 function finish() {
   updatePanel();
   const win = S.over === 'victory';
-  $('ov-title').textContent = win ? 'VICTORY' : 'DEFEAT';
-  $('ov-text').textContent = win ? 'The field is held. Deus vult.' : 'Your company has fallen.';
-  setTimeout(() => $('overlay').classList.remove('hidden'), 500);
+  setTimeout(() => {
+    openPicker('end');
+    $('ov-title').textContent = win ? 'VICTORY' : 'DEFEAT';
+    $('ov-text').textContent = win ? 'The field is held. Deus vult.' : 'Your company has fallen.';
+  }, 500);
 }
 
 // ---------------------------------------------------------------- HUD
@@ -785,7 +836,7 @@ function unitInfo(u) {
   const f = u.hp / u.maxHp;
   const col = f > 0.5 ? P.hpGood : f > 0.25 ? P.hpMid : P.hpLow;
   const r = CONFIG.roles[u.role];
-  const terr = Object.entries(r.terrainCost || {}).map(([k, v]) => `${CONFIG.terrain[k].name[0]}${v}`).join(' ');
+  const terr = Object.entries(r.terrainCost || {}).map(([k, v]) => `${CONFIG.terrain[k].short || CONFIG.terrain[k].name[0]}${v}`).join(' ');
   return `<div class="row1"><span class="name ${u.team}">${u.name}</span><span class="hpt">HP <b>${u.hp}</b>/${u.maxHp}</span></div>
     <div class="hpbar"><div style="width:${f * 100}%;background:${col}"></div></div>
     <div class="stats"><span>ATK <b>${u.atk}</b></span><span>DEF <b>${u.def}</b></span><span>SPD <b>${u.spd}</b></span>
@@ -878,7 +929,12 @@ $('cmd').addEventListener('pointerdown', (e) => {
   ui.menuIndex = Number(b.dataset.cmd);
   selectMenuItem(menuItems()[ui.menuIndex]);
 });
-$('restart').addEventListener('click', reset);
+$('ov-list').addEventListener('pointerdown', (e) => {
+  const b = e.target.closest('[data-pick]'); if (!b || !picker) return;
+  e.preventDefault();
+  picker.index = Number(b.dataset.pick); syncPicker();
+  pickerChoose();
+});
 
 // prevent double-tap zoom / pinch on iOS
 document.addEventListener('gesturestart', (e) => e.preventDefault());
@@ -886,13 +942,15 @@ document.addEventListener('dblclick', (e) => e.preventDefault());
 
 window.addEventListener('resize', () => resize());
 
-reset();
+if (mapParam) reset(mapParam.id);           // ?map= skips the title screen
+else { reset(mapId, { start: false }); openPicker('title'); }
 resize();
 requestAnimationFrame(loop);
 
 // ---------------------------------------------------------------- test/debug hook
 window.__outremer = {
-  get state() { return S; }, get mode() { return ui.mode; }, get cursor() { return { ...ui.cursor }; },
+  get state() { return S; }, get mode() { return ui.mode; }, get mapId() { return mapId; },
+  get picker() { return picker ? { kind: picker.kind, index: picker.index, items: picker.items.map((it) => it.label) } : null; }, get cursor() { return { ...ui.cursor }; },
   get menuIndex() { return ui.menuIndex; }, get lastResult() { return lastResult; },
   get camSettled() { return !cam.follow; }, get padMode() { return padMode(); },
   get ability() { return ui.ability; }, get target() { return ui.target ? ui.target.id : null; },

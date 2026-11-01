@@ -1,14 +1,16 @@
 // Core rules: state, CT turn order, movement, combat math. No rendering here.
 import { CONFIG } from './config.js';
+import { MAPS, resolveMap } from './maps.js';
 
 export const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]]; // N E S W
 
-export function createState(rng = Math.random) {
-  const m = CONFIG.map;
+// mapKey: a map id ('breach') or 1-based number; unknown/empty = CONFIG.defaultMap
+export function createState(rng = Math.random, mapKey) {
+  const m = resolveMap(mapKey) || resolveMap(CONFIG.defaultMap) || MAPS[0];
   const units = [];
   let id = 0;
   for (const team of ['player', 'enemy']) {
-    for (const [role, x, y, facing] of CONFIG.deployment[team]) {
+    for (const [role, x, y, facing] of m.deployment[team]) {
       const b = CONFIG.teams[team].statBonus || {};
       const r = Object.fromEntries(Object.entries(CONFIG.roles[role]).map(([k, v]) => [k, typeof v === 'number' && b[k] ? v + b[k] : v]));
       units.push({
@@ -22,7 +24,7 @@ export function createState(rng = Math.random) {
     }
   }
   return {
-    w: m.width, h: m.height, heights: m.heights, terrain: m.terrain,
+    mapId: m.id, mapName: m.name, w: m.width, h: m.height, heights: m.heights, terrain: m.terrain,
     units, active: null, moved: false, acted: false, over: null, turnCount: 0, rng,
   };
 }

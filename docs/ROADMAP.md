@@ -19,7 +19,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 - Do the turn order and the cost of Wait create real choices without any extra button presses?
 
 **Scope**
-- *In:* one map, a small squad on each side, basic attack, the combat formula, enemy AI, the phone UI, tuning in config.
+- *In:* a couple of hand-made maps, a small squad on each side, basic attack, the combat formula, enemy AI, the phone UI, tuning in config.
 - *Out:* story, meta-progression, real art and sound, saving, menus outside battle.
 
 **Done so far**
@@ -31,12 +31,12 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 - [x] Distinct movement per class: MOV, JUMP, terrain costs
 - [x] 3v3 slice (Knight / Sergeant / Archer vs Swordsman / Skirmisher / Bowman) with a scoring AI, live on GitHub Pages, plus a Playwright phone test
 - [x] **2 abilities per class** (v0.4): Shield Bash / Shield Wall, Brace / Hook, Pinning / Plunging Shot, Feint / Vault Strike. They run on cooldowns, enemies use them too, and the AI-vs-AI sim is in `tools/sim.mjs`. See [DESIGN.md → Abilities](DESIGN.md#abilities-v04--two-per-class-all-about-position). *Still to do: a playtest of whether positioning stays interesting, and better AI use of Bash/Hook/Pin/Feint.*
+- [x] **Second map: The Breach** (v0.5). A ruined keep: height-3 curtain wall with a rubble breach, a sunken flagstone courtyard and a stair tower up to height 4. JUMP decides who can use the walls. Pick it on the title or Victory/Defeat screen, or with `?map=breach` / `?map=2`. Sim: Ridge 0.37, Breach 0.57 Templar wins. See [DESIGN.md → Maps](DESIGN.md#maps-v05).
 
 **Left in this stage** *(proposals, to be confirmed by Cletus)*
-- **Research:** [Why players just attack (and how to fix it)](research/abilities-vs-attack.md): what makes players pick abilities over Attack in other tactics games, and the top 5 proposals for this slice (frontal riposte, an "attack-plus" retune, Map 2 with edges and an objective, visible enemy intent, and an Action-menu forecast plus action tally)
+- **Research (shelved for later):** [Why players just attack (and how to fix it)](research/abilities-vs-attack.md). It covers what makes players pick abilities over Attack in other tactics games and gives 5 proposals: frontal riposte, an "attack-plus" retune, map edges and an objective, visible enemy intent, and an Action-menu forecast plus action tally. None of them are built yet. We'll come back to them after playtesting the two maps.
 - **Balance pass** from playtests: win rate (sim now 0.37 vs 0.46 before abilities), fight length, whether every class pulls its weight, and AI use of the setup abilities
-- **A second map** with different terrain and height, to check the systems aren't specific to one map
-- *(maybe)* a race or origin modifier on movement, if it's cheap to test here rather than in Stage 2
+- **Playtest both maps:** do class movement, facing/flanking, height and abilities hold up on The Breach as well as The Ridge?
 
 **Done when:** a fight is **fun to replay with the same squad**. Cletus wants to play the same battle again and tries different positioning each time.
 
@@ -113,3 +113,4 @@ Ideas that come up outside the current stage. Add freely; review at each stage b
 - A unit placement phase before battle (FFTA2-style)
 - L/R next/previous unit buttons
 - Whether the end-of-turn facing step is worth its button press (pillar 1 tension)
+- Possible winged race (wind/flight) with effectively unlimited jump — discuss later. *(No race modifiers on movement for now.)*

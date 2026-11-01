@@ -17,7 +17,8 @@ Run locally: `python3 -m http.server` in the repo root, open http://localhost:80
 | File | What |
 |---|---|
 | `index.html`, `style.css` | Shell + portrait mobile layout |
-| `src/config.js` | Every tuning number: stats, map, CT costs, combat formula, AI weights, animation timing, palette |
+| `src/maps.js` | Map layouts: heights, terrain, deployment (The Ridge, The Breach). Pick with `?map=` or the title/end-screen picker |
+| `src/config.js` | Every tuning number: stats, terrain, CT costs, combat formula, AI weights, animation timing, palette |
 | `src/game.js` | Rules: CT turn order, movement (terrain/jump), facing, flanking, damage |
 | `src/ai.js` | Enemy scoring AI |
 | `src/main.js` | Rendering, touch/mouse input, turn flow, HUD |

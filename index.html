@@ -21,6 +21,14 @@
       <div id="pv" class="hidden"></div>
       <div id="facing-tip" class="hidden">Choose facing</div>
       <div id="cmd" class="hidden"></div>
+      <!-- title / Victory / Defeat: a map picker that works like the command menu (pad up/down + A, or tap) -->
+      <div id="overlay" class="hidden">
+        <div class="card">
+          <h1 id="ov-title"></h1>
+          <p id="ov-text"></p>
+          <div id="ov-list"></div>
+        </div>
+      </div>
     </main>
     <section id="panel">
       <div id="info"></div>
@@ -53,13 +61,6 @@
         </div>
       </div>
     </section>
-    <div id="overlay" class="hidden">
-      <div class="card">
-        <h1 id="ov-title"></h1>
-        <p id="ov-text"></p>
-        <button id="restart" class="btn primary">Play again</button>
-      </div>
-    </div>
   </div>
   <script type="module" src="src/main.js"></script>
 </body>

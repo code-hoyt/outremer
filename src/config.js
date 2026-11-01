@@ -2,35 +2,12 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.4.0',
+  version: '0.5.0',
 
-  // ---------------------------------------------------------------- map
-  map: {
-    width: 8,
-    height: 8,
-    // heights[y][x] — integer height levels (0 = ground)
-    heights: [
-      [0, 0, 1, 1, 2, 2, 1, 0],
-      [0, 0, 0, 1, 2, 3, 1, 0],
-      [0, 0, 0, 0, 1, 2, 1, 0],
-      [1, 0, 0, 0, 0, 1, 0, 0],
-      [1, 1, 0, 0, 0, 0, 0, 1],
-      [2, 1, 1, 0, 0, 0, 1, 1],
-      [2, 2, 1, 0, 0, 1, 1, 2],
-      [3, 2, 1, 0, 0, 1, 2, 2],
-    ],
-    // terrain[y][x] — key into palette.terrain (purely visual for now)
-    terrain: [
-      'ssggrrrs',
-      'ssgggrrs',
-      'sgggggrs',
-      'ggggdggs',
-      'gggdddgg',
-      'rggdddgg',
-      'rrgdddgr',
-      'rrggdgrr',
-    ],
-  },
+  // ---------------------------------------------------------------- maps
+  // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
+  // or the map picker on the start and Victory/Defeat screens.
+  defaultMap: 'ridge',
 
   // ---------------------------------------------------------------- terrain
   // Base move cost per terrain key. Roles may override via `terrainCost`.
@@ -39,6 +16,10 @@ export const CONFIG = {
     d: { name: 'Road', cost: 1 },
     s: { name: 'Sand', cost: 2 },
     r: { name: 'Rock', cost: 2 },
+    // The Breach (map 2)
+    e: { name: 'Flagstone', short: 'F', cost: 1 },
+    w: { name: 'Wall', short: 'W', cost: 1 },      // wall-walk / tower stone: tall, not slow
+    b: { name: 'Rubble', short: 'Ru', cost: 2 },   // the breach and the rubble mound
   },
   // extra move cost for each height level climbed UP in one step (down is free)
   climbCostPerLevel: 0,
@@ -50,7 +31,7 @@ export const CONFIG = {
     knight: {
       // heavy: tough, short move, low jump, bogged down by sand and rock
       hp: 44, atk: 14, def: 10, spd: 6, move: 3, jump: 1,
-      terrainCost: { s: 2, r: 3 },
+      terrainCost: { s: 2, r: 3, b: 3 },
       minRange: 1, maxRange: 1, straightLine: false,
       maxHeightReach: 1, // melee can only reach targets within this height difference
       abilities: ['shieldBash', 'shieldWall'],
@@ -66,7 +47,7 @@ export const CONFIG = {
     archer: {
       // light-footed: high jump, rock is easy going, fragile
       hp: 26, atk: 11, def: 4, spd: 10, move: 4, jump: 3,
-      terrainCost: { r: 1 },
+      terrainCost: { r: 1, b: 1 },
       minRange: 2, maxRange: 4, straightLine: false,
       maxHeightReach: 99,
       rangeBonusPerHeight: 2, // +1 max range for every N levels above the target
@@ -75,7 +56,7 @@ export const CONFIG = {
     skirmisher: {
       // nimble: fast, long move, big jump, ignores rough terrain; hits weakly — wants backs
       hp: 28, atk: 12, def: 5, spd: 11, move: 5, jump: 3,
-      terrainCost: { s: 1, r: 1 },
+      terrainCost: { s: 1, r: 1, b: 1 },
       minRange: 1, maxRange: 1, straightLine: false,
       maxHeightReach: 2,
       abilities: ['feint', 'vaultStrike'],
@@ -139,19 +120,7 @@ export const CONFIG = {
     },
   },
 
-  // starting layout: [role, x, y, facing]  facing: 0=N(-y) 1=E(+x) 2=S(+y) 3=W(-x)
-  deployment: {
-    player: [
-      ['knight', 3, 6, 0],
-      ['sergeant', 4, 6, 0],
-      ['archer', 1, 6, 0],
-    ],
-    enemy: [
-      ['knight', 3, 1, 2],
-      ['skirmisher', 1, 1, 2],
-      ['archer', 5, 1, 2],
-    ],
-  },
+  // starting layouts are per map: see src/maps.js
 
   // ---------------------------------------------------------------- turn order (CT)
   // ---------------------------------------------------------------- controls (FFTA2-style)
@@ -257,6 +226,9 @@ export const CONFIG = {
       d: { top: '#c9a86a', side: '#8a6a3e' }, // dirt road
       s: { top: '#e0c48a', side: '#a5824f' }, // sand
       r: { top: '#9a948a', side: '#6a645c' }, // rock
+      e: { top: '#c2b49a', side: '#7d705d' }, // flagstone courtyard
+      w: { top: '#a99f8e', side: '#6b6153' }, // wall stone
+      b: { top: '#8f8371', side: '#5e5446' }, // rubble
     },
     moveHighlight: 'rgba(80,170,255,0.45)',
     attackHighlight: 'rgba(255,80,70,0.45)',

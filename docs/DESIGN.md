@@ -1,4 +1,4 @@
-# Outremer — Design Notes (v0.4, slice + FFTA2 controls + context-aware pad + class abilities)
+# Outremer — Design Notes (v0.5, slice + FFTA2 controls + context-aware pad + class abilities + 2 maps)
 
 > **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 — combat prototype).
 
@@ -35,11 +35,23 @@ Movement is Dijkstra over **move points**: each step costs the destination tile'
 | Archer (Turcopole / Raider Bowman) | 4 | 3 | Light-footed: Rock 1 | Range 2–4, +1 range per 2 levels of height advantage; fragile |
 | Skirmisher (Raider; enemy only in slice) | 5 | 3 | Nimble: Sand 1, Rock 1 | Fast flanker, weak hits — wants your backs |
 
-Base terrain: Grass 1, Road 1, Sand 2, Rock 2. `CONFIG.terrain`, `CONFIG.roles[*].terrainCost`, `CONFIG.climbCostPerLevel` (0 for now).
+Base terrain: Grass 1, Road 1, Sand 2, Rock 2; on The Breach also Flagstone 1, Wall 1, Rubble 2 (Knight 3, Archer/Skirmisher 1). `CONFIG.terrain`, `CONFIG.roles[*].terrainCost`, `CONFIG.climbCostPerLevel` (0 for now).
 
 **Difficulty knob:** `CONFIG.teams.player.statBonus` (currently HP +6, DEF +1 on Templars). With it, a greedy-AI-vs-greedy-AI headless sim wins ~43% for the Templars over 1000 runs (~25 turns); without it ~20% — the raiders start with the high ground. A human using flanks should do better. Retune once real playtests exist.
 
 **Phone camera:** on narrow screens the map is zoomed 1.3× past fit-width; drag to pan, and the camera eases to follow the cursor (`CONFIG.view.zoom`, `zoomBelowWidthPx`, `camFollow`).
+
+## Maps (v0.5)
+Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../src/maps.js); terrain costs and colours stay in `src/config.js` (`CONFIG.terrain`, `palette.terrain`, `defaultMap`). Objective on both: defeat every enemy. No race modifiers on movement for now (a possible winged race with near-unlimited jump is in the ROADMAP parking lot).
+
+| # | Map | Shape | What it tests |
+|---|---|---|---|
+| 1 | **The Ridge** (`ridge`) | Open hills, raiders on a height-2 ridge to the north, Templars below on grass/road. Sand and rock patches. | Fighting uphill; archers' height range; knights bogged in sand/rock. |
+| 2 | **The Breach** (`breach`) | A ruined keep. Templars deploy west on open ground (small rubble mound, rocky rise in the south-west). A height-3 curtain wall runs north–south at x=4, broken by a 2-tile rubble **breach** (height 1). Behind it: a sunken flagstone courtyard (height 0), a ramp tile at (5,2) and a stair tower in the south-east climbing to height 4. | **JUMP decides the route.** Knights (JUMP 1) can only go through the breach chokepoint. Sergeants (2) can take the ramp and stairs. Archers and skirmishers (3) scale the wall from the ground and use it as a ledge. Flanks come from wall-top drops, height from the tower. |
+
+**Choosing a map (phone-first, FFTA2 flow):** with no `?map=`, the game opens on a title card listing the maps. It works like the command menu: ▲▼ on the d-pad (or keys) moves the highlight, A starts, and a tap picks directly. The last map played is preselected (localStorage). The Victory/Defeat card offers **Play again / Next map: … / Choose map**, and B on Choose map goes back. `?map=breach` or `?map=2` skips the title. The header shows the current map name.
+
+**Sim balance (`node tools/sim.mjs 3000 all`, AI vs AI, Templar win rate):** Ridge 0.37 (loss 0.61), Breach 0.57 (loss 0.43, stalls 0.1%). The first draft of The Breach was 0.01: the raider archer started on the height-4 tower and a raised courtyard gave the defenders +1 height in the breach. Only map data was nudged to fix it. The courtyard was lowered to 0 and the raider archer and skirmisher now start in the courtyard; no unit stats changed. The sim is very sensitive to single-tile spawn changes because the AI is deterministic, so treat these numbers as rough.
 
 ## Facing, flanking & positioning
 - Every unit has a **facing** (N/E/S/W, shown as a ground arrow wedge and in the info panel).
@@ -157,7 +169,7 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 
 ## What's placeholder
 - All art: procedural canvas shapes (shaded iso blocks, simple figures with team colors, Templar red cross on tunic/shield). No sound.
-- One hand-made map, fixed deployment, no squad building, two abilities per class only (no jobs/secondary sets), no items, no XP.
+- Two hand-made maps, fixed deployment per map, no squad building, two abilities per class only (no jobs/secondary sets), no items, no XP.
 - Raider faction is a generic stand-in. Names are generic.
 - AI is a one-ply greedy scorer.
 
