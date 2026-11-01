@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.5.0',
+  version: '0.6.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -118,6 +118,60 @@ export const CONFIG = {
       statBonus: {},
       names: { knight: 'Raider Swordsman', sergeant: 'Raider Spearman', archer: 'Raider Bowman', skirmisher: 'Raider Skirmisher' },
     },
+  },
+
+  // ---------------------------------------------------------------- character creation (BG1/BG2-style hero)
+  // One hero you create; the rest of the party are set companions (later). See DESIGN.md → Main character & party.
+  // Each stat is rolled dice×d(sides). Then BG rules: take points out of a stat (not below max(floor, classMin))
+  // into a pool and spend them on another (not above cap). 10 = neutral.
+  // Modifier for stat v: (v − neutral) × perPoint, rounded toward zero, added to the class base (+ team statBonus).
+  creation: {
+    dice: 3, sides: 6,          // 3d6 per stat
+    floor: 3, cap: 18, neutral: 10,
+    stats: [
+      { key: 'mgt', short: 'MGT', name: 'Might', feeds: 'ATK' },
+      { key: 'end', short: 'END', name: 'Endurance', feeds: 'HP' },
+      { key: 'fort', short: 'FOR', name: 'Fortitude', feeds: 'DEF' },
+      { key: 'agi', short: 'AGI', name: 'Agility', feeds: 'SPD (turns)' },
+      { key: 'aim', short: 'AIM', name: 'Aim', feeds: 'Hit / crit' },
+      { key: 'res', short: 'RES', name: 'Resolve', feeds: 'Resist' },
+    ],
+    perPoint: {
+      mgt: { atk: 0.5 },
+      end: { hp: 1.5 },
+      fort: { def: 0.5 },
+      agi: { spd: 0.5 },
+      aim: { hit: 2, crit: 0.5 },    // + hit % and + crit % on every attack/ability
+      res: { resist: 5 },            // % chance to shrug off Pin, Feint's turn, and Bash/Hook displacement
+    },
+    resistFloor: 0,                  // RES below 10 gives no penalty yet (resist can't go under this %)
+    minSpd: 3, minHp: 10,            // safety floors for derived stats
+    // class minimums (BG-style): rolls below are raised to this, and you can't take points below it
+    classMin: { knight: { mgt: 9, end: 9 }, sergeant: { mgt: 8 }, archer: { aim: 9 }, skirmisher: { agi: 9 } },
+    classes: ['knight', 'sergeant', 'archer', 'skirmisher'],
+    classLabel: { knight: 'Knight', sergeant: 'Sergeant', archer: 'Archer', skirmisher: 'Scout' },
+    classBlurb: {
+      knight: 'Heavy armour and a shield. Tough anchor, slow over rough ground.',
+      sergeant: 'Spear. Solid all-rounder that holds a line at reach 2.',
+      archer: 'Bow. Fragile, sure-footed, deadly from high ground.',
+      skirmisher: 'Light and quick. Climbs anything, lives for an exposed back.',
+    },
+    abilityBlurb: {
+      shieldBash: 'shove a foe 1 tile; ledges and walls hurt',
+      shieldWall: 'halve front hits, cover adjacent allies',
+      brace: 'stop and strike the first foe walking into your spear',
+      hook: 'pull a foe 2 tiles away one step toward you',
+      pinningShot: 'weak shot; target MOV −2, JUMP ≤1',
+      plungingShot: 'from above: never a front hit, but you\'re Exposed',
+      feint: 'turn a foe to face you, showing its back',
+      vaultStrike: 'leap over a foe and strike its back',
+    },
+    defaultNames: ['Brother Aimery', 'Brother Odo', 'Brother Gerard', 'Brother Hugh', 'Brother Raoul', 'Brother Thierry', 'Brother Bernard', 'Brother Amalric'],
+    nameMaxLen: 20,
+    portraitCount: 8,                // placeholder SVG busts in src/hero.js
+    // where the hero fights: replaces the Templar of the same class (keeps its slot);
+    // a class the squad doesn't have (Scout) takes slot 0 (the knight's).
+    swipePx: 40,                     // class cards: horizontal swipe distance to change class
   },
 
   // starting layouts are per map: see src/maps.js

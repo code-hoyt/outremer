@@ -1,6 +1,6 @@
-# Outremer — Design Notes (v0.5, slice + FFTA2 controls + context-aware pad + class abilities + 2 maps)
+# Outremer — Design Notes (v0.6, slice + FFTA2 controls + context-aware pad + class abilities + 2 maps + hero creation)
 
-> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 — combat prototype).
+> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 started: hero creation is in).
 
 Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the Crusades.
 **Story is deliberately undecided.** Unit names are generic (Templar Knight, Sergeant, Turcopole Archer; Raider Swordsman / Skirmisher / Bowman) so nothing is locked in.
@@ -50,6 +50,37 @@ Class base stats from `CONFIG.roles` stay the backbone; rolled stats nudge them 
 - How are companions recruited and limited: party cap (BG = 6; our maps suit 3–5), fixed story joins vs optional ones you can turn down, swapping at camp?
 - Can the main character die? BG: hero death = game over. Alternatives: knocked out but the fight continues, or a wound system (ties into permadeath vs wounds).
 - Portrait art style: painted BG-style busts, pixel art matching the battle sprites, or line-art icons? Pre-made set to pick from vs a builder (face/helm/colours)?
+
+### Hero creation as built (v0.6)
+Mockup **B** (wizard) was picked. After the title screen: **Create your hero** (first visit; preselected) or **New hero** (later). The map list stays on the title screen as before.
+1. **Portrait:** 8 placeholder SVG busts (helm, kettle hat, coif, hood…).
+2. **Class:** one card per class (Knight, Sergeant, Archer, Scout) with MOV / JUMP / range / SPD, its two abilities and a **mini iso move preview** (Dijkstra on a fixed 7×7 patch with the class's real MOV, JUMP and terrain costs).
+3. **Stats:** six stats, each 3d6 (3–18), raised to the class minimum (Knight MGT 9 / END 9, Sergeant MGT 8, Archer AIM 9, Scout AGI 9). **BG rules:** − lowers a stat down to max(3, class minimum) and puts the point in the pool; + spends from the pool up to 18. Reroll as often as you like; Store keeps one roll, Recall brings it back (shows the stored total). Unspent points are allowed (Next shows "(N unspent)"). Changing class rerolls.
+4. **Name & confirm:** a random default ("Brother Aimery", …), editable (max 20; `<>&"` and backticks stripped), summary with portrait, stats and battle numbers, then **Begin ✠**. Back is available on every step, and the step tabs jump back to finished steps.
+
+**Formula** (all in `CONFIG.creation`): battle stat = class base (`CONFIG.roles`) + team bonus (+6 HP, +1 DEF for Templars) + (stat − 10) × per-point, **rounded toward zero**. MOV/JUMP come from class only. SPD floor 3, HP floor 10.
+| Stat | Per point from 10 | Status |
+|---|---|---|
+| Might | 0.5 ATK | active |
+| Endurance | 1.5 HP | active |
+| Fortitude | 0.5 DEF | active |
+| Agility | 0.5 SPD | active |
+| Aim | +2% hit, +0.5% crit (and −2% / −0.5% below 10) | **active**: added to the prediction box hit/crit and to real rolls |
+| Resolve | +5% resist per point above 10; below 10 = 0% (`resistFloor: 0`, no penalty yet) | **active**: chance to shrug off Bash/Hook displacement (and its fall/slam damage), Pin and Feint's turn. Shows as "RESISTED" and in the ability preview ("may resist N%"). **Not Exposed**: Plunging Shot exposes the shooter itself, so resisting it would be a free buff |
+
+**In battle:** the hero **replaces the Templar of the same class and keeps that unit's start tile** (a Scout hero takes slot 0, the knight's, since there's no Templar Scout). The hero's portrait shows in the unit info panel along with Hit/Res, and the hero's turn chip is outlined. Only the hero has rolled stats; other units are unchanged, and resist is only rolled when it's > 0, so the AI and sim stay deterministic.
+
+**Saved** in `localStorage['outremer.hero']`: Play again / reload keep the hero; "New hero" on the title replaces it (Back on step 1 cancels and keeps the old one).
+
+**Sim** (`HERO=avg|great|poor|roll node tools/sim.mjs 2000 all`, Templar win rate, knight hero):
+| Hero | The Ridge | The Breach |
+|---|---|---|
+| none (v0.5 baseline) | 36.5% | 57.0% |
+| average roll (11/10/11/10/11/10) | 38.5% | 57.0% |
+| random 3d6 each battle | 44.9% | 39.9% |
+| great (18/17/14/13/12/9) | 68.1% | 59.4% |
+| poor (9/9/8/8/9/9) | 14.5% | 20.7% |
+An average hero leaves balance where it was. A great roll is a big swing on The Ridge, which is more than the "+15–20%" target; watch this in playtests (knobs: `perPoint`). The sim is noisy because the AI is deterministic and small stat changes flip whole fights.
 
 ## Turn order — CT system (FFTA-like)
 - Every unit has a **CT** counter. Time ticks; each tick every living unit gains CT = its **SPD**.
@@ -155,6 +186,13 @@ Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-fa
   | Command menu, Action submenu | **vertical ▲ ▼**: two big half-disc buttons; hold to repeat |
   | Facing step | four facing arrows ⬉⬈⬋⬊ on the iso facings, with the current facing lit; tap or press A to confirm |
   | Confirm prediction, enemy turn, animations, victory/defeat | dimmed and inert (`controls.padDimOpacity`). A/B are dimmed too whenever it isn't your input; in Confirm, A/B stay live |
+  | Title / end-of-battle picker | **vertical ▲ ▼** + A/B (unchanged): it's a short list, and A/B match the battle that follows |
+  | Hero creation: **Portrait** (v0.6) | **no pad, no A/B.** Full-screen wizard over the pad. Picking a bust is a direct tap on a 4×2 grid; a cursor would be slower. Back/Next buttons in the footer |
+  | Hero creation: **Class** | **no pad, no A/B.** Swipe the card, tap ◀ ▶ beside it or tap a dot. A pad would only duplicate the arrows |
+  | Hero creation: **Stats** | **4-way cross** (from mockup B, which Cletus liked): ▲▼ pick a stat, ◀ ▶ −/+, hold to repeat. Taps on −/+ work too. **No A/B**: Reroll / Store / Recall and Back/Next are labelled buttons, so an A/B pair would be ambiguous. This is the one screen with many small repeated adjustments, which is where a pad beats tapping 34px buttons |
+  | Hero creation: **Name & confirm** | **no pad, no A/B.** The phone keyboard covers the bottom of the screen; "Begin ✠" confirms |
+  | Battle | unchanged (quadrants / ▲▼ / facing arrows / dimmed) |
+  Desktop keys in the wizard: arrows/WASD move through portraits, change class, or drive the Stats cross; Enter/Z/Space = Next; Esc/X/Backspace = Back (on step 1, back to the title).
 - **A (right thumb, upper):** confirm. **B (lower-left of A):** cancel / back. Same layout as the DS.
 - Sizes: `controls.dpadSizePx` (156), `abSizePx` (70), `menuItemHeightPx` (44).
 - **Keyboard (desktop):** arrows/WASD = d-pad (↑ = ◥ north, → = ◢ east, ↓ = ◣ south, ← = ◤ west). In menus only ↑/↓ (W/S) move the highlight and ←/→ do nothing, matching the ▲▼ pad. Z/Enter/Space = A; X/Esc/Backspace = B.
@@ -201,8 +239,9 @@ What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from
 The explicit facing step is a "stop and press" moment, which pillar 1 argues against. We're keeping it because Cletus asked for FFTA2 controls first. It's one d-pad press + A, or two taps. **Open question:** revisit later. Options include defaulting the facing arrow to the most dangerous foe while still requiring A, or a setting.
 
 ## What's placeholder
+- Hero portraits: 8 simple SVG busts marked PLACEHOLDER; art style still open.
 - All art: procedural canvas shapes (shaded iso blocks, simple figures with team colors, Templar red cross on tunic/shield). No sound.
-- Two hand-made maps, fixed deployment per map, no squad building, two abilities per class only (no jobs/secondary sets), no items, no XP.
+- Two hand-made maps, fixed deployment per map, no squad building beyond the created hero, no companions yet, two abilities per class only (no jobs/secondary sets), no items, no XP.
 - Raider faction is a generic stand-in. Names are generic.
 - AI is a one-ply greedy scorer.
 

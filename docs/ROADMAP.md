@@ -57,6 +57,12 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 - *In:* a creation screen (one of the [mockups](mockups/) picked by Cletus); 2–3 set companions with names, a fixed class and a short join scene; **3–4 linked battles**, each followed by a companion joining or a simple between-battle screen; tuning in `CONFIG.creation`.
 - *Out:* real story, final portraits/art, dialogue trees, a long campaign, platform decisions.
 
+**Progress**
+- [x] **Hero creation (v0.6):** mockup B wizard: Portrait → Class → Stats (BG roll, pool, Store/Recall) → Name; all six stats wired (Aim → hit/crit, Resolve → resist); the hero replaces the same-class Templar and is saved on the device.
+- [ ] Set companions (2–3) with a join scene
+- [ ] 3–4 linked battles with a between-battle screen
+- [ ] Decide what carries over (HP, wounds, loot)
+
 **Done when:** **two different heroes play noticeably differently**, the companions are remembered by name, and at the end Cletus **wants to roll a new hero**.
 
 ---

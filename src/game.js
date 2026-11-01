@@ -1,11 +1,14 @@
 // Core rules: state, CT turn order, movement, combat math. No rendering here.
 import { CONFIG } from './config.js';
 import { MAPS, resolveMap } from './maps.js';
+import { applyHero } from './hero.js';
 
 export const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]]; // N E S W
 
 // mapKey: a map id ('breach') or 1-based number; unknown/empty = CONFIG.defaultMap
-export function createState(rng = Math.random, mapKey) {
+// hero: optional created main character (src/hero.js); replaces the Templar of the same class (keeps its slot),
+// or slot 0 if the squad has no unit of that class.
+export function createState(rng = Math.random, mapKey, hero = null) {
   const m = resolveMap(mapKey) || resolveMap(CONFIG.defaultMap) || MAPS[0];
   const units = [];
   let id = 0;
@@ -22,6 +25,10 @@ export function createState(rng = Math.random, mapKey) {
         status: {}, cd: {},
       });
     }
+  }
+  if (hero) {
+    const mine = units.filter((u) => u.team === 'player');
+    applyHero(mine.find((u) => u.role === hero.role) || mine[0], hero);
   }
   return {
     mapId: m.id, mapName: m.name, w: m.width, h: m.height, heights: m.heights, terrain: m.terrain,
@@ -225,15 +232,15 @@ export function preview(s, u, t, fx = u.x, fy = u.y, opt = {}) {
   const base = u.atk * c.atkMul - def * c.defMul;
   const mul = (opt.mul ?? 1) * (opt.extraMul ?? 1);
   const dmg = Math.max(c.minDamage, Math.round(base * heightMod * c.facingMod[side] * flankMod * wallMod * mul));
-  const hit = Math.max(5, Math.min(100, c.hitChance[side] + c.hitPerHeightLevel * hAdv));
-  return { dmg, hit, side, rawSide, heightMod, hAdv, nFlank, flankMod, facingMod: c.facingMod[side], cover, wallMod, exposed: !!t.status.exposed };
+  const hit = Math.max(5, Math.min(100, c.hitChance[side] + c.hitPerHeightLevel * hAdv + (u.hitBonus || 0))); // hitBonus: hero's Aim
+  return { dmg, hit, crit: Math.max(0, c.critChance + (u.critBonus || 0)), side, rawSide, heightMod, hAdv, nFlank, flankMod, facingMod: c.facingMod[side], cover, wallMod, exposed: !!t.status.exposed };
 }
 
 // roll + apply damage from a preview
 function strike(s, p, t, extra = 0) {
   const c = CONFIG.combat;
   if (s.rng() * 100 >= p.hit) return { ...p, miss: true, amount: 0, extra: 0 };
-  const crit = s.rng() * 100 < c.critChance;
+  const crit = s.rng() * 100 < (p.crit ?? c.critChance);
   const v = 1 + (s.rng() * 2 - 1) * c.variance;
   const amount = Math.max(c.minDamage, Math.round(p.dmg * v * (crit ? c.critMul : 1)));
   t.hp = Math.max(0, t.hp - amount - extra);
@@ -402,6 +409,7 @@ export function abilityPreview(s, u, id, t, fx = u.x, fy = u.y) {
   }
   if (id === 'pinningShot') out.effects.push(`Pinned next turn: MOV −${a.pinMovePenalty}, JUMP ≤${a.pinJumpCap}`);
   if (id === 'feint') out.effects.push('Target turns to face you, showing its back to the other side');
+  if (t.resist > 0 && ['shieldBash', 'hook', 'pinningShot', 'feint'].includes(id)) out.effects.push(`${t.name} may resist (${t.resist}%)`);
   return out;
 }
 
@@ -418,7 +426,11 @@ export function useAbility(s, u, id, t) {
   u.facing = facingTo(u.x, u.y, t.x, t.y, u.facing);
   const r = strike(s, pv.p, t, 0);
   Object.assign(res, { miss: r.miss, amount: r.amount, crit: r.crit, side: r.side });
-  if (!r.miss) {
+  // Resolve (hero stat): a chance to shrug off displacement, Pin and Feint's turn. Only rolled when resist > 0.
+  const resisted = !r.miss && t.hp > 0 && t.resist > 0 && ['shieldBash', 'hook', 'pinningShot', 'feint'].includes(id) && s.rng() * 100 < t.resist;
+  if (resisted) res.tags.push({ x: t.x, y: t.y, text: 'RESISTED' });
+  res.resisted = resisted;
+  if (!r.miss && !resisted) {
     if (pv.disp) {
       const o = pv.disp;
       if (o.kind === 'move' && t.hp > 0) { const from = { x: t.x, y: t.y }; t.x = o.dest.x; t.y = o.dest.y; res.moves.push({ id: t.id, from, to: { ...o.dest } }); }

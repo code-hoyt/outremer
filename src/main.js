@@ -3,6 +3,8 @@ import { CONFIG } from './config.js';
 import * as G from './game.js';
 import { planTurn } from './ai.js';
 import { MAPS, resolveMap } from './maps.js';
+import { loadHero, saveHero, portraitSvg } from './hero.js';
+import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js';
 
 const V = CONFIG.view, P = CONFIG.palette;
 const $ = (id) => document.getElementById(id);
@@ -24,16 +26,19 @@ const lastMap = () => { try { return resolveMap(localStorage.getItem(MAP_KEY)); 
 // ---------------------------------------------------------------- state
 let S, ui, anims, floats, layout;
 let mapId = (mapParam || lastMap() || resolveMap(CONFIG.defaultMap) || MAPS[0]).id;
+let playedBefore = !!lastMap(); // first visit → the title preselects "Create your hero"
+let hero = loadHero(); // the created main character (localStorage), or null = default squad
 let picker = null; // { kind: 'title'|'end', items: [{ label, sub, act }], index } while the overlay menu is up
 function reset(id = mapId, { start = true } = {}) {
   mapId = id;
   try { localStorage.setItem(MAP_KEY, id); } catch (_) { /* private mode */ }
-  S = G.createState(makeRng(), id);
+  S = G.createState(makeRng(), id, hero);
   ui = { mode: 'busy', cursor: { x: 0, y: 0 }, menu: null, menuIndex: 0, moveInfo: null, target: null, rangeOf: null, lastTap: null, ability: null };
   anims = new Map(); floats = [];
   $('title').querySelector('span').textContent = S.mapName;
   if (layout) resize();
   if (!start) return;
+  playedBefore = true;
   closePicker();
   nextTurn();
 }
@@ -46,19 +51,33 @@ function openPicker(kind) {
   let items;
   if (kind === 'title') {
     items = MAPS.map((m, i) => ({ label: mapLabel(m, i), sub: m.blurb, act: () => reset(m.id) }));
+    const mk = { id: hero ? 'new-hero' : 'create-hero', label: hero ? 'New hero' : 'Create your hero',
+      sub: hero ? `Roll a new main character (replaces ${esc(hero.name)})` : 'Portrait, class, stats, name', act: startCreator };
+    if (hero) items.push(mk); else items.unshift(mk);
     $('ov-title').textContent = 'OUTREMER';
-    $('ov-text').textContent = 'Choose a battlefield';
+    $('ov-text').innerHTML = (hero ? `<span class="hero-line"><span class="hero-por">${portraitSvg(hero.portrait)}</span>${esc(hero.name)} · ${CONFIG.creation.classLabel[hero.role]}</span><br>` : '')
+      + (hero ? 'Choose a battlefield' : 'Make your hero, or fight with the default squad');
   } else {
     const next = MAPS[(cur + 1) % MAPS.length];
     items = [{ id: 'restart', label: 'Play again', sub: MAPS[cur].name, act: () => reset(mapId) }];
     if (MAPS.length > 1) items.push({ id: 'next-map', label: `Next map: ${next.name}`, act: () => reset(next.id) });
     items.push({ id: 'choose-map', label: 'Choose map', act: () => openPicker('title') });
   }
-  picker = { kind, items, index: kind === 'title' ? Math.max(0, cur) : 0 };
+  picker = { kind, items, index: kind === 'title' ? (hero ? Math.max(0, cur) : playedBefore ? Math.max(0, cur) + 1 : 0) : 0 }; // first visit: "Create your hero"
   $('ov-list').innerHTML = items.map((it, i) =>
     `<button class="btn pick" ${it.id ? `id="${it.id}"` : ''} data-pick="${i}">${it.label}${it.sub ? `<small>${it.sub}</small>` : ''}</button>`).join('');
   syncPicker();
   $('overlay').classList.remove('hidden');
+  syncPad();
+}
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+// "New hero": the BG-style creation wizard (src/create.js). Done = save + rebuild the squad + back to the title.
+function startCreator() {
+  closePicker();
+  openCreator({
+    onDone: (h) => { hero = h; saveHero(h); reset(mapId, { start: false }); openPicker('title'); },
+    onCancel: () => openPicker('title'),
+  });
   syncPad();
 }
 function closePicker() { picker = null; $('overlay').classList.add('hidden'); syncPad(); }
@@ -531,6 +550,7 @@ function pressStep(step) { // vertical pad: move the menu highlight, skipping gr
 
 // which pad layout fits the current state
 function padMode() {
+  if (creatorOpen()) return 'off';
   if (picker) return 'menu';
   if (!isPlayerTurn()) return 'off';
   if (ui.mode === 'menu' || ui.mode === 'actmenu') return 'menu';
@@ -698,6 +718,7 @@ if (C.keyboard) {
   const KEYS = { ArrowUp: 0, KeyW: 0, ArrowRight: 1, KeyD: 1, ArrowDown: 2, KeyS: 2, ArrowLeft: 3, KeyA: 3 };
   let last = 0;
   window.addEventListener('keydown', (e) => {
+    if (creatorOpen()) { creatorKey(e); return; }
     if (e.code in KEYS) { e.preventDefault(); const now = performance.now(); if (e.repeat && now - last < C.repeatRateMs) return; last = now; pressDir(KEYS[e.code]); }
     else if (['KeyZ', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); if (!e.repeat) pressA(); }
     else if (['KeyX', 'Escape', 'Backspace'].includes(e.code)) { e.preventDefault(); if (!e.repeat) pressB(); }
@@ -821,7 +842,7 @@ function finish() {
 function updateOrder() {
   const list = G.previewOrder(S);
   $('order').innerHTML = list.map((u, i) =>
-    `<button class="chip ${u.team} ${i === 0 && S.active ? 'now' : ''}" data-uid="${u.id}" title="${u.name}">${roleGlyph(u.role)}<small>${i === 0 ? '' : i}</small></button>`).join('');
+    `<button class="chip ${u.team} ${u.hero ? 'hero' : ''} ${i === 0 && S.active ? 'now' : ''}" data-uid="${u.id}" title="${u.name}">${roleGlyph(u.role)}<small>${i === 0 ? '' : i}</small></button>`).join('');
 }
 const roleGlyph = (r) => ({ knight: '⚔', sergeant: '↟', archer: '➶', skirmisher: '»' }[r] || '?');
 // tapping a chip = FFTA2's L/R unit cycling: look at that unit
@@ -837,14 +858,20 @@ function unitInfo(u) {
   const col = f > 0.5 ? P.hpGood : f > 0.25 ? P.hpMid : P.hpLow;
   const r = CONFIG.roles[u.role];
   const terr = Object.entries(r.terrainCost || {}).map(([k, v]) => `${CONFIG.terrain[k].short || CONFIG.terrain[k].name[0]}${v}`).join(' ');
-  return `<div class="row1"><span class="name ${u.team}">${u.name}</span><span class="hpt">HP <b>${u.hp}</b>/${u.maxHp}</span></div>
+  const row1 = `<div class="row1"><span class="name ${u.team}">${esc(u.name)}</span><span class="hpt">HP <b>${u.hp}</b>/${u.maxHp}</span></div>`;
+  if (u.hero) return `<div class="herorow"><span class="hero-por" title="${esc(u.name)} (your hero)">${portraitSvg(u.hero.portrait)}</span><div>${row1}${unitInfoRest(u, f, col, r, terr)}</div></div>`;
+  return row1 + unitInfoRest(u, f, col, r, terr);
+}
+function unitInfoRest(u, f, col, r, terr) {
+  return `
     <div class="hpbar"><div style="width:${f * 100}%;background:${col}"></div></div>
     <div class="stats"><span>ATK <b>${u.atk}</b></span><span>DEF <b>${u.def}</b></span><span>SPD <b>${u.spd}</b></span>
     <span>MOV <b>${u.move}</b></span><span>JMP <b>${u.jump}</b></span><span>RNG <b>${r.minRange}-${r.maxRange}${r.straightLine ? 'L' : ''}</b></span>
-    <span>Face <b>${FACE_ARROW[u.facing]}</b></span>${terr ? `<span>Terr <b>${terr}</b></span>` : ''}</div>
+    <span>Face <b>${FACE_ARROW[u.facing]}</b></span>${terr ? `<span>Terr <b>${terr}</b></span>` : ''}${u.hero ? heroExtras(u) : ''}</div>
     ${statusLine(u)}`;
 }
 
+const heroExtras = (u) => (u.hitBonus ? `<span>Hit <b>${u.hitBonus > 0 ? '+' : ''}${u.hitBonus}%</b></span>` : '') + (u.resist ? `<span>Res <b>${u.resist}%</b></span>` : '');
 function statusLine(u) {
   const st = Object.keys(u.status || {}).filter((k) => STATUS[k]);
   const cds = Object.entries(u.cd || {}).filter(([, v]) => v > 0).map(([id, v]) => `${CONFIG.abilities[id].short} CD${v}`);
@@ -949,7 +976,7 @@ requestAnimationFrame(loop);
 
 // ---------------------------------------------------------------- test/debug hook
 window.__outremer = {
-  get state() { return S; }, get mode() { return ui.mode; }, get mapId() { return mapId; },
+  get state() { return S; }, get hero() { return hero; }, get creator() { return creatorState(); }, get mode() { return ui.mode; }, get mapId() { return mapId; },
   get picker() { return picker ? { kind: picker.kind, index: picker.index, items: picker.items.map((it) => it.label) } : null; }, get cursor() { return { ...ui.cursor }; },
   get menuIndex() { return ui.menuIndex; }, get lastResult() { return lastResult; },
   get camSettled() { return !cam.follow; }, get padMode() { return padMode(); },
