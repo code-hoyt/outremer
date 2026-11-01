@@ -18,7 +18,7 @@ Battle only: 3 Templars vs 3 Raiders on an 8×8 height-mapped iso map. On your u
 
 Future loop (not built, Stage 2): **create your hero → fight → a set companion joins → next fight**, with trade-off upgrades between battles. See [Main character & party](#main-character--party-baldurs-gate-style-structure).
 
-## Main character & party (Baldur's Gate–style structure)
+## Main character & party (Baldur's Gate-style structure)
 *Decided with Cletus (after the v0.5 playtest).* The structure borrows from Baldur's Gate 1/2; the rules don't. **Combat stays our tactics system, not D&D.**
 
 **Decisions**
