@@ -10,13 +10,46 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the
 2. **Customization, and every playthrough feels different.** Squad building, class mixes, and (later) variable maps/encounters.
 3. **Trade-off upgrades over pure power.** An upgrade should change *how* a unit plays (e.g. heavier armor = tougher but shorter move / lower jump), not just make numbers bigger.
 4. **Story later, with room for mythology.** Leave hooks (relics, legends, the uncanny) without committing now.
-5. **Squad building where classes move differently** (FFTA-style): class/race determines move, jump and terrain affinity.
+5. **Party building where classes move differently** (FFTA-style movement): class determines move, jump and terrain affinity. The party is your created hero plus set companions (BG-style), not a menu-built squad.
 6. **Flanking and positioning are central** to combat.
 
 ## Core loop (slice)
 Battle only: 3 Templars vs 3 Raiders on an 8×8 height-mapped iso map. On your unit's turn: **Move** (optional) and **Act** (optional) in either order, then the turn ends. Win by defeating all raiders; lose if all Templars fall. Victory/Defeat screen → Play again.
 
-Future loop (not built): battle → rewards → squad management/upgrades (trade-offs) → choose next battle.
+Future loop (not built, Stage 2): **create your hero → fight → a set companion joins → next fight**, with trade-off upgrades between battles. See [Main character & party](#main-character--party-baldurs-gate-style-structure).
+
+## Main character & party (Baldur's Gate–style structure)
+*Decided with Cletus (after the v0.5 playtest).* The structure borrows from Baldur's Gate 1/2; the rules don't. **Combat stays our tactics system, not D&D.**
+
+**Decisions**
+- **One main character you create.** Everyone else in the party is a **set companion** with their own name, class, personality and story, who joins over the course of the game (BG-style). This replaces generic FFTA-style squad building from a menu.
+- **Creation choices: stats, class, portrait. That's all.** The background is always the same (one fixed origin, so the story can be written around it). Name entry is a formality on the confirm step.
+- **Stats are rolled, BG1/BG2-style.** Reroll as often as you like. You can take points out of one stat into a shared pool and spend them on another, within a floor and a cap. Store / Recall keeps one roll you liked.
+- Classes keep their movement identity: **MOV and JUMP come from class only and are never rolled** (no race movement modifiers either; winged race parked).
+- Story stays unlocked.
+
+**Proposed stat set (draft, to confirm with Cletus).** Six rolled stats, each 3–18 (3d6), 10 is neutral. Each one feeds an existing combat number, so nothing new has to be learned in battle:
+
+| Stat | Feeds | Draft per point from 10 |
+|---|---|---|
+| **Might** (MGT) | ATK: every attack and damaging ability | ±0.5 ATK |
+| **Endurance** (END) | max HP | ±1.5 HP |
+| **Fortitude** (FOR) | DEF | ±0.5 DEF |
+| **Agility** (AGI) | SPD (how often you get a turn in the CT order) | ±0.5 SPD |
+| **Aim** (AIM) | hit chance (today fixed by facing) and crit chance | ±2% hit, ±0.5% crit |
+| **Resolve** (RES) | resisting statuses (Pin, Feint's turn, Exposed) and being shoved/pulled | ±5% resist |
+
+Class base stats from `CONFIG.roles` stay the backbone; rolled stats nudge them (a great roll is roughly +15–20%, not a different class). Numbers would live in `CONFIG.creation` (roll dice, floor, cap, per-point mods).
+
+**Mockups** (static, not in the game): [`docs/mockups/`](mockups/). A = classic BG roll sheet on one screen, B = step-by-step wizard, C = Templar dossier with a mini iso movement preview. They use a new d-pad state, a **4-way cross** (▲▼ pick a row, ◀▶ −/+ or change choice), alongside taps.
+
+**Open questions**
+- Is this the right stat set, and how does each map to combat (above is a draft)? Does Aim make facing's fixed hit% too swingy?
+- Stat ranges: 3–18 with floor 3 / cap 18, or a narrower band (e.g. 6–16)? Class minimums like BG (Knight needs MGT 9)?
+- Do companions use the same six stats (fixed, hand-authored), and does the hero's class limit which companions want to join?
+- How are companions recruited and limited: party cap (BG = 6; our maps suit 3–5), fixed story joins vs optional ones you can turn down, swapping at camp?
+- Can the main character die? BG: hero death = game over. Alternatives: knocked out but the fight continues, or a wound system (ties into permadeath vs wounds).
+- Portrait art style: painted BG-style busts, pixel art matching the battle sprites, or line-art icons? Pre-made set to pick from vs a builder (face/helm/colours)?
 
 ## Turn order — CT system (FFTA-like)
 - Every unit has a **CT** counter. Time ticks; each tick every living unit gains CT = its **SPD**.
@@ -174,7 +207,7 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 - AI is a one-ply greedy scorer.
 
 ## Open questions
-- Squad building: classes vs. "races"/origins (Frankish knights, local Turcopoles, Armenian/Syriac allies?) and how they gate movement profiles.
+- ~~Squad building~~ → replaced by one created hero + set companions (see Main character & party). Companion origins (Frankish knights, local Turcopoles, Armenian/Syriac allies?) remain a story question.
 - Trade-off upgrades: armor weight ⇄ MOV/JUMP, shield ⇄ side-hit protection, banners that grant flank bonuses to nearby allies?
 - Should facing protect more (e.g. shields block some front damage) to make flanking even more decisive?
 - Reactions/zones of control vs. keeping turns snappy (pillar 1). v0.4 answer: only Brace, set on your own turn and resolved automatically. Should more reactions follow this pattern?

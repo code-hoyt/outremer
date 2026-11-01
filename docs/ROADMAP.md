@@ -43,18 +43,21 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 ---
 
 ## Stage 2 — Core loop prototype
-**Purpose:** prove that building a squad and carrying it through a run is fun.
+**Purpose:** prove that making a hero and growing a party around them is fun. Baldur's Gate 1/2 structure (create one main character, set companions join), FFTA-style tactics combat, no D&D rules. See [DESIGN.md → Main character & party](DESIGN.md#main-character--party-baldurs-gate-style-structure).
+
+**Loop:** create hero → fight → a set companion joins → next fight.
 
 **Questions it answers**
-- Do classes × races give enough meaningfully different squads?
-- Do trade-off upgrades create real decisions, not just "pick the bigger number"?
-- How long should a run be, and what carries over between battles (HP, wounds, loot)?
+- Is BG-style creation (rolled stats you can redistribute, class, portrait; fixed background) fun on a phone, and does it make each hero feel different?
+- Do rolled stats matter in a fight without overshadowing class movement and positioning?
+- Do set companions, with their own class and a few lines of story, make the party feel like *people* rather than units?
+- Do trade-off upgrades between battles create real decisions? What carries over (HP, wounds, loot)?
 
 **Scope**
-- *In:* squad building from classes and races; trade-off upgrades; a short run of **3–5 linked battles** with rewards/choices between them; simple between-battle screens.
-- *Out:* story, final art, a long campaign, platform decisions.
+- *In:* a creation screen (one of the [mockups](mockups/) picked by Cletus); 2–3 set companions with names, a fixed class and a short join scene; **3–4 linked battles**, each followed by a companion joining or a simple between-battle screen; tuning in `CONFIG.creation`.
+- *Out:* real story, final portraits/art, dialogue trees, a long campaign, platform decisions.
 
-**Done when:** **two different squads play noticeably differently**, and at the end of a run Cletus **wants one more run**.
+**Done when:** **two different heroes play noticeably differently**, the companions are remembered by name, and at the end Cletus **wants to roll a new hero**.
 
 ---
 
@@ -105,7 +108,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 ## Parking lot
 Ideas that come up outside the current stage. Add freely; review at each stage boundary.
 - Mythology layer: relics, saints' legends, djinn/desert folklore *(Stage 3)*
-- Permadeath vs wounds *(Stage 2)*
+- Permadeath vs wounds; does the hero's death end the game (BG) *(Stage 2)*
 - Procedural maps, random events, relic drafts for run variety *(Stage 2)*
 - Reactions or zones of control vs keeping turns snappy *(Stage 1–2)*
 - Shields blocking some front damage, to make flanking even more decisive *(Stage 1 balance)*

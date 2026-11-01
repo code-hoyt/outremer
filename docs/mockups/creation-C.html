@@ -1,0 +1,55 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="mock.css"><script src="mock.js"></script><script src="pad.js"></script>
+<style>
+.parch { position: relative; margin-top: 4px; border-radius: 6px; padding: 10px 12px 10px; color: #3b2a1a;
+  background: radial-gradient(ellipse at 30% 20%, #efe3c6, #dcc89c 70%, #c9b07e); box-shadow: 0 0 0 2px #8a6a3e, 0 4px 18px rgba(0,0,0,.5), inset 0 0 30px rgba(120,80,30,.35); }
+.head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #8a6a3e; padding-bottom: 3px; }
+.head b { font-size: 13px; letter-spacing: 3px; } .head span { font-size: 11px; font-style: italic; color: #6b5233; }
+.top2 { display: flex; gap: 10px; margin-top: 8px; }
+.oval { width: 104px; height: 128px; border-radius: 50%; overflow: hidden; border: 3px double #6b4a22; flex: 0 0 auto; position: relative; }
+.who { flex: 1; }
+.who .nm { font-size: 22px; font-style: italic; border-bottom: 1px dotted #8a6a3e; }
+.who .lbl { font: 9px system-ui, sans-serif; letter-spacing: 1px; color: #7a6040; text-transform: uppercase; margin-top: 6px; }
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 3px; }
+.tab { font-size: 13px; text-align: center; padding: 4px 0; border: 1px solid #a88a5c; border-radius: 4px; color: #6b5233; }
+.tab.on { background: #8e1119; color: #fff; border-color: #5e0a10; }
+.mid { display: flex; gap: 8px; align-items: center; margin-top: 8px; border-top: 1px solid #b89a68; border-bottom: 1px solid #b89a68; padding: 4px 0; }
+.mid .txt { font-size: 12px; line-height: 1.35; } .mid .txt b { font-size: 15px; }
+.st { display: grid; grid-template-columns: 82px 1fr 26px 52px; align-items: center; gap: 6px; height: 33px; padding: 0 4px; border-radius: 4px; }
+.st.sel { background: rgba(142,17,25,.13); box-shadow: inset 3px 0 0 #8e1119; }
+.st .n { font-size: 14px; } .st .n small { display: block; font: 9px system-ui; color: #7a6040; }
+.pips { display: flex; gap: 2px; } .pips i { flex: 1; height: 9px; border-radius: 1px; background: rgba(59,42,26,.15); }
+.pips i.f { background: #3b2a1a; } .pips i.x { background: #8e1119; }
+.st .v { font-size: 19px; font-weight: bold; text-align: right; } .st .d { font: 11px system-ui; color: #5a4328; text-align: right; }
+.foot { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+.unspent { font-size: 13px; } .unspent b { color: #8e1119; font-size: 16px; letter-spacing: 2px; }
+.seal { width: 62px; height: 62px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #c42a2f, #7a0d12); color: #f3d9a0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,.4); }
+.seal b { font-size: 20px; line-height: 1; }
+.chips { display: flex; gap: 6px; } .chips span { font-size: 12px; border: 1px solid #8a6a3e; border-radius: 4px; padding: 5px 8px; }
+.under { margin-top: 6px; font: 11px system-ui; color: #c9bea6; text-align: center; } .under b { color: #fff; }
+</style></head><body><div class="phone">
+<div class="top"><div class="title">OUTREMER <span>Create your hero · mockup C: dossier</span></div></div>
+<div class="body">
+ <div class="parch">
+  <div class="head"><b>✠ DOSSIER</b><span>A new brother, sworn this day</span></div>
+  <div class="top2">
+    <div class="oval"><script>document.write(bust('knight', { bg: '#b89a68', cloth: '#efe7d4' }))</script><span class="ph-tag" style="top:60%;left:50%;transform:translateX(-50%)">PLACEHOLDER</span></div>
+    <div class="who"><div class="lbl">Name</div><div class="nm">Brother Aimery</div>
+      <div class="lbl">Calling ◀ ▶</div><div class="tabs"><div class="tab on">Knight</div><div class="tab">Sergeant</div><div class="tab">Archer</div><div class="tab">Scout</div></div></div>
+  </div>
+  <div class="mid"><div id="iso"></div><div class="txt"><b>Knight</b><br>MOV 3 · JUMP 1<br>Can't climb the 2-high ledge; sand and rock slow him.<br><i style="color:#6b5233">Shield Bash · Shield Wall</i></div></div>
+  <div id="stats" style="margin-top:4px"></div>
+  <div class="foot"><div><div class="unspent">Unspent <b>✠✠</b></div><div class="chips" style="margin-top:4px"><span>Store</span><span>Recall</span></div></div>
+    <div class="small" style="color:#6b5233;text-align:center">Total 76<br>3–18 each</div><div class="seal"><b>⚄</b>REROLL</div></div>
+ </div>
+ <div class="under">Marches to war with: HP <b>51</b> · ATK <b>17</b> · DEF <b>11</b> · SPD <b>6</b> · Hit <b>+2%</b> · Resist <b>+10%</b></div>
+</div>
+<script>
+document.getElementById('iso').innerHTML = isoPreview(3, 1, { tw: 18, lh: 0.42, reach: '#4f86b8' });
+const der = { MGT: 'ATK 17', END: 'HP 51', FOR: 'DEF 11', AGI: 'SPD 6', AIM: 'Hit +2%', RES: 'Res +10%' };
+const rolled = { MGT: 15 }; // one point moved in from the pool shows in red
+document.getElementById('stats').innerHTML = STATS.map(([k, n, f], i) => { const v = ROLL[k], base = rolled[k] || v;
+  const pips = Array.from({ length: 18 }, (_, j) => `<i class="${j < base ? 'f' : j < v ? 'x' : ''}"></i>`).join('');
+  return `<div class="st ${i === 0 ? 'sel' : ''}"><span class="n">${n}<small>${k} → ${f}</small></span><span class="pips">${pips}</span><span class="v">${v}</span><span class="d">${der[k]}</span></div>`; }).join('');
+document.write(panel({ hint: '▲▼ line · ◀▶ strike out / ink in a point · A on the seal rerolls', held: 'u', a: 'select', b: 'back' }));
+</script>
+</div></body></html>

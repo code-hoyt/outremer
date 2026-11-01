@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="mock.css"><script src="mock.js"></script><script src="pad.js"></script>
+<style>
+.steps { display: flex; gap: 4px; margin: 6px 0 10px; }
+.st { flex: 1; text-align: center; font: 11px system-ui, sans-serif; color: #7d7262; padding: 6px 0 5px; border-bottom: 3px solid #3a3236; }
+.st b { display: block; font: bold 14px Georgia, serif; }
+.st.done { color: #a99d88; border-color: #6a5a46; } .st.done b::after { content: ' ✓'; color: #5fd36a; font-size: 11px; }
+.st.now { color: #ffd85a; border-color: #ffd85a; }
+.q { font-size: 20px; text-align: center; margin: 2px 0 8px; letter-spacing: 1px; }
+.car { display: flex; align-items: stretch; gap: 6px; }
+.arr { width: 30px; display: flex; align-items: center; justify-content: center; color: #d8c48f; font-size: 22px; border-radius: 8px; background: rgba(42,36,48,.7); }
+.card { flex: 1; border: 2px solid #d8c48f; border-radius: 12px; background: rgba(18,15,24,.93); padding: 10px 12px; }
+.cname { display: flex; justify-content: space-between; align-items: baseline; } .cname h2 { margin: 0; font-size: 24px; letter-spacing: 1px; }
+.role { font-size: 13px; color: #c9bea6; margin: 2px 0 6px; font-style: italic; }
+.prev { display: flex; justify-content: center; margin: 2px 0 0; }
+.legend { font: 10px system-ui, sans-serif; color: #8d816c; text-align: center; margin-bottom: 6px; }
+.mv { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; text-align: center; margin: 6px 0; }
+.mv div { background: #2a2430; border-radius: 7px; padding: 4px 0; font: 10px system-ui, sans-serif; color: #8d816c; }
+.mv div b { display: block; font: bold 18px Georgia, serif; color: #fff; }
+.abil { font-size: 13px; margin-top: 6px; } .abil div { padding: 4px 0; border-top: 1px solid #3a3236; } .abil b { color: #d8c48f; } .abil span { font: 11px system-ui, sans-serif; color: #a99d88; }
+.dots { text-align: center; margin: 8px 0 0; letter-spacing: 6px; color: #4f4636; } .dots b { color: #ffd85a; }
+.mini { position: absolute; right: 14px; top: 64px; width: 42px; height: 42px; border-radius: 50%; overflow: hidden; border: 2px solid #6a5a46; }
+</style></head><body><div class="phone">
+<div class="top"><div class="title">OUTREMER <span>Create your hero · mockup B: wizard</span></div></div>
+<div class="body">
+  <div class="steps"><div class="st done"><b>1</b>Portrait</div><div class="st now"><b>2</b>Class</div><div class="st"><b>3</b>Stats</div><div class="st"><b>4</b>Name</div></div>
+  <div class="q">How do you fight?</div>
+  <div class="car"><div class="arr">◀</div>
+  <div class="card">
+    <div class="cname"><h2>Sergeant</h2><span class="small">2 / 4</span></div>
+    <div class="role">Spear. Solid all-rounder that holds a line at reach 2.</div>
+    <div class="prev"><script>document.write(isoPreview(4, 2, { tw: 30, lh: 0.42 }))</script></div>
+    <div class="legend"><span style="color:#5aa7e8">■</span> where you can move this turn · climbs 2 levels</div>
+    <div class="mv"><div><b>4</b>MOV</div><div><b>2</b>JUMP</div><div><b>1–2</b>RANGE</div><div><b>8</b>SPD</div></div>
+    <div class="abil"><div><b>Brace</b> <span>— stop the first foe that walks into your spear</span></div><div><b>Hook</b> <span>— pull a foe 2 tiles away one step toward you</span></div></div>
+  </div>
+  <div class="arr">▶</div></div>
+  <div class="dots">● <b>●</b> ● ●</div><div class="small" style="text-align:center;margin-top:10px">Step 3 is the roll sheet from mockup A, full-screen. Step 4: name + summary, A to begin. Portraits are placeholder art.</div>
+  <div class="mini"><script>document.write(bust('sergeant'))</script></div>
+</div>
+<script>document.write(panel({ hint: '◀▶ class · A next: Stats · B back to Portrait', held: 'l', dim: 'u d', cap: '◀▶ choose', a: 'next', b: 'back' }));</script>
+</div></body></html>
