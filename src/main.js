@@ -95,7 +95,7 @@ function openPicker(kind, arg = null) {
       index = playedBefore ? Math.max(0, maps.findIndex((m) => m.id === mapId)) + 1 : 0; // first visit: "Create your hero"
     }
   } else if (kind === 'missions') {
-    // FFTA2-style quest board: vague titles, you find out who it is when you win
+    // FFTA2-style quest board: vague titles; the brief shows who you're going to save
     if (S.over || (mission && mission.kind === 'recruit')) reset(skirmishMaps().some((m) => m.id === mapId) ? mapId : CONFIG.defaultMap, { start: false }); // idle current squad behind the board
     title('MISSION BOARD');
     items = MISSIONS.map(missionItem);
@@ -106,12 +106,13 @@ function openPicker(kind, arg = null) {
   } else if (kind === 'brief') {
     const m = arg;
     title(m.title.toUpperCase());
-    $('ov-text').innerHTML = `<span class="brief"><span class="comp-por unknown">${compImg(m.companion)}<b>?</b></span><span>${esc(m.intro)}</span></span>`
-      + `<span class="party-note">Win the battle. The ${esc(m.alias.toLowerCase())} (green ring) fights on their own and must survive.</span>`;
+    const c = companionDef(m.companion);
+    $('ov-text').innerHTML = `<span class="brief"><span class="comp-por">${compImg(m.companion)}</span><span><b class="who">${esc(c.name)}</b> <small>${esc(CONFIG.creation.classLabel[c.role])}</small><br>${esc(m.intro)}</span></span>`
+      + `<span class="party-note">Win the battle. ${esc(c.short)} (green ring) fights on their own and must survive.</span>`;
     items = [{ id: 'begin', label: 'Begin', sub: resolveMap(m.map).name, act: () => reset(m.map, { mission: m }) },
       { id: 'back-board', label: 'Back', act: () => openPicker('missions', m) }];
   } else if (kind === 'recruit') {
-    // FFTA2: you learn who it was, then choose. Declining is final for now (DESIGN open question).
+    // their join offer, then you choose. Declining is final for now (DESIGN open question).
     const m = mission, c = companionDef(m.companion), t = traitDef(c.trait);
     title(c.name.toUpperCase());
     $('ov-text').innerHTML = `<span class="brief"><span class="comp-por">${compImg(m.companion)}</span><span>${esc(m.outro)}</span></span>`
@@ -972,7 +973,7 @@ function finish() {
     openPicker('end');
     $('ov-title').textContent = win ? 'VICTORY' : 'DEFEAT';
     const fell = S.units.find((u) => u.mustSurvive && u.hp <= 0);
-    $('ov-text').textContent = win ? 'The field is held. Deus vult.' : fell ? `The ${fell.name.toLowerCase()} has fallen. The mission is lost.` : 'Your company has fallen.';
+    $('ov-text').textContent = win ? 'The field is held. Deus vult.' : fell ? `${fell.name} has fallen. The mission is lost.` : 'Your company has fallen.';
   }, 500);
 }
 
@@ -982,9 +983,9 @@ function updateOrder() {
   $('order').innerHTML = list.map((u, i) =>
     `<button class="chip ${u.team} ${u.hero ? 'hero' : ''} ${u.companion ? 'comp' : ''} ${u.npc ? 'npc' : ''} ${i === 0 && S.active ? 'now' : ''}" data-uid="${u.id}" title="${esc(u.name)}">${chipFace(u)}<small>${i === 0 ? '' : i}</small></button>`).join('');
 }
-// hero / companions show their face in the turn strip (unknown NPC: silhouette + ?)
+// hero / companions (and the recruit-mission ally) show their face in the turn strip
 const chipFace = (u) => u.hero ? `<span class="chip-por">${portraitSvg(u.hero.portrait)}</span>`
-  : u.companion ? `<span class="chip-por ${u.unknown ? 'unknown' : ''}"><img src="${u.portraitImg}" alt="">${u.unknown ? '<b>?</b>' : ''}</span>` : roleGlyph(u.role);
+  : u.companion ? `<span class="chip-por"><img src="${u.portraitImg}" alt=""></span>` : roleGlyph(u.role);
 const roleGlyph = (r) => ({ knight: '⚔', sergeant: '↟', archer: '➶', skirmisher: '»' }[r] || '?');
 // tapping a chip = FFTA2's L/R unit cycling: look at that unit
 $('order').addEventListener('click', (e) => {
@@ -1002,9 +1003,8 @@ function unitInfo(u) {
   const row1 = `<div class="row1"><span class="name ${u.team}">${esc(u.name)}</span><span class="hpt">HP <b>${u.hp}</b>/${u.maxHp}</span></div>`;
   if (u.companion) {
     const t = traitDef(u.trait);
-    const por = `<span class="hero-por comp-por ${u.unknown ? 'unknown' : ''}" title="${esc(u.name)}"><img src="${u.portraitImg}" alt="">${u.unknown ? '<b>?</b>' : ''}</span>`;
-    const tline = u.unknown ? `<div class="traitline">${esc(CONFIG.party.npcLabel)} · fights on their own · must survive</div>`
-      : `<div class="traitline"><b>${esc(t.name)}</b> ＋${esc(t.pro)} · －${esc(t.con)}${u.npc ? ` · ${esc(CONFIG.party.npcLabel)}` : ''}</div>`;
+    const por = `<span class="hero-por comp-por" title="${esc(u.name)}"><img src="${u.portraitImg}" alt=""></span>`;
+    const tline = `<div class="traitline"><b>${esc(t.name)}</b> ＋${esc(t.pro)} · －${esc(t.con)}${u.npc ? ` · ${esc(CONFIG.party.npcLabel)}, must survive` : ''}</div>`;
     return `<div class="herorow">${por}<div>${row1}${unitInfoRest(u, f, col, r, terr)}${tline}</div></div>`;
   }
   if (u.hero) return `<div class="herorow"><span class="hero-por" title="${esc(u.name)} (your hero)">${portraitSvg(u.hero.portrait)}</span><div>${row1}${unitInfoRest(u, f, col, r, terr)}</div></div>`;
@@ -1144,6 +1144,7 @@ window.__outremer = {
   unitClient(id) { const u = S.units[id]; const r = cv.getBoundingClientRect(); const p = unitScreenPos(u, performance.now()); return { x: r.left + p.x, y: r.top + p.y - 25 * layout.k }; },
   facingClient(d) { const r = cv.getBoundingClientRect(); const p = facingArrowPos(S.active, d); return { x: r.left + p.x, y: r.top + p.y }; },
   get party() { return JSON.parse(JSON.stringify(party)); }, get mission() { return mission ? mission.id : null; },
+  infoHtml(id) { return unitInfo(S.units[id]); }, // the unit info panel's markup for any unit (tests)
   get intents() { return currentIntents().map((i) => ({ from: i.from.id, to: i.to.id })); },
   // auto-resolve for tests: every enemy falls, the battle ends as a victory (normal finish flow)
   forceWin() { if (S.over) return false; for (const u of S.units) if (u.team === 'enemy') u.hp = 0; G.checkOver(S); finish(); return S.over; },

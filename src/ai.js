@@ -75,7 +75,10 @@ export function planTurn(s, u, opts = {}) {
   const abil = abilitiesOf(u).filter((a) => abilityReady(u, a.id));
   const mayAct = s.active === u ? canAct(s) : !skittishAt(s, u); // Wren's Skittish: no action this turn
   let best = null;
-  const offer = (score, tile, action) => { if (!best || score > best.score) best = { score, tile, action }; };
+  const npcMul = (CONFIG.difficulty && CONFIG.difficulty.npcTargetMul) ?? 1; // raiders' interest in the recruit-mission stranger
+  // opts.noise (sim only): random jitter on every option, a stand-in for a human's imperfect choices
+  const jit = opts.noise ? () => opts.noise * (2 * (opts.rng || Math.random)() - 1) : () => 0;
+  const offer = (score, tile, action) => { score += jit(); if (!best || score > best.score) best = { score, tile, action }; };
   for (const tile of tiles) {
     let baseScore = A.wHeight * heightAt(s, tile.x, tile.y) - A.wDanger * (u.npc ? A.npcDangerMul : 1) * dangerAt(s, u, tile.x, tile.y);
     if (!opts.fixed && braceIntercept(s, u, pathTo(tile.x, tile.y))) baseScore -= A.wAvoidBrace;
@@ -87,7 +90,7 @@ export function planTurn(s, u, opts = {}) {
     let bestAttack = -Infinity;
     for (const t of mayAct ? targetsFrom(s, u, tile.x, tile.y) : []) {
       const p = preview(s, u, t, tile.x, tile.y);
-      const v = hitValue(A, t, p.dmg, 0, p.hit, p.side);
+      const v = hitValue(A, t, p.dmg, 0, p.hit, p.side) * (t.npc ? npcMul : 1);
       bestAttack = Math.max(bestAttack, v);
       offer(100 + v + baseScore + spacing, tile, { type: 'attack', target: t });
     }
@@ -96,7 +99,7 @@ export function planTurn(s, u, opts = {}) {
         const pv = abilityPreview(s, u, ab.id, t, tile.x, tile.y);
         const bonus = abilityBonus(s, u, ab.id, t, pv, tile);
         if (bonus === -Infinity) continue;
-        const v = ab.kind === 'self' ? bonus : hitValue(A, t, pv.dmg, pv.extra || 0, pv.hit, pv.side) + bonus;
+        const v = ab.kind === 'self' ? bonus : hitValue(A, t, pv.dmg, pv.extra || 0, pv.hit, pv.side) * (t.npc ? npcMul : 1) + bonus;
         if (ab.kind !== 'self' && bestAttack > -Infinity && v < bestAttack + A.abilityMinGain) continue;
         // stances don't hit anything: they compete with repositioning, not with attacks
         const head = ab.kind === 'self' ? -A.wApproach * nearest : 100;

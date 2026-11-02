@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.8.0',
+  version: '0.9.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -106,6 +106,18 @@ export const CONFIG = {
       name: 'Vault Strike', short: 'Vault', kind: 'unit', cooldown: 2, dmgMul: 0.8,
       // landing tile must be empty and within the skirmisher's JUMP of its start height. Doesn't use Move.
     },
+  },
+
+  // ---------------------------------------------------------------- difficulty (v0.9, global knobs)
+  // Applied to every enemy unit at battle start (after the team statBonus). Mul = ×, rounded; Add = flat.
+  // v0.9 (Cletus: "getting totally destroyed"): raiders at 85% HP and ATK, then a per-battle trim so every
+  // battle lands near 65–75% wins in the basic-attack sim (HUMAN=1, see DESIGN.md › Difficulty).
+  // Rounding makes small changes jumpy (e.g. a Raider Bowman's ATK 9 vs 10 on The Ridge).
+  difficulty: {
+    enemyHpMul: 0.85, enemyAtkMul: 0.85, enemyDefAdd: 0, enemySpdAdd: 0,
+    npcTargetMul: 0.25, // enemy AI: × score for hitting the recruit-mission stranger (<1 = raiders go for your squad)
+    // per-battle scale on top (× enemy HP and ATK), keyed by mission id or skirmish map id; missing = 1
+    byBattle: { ridge: 1.02, breach: 0.9, 'templar-in-need': 0.91, 'smoke-at-the-well': 1.03, 'thief-in-the-baggage': 1.15 },
   },
 
   teams: {

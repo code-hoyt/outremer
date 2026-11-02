@@ -59,8 +59,9 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 **Progress**
 - [x] **Hero creation (v0.6):** mockup B wizard: Portrait → Class → Stats (BG roll, pool, Store/Recall) → Name; all six stats wired (Aim → hit/crit, Resolve → resist); the hero replaces the same-class Templar and is saved on the device.
-- [x] **Missions & recruitment (v0.8):** FFTA2-style **mission board** after the title. Three recruit missions with vague titles: *A Templar in Need* (Brother Renaud), *Smoke at the Well* (Yusuf ibn Qasim), *Thief in the Baggage Train* (Wren, on a new map, The Baggage Train). Plus The Ridge / The Breach as skirmishes. The stranger fights beside you as an AI ally who must survive; win and you learn who it was, then **Accept / Decline** (the mission stays done either way). The party (hero + up to 2 companions, extras rest in camp) is saved on the device; companions show their portrait in the info panel and turn strip, and each has a simple pro/con trait. See [DESIGN.md → Missions & recruitment](DESIGN.md#missions--recruitment-v08).
+- [x] **Missions & recruitment (v0.8):** FFTA2-style **mission board** after the title. Three recruit missions with vague titles: *A Templar in Need* (Brother Renaud), *Smoke at the Well* (Yusuf ibn Qasim), *Thief in the Baggage Train* (Wren, on a new map, The Baggage Train). Plus The Ridge / The Breach as skirmishes. The companion-to-be fights beside you as an AI ally who must survive (v0.9: shown by name and portrait from the brief on); win and they offer to join: **Accept / Decline** (the mission stays done either way). The party (hero + up to 2 companions, extras rest in camp) is saved on the device; companions show their portrait in the info panel and turn strip, and each has a simple pro/con trait. See [DESIGN.md → Missions & recruitment](DESIGN.md#missions--recruitment-v08).
 - [x] Set companions (3) with a join scene
+- [x] **Easier battles (v0.9):** global difficulty knobs in `CONFIG.difficulty` (raiders ×0.85 HP/ATK + a per-battle trim; raiders mostly ignore the ally you're saving). Basic-attack sim: 41% → 72% wins on average, ally-fell losses ≤ 6%. **Squad of 3 decided** (Mass Effect feel). See [DESIGN.md → Difficulty](DESIGN.md#difficulty-v09).
 - [ ] Linked battles: a between-battle screen / camp, story order for the missions (they're all open at once now)
 - [ ] Decide what carries over (HP, wounds, loot)
 
@@ -86,7 +87,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 **Purpose:** one polished chapter, built the way the full game will be built.
 
 **Scope**
-- *In:* real art direction, sound and music, story and writing for one chapter, final UI, saving, and the production tech and pipeline chosen in Stage 3.
+- *In:* real art direction (**decided by Cletus:** heavily based on **Final Fantasy** art; **portraits in the style of FFTA2's portraits**; every current portrait is a placeholder), sound and music, story and writing for one chapter, final UI, saving, and the production tech and pipeline chosen in Stage 3.
 - *Out:* the remaining content.
 
 **Done when:** the chapter is good enough to show people (playtesters, potential partners or publishers) as "this is the game," and building more of it is mostly content work.

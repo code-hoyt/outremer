@@ -44,12 +44,12 @@ export function toggleActive(p, id) {
 }
 
 // Turn a unit made by createState into a companion (keeps its slot: position + facing).
-export function applyCompanion(u, id, { npc = false, alias = null } = {}) {
+export function applyCompanion(u, id, { npc = false } = {}) {
   const c = companionDef(id), t = traitDef(c.trait);
   applyHero(u, { name: c.name, role: c.role, portrait: 0, stats: c.stats });
   delete u.hero;
   u.companion = id; u.trait = c.trait; u.templar = !!c.templar; u.portraitImg = c.portrait;
   if (t && t.moveBonus) u.move += t.moveBonus;
-  if (npc) { u.npc = true; u.mustSurvive = true; if (alias) { u.name = alias; u.unknown = true; } }
+  if (npc) { u.npc = true; u.mustSurvive = true; }
   return u;
 }

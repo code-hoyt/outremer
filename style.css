@@ -225,9 +225,6 @@ html, body {
 .chip.comp { box-shadow: 0 0 0 2px #d8c48f inset; }
 .chip.npc { border-color: #7fd48f; }
 .chip.npc.now { border-color: #ffd85a; }
-.unknown img { filter: brightness(0.12) contrast(1.2) blur(1px); }
-.unknown { position: relative; }
-.unknown b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #7fd48f; font-size: 1.3em; font-weight: bold; }
 #banner.npc { border-color: #7fd48f; }
 .comp-por { position: relative; overflow: hidden; }
 .comp-por img, .comp-img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; display: block; }
@@ -247,8 +244,8 @@ html, body {
 /* brief / join offer */
 #overlay .brief { display: flex; gap: 12px; align-items: flex-start; text-align: left; font-size: 13px; line-height: 1.4; color: #e3d9c3; }
 #overlay .brief .comp-por { flex: 0 0 auto; width: 96px; height: 128px; border-radius: 10px; border: 2px solid #d8c48f; }
-#overlay .brief .comp-por.unknown { border-color: #7fd48f; }
-#overlay .brief .comp-por.unknown b { font-size: 40px; }
+#overlay .brief .who { color: #ffd85a; }
+#overlay .brief small { opacity: 0.75; }
 #overlay .trait { display: block; text-align: left; font-size: 12px; color: #c9bea6; background: #2b2531; border-radius: 8px; padding: 6px 10px; margin-top: 8px; line-height: 1.45; }
 #overlay .trait b { color: #d8c48f; }
 #overlay.kind-recruit .card, #overlay.kind-brief .card, #overlay.kind-missions .card { width: 90%; }

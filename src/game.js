@@ -26,6 +26,14 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
       ct: Math.floor(rng() * (CONFIG.turn.startCtSpread + 1)),
       status: {}, cd: {}, templar: team === 'player',
     };
+    if (team === 'enemy') {
+      const d = CONFIG.difficulty || {};
+      const k = ((d.byBattle || {})[mission ? mission.id : m.id]) ?? 1;
+      u.hp = u.maxHp = Math.max(1, Math.round(u.hp * (d.enemyHpMul ?? 1) * k));
+      u.atk = Math.max(1, Math.round(u.atk * (d.enemyAtkMul ?? 1) * k));
+      u.def = Math.max(0, u.def + (d.enemyDefAdd || 0));
+      u.spd = Math.max(1, u.spd + (d.enemySpdAdd || 0));
+    }
     units.push(u);
     return u;
   };
@@ -43,7 +51,7 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
   // recruit mission: the companion-to-be stands on the field as an AI-driven ally who must survive
   if (mission && mission.npc) {
     const c = companionDef(mission.companion), [x, y, facing] = mission.npc;
-    applyCompanion(make('player', c.role, x, y, facing), mission.companion, { npc: true, alias: mission.alias });
+    applyCompanion(make('player', c.role, x, y, facing), mission.companion, { npc: true });
   }
   return {
     mapId: m.id, mapName: m.name, w: m.width, h: m.height, heights: m.heights, terrain: m.terrain,

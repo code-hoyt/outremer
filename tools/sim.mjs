@@ -17,6 +17,11 @@ const PRESET = { avg: { mgt: 11, end: 10, fort: 11, agi: 10, aim: 11, res: 10 },
 const heroFor = (i) => !HERO ? null : { name: 'Hero', role: HERO_ROLE, portrait: 0,
   stats: HERO === 'roll' ? rollStats(HERO_ROLE, mulberry32(10007 * (i + 1))) : PRESET[HERO] };
 const N = Number(process.argv[2] || 2000);
+// HUMAN=1 -> model a basic-attack player: player squad (not the stranger) uses no abilities and picks with
+// some noise (PLAYER_NOISE, default 6 score points). The full-AI numbers are the old (v0.5–v0.8) baseline.
+const HUMAN = !!process.env.HUMAN, PLAYER_NOISE = HUMAN ? Number(process.env.PLAYER_NOISE || 6) : 0;
+// DIFF='{"enemyAtkMul":0.85}' -> override CONFIG.difficulty knobs for tuning
+if (process.env.DIFF) Object.assign(CONFIG.difficulty, JSON.parse(process.env.DIFF));
 // OFF=shieldWall,brace  -> remove abilities (ablation); OFF=all -> no abilities at all
 const OFF = (process.env.OFF || '').split(',').filter(Boolean);
 CONFIG.teams.player.disabledAbilities = (process.env.OFF_P || '').split(',');
@@ -29,13 +34,19 @@ for (let i = 0; i < N; i++) {
   const s = G.createState(mulberry32(i + 1), mapId, heroFor(i), { companions: COMP, mission });
   for (let t = 0; t < 300 && !s.over; t++) {
     const u = G.startNextTurn(s);
-    let p = planTurn(s, u);
+    const human = PLAYER_NOISE && u.team === 'player' && !u.npc;
+    const plan = (o = {}) => {
+      if (!human) return planTurn(s, u, o);
+      const keep = CONFIG.teams.player.disabledAbilities; CONFIG.teams.player.disabledAbilities = Object.keys(CONFIG.abilities);
+      try { return planTurn(s, u, { ...o, noise: PLAYER_NOISE, rng: s.rng }); } finally { CONFIG.teams.player.disabledAbilities = keep; }
+    };
+    let p = plan();
     if (p.path && p.path.length > 1) {
       const ic = G.braceIntercept(s, u, p.path);
       const path = ic ? p.path.slice(0, ic.index + 1) : p.path;
       const end = path[path.length - 1];
       G.moveUnit(s, u, end.x, end.y, path);
-      if (ic) { G.braceStrike(s, ic.by, u); used.braceTrigger = (used.braceTrigger || 0) + 1; if (s.over || u.hp <= 0) { if (!s.over) G.endTurn(s); continue; } p = planTurn(s, u, { fixed: true }); }
+      if (ic) { G.braceStrike(s, ic.by, u); used.braceTrigger = (used.braceTrigger || 0) + 1; if (s.over || u.hp <= 0) { if (!s.over) G.endTurn(s); continue; } p = plan({ fixed: true }); }
     }
     const a = p.action;
     if (a && a.type === 'attack' && G.canAttackFrom(s, u, u.x, u.y, a.target.x, a.target.y)) G.resolveAttack(s, u, a.target);

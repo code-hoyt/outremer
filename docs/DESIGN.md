@@ -1,4 +1,4 @@
-# Outremer — Design Notes (v0.8, slice + FFTA2 controls + context-aware cross pad + class abilities + 3 maps + hero creation + missions & recruitment)
+# Outremer — Design Notes (v0.9, slice + FFTA2 controls + context-aware cross pad + class abilities + 3 maps + hero creation + missions & recruitment + easier difficulty)
 
 > **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 under way: hero creation, the mission board and three recruitable companions are in).
 
@@ -49,7 +49,7 @@ Class base stats from `CONFIG.roles` stay the backbone; rolled stats nudge them 
 - ~~Do companions use the same six stats?~~ Yes, hand-set (v0.8). Does the hero's class limit which companions want to join?
 - ~~How are companions recruited?~~ v0.8: win their mission, then Accept/Decline; squad 3 (hero + 2), extras rest in camp (see Missions & recruitment). Still open: a bigger party cap later?
 - Can the main character die? BG: hero death = game over. Alternatives: knocked out but the fight continues, or a wound system (ties into permadeath vs wounds).
-- Portrait art style: painted BG-style busts, pixel art matching the battle sprites, or line-art icons? Pre-made set to pick from vs a builder (face/helm/colours)?
+- ~~Portrait art style~~ → **FFTA2-style portraits, Final Fantasy-based art** (Cletus, v0.9), done at the art stage. Still open: a pre-made set to pick from vs a builder (face/helm/colours)?
 
 ### Hero creation as built (v0.6)
 Mockup **B** (wizard) was picked. After the title screen: **Create your hero** (first visit; preselected) or **New hero** (later). The map list stays on the title screen as before.
@@ -82,21 +82,24 @@ Mockup **B** (wizard) was picked. After the title screen: **Create your hero** (
 | poor (9/9/8/8/9/9) | 14.5% | 20.7% |
 An average hero leaves balance where it was. A great roll is a big swing on The Ridge, which is more than the "+15–20%" target; watch this in playtests (knobs: `perPoint`). The sim is noisy because the AI is deterministic and small stat changes flip whole fights.
 
-## Missions & recruitment (v0.8)
+## Missions & recruitment (v0.8, revised v0.9)
 *Decided with Cletus:* companions join by **winning a specific mission**, not by *how* you win it ("how you win decides recruitment" is in the ROADMAP parking lot). The flow copies FFTA2's pub quest board.
+*v0.9 (Cletus, after playtesting v0.8):* **no hidden identities.** Story will be a big part of some of these battles, so you should see who you're fighting for. The brief and the battle show the companion's real name and portrait. Mission titles stay vague. The post-win screen is just their join offer.
+
+**Decision: squad of 3** (Cletus, v0.9): hero + 2. "Makes it feel like Mass Effect (in a good way)": a small, personal squad of named people rather than an army. Recruit missions add the person you're saving as a 4th, AI-controlled unit.
 
 **Flow**
 1. **Title** (once a hero exists): **Mission board** (preselected) · **New hero**. With no hero the title is unchanged (Create your hero + the skirmish maps).
 2. **Mission board:** three recruit missions with vague titles, then two skirmishes, then ◀ Back. Your squad shows at the top (hero + companion portraits).
-   | Mission | Who it really is | Map |
+   | Mission | Who | Map |
    |---|---|---|
    | **A Templar in Need** | Brother Renaud (Knight) | The Breach: he holds the rubble of the breach (4,4) |
    | **Smoke at the Well** | Yusuf ibn Qasim (Scout) | The Ridge: he's in the middle, four raiders (incl. a Spearman) around him |
    | **Thief in the Baggage Train** | Wren (Scout) | **new map, The Baggage Train**: a raided column on the coast road with overturned carts (terrain *Cart*, height 1, cost 2) |
    | Skirmish: The Ridge / The Breach | — | the v0.5 battles, replayable; the board counts wins |
-3. **Brief** (recruit missions only): a few lines of setup next to a **silhouette** portrait with "?", then Begin / Back. The name is never shown before the win.
-4. **Battle:** your squad (hero + fielded companions + generic Templars, 3 units) **plus the stranger as an allied NPC**: on your side, **AI-controlled**, shown as an alias ("Lone Brother", "Lone Rider", "Small Figure") with a dashed **green ring** on the map, a green-bordered "?" chip in the turn strip and a "?" silhouette in the info panel. **They must survive**: if they fall it's a Defeat ("The lone brother has fallen. The mission is lost."). You lose as before when all your own units are down.
-5. **Victory → join offer:** their real name, portrait, a short outro line and their trait (＋ pro / − con), then **Accept** or **Decline**.
+3. **Brief** (recruit missions only): their **portrait, name and class** next to a few lines of setup that name them, then Begin / Back. *(v0.8 hid them behind a "?" silhouette; dropped in v0.9.)*
+4. **Battle:** your squad (hero + fielded companions + generic Templars, 3 units) **plus the companion-to-be as an allied NPC**: on your side, **AI-controlled**, under their **real name**, with a dashed **green ring** on the map, their portrait in a green-bordered turn-strip chip, and their portrait, name and trait line ("· Ally, must survive") in the info panel. **They must survive**: if they fall it's a Defeat ("Brother Renaud has fallen. The mission is lost."). You lose as before when all your own units are down.
+5. **Victory → join offer:** their portrait, a short line in their voice and their trait (＋ pro / − con), then **Accept** or **Decline**.
    - **Accept:** they join the company (saved). If there's room in the squad they're fielded right away.
    - **Decline:** they leave. **The mission stays done** either way (✓ on the board, can't be replayed).
 6. **Defeat** on a recruit mission: Try again / Mission board; the mission stays open.
@@ -117,21 +120,50 @@ An average hero leaves balance where it was. A great roll is a big swing on The 
 
 **Simplified from the pitch (deviations):** Renaud's Shield Wall covering a 2nd ally, "never Waits with a foe in reach" and refusing camp with Yusuf are not in. Yusuf's intent display is a line to the target, not the exact move/ability. Wren's swap-with-an-ally, post-battle loot and the 2-tile auto-bolt are not in: Scouts already ignore rough terrain, so her terrain pro became +1 MOV, and her bolt became "can't act". The amulet is only flavour text.
 
-**Allied NPC AI:** the NPC uses the normal scoring AI with its danger penalty ×30 (`CONFIG.ai.npcDangerMul`). With the normal weight the stranger charged in and died on their first turn (Yusuf: 99% of sims); this makes them keep their distance while you do the fighting.
-
-**Sim** (AI vs AI, average knight hero, N = 2000, `HERO=avg node tools/sim.mjs 2000 missions`):
-| Mission | Templar win | Stranger fell | Note |
-|---|---|---|---|
-| A Templar in Need | 58.8% | 5.2% | 19.9% stall at the 300-turn cap (Renaud holds ground, the AIs circle) |
-| Smoke at the Well | 41.9% | 32.2% | |
-| Thief in the Baggage Train | 69.7% | 9.8% | long fights (70 turns avg): Wren keeps away |
-Fielded companions in skirmishes (`COMP=… HERO=avg`): The Breach 87–91% with Wren in the squad but 19.6% with Renaud + Yusuf; The Ridge 14–19% with a Knight hero, 28% with an Archer hero. The Ridge drop is mostly **squad shape**: companions replace the Sergeant and the Archer, and The Ridge rewards ranged units. The deterministic AI makes these numbers swing a lot. Playtests decide.
+**Allied NPC AI:** the NPC uses the normal scoring AI with its danger penalty ×30 (`CONFIG.ai.npcDangerMul`). With the normal weight they charged in and died on their first turn (Yusuf: 99% of sims); this makes them keep their distance while you do the fighting. **v0.9:** raiders also value hitting the NPC at only ×0.25 (`CONFIG.difficulty.npcTargetMul`), so they go for your squad first. Losing because the ally fell is now rare (≤ 6% in the sim, was up to 54%); see Difficulty below for the numbers.
 
 **Open questions**
 - **Can a declined companion be recruited later** (e.g. found again at camp, or a second mission), or is Decline final? It's final for now.
 - Should **how** you win matter (parking lot): e.g. Renaud only joins if no Templar falls, Yusuf if you spare a fleeing raider.
-- Squad size: is 3 + NPC right, or should recruit missions let you field 4?
+- ~~Squad size~~ → **3** (hero + 2), decided v0.9 (Mass Effect feel). The recruit-mission NPC stays a 4th, AI-only unit.
 - Should the stranger take orders (FFTA2 guests are AI-only, as here)?
+
+## Difficulty (v0.9)
+*Cletus, playtesting v0.8: "Feels like I'm getting totally destroyed."* He mostly uses basic attacks. Target: **~65–75% Templar wins** in every battle with a typical party, erring easy.
+
+**Knobs** (`CONFIG.difficulty`, all global, applied to every enemy when the battle starts):
+| Knob | v0.8 | v0.9 | What |
+|---|---|---|---|
+| `enemyHpMul` | 1 | **0.85** | raider HP × (rounded) |
+| `enemyAtkMul` | 1 | **0.85** | raider ATK × (rounded) |
+| `enemyDefAdd`, `enemySpdAdd` | 0 | 0 | flat DEF / SPD (unused; there if needed) |
+| `npcTargetMul` | 1 | **0.25** | how much raiders want to hit the recruit-mission ally (AI score ×) |
+| `byBattle` | — | Ridge **1.02**, Breach **0.90**, Templar in Need **0.91**, Smoke at the Well **1.03**, Baggage Train **1.15** | per-battle trim on top (× raider HP and ATK), keyed by mission id or skirmish map id |
+So a Raider Swordsman (HP 44, ATK 14) is 38/12 on The Ridge, 34/11 on The Breach, 43/14 in the Baggage Train. No enemy was removed and no unit was hand-edited: the global ×0.85 does most of the work, the per-battle trim evens the maps out (the Baggage Train was easy, The Breach hard). Because stats are rounded, a small knob change can jump (e.g. The Ridge: ×1.01 → 86–96%, ×1.02 → 64–74%, because a Raider Bowman's ATK goes 9 → 10).
+
+**New sim model: `HUMAN=1`.** The old sim plays both sides with the full AI (abilities, perfect choices), which is better than a player who mostly attacks. `HUMAN=1 node tools/sim.mjs` makes the **player squad** use **basic attacks only** and pick with a little noise (±6 score points, `PLAYER_NOISE`). The ally NPC and the raiders are unchanged. This is the main target; full-AI numbers are kept for comparison. Noise also smooths out the deterministic-AI cliffs.
+
+**Results** (average Knight hero, N = 2000; win% / ally-fell%):
+| Battle | Party | v0.8 basic-attack | **v0.9 basic-attack** | v0.8 full AI | v0.9 full AI |
+|---|---|---|---|---|---|
+| The Ridge | hero + Templars | 25.5 | **70.9** | 39.7 | 62.7 |
+| | + Renaud, Yusuf | 23.4 | **65.2** | 17.6 | 67.6 |
+| | + Renaud, Wren | 11.9 | **73.4** | 13.6 | 63.9 |
+| | + Yusuf, Wren | 35.3 | **66.2** | 18.7 | 62.4 |
+| The Breach | hero + Templars | 50.2 | **78.4** | 55.5 | 97.9 |
+| | + Renaud, Yusuf | 18.3 | **64.4** | 20.2 | 86.8 |
+| | + Renaud, Wren | 46.7 | **74.1** | 88.1 | 99.4 |
+| | + Yusuf, Wren | 53.0 | **98.3** | 91.1 | 100 |
+| A Templar in Need | hero + Templars | 26.7 / 54.0 | **61.6 / 0.3** | 55.9 / 5.3 | 98.1 / 0.1 |
+| | + Yusuf | 66.5 / 4.3 | **80.5 / 0** | 19.1 / 3.3 | 90.1 / 0.3 |
+| | + Yusuf, Wren | 51.6 / 15.2 | **64.6 / 0.1** | 32.1 / 0.8 | 51.8 / 0.2 |
+| Smoke at the Well | hero + Templars | 29.2 / 17.7 | **65.8 / 5.4** | 41.7 / 31.4 | 82.6 / 8.7 |
+| | + Renaud | 35.0 / 25.5 | **85.4 / 1.8** | 18.3 / 44.4 | 72.1 / 5.9 |
+| | + Renaud, Wren | 3.4 / 7.0 | **56.9 / 0.3** | 3.6 / 1.9 | 51.5 / 0.4 |
+| Baggage Train | hero + Templars | 66.7 / 2.8 | **66.6 / 0.6** | 68.5 / 9.9 | 70.6 / 0.3 |
+| | + Renaud | 79.0 / 5.6 | **81.4 / 1.3** | 39.6 / 1.2 | 38.9 / 0.6 |
+| | + Renaud, Yusuf | 73.3 / 4.4 | **75.0 / 1.1** | 70.6 / 0.5 | 76.0 / 0.2 |
+(v0.8 full-AI column: N = 1000.) **Basic-attack model: mean 41% → 72%, range 3–79% → 57–98%.** Hero alone with other classes (basic-attack, v0.9): Sergeant or Archer hero 62–79% everywhere. **Scout hero is the outlier:** 22% on Smoke at the Well, 95–99% on The Breach / Templar in Need. A Scout hero takes the Knight's slot (there's no Templar Scout), so that squad has no Knight. Still swingy: Breach + Yusuf/Wren 98%, Smoke + Renaud/Wren 57%. Composition matters (companions replace the Sergeant and Archer), and that's for playtests to judge. Retune with `HUMAN=1 HERO=avg COMP=… node tools/sim.mjs 2000 <map|mission id|all|missions>`; `DIFF='{"enemyAtkMul":0.9}'` overrides knobs for a run.
 
 ## Turn order — CT system (FFTA-like)
 - Every unit has a **CT** counter. Time ticks; each tick every living unit gains CT = its **SPD**.
@@ -291,7 +323,8 @@ What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from
 The explicit facing step is a "stop and press" moment, which pillar 1 argues against. We're keeping it because Cletus asked for FFTA2 controls first. It's one d-pad press + A, or two taps. **Open question:** revisit later. Options include defaulting the facing arrow to the most dangerous foe while still requiring A, or a setting.
 
 ## What's placeholder
-- Hero portraits: 8 simple SVG busts marked PLACEHOLDER; art style still open.
+- Hero portraits: 8 simple SVG busts marked PLACEHOLDER. Companion portraits (`assets/companions/`) are placeholders too.
+- **Art direction (decided by Cletus, v0.9; to do at the art stage):** heavily based on **Final Fantasy** art; **portraits in the style of FFTA2's portraits**. No art changes until then (ROADMAP Stage 4).
 - All art: procedural canvas shapes (shaded iso blocks, simple figures with team colors, Templar red cross on tunic/shield). No sound.
 - Two hand-made maps, fixed deployment per map, no squad building beyond the created hero, no companions yet, two abilities per class only (no jobs/secondary sets), no items, no XP.
 - Raider faction is a generic stand-in. Names are generic.
