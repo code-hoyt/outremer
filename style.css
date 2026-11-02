@@ -48,7 +48,7 @@ html, body {
 .stats b { color: #fff; }
 #pad { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 4px; padding: 0 4px; }
 #hint { font-size: 12px; color: #a99d88; text-align: center; min-height: 16px; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-/* d-pad: fixed footprint; three layers cross-fade/morph by context (map quadrants, menu up/down, facing) */
+/* d-pad: fixed footprint; three layers cross-fade/morph by context (map cross, menu up/down, facing cross) */
 #dpad { position: relative; flex: 0 0 auto; width: var(--dpad, 156px); height: var(--dpad, 156px);
   border-radius: 50%; background: #0d0c12; box-shadow: 0 0 0 2px #4b3f4f; transition: opacity var(--pad-ms, 140ms) ease, filter var(--pad-ms, 140ms) ease; }
 #dpad .lay { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; opacity: 0; transform: scale(.82) rotate(-12deg);
@@ -56,21 +56,21 @@ html, body {
 #dpad .lay.on { opacity: 1; transform: none; pointer-events: auto; }
 #dpad .lay-menu { transform: scale(.82) scaleX(.6); }
 #dpad .lay-menu.on { transform: none; }
-#dpad .lay-map, #dpad .lay-face { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 4px; }
 #dpad .lay-menu { display: grid; grid-template-rows: 1fr 1fr; gap: 4px; }
 #dpad.off { opacity: var(--pad-dim, .35); filter: grayscale(.8); }
 #dpad.off .lay { pointer-events: none; }
 #dpad button { border: 0; background: #2a2430; color: #d8c48f; touch-action: none; padding: 0; }
-#dpad .q { font-size: 22px; }
 #dpad .v { font-size: 30px; }
 #dpad .held { background: #5a4a33; color: #fff; }
-#dpad .nw { border-top-left-radius: 100% 100%; text-align: right; padding: 18% 14% 0 0; }
-#dpad .ne { border-top-right-radius: 100% 100%; text-align: left; padding: 18% 0 0 14%; }
-#dpad .sw { border-bottom-left-radius: 100% 100%; text-align: right; padding: 0 14% 18% 0; }
-#dpad .se { border-bottom-right-radius: 100% 100%; text-align: left; padding: 0 0 18% 14%; }
 #dpad .v.up { border-radius: 100% 100% 0 0 / 100% 100% 0 0; padding-top: 6%; }
 #dpad .v.down { border-radius: 0 0 100% 100% / 0 0 100% 100%; padding-bottom: 6%; }
-#dpad .lay-face button { background: #3a3024; color: #ffd85a; font-size: 26px; }
+/* classic cross (same look as the Stats-step .xpad): ▲ = up-right on the iso map, then clockwise */
+#dpad .arm { position: absolute; font-size: 24px; display: flex; align-items: center; justify-content: center; }
+#dpad .arm.u { left: 33%; right: 33%; top: 2%; height: 34%; border-radius: 16px 16px 4px 4px; }
+#dpad .arm.d { left: 33%; right: 33%; bottom: 2%; height: 34%; border-radius: 4px 4px 16px 16px; }
+#dpad .arm.l { top: 33%; bottom: 33%; left: 2%; width: 34%; border-radius: 16px 4px 4px 16px; }
+#dpad .arm.r { top: 33%; bottom: 33%; right: 2%; width: 34%; border-radius: 4px 16px 16px 4px; }
+#dpad .lay-face button { background: #3a3024; color: #ffd85a; }
 #dpad .lay-face button.cur { background: #8a6a2a; color: #fff; }
 #dpad .hub { position: absolute; left: 50%; top: 50%; width: 26%; height: 26%; transform: translate(-50%,-50%);
   border-radius: 50%; background: #1b1820; pointer-events: none; box-shadow: inset 0 0 0 2px #4b3f4f;

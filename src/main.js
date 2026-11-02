@@ -401,6 +401,13 @@ function drawFacingArrows(u, now) {
     ctx.closePath();
     ctx.fillStyle = sel ? '#ffd85a' : 'rgba(255,255,255,.55)'; ctx.fill();
     ctx.strokeStyle = 'rgba(0,0,0,.6)'; ctx.lineWidth = 1.5; ctx.stroke();
+    if (C.facingArrowLabels && DIR_ARM[d]) { // which pad button gives this facing
+      const lx = p.x + ux * 25 * k, ly = p.y + uy * 25 * k, r = 8 * k;
+      ctx.beginPath(); ctx.arc(lx, ly, r, 0, Math.PI * 2); ctx.fillStyle = sel ? '#8a6a2a' : 'rgba(13,12,18,.8)'; ctx.fill();
+      ctx.strokeStyle = sel ? '#ffd85a' : 'rgba(216,196,143,.7)'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = sel ? '#fff' : '#ffd85a'; ctx.font = `${Math.round(9 * k)}px system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(ARM_GLYPH[DIR_ARM[d]], lx, ly + 0.5 * k); ctx.textBaseline = 'alphabetic';
+    }
   }
 }
 
@@ -703,6 +710,11 @@ function bindPress(el, fn) {
   el.addEventListener('pointerdown', (e) => { e.preventDefault(); el.classList.add('held'); fn(); });
   for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) el.addEventListener(ev, () => el.classList.remove('held'));
 }
+// cross arms → grid directions from config (both the map-cursor and the facing layer)
+const ARM_GLYPH = { up: '▲', right: '▶', down: '▼', left: '◀' };
+const DIR_ARM = {}; for (const [arm, d] of Object.entries(C.padCross)) DIR_ARM[d] = arm;
+document.querySelectorAll('#dpad .lay-map [data-arm]').forEach((b) => { b.dataset.dir = C.padCross[b.dataset.arm]; });
+document.querySelectorAll('#dpad .lay-face [data-arm]').forEach((b) => { b.dataset.face = C.padCross[b.dataset.arm]; });
 document.querySelectorAll('#dpad [data-dir]').forEach((b) => bindHold(b, () => pressDir(Number(b.dataset.dir))));
 document.querySelectorAll('#dpad [data-step]').forEach((b) => bindHold(b, () => pressStep(Number(b.dataset.step))));
 document.querySelectorAll('#dpad [data-face]').forEach((b) => bindPress(b, () => pressDir(Number(b.dataset.face))));
@@ -715,7 +727,7 @@ document.documentElement.style.setProperty('--ab', C.abSizePx + 'px');
 document.documentElement.style.setProperty('--menu-h', C.menuItemHeightPx + 'px');
 
 if (C.keyboard) {
-  const KEYS = { ArrowUp: 0, KeyW: 0, ArrowRight: 1, KeyD: 1, ArrowDown: 2, KeyS: 2, ArrowLeft: 3, KeyA: 3 };
+  const KEYS = { ArrowUp: C.padCross.up, KeyW: C.padCross.up, ArrowRight: C.padCross.right, KeyD: C.padCross.right, ArrowDown: C.padCross.down, KeyS: C.padCross.down, ArrowLeft: C.padCross.left, KeyA: C.padCross.left };
   let last = 0;
   window.addEventListener('keydown', (e) => {
     if (creatorOpen()) { creatorKey(e); return; }
@@ -914,11 +926,11 @@ function predictionHtml(u, t, confirming) {
 const HINTS = {
   menu: () => (S.moved && !S.acted && !S.intercepted ? '▲▼ choose · A select · B undo move' : '▲▼ choose · A select · B look around'),
   actmenu: () => '▲▼ choose · A select · B back',
-  free: () => '◆ look around · B show range / return · A back to unit',
-  move: () => '◆ move cursor to a blue tile · A move · B back',
-  target: () => (ui.ability && CONFIG.abilities[ui.ability].kind === 'self' ? 'A select (yourself) · B back' : '◆ pick a target in red · A select · B back'),
+  free: () => '✚ look around · B show range / return · A back to unit',
+  move: () => '✚ move cursor to a blue tile · A move · B back',
+  target: () => (ui.ability && CONFIG.abilities[ui.ability].kind === 'self' ? 'A select (yourself) · B back' : '✚ pick a target in red · A select · B back'),
   confirm: () => 'A execute · B back',
-  facing: () => '◆ choose facing · A confirm · B back',
+  facing: () => '✚ choose facing · A confirm · B back',
 };
 
 function updatePanel() {
@@ -984,6 +996,7 @@ window.__outremer = {
   get menu() { return isPlayerTurn() && ['menu', 'actmenu'].includes(ui.mode) ? menuItems().map((it) => ({ id: it.id, label: it.label, on: it.on })) : []; },
   abilityPreview(uid, id, tid) { return G.abilityPreview(S, S.units[uid], id, S.units[tid]); },
   tileClient(x, y) { const r = cv.getBoundingClientRect(); const c = tileTop(x, y); return { x: r.left + c.x, y: r.top + c.y }; },
+  groundClient(x, y) { const r = cv.getBoundingClientRect(); const c = proj(x, y, 0); return { x: r.left + c.x, y: r.top + c.y }; }, // ignores tile height (screen direction checks)
   unitClient(id) { const u = S.units[id]; const r = cv.getBoundingClientRect(); const p = unitScreenPos(u, performance.now()); return { x: r.left + p.x, y: r.top + p.y - 25 * layout.k }; },
   facingClient(d) { const r = cv.getBoundingClientRect(); const p = facingArrowPos(S.active, d); return { x: r.left + p.x, y: r.top + p.y }; },
   G, CONFIG,

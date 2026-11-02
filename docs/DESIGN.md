@@ -1,4 +1,4 @@
-# Outremer — Design Notes (v0.6, slice + FFTA2 controls + context-aware pad + class abilities + 2 maps + hero creation)
+# Outremer — Design Notes (v0.7, slice + FFTA2 controls + context-aware cross pad + class abilities + 2 maps + hero creation)
 
 > **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 started: hero creation is in).
 
@@ -178,27 +178,27 @@ Statuses show as letter pips above the HP bar (W/B/P/E/S) and as a line in unit 
 Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-facing / starting the turn already in Move mode felt wrong. He wants the controls to match FFTA2 to start with; we may change them later. So the battle UI is now a **cursor + command menu + A/B** scheme, with taps as a shortcut.
 
 **On-screen pad (bottom of the screen, under the battlefield so it never covers the action):**
-- **D-pad (left thumb):** a disc split into four diagonal quadrants, ◤ ◥ ◣ ◢. **Mapping: each quadrant moves the cursor one tile along the iso axis it points to on screen.** ◥ = north (−y, up-right), ◢ = east (+x, down-right), ◣ = south (+y, down-left), ◤ = west (−x, up-left). The cursor goes exactly where the arrow points. A plain ↑→↓← pad on an iso map makes you translate directions in your head; that's a known annoyance of DS iso tactics. Holding a quadrant auto-repeats (`controls.repeatDelayMs`, `repeatRateMs`).
+- **D-pad (left thumb), v0.7:** a classic **▲ ▶ ▼ ◀ cross**, in the same style as the Stats-step pad Cletus liked. It replaced the v0.2–v0.6 diagonal quadrants (◤◥◣◢), which Cletus found weird after playtesting. **Mapping (rotate clockwise from Up = up-right):** ▲ = north (−y, **up-right** on screen), ▶ = east (+x, **down-right**), ▼ = south (+y, **down-left**), ◀ = west (−x, **up-left**). It lives in `controls.padCross`, and the map cursor, the facing step and the keyboard all read it, so they can't disagree. Holding an arm auto-repeats (`controls.repeatDelayMs`, `repeatRateMs`).
 - **Context-aware d-pad (v0.3, from Cletus's playtest):** the pad only shows directions that do something right now. It keeps one fixed footprint, so A/B and the layout never shift. Changes are a quick cross-fade/morph (`controls.padMorphMs`, 140 ms).
   | State | Pad |
   |---|---|
-  | Map cursor: free look, Move, Attack targeting | four diagonal quadrants ◤◥◣◢ (cursor moves along the iso axes) |
+  | Map cursor: free look, Move, Attack targeting | **▲▶▼◀ cross** (v0.7): ▲ up-right, ▶ down-right, ▼ down-left, ◀ up-left on the map (`controls.padCross`); hold to repeat |
   | Command menu, Action submenu | **vertical ▲ ▼**: two big half-disc buttons; hold to repeat |
-  | Facing step | four facing arrows ⬉⬈⬋⬊ on the iso facings, with the current facing lit; tap or press A to confirm |
+  | Facing step | **the same cross** in gold, the arm for the current facing lit. Same mapping: ▲ faces up-right, ▶ down-right, ▼ down-left, ◀ up-left. Each facing arrow on the map carries a small ▲▶▼◀ badge naming its button (`controls.facingArrowLabels`). A confirms (tapping a map arrow twice also confirms) |
   | Confirm prediction, enemy turn, animations, victory/defeat | dimmed and inert (`controls.padDimOpacity`). A/B are dimmed too whenever it isn't your input; in Confirm, A/B stay live |
   | Title / end-of-battle picker | **vertical ▲ ▼** + A/B (unchanged): it's a short list, and A/B match the battle that follows |
   | Hero creation: **Portrait** (v0.6) | **no pad, no A/B.** Full-screen wizard over the pad. Picking a bust is a direct tap on a 4×2 grid; a cursor would be slower. Back/Next buttons in the footer |
   | Hero creation: **Class** | **no pad, no A/B.** Swipe the card, tap ◀ ▶ beside it or tap a dot. A pad would only duplicate the arrows |
   | Hero creation: **Stats** | **4-way cross** (from mockup B, which Cletus liked): ▲▼ pick a stat, ◀ ▶ −/+, hold to repeat. Taps on −/+ work too. **No A/B**: Reroll / Store / Recall and Back/Next are labelled buttons, so an A/B pair would be ambiguous. This is the one screen with many small repeated adjustments, which is where a pad beats tapping 34px buttons |
   | Hero creation: **Name & confirm** | **no pad, no A/B.** The phone keyboard covers the bottom of the screen; "Begin ✠" confirms |
-  | Battle | unchanged (quadrants / ▲▼ / facing arrows / dimmed) |
+  | Battle | cross on the map and in the facing step, ▲▼ in menus, dimmed otherwise (rows above) |
   Desktop keys in the wizard: arrows/WASD move through portraits, change class, or drive the Stats cross; Enter/Z/Space = Next; Esc/X/Backspace = Back (on step 1, back to the title).
 - **A (right thumb, upper):** confirm. **B (lower-left of A):** cancel / back. Same layout as the DS.
 - Sizes: `controls.dpadSizePx` (156), `abSizePx` (70), `menuItemHeightPx` (44).
-- **Keyboard (desktop):** arrows/WASD = d-pad (↑ = ◥ north, → = ◢ east, ↓ = ◣ south, ← = ◤ west). In menus only ↑/↓ (W/S) move the highlight and ←/→ do nothing, matching the ▲▼ pad. Z/Enter/Space = A; X/Esc/Backspace = B.
+- **Keyboard (desktop):** arrows/WASD = the cross, from the same `padCross` (↑ = north/up-right, → = east/down-right, ↓ = south/down-left, ← = west/up-left). In menus only ↑/↓ (W/S) move the highlight and ←/→ do nothing, matching the ▲▼ pad. Z/Enter/Space = A; X/Esc/Backspace = B.
 
 **Turn flow (player unit):**
-1. **Turn starts:** the camera and cursor go to the active unit, and the **command menu** opens (bottom-right of the field) with **Move / Action / Wait**. Move gets the default highlight, but nothing is auto-entered. ◥◤ step up the list and ◢◣ step down it; used commands are greyed and skipped.
+1. **Turn starts:** the camera and cursor go to the active unit, and the **command menu** opens (bottom-right of the field) with **Move / Action / Wait**. Move gets the default highlight, but nothing is auto-entered. ▲▼ move through the list; used commands are greyed and skipped.
    Menus use the ▲▼ pad.
 2. **Move:** blue tiles show the range. Move the cursor (the cursor can roam anywhere, but only blue tiles accept A), then press **A** to walk there. **B** goes back to the menu. After moving, the menu returns with Move greyed and **Action** highlighted. **B on the menu after moving, before acting, undoes the move** (unit and facing go back), as in FFTA2.
 3. **Action → Attack:** the Action submenu currently holds only **Attack**; ability sets come later. Red tiles show the attack range and the cursor starts on the acting unit. Hovering a valid foe shows the **prediction box** (hit %, damage, HP after, Front/Side/Back, flank, height). **A** selects the target and opens the confirm step (prediction plus "A Execute · B Back"); **A** executes and **B** returns to targeting.
@@ -226,8 +226,8 @@ What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from
 | Camera | Fixed isometric view, no rotation; the view follows the cursor. | Series behaviour (not spelled out in the manual) |
 
 ### Where we deliberately differ (for now)
-- **Context-aware pad.** A DS has one physical d-pad that never changes. Ours is drawn on screen, so it changes shape to show what you can steer: ▲▼ in menus, quadrants on the map, facing arrows at turn end, dimmed when there's nothing to steer. Cletus asked for this; the mappings themselves are unchanged.
-- **Diagonal d-pad.** Our on-screen pad's quadrants point along the iso axes, so the direction you press is the direction the cursor goes. A physical DS pad can't do that. Keyboard arrows map ↑ = north (up-right) and so on.
+- **Context-aware pad.** A DS has one physical d-pad that never changes. Ours is drawn on screen, so it changes shape to show what you can steer: ▲▼ in menus, the ▲▶▼◀ cross on the map and at turn end (the facing cross is gold, with the current facing lit), dimmed when there's nothing to steer. Cletus asked for this.
+- **Cross mapping is fixed to the screen, rotated 45°.** The map is drawn in iso, so each straight arm stands for a diagonal screen direction: **▲ = up-right**, and the rest follow clockwise (▶ down-right, ▼ down-left, ◀ up-left). v0.2–v0.6 used a diagonal-quadrant pad so the arrows pointed exactly where the cursor goes. Cletus found that weird on a phone (v0.6 playtest) and preferred a classic cross with a consistent rotation. To bridge the gap, the facing step labels each map arrow with its button. Change the mapping in `controls.padCross`.
 - **Live prediction while hovering.** FFTA2 shows the prediction after you select a target. We also show it while the cursor hovers a valid target, then show it again in the confirm step. The flow is the same; you just see the numbers sooner.
 - **Tapping a target skips the hover step** (tap = select → confirm, tap again = execute). On tiles, tapping only moves the cursor, and a second tap confirms. FFTA2's battle stylus is one-touch, but its world map already uses touch-then-touch-again, and one-touch is exactly what failed in Cletus's playtest.
 - **One screen, not two.** The DS top-screen info (unit under cursor, turn order) lives in the info panel and the turn-order strip. Tapping a chip replaces L/R cycling. There's no X system menu, Y help, laws, or clan privileges yet.

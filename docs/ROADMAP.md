@@ -24,7 +24,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 **Done so far**
 - [x] FFTA2-style controls: tile cursor, Move / Action / Wait menu, A confirm / B back, undo move, attack prediction + confirm, explicit facing step, tap shortcuts
-- [x] Context-aware d-pad: ▲▼ in menus, iso quadrants on the map, facing arrows at turn end, dimmed when there's nothing to steer
+- [x] Context-aware d-pad: ▲▼ in menus, a ▲▶▼◀ cross on the map and at turn end (v0.7, replacing the diagonal quadrants; ▲ = up-right), dimmed when there's nothing to steer
 - [x] Facing (front/side/back) and flanking bonuses, shown in the prediction
 - [x] Height: damage, hit and archer range
 - [x] CT turn order with a turn-order strip; Wait costs less CT

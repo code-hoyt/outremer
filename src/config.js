@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.6.0',
+  version: '0.7.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -179,17 +179,21 @@ export const CONFIG = {
   // ---------------------------------------------------------------- turn order (CT)
   // ---------------------------------------------------------------- controls (FFTA2-style)
   controls: {
-    // On-screen d-pad is a classic cross rotated 45° so each arm points along an iso grid axis:
-    //   ↗ = north (-y)   ↘ = east (+x)   ↙ = south (+y)   ↖ = west (-x)
-    // i.e. the cursor moves exactly where the arrow points on screen.
+    // On-screen d-pad is a classic ▲▶▼◀ cross (v0.7, Cletus: the diagonal quadrants felt weird).
+    // The iso map is drawn rotated, so each arm is mapped to one grid direction, rotating clockwise from Up:
+    //   ▲ up = north (-y, up-right on screen)   ▶ right = east (+x, down-right)
+    //   ▼ down = south (+y, down-left)          ◀ left = west (-x, up-left)
+    // Used for the map cursor, the facing step and the keyboard arrows/WASD. Values are game.js DIRS indices (0 N, 1 E, 2 S, 3 W).
+    padCross: { up: 0, right: 1, down: 2, left: 3 },
+    facingArrowLabels: true, // facing step: draw the matching ▲▶▼◀ button glyph next to each facing arrow on the map
     dpadSizePx: 156,        // overall d-pad footprint (square, before rotation)
     abSizePx: 70,           // A / B button diameter
     repeatDelayMs: 320,     // hold a d-pad arm: delay before auto-repeat starts
     repeatRateMs: 120,      // then one step per this many ms
     menuItemHeightPx: 44,   // command menu row height
     // Context-aware d-pad: the pad shows only the directions that mean something right now.
-    //   map cursor (free/move/target) = four diagonal quadrants; menus = vertical ▲▼;
-    //   facing step = four facing arrows; nothing to steer (enemy turn, animations, confirm, end screen) = dimmed.
+    //   map cursor (free/move/target) = ▲▶▼◀ cross (padCross); menus = vertical ▲▼;
+    //   facing step = the same cross, current facing lit; nothing to steer (enemy turn, animations, confirm, end screen) = dimmed.
     padMorphMs: 140,        // cross-fade/morph time between pad layouts
     padDimOpacity: 0.35,    // opacity of the pad (and A/B) when there is no input to give
     tapConfirmsSecondTap: true, // tap a tile once = move cursor there; tap it again = A

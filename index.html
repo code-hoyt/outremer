@@ -37,10 +37,11 @@
         <!-- context-aware d-pad: one fixed footprint, three layers that cross-fade (see controls.pad* in config) -->
         <div id="dpad" class="off" data-mode="off" aria-label="D-pad">
           <div class="lay lay-map on" aria-label="move cursor">
-            <button data-dir="3" class="q nw" aria-label="cursor up-left (west)">◤</button>
-            <button data-dir="0" class="q ne" aria-label="cursor up-right (north)">◥</button>
-            <button data-dir="2" class="q sw" aria-label="cursor down-left (south)">◣</button>
-            <button data-dir="1" class="q se" aria-label="cursor down-right (east)">◢</button>
+            <!-- classic cross; which iso direction each arm moves is CONFIG.controls.padCross (main.js sets data-dir) -->
+            <button data-arm="up" class="arm u" aria-label="cursor up (up-right on the map)">▲</button>
+            <button data-arm="right" class="arm r" aria-label="cursor right (down-right on the map)">▶</button>
+            <button data-arm="down" class="arm d" aria-label="cursor down (down-left on the map)">▼</button>
+            <button data-arm="left" class="arm l" aria-label="cursor left (up-left on the map)">◀</button>
             <div class="hub"></div>
           </div>
           <div class="lay lay-menu" aria-label="menu up/down">
@@ -48,10 +49,10 @@
             <button data-step="1" class="v down" aria-label="menu down">▼</button>
           </div>
           <div class="lay lay-face" aria-label="choose facing">
-            <button data-face="3" class="q nw" aria-label="face up-left (west)">⬉</button>
-            <button data-face="0" class="q ne" aria-label="face up-right (north)">⬈</button>
-            <button data-face="2" class="q sw" aria-label="face down-left (south)">⬋</button>
-            <button data-face="1" class="q se" aria-label="face down-right (east)">⬊</button>
+            <button data-arm="up" class="arm u" aria-label="face up (up-right on the map)">▲</button>
+            <button data-arm="right" class="arm r" aria-label="face right (down-right on the map)">▶</button>
+            <button data-arm="down" class="arm d" aria-label="face down (down-left on the map)">▼</button>
+            <button data-arm="left" class="arm l" aria-label="face left (up-left on the map)">◀</button>
             <div class="hub">✠</div>
           </div>
         </div>
