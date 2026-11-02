@@ -2,7 +2,7 @@
 import { CONFIG } from './config.js';
 import {
   reachable, targetsFrom, preview, heightAt, alive, canAttackFrom, faceNearestFoe, effMove, hitSide, facingTo,
-  abilitiesOf, abilityReady, abilityTargets, abilityPreview, braceIntercept, braceZone, unitAt,
+  abilitiesOf, abilityReady, abilityTargets, abilityPreview, braceIntercept, braceZone, unitAt, canAct, skittishAt,
 } from './game.js';
 
 const manhattan = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
@@ -73,10 +73,11 @@ export function planTurn(s, u, opts = {}) {
   const { tiles, pathTo } = opts.fixed ? { tiles: [{ x: u.x, y: u.y }], pathTo: () => [{ x: u.x, y: u.y }] } : reachable(s, u);
   const foes = alive(s).filter((f) => f.team !== u.team);
   const abil = abilitiesOf(u).filter((a) => abilityReady(u, a.id));
+  const mayAct = s.active === u ? canAct(s) : !skittishAt(s, u); // Wren's Skittish: no action this turn
   let best = null;
   const offer = (score, tile, action) => { if (!best || score > best.score) best = { score, tile, action }; };
   for (const tile of tiles) {
-    let baseScore = A.wHeight * heightAt(s, tile.x, tile.y) - A.wDanger * dangerAt(s, u, tile.x, tile.y);
+    let baseScore = A.wHeight * heightAt(s, tile.x, tile.y) - A.wDanger * (u.npc ? A.npcDangerMul : 1) * dangerAt(s, u, tile.x, tile.y);
     if (!opts.fixed && braceIntercept(s, u, pathTo(tile.x, tile.y))) baseScore -= A.wAvoidBrace;
     const nearest = Math.min(...foes.map((f) => manhattan(tile, f)));
     let spacing = 0;
@@ -84,13 +85,13 @@ export function planTurn(s, u, opts = {}) {
     // ghost u on the tile so geometry (facing, flankers, cover) is evaluated from there
     const ox = u.x, oy = u.y; u.x = tile.x; u.y = tile.y;
     let bestAttack = -Infinity;
-    for (const t of targetsFrom(s, u, tile.x, tile.y)) {
+    for (const t of mayAct ? targetsFrom(s, u, tile.x, tile.y) : []) {
       const p = preview(s, u, t, tile.x, tile.y);
       const v = hitValue(A, t, p.dmg, 0, p.hit, p.side);
       bestAttack = Math.max(bestAttack, v);
       offer(100 + v + baseScore + spacing, tile, { type: 'attack', target: t });
     }
-    for (const ab of abil) {
+    for (const ab of mayAct ? abil : []) {
       for (const t of abilityTargets(s, u, ab.id, tile.x, tile.y)) {
         const pv = abilityPreview(s, u, ab.id, t, tile.x, tile.y);
         const bonus = abilityBonus(s, u, ab.id, t, pv, tile);
@@ -109,6 +110,20 @@ export function planTurn(s, u, opts = {}) {
   if (!best) return { tile: { x: u.x, y: u.y }, path: [{ x: u.x, y: u.y }], action: null, target: null };
   const a = best.action;
   return { tile: best.tile, path: pathTo(best.tile.x, best.tile.y), action: a, target: a && a.type === 'attack' ? a.target : null };
+}
+
+// Turncoat's Eye (Yusuf): what each foe within range of him would strike if it acted now.
+// Returns [{ from: unit, to: unit }]. Only for living observers with the trait.
+export function intents(s, team = 'player') {
+  const eyes = alive(s).filter((u) => u.team === team && u.trait === 'turncoatsEye');
+  if (!eyes.length) return [];
+  const R = CONFIG.party.traits.turncoatsEye.intentRange, out = [];
+  for (const e of alive(s).filter((f) => f.team !== team && eyes.some((y) => manhattan(y, f) <= R))) {
+    const p = planTurn(s, e);
+    const a = p.action;
+    if (a && a.target && a.target !== e && a.target.team !== e.team) out.push({ from: e, to: a.target, id: a.type === 'ability' ? a.id : 'attack' });
+  }
+  return out;
 }
 
 export { canAttackFrom, faceNearestFoe, braceZone, unitAt };

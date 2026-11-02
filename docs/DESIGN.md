@@ -1,6 +1,6 @@
-# Outremer — Design Notes (v0.7, slice + FFTA2 controls + context-aware cross pad + class abilities + 2 maps + hero creation)
+# Outremer — Design Notes (v0.8, slice + FFTA2 controls + context-aware cross pad + class abilities + 3 maps + hero creation + missions & recruitment)
 
-> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 started: hero creation is in).
+> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 under way: hero creation, the mission board and three recruitable companions are in).
 
 Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the Crusades.
 **Story is deliberately undecided.** Unit names are generic (Templar Knight, Sergeant, Turcopole Archer; Raider Swordsman / Skirmisher / Bowman) so nothing is locked in.
@@ -46,8 +46,8 @@ Class base stats from `CONFIG.roles` stay the backbone; rolled stats nudge them 
 **Open questions**
 - Is this the right stat set, and how does each map to combat (above is a draft)? Does Aim make facing's fixed hit% too swingy?
 - Stat ranges: 3–18 with floor 3 / cap 18, or a narrower band (e.g. 6–16)? Class minimums like BG (Knight needs MGT 9)?
-- Do companions use the same six stats (fixed, hand-authored), and does the hero's class limit which companions want to join?
-- How are companions recruited and limited: party cap (BG = 6; our maps suit 3–5), fixed story joins vs optional ones you can turn down, swapping at camp?
+- ~~Do companions use the same six stats?~~ Yes, hand-set (v0.8). Does the hero's class limit which companions want to join?
+- ~~How are companions recruited?~~ v0.8: win their mission, then Accept/Decline; squad 3 (hero + 2), extras rest in camp (see Missions & recruitment). Still open: a bigger party cap later?
 - Can the main character die? BG: hero death = game over. Alternatives: knocked out but the fight continues, or a wound system (ties into permadeath vs wounds).
 - Portrait art style: painted BG-style busts, pixel art matching the battle sprites, or line-art icons? Pre-made set to pick from vs a builder (face/helm/colours)?
 
@@ -81,6 +81,57 @@ Mockup **B** (wizard) was picked. After the title screen: **Create your hero** (
 | great (18/17/14/13/12/9) | 68.1% | 59.4% |
 | poor (9/9/8/8/9/9) | 14.5% | 20.7% |
 An average hero leaves balance where it was. A great roll is a big swing on The Ridge, which is more than the "+15–20%" target; watch this in playtests (knobs: `perPoint`). The sim is noisy because the AI is deterministic and small stat changes flip whole fights.
+
+## Missions & recruitment (v0.8)
+*Decided with Cletus:* companions join by **winning a specific mission**, not by *how* you win it ("how you win decides recruitment" is in the ROADMAP parking lot). The flow copies FFTA2's pub quest board.
+
+**Flow**
+1. **Title** (once a hero exists): **Mission board** (preselected) · **New hero**. With no hero the title is unchanged (Create your hero + the skirmish maps).
+2. **Mission board:** three recruit missions with vague titles, then two skirmishes, then ◀ Back. Your squad shows at the top (hero + companion portraits).
+   | Mission | Who it really is | Map |
+   |---|---|---|
+   | **A Templar in Need** | Brother Renaud (Knight) | The Breach: he holds the rubble of the breach (4,4) |
+   | **Smoke at the Well** | Yusuf ibn Qasim (Scout) | The Ridge: he's in the middle, four raiders (incl. a Spearman) around him |
+   | **Thief in the Baggage Train** | Wren (Scout) | **new map, The Baggage Train**: a raided column on the coast road with overturned carts (terrain *Cart*, height 1, cost 2) |
+   | Skirmish: The Ridge / The Breach | — | the v0.5 battles, replayable; the board counts wins |
+3. **Brief** (recruit missions only): a few lines of setup next to a **silhouette** portrait with "?", then Begin / Back. The name is never shown before the win.
+4. **Battle:** your squad (hero + fielded companions + generic Templars, 3 units) **plus the stranger as an allied NPC**: on your side, **AI-controlled**, shown as an alias ("Lone Brother", "Lone Rider", "Small Figure") with a dashed **green ring** on the map, a green-bordered "?" chip in the turn strip and a "?" silhouette in the info panel. **They must survive**: if they fall it's a Defeat ("The lone brother has fallen. The mission is lost."). You lose as before when all your own units are down.
+5. **Victory → join offer:** their real name, portrait, a short outro line and their trait (＋ pro / − con), then **Accept** or **Decline**.
+   - **Accept:** they join the company (saved). If there's room in the squad they're fielded right away.
+   - **Decline:** they leave. **The mission stays done** either way (✓ on the board, can't be replayed).
+6. **Defeat** on a recruit mission: Try again / Mission board; the mission stays open.
+
+**Party rules**
+- **Squad size stays 3** (all maps deploy 3): hero + up to **2 companions** (`CONFIG.party.maxCompanions`), generic Templars fill the rest. The NPC in a recruit mission is a 4th unit on top.
+- Slot order: the hero takes the Templar slot of their class (as in v0.6). Each companion then takes a remaining **generic** slot of their own class, else the first generic slot (which changes that slot's class). Example: Knight hero + Renaud (Knight) + Yusuf (Scout) replaces the Sergeant and the Archer.
+- With 3 companions, one rests in camp: **tap a portrait on the board** to field / rest it. Fielding a third rests the one fielded earliest.
+- **Saved** in `localStorage['outremer.party']`: companions (joined/declined, fielded) and mission progress. **New hero = new company**: creating a new hero clears the party and mission progress. Cancelling the wizard keeps everything.
+- Companions use the **same six stats as the hero**, hand-set (`CONFIG.party.companions`), through the same formula (`deriveHero`). Their portraits are the pitch images, resized into `assets/companions/`. In battle they show their portrait and trait line in the unit info panel and their portrait in the turn strip (the hero's chip now shows the hero's bust too). Yusuf and Wren aren't Templars, so their sprites wear a plain sash instead of the red cross.
+
+**Companion stats & traits** (simple trade-off versions of the [pitch doc](companions-pitch.md); every number in `CONFIG.party`):
+| | Stats (MGT/END/FOR/AGI/AIM/RES) | Battle numbers | Trait: pro | Trait: con |
+|---|---|---|---|---|
+| **Brother Renaud**, Knight | 12/13/14/7/10/14 | HP 54, ATK 15, DEF 13, SPD 5, MOV 3, Res 20% | **Under the Rule:** +2 DEF while orthogonally next to another Templar (the hero, generic Templars, Renaud's fellow brothers), applied in every damage preview and roll | **Holds ground:** if he starts a move next to a foe, he may only end it on a tile that is still next to a foe (in `reachable`, so it applies to the AI too) |
+| **Yusuf ibn Qasim**, Scout | 12/10/9/14/13/10 | HP 34, ATK 13, DEF 6, SPD 13, MOV 5, Hit +6% | **Turncoat's Eye:** during your turns, every raider within 4 tiles of him shows a dashed orange arrow to the unit it would strike if it acted now (the raider's real AI plan) | **Mercy:** he can't Attack or use an ability on a foe below 25% HP (filtered out of targets) |
+| **Wren**, Scout | 9/6/6/16/12/8 | HP 28, ATK 12, DEF 4, SPD 14, MOV 6, Hit +4% | **Light Feet:** +1 MOV | **Frail** (low END/FOR: the lowest HP/DEF of any player unit) and **Skittish:** if she starts her turn next to 2+ foes she can't act that turn (Action greyed, "skittish"); she can still move |
+
+**Simplified from the pitch (deviations):** Renaud's Shield Wall covering a 2nd ally, "never Waits with a foe in reach" and refusing camp with Yusuf are not in. Yusuf's intent display is a line to the target, not the exact move/ability. Wren's swap-with-an-ally, post-battle loot and the 2-tile auto-bolt are not in: Scouts already ignore rough terrain, so her terrain pro became +1 MOV, and her bolt became "can't act". The amulet is only flavour text.
+
+**Allied NPC AI:** the NPC uses the normal scoring AI with its danger penalty ×30 (`CONFIG.ai.npcDangerMul`). With the normal weight the stranger charged in and died on their first turn (Yusuf: 99% of sims); this makes them keep their distance while you do the fighting.
+
+**Sim** (AI vs AI, average knight hero, N = 2000, `HERO=avg node tools/sim.mjs 2000 missions`):
+| Mission | Templar win | Stranger fell | Note |
+|---|---|---|---|
+| A Templar in Need | 58.8% | 5.2% | 19.9% stall at the 300-turn cap (Renaud holds ground, the AIs circle) |
+| Smoke at the Well | 41.9% | 32.2% | |
+| Thief in the Baggage Train | 69.7% | 9.8% | long fights (70 turns avg): Wren keeps away |
+Fielded companions in skirmishes (`COMP=… HERO=avg`): The Breach 87–91% with Wren in the squad but 19.6% with Renaud + Yusuf; The Ridge 14–19% with a Knight hero, 28% with an Archer hero. The Ridge drop is mostly **squad shape**: companions replace the Sergeant and the Archer, and The Ridge rewards ranged units. The deterministic AI makes these numbers swing a lot. Playtests decide.
+
+**Open questions**
+- **Can a declined companion be recruited later** (e.g. found again at camp, or a second mission), or is Decline final? It's final for now.
+- Should **how** you win matter (parking lot): e.g. Renaud only joins if no Templar falls, Yusuf if you spare a fleeing raider.
+- Squad size: is 3 + NPC right, or should recruit missions let you field 4?
+- Should the stranger take orders (FFTA2 guests are AI-only, as here)?
 
 ## Turn order — CT system (FFTA-like)
 - Every unit has a **CT** counter. Time ticks; each tick every living unit gains CT = its **SPD**.
@@ -187,6 +238,7 @@ Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-fa
   | Facing step | **the same cross** in gold, the arm for the current facing lit. Same mapping: ▲ faces up-right, ▶ down-right, ▼ down-left, ◀ up-left. Each facing arrow on the map carries a small ▲▶▼◀ badge naming its button (`controls.facingArrowLabels`). A confirms (tapping a map arrow twice also confirms) |
   | Confirm prediction, enemy turn, animations, victory/defeat | dimmed and inert (`controls.padDimOpacity`). A/B are dimmed too whenever it isn't your input; in Confirm, A/B stay live |
   | Title / end-of-battle picker | **vertical ▲ ▼** + A/B (unchanged): it's a short list, and A/B match the battle that follows |
+  | **Mission board, brief, join offer** (v0.8) | **vertical ▲ ▼ + A/B**, same as the title. They're short lists (≤ 6 rows), so they follow the list rule: ▲▼ move the highlight (the list scrolls with it), A takes the mission / Begins / Accepts, B goes back one screen (board → title, brief → board). On the **join offer B does nothing**: Accept/Decline is a real choice and shouldn't be skipped by a reflex B. Taps work everywhere. The squad portraits on the board are **tap-only** (field/rest); they're a side control, and adding them to the pad list would make it longer than it needs to be. The unit info panel is hidden while any list screen is up, so the list gets the room |
   | Hero creation: **Portrait** (v0.6) | **no pad, no A/B.** Full-screen wizard over the pad. Picking a bust is a direct tap on a 4×2 grid; a cursor would be slower. Back/Next buttons in the footer |
   | Hero creation: **Class** | **no pad, no A/B.** Swipe the card, tap ◀ ▶ beside it or tap a dot. A pad would only duplicate the arrows |
   | Hero creation: **Stats** | **4-way cross** (from mockup B, which Cletus liked): ▲▼ pick a stat, ◀ ▶ −/+, hold to repeat. Taps on −/+ work too. **No A/B**: Reroll / Store / Recall and Back/Next are labelled buttons, so an A/B pair would be ambiguous. This is the one screen with many small repeated adjustments, which is where a pad beats tapping 34px buttons |

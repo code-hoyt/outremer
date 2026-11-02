@@ -218,3 +218,48 @@ html, body {
 .step-2 .xpad { width: 116px; height: 116px; }
 .step-2 .cr-ctl { margin-top: 6px; }
 .step-2 .cr-btns { gap: 6px; } .step-2 .cr-btns .btn { min-height: 34px; }
+
+/* ---------------------------------------------------------------- v0.8 missions, recruitment, companions */
+.chip .chip-por { position: absolute; inset: 0; border-radius: 6px; overflow: hidden; display: block; }
+.chip .chip-por svg, .chip .chip-por img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; }
+.chip.comp { box-shadow: 0 0 0 2px #d8c48f inset; }
+.chip.npc { border-color: #7fd48f; }
+.chip.npc.now { border-color: #ffd85a; }
+.unknown img { filter: brightness(0.12) contrast(1.2) blur(1px); }
+.unknown { position: relative; }
+.unknown b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #7fd48f; font-size: 1.3em; font-weight: bold; }
+#banner.npc { border-color: #7fd48f; }
+.comp-por { position: relative; overflow: hidden; }
+.comp-por img, .comp-img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; display: block; }
+#info .traitline { font-size: 11px; color: #c9bea6; margin-top: 3px; line-height: 1.3; }
+#info .traitline b { color: #d8c48f; }
+/* mission board party strip */
+#overlay .party { display: flex; gap: 8px; justify-content: center; margin: 2px 0 4px; }
+#overlay .comp { width: 54px; padding: 0; background: none; border: 0; color: #efe7d4; font: inherit; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+#overlay .comp .comp-img, #overlay .comp .hero-por { width: 46px; height: 56px; border-radius: 7px; border: 2px solid #d8c48f; margin: 0; overflow: hidden; }
+#overlay .comp.off .comp-img { filter: grayscale(1) brightness(.55); border-color: #5a5248; }
+#overlay .comp small { font-size: 10px; margin-top: 2px; max-width: 54px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#overlay .comp.off small { color: #8c8070; }
+#overlay .party-note { display: block; font-size: 11px; color: #a89c86; margin-top: 2px; }
+#overlay .pick.done { opacity: .6; }
+#overlay .pick.done small { color: #7fd48f; }
+#overlay .pick.new small { color: #c9bea6; }
+/* brief / join offer */
+#overlay .brief { display: flex; gap: 12px; align-items: flex-start; text-align: left; font-size: 13px; line-height: 1.4; color: #e3d9c3; }
+#overlay .brief .comp-por { flex: 0 0 auto; width: 96px; height: 128px; border-radius: 10px; border: 2px solid #d8c48f; }
+#overlay .brief .comp-por.unknown { border-color: #7fd48f; }
+#overlay .brief .comp-por.unknown b { font-size: 40px; }
+#overlay .trait { display: block; text-align: left; font-size: 12px; color: #c9bea6; background: #2b2531; border-radius: 8px; padding: 6px 10px; margin-top: 8px; line-height: 1.45; }
+#overlay .trait b { color: #d8c48f; }
+#overlay.kind-recruit .card, #overlay.kind-brief .card, #overlay.kind-missions .card { width: 90%; }
+#app.picking #info, #app.picking #hint { display: none; }
+/* mission board: compact so 5 missions + Back + the squad fit a phone */
+#overlay.kind-missions .card { padding: 12px 14px; }
+#overlay.kind-missions h1 { font-size: 18px; margin-bottom: 4px; }
+#overlay.kind-missions .pick { padding: 6px 12px; margin-top: 6px; font-size: 15px; }
+#overlay.kind-missions .pick small { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#overlay.kind-missions .comp .comp-img, #overlay.kind-missions .comp .hero-por { width: 38px; height: 46px; }
+#overlay.kind-brief h1, #overlay.kind-recruit h1 { font-size: 22px; }
+#overlay .brief { font-size: 12.5px; line-height: 1.35; }
+#overlay .brief .comp-por { width: 84px; height: 112px; }
+#overlay.kind-recruit .pick, #overlay.kind-brief .pick { padding: 6px 12px; }

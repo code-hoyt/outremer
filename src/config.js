@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.7.0',
+  version: '0.8.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -20,6 +20,8 @@ export const CONFIG = {
     e: { name: 'Flagstone', short: 'F', cost: 1 },
     w: { name: 'Wall', short: 'W', cost: 1 },      // wall-walk / tower stone: tall, not slow
     b: { name: 'Rubble', short: 'Ru', cost: 2 },   // the breach and the rubble mound
+    // The Baggage Train (mission map)
+    c: { name: 'Cart', short: 'C', cost: 2 },      // overturned baggage carts: slow to clamber over
   },
   // extra move cost for each height level climbed UP in one step (down is free)
   climbCostPerLevel: 0,
@@ -174,6 +176,61 @@ export const CONFIG = {
     swipePx: 40,                     // class cards: horizontal swipe distance to change class
   },
 
+  // ---------------------------------------------------------------- party & companions (v0.8)
+  // Set companions with their own stories (Baldur's Gate-style). They join by WINNING their
+  // recruit mission (src/missions.js), then Accept/Decline. Fixed stats go through the same
+  // formula as the created hero (src/hero.js deriveHero). Squad size stays 3: hero + up to
+  // `maxCompanions` companions, generic Templars fill the rest.
+  party: {
+    storageKey: 'outremer.party',
+    maxCompanions: 2,                // squad is 3: hero + 2. More recruits wait in camp (toggle on the board)
+    companions: {
+      renaud: {
+        name: 'Brother Renaud', short: 'Renaud', role: 'knight', templar: true, trait: 'underTheRule',
+        portrait: 'assets/companions/renaud.jpg',
+        stats: { mgt: 12, end: 13, fort: 14, agi: 7, aim: 10, res: 14 },
+        blurb: 'Templar of the old Rule, about sixty. Holds the line; will not give ground.',
+      },
+      yusuf: {
+        name: 'Yusuf ibn Qasim', short: 'Yusuf', role: 'skirmisher', templar: false, trait: 'turncoatsEye',
+        portrait: 'assets/companions/yusuf.jpg',
+        stats: { mgt: 12, end: 10, fort: 9, agi: 14, aim: 13, res: 10 },
+        blurb: 'A raider who turned on his own band. Reads them like a book; shows mercy.',
+      },
+      wren: {
+        name: 'Wren', short: 'Wren', role: 'skirmisher', templar: false, trait: 'lightFeet',
+        portrait: 'assets/companions/wren.jpg',
+        stats: { mgt: 9, end: 6, fort: 6, agi: 16, aim: 12, res: 8 },
+        blurb: 'A camp orphan of fifteen with quick hands. Frail and skittish. Her amulet hums.',
+      },
+    },
+    // Signature traits: one pro, one con each (simple v0.8 versions of the pitch doc).
+    traits: {
+      underTheRule: {
+        name: 'Under the Rule',
+        pro: '+2 DEF while next to another Templar',
+        con: 'Holds ground: starting next to a foe, may only move to tiles still next to a foe',
+        defAdjTemplar: 2,
+      },
+      turncoatsEye: {
+        name: "Turncoat's Eye",
+        pro: 'Shows what raiders within 4 tiles of him intend to strike next',
+        con: 'Mercy: will not strike a foe below 25% HP',
+        intentRange: 4,
+        mercyBelow: 0.25,
+      },
+      lightFeet: {
+        name: 'Light Feet',
+        pro: '+1 MOV',
+        con: 'Frail; skittish: starting her turn next to 2+ foes, she cannot act',
+        moveBonus: 1,
+        skittishAdj: 2,
+      },
+    },
+    // allied NPC in a recruit mission (AI-driven, must survive): turn-strip / info colour
+    npcLabel: 'Ally',
+  },
+
   // starting layouts are per map: see src/maps.js
 
   // ---------------------------------------------------------------- turn order (CT)
@@ -236,6 +293,7 @@ export const CONFIG = {
     wKill: 25,           // bonus for a likely kill
     wHeight: 2,          // bonus per height level of the destination tile
     wDanger: 0.35,       // penalty per point of damage enemies could deal back next turn
+    npcDangerMul: 30,    // allied NPC in a recruit mission (must survive): x danger penalty
     wApproach: 1.5,
     wFlankSide: 4,       // extra score for attacking from a side / back
     wFlankBack: 10,      // per tile closer to nearest foe (when no attack available)
@@ -287,7 +345,11 @@ export const CONFIG = {
       e: { top: '#c2b49a', side: '#7d705d' }, // flagstone courtyard
       w: { top: '#a99f8e', side: '#6b6153' }, // wall stone
       b: { top: '#8f8371', side: '#5e5446' }, // rubble
+      c: { top: '#8a5a32', side: '#5a3a1e' }, // baggage cart (wood)
     },
+    npcRing: '#7fd48f',            // allied NPC (recruit mission) ground ring
+    companionSash: '#6a4a2a',      // companions who are not Templars wear a sash, not the cross
+    intent: '#ff8a4a',             // Turncoat's Eye: raider → intended target
     moveHighlight: 'rgba(80,170,255,0.45)',
     attackHighlight: 'rgba(255,80,70,0.45)',
     targetHighlight: 'rgba(255,220,80,0.65)',

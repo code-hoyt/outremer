@@ -1,8 +1,10 @@
 // Outremer prototype — rendering, input, and turn flow.
 import { CONFIG } from './config.js';
 import * as G from './game.js';
-import { planTurn } from './ai.js';
-import { MAPS, resolveMap } from './maps.js';
+import { planTurn, intents } from './ai.js';
+import { MAPS, resolveMap, skirmishMaps } from './maps.js';
+import { MISSIONS, missionById } from './missions.js';
+import { loadParty, saveParty, clearParty, emptyParty, activeCompanions, joined, recruit, toggleActive, companionDef, traitDef } from './party.js';
 import { loadHero, saveHero, portraitSvg } from './hero.js';
 import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js';
 
@@ -20,24 +22,31 @@ const seedParam = params.get('seed');
 const makeRng = () => (seedParam ? mulberry32(Number(seedParam)) : Math.random);
 // ?map=<id|number> starts that map directly; otherwise the title screen offers a map picker
 const mapParam = resolveMap(params.get('map'));
+const missionParam = missionById(params.get('mission')); // ?mission=<id> starts that mission directly (tests)
 const MAP_KEY = 'outremer.map';
 const lastMap = () => { try { return resolveMap(localStorage.getItem(MAP_KEY)); } catch (_) { return null; } };
 
 // ---------------------------------------------------------------- state
 let S, ui, anims, floats, layout;
+let intentCache = null; // Turncoat's Eye: { key, list }
 let mapId = (mapParam || lastMap() || resolveMap(CONFIG.defaultMap) || MAPS[0]).id;
 let playedBefore = !!lastMap(); // first visit → the title preselects "Create your hero"
 let hero = loadHero(); // the created main character (localStorage), or null = default squad
-let picker = null; // { kind: 'title'|'end', items: [{ label, sub, act }], index } while the overlay menu is up
-function reset(id = mapId, { start = true } = {}) {
+let party = loadParty(); // recruited companions + mission progress (localStorage, src/party.js)
+let mission = null; // the mission being fought (src/missions.js), or null = a plain map battle
+let picker = null; // { kind: 'title'|'missions'|'brief'|'recruit'|'end', items: [{ label, sub, act }], index } while the overlay menu is up
+function reset(id = mapId, { start = true, mission: m = null } = {}) {
+  mission = m;
+  if (m) id = m.map;
   mapId = id;
-  try { localStorage.setItem(MAP_KEY, id); } catch (_) { /* private mode */ }
-  S = G.createState(makeRng(), id, hero);
+  try { if (!resolveMap(id).missionOnly) localStorage.setItem(MAP_KEY, id); } catch (_) { /* private mode */ }
+  S = G.createState(makeRng(), id, hero, { companions: hero ? activeCompanions(party) : [], mission: m });
+  intentCache = null;
   ui = { mode: 'busy', cursor: { x: 0, y: 0 }, menu: null, menuIndex: 0, moveInfo: null, target: null, rangeOf: null, lastTap: null, ability: null };
   anims = new Map(); floats = [];
-  $('title').querySelector('span').textContent = S.mapName;
+  $('title').querySelector('span').textContent = m && m.kind === 'recruit' ? m.title : S.mapName;
   if (layout) resize();
-  if (!start) return;
+  if (!start) { updatePanel(); return; }
   playedBefore = true;
   closePicker();
   nextTurn();
@@ -46,44 +55,123 @@ function reset(id = mapId, { start = true } = {}) {
 // ---------------------------------------------------------------- map picker (title + Victory/Defeat overlay)
 // Same flow as the command menu: d-pad/keys up/down move the highlight, A picks, taps pick directly.
 const mapLabel = (m, i) => `${i + 1} · ${m.name}`;
-function openPicker(kind) {
+const heroLine = () => `<span class="hero-line"><span class="hero-por">${portraitSvg(hero.portrait)}</span>${esc(hero.name)} · ${CONFIG.creation.classLabel[hero.role]}</span>`;
+const compImg = (id, cls = '') => `<img class="comp-img ${cls}" src="${companionDef(id).portrait}" alt="">`;
+// the squad strip on the mission board: hero + recruited companions (tap a companion: field / bench)
+function partyStrip() {
+  const act = activeCompanions(party);
+  const comps = joined(party).map((id) => `<button class="comp ${act.includes(id) ? 'on' : 'off'}" data-comp="${id}" title="${esc(companionDef(id).name)}">${compImg(id)}<small>${esc(companionDef(id).short)}</small></button>`).join('');
+  return `<span class="party"><span class="comp on hero-chip"><span class="hero-por">${portraitSvg(hero.portrait)}</span><small>${esc(hero.name)}</small></span>${comps}</span>`
+    + `<span class="party-note">${joined(party).length ? `Squad: hero + ${act.length}/${CONFIG.party.maxCompanions} companions · tap to field / rest` : 'Win recruit missions to grow your company.'}</span>`;
+}
+function missionItem(m) {
+  if (m.kind === 'skirmish') {
+    const map = resolveMap(m.map), wins = party.done[m.id] || 0;
+    return { id: 'm-' + m.id, label: m.title, sub: `${map.blurb}${wins ? ` · ✓ won ×${wins}` : ''}`, act: () => reset(m.map, { mission: m }) };
+  }
+  const done = party.done[m.id];
+  if (done) {
+    const c = companionDef(m.companion);
+    return { id: 'm-' + m.id, cls: 'done', label: `✓ ${m.title}`, sub: done === 'recruited' ? `Done · ${esc(c.name)} joined` : `Done · ${esc(c.name)} declined`, act: () => {} };
+  }
+  return { id: 'm-' + m.id, cls: 'new', label: m.title, sub: m.sub, act: () => openPicker('brief', m) };
+}
+function openPicker(kind, arg = null) {
   const cur = MAPS.findIndex((m) => m.id === mapId);
-  let items;
+  let items, index = 0;
+  const title = (t) => { $('ov-title').textContent = t; };
+  $('overlay').className = 'kind-' + kind;
   if (kind === 'title') {
-    items = MAPS.map((m, i) => ({ label: mapLabel(m, i), sub: m.blurb, act: () => reset(m.id) }));
-    const mk = { id: hero ? 'new-hero' : 'create-hero', label: hero ? 'New hero' : 'Create your hero',
-      sub: hero ? `Roll a new main character (replaces ${esc(hero.name)})` : 'Portrait, class, stats, name', act: startCreator };
-    if (hero) items.push(mk); else items.unshift(mk);
-    $('ov-title').textContent = 'OUTREMER';
-    $('ov-text').innerHTML = (hero ? `<span class="hero-line"><span class="hero-por">${portraitSvg(hero.portrait)}</span>${esc(hero.name)} · ${CONFIG.creation.classLabel[hero.role]}</span><br>` : '')
-      + (hero ? 'Choose a battlefield' : 'Make your hero, or fight with the default squad');
+    title('OUTREMER');
+    if (hero) {
+      items = [{ id: 'mission-board', label: 'Mission board', sub: 'Take a mission · recruit companions · skirmish', act: () => openPicker('missions') },
+        { id: 'new-hero', label: 'New hero', sub: `Roll a new main character (replaces ${esc(hero.name)} and starts a new company)`, act: startCreator }];
+      $('ov-text').innerHTML = heroLine() + (joined(party).length ? `<br>Company: ${joined(party).map((id) => esc(companionDef(id).name)).join(', ')}` : '');
+    } else {
+      const maps = skirmishMaps();
+      items = maps.map((m, i) => ({ label: mapLabel(m, i), sub: m.blurb, act: () => reset(m.id) }));
+      items.unshift({ id: 'create-hero', label: 'Create your hero', sub: 'Portrait, class, stats, name — then take missions', act: startCreator });
+      $('ov-text').innerHTML = 'Make your hero, or fight with the default squad';
+      index = playedBefore ? Math.max(0, maps.findIndex((m) => m.id === mapId)) + 1 : 0; // first visit: "Create your hero"
+    }
+  } else if (kind === 'missions') {
+    // FFTA2-style quest board: vague titles, you find out who it is when you win
+    if (S.over || (mission && mission.kind === 'recruit')) reset(skirmishMaps().some((m) => m.id === mapId) ? mapId : CONFIG.defaultMap, { start: false }); // idle current squad behind the board
+    title('MISSION BOARD');
+    items = MISSIONS.map(missionItem);
+    items.push({ id: 'back-title', label: '◀ Back', act: () => openPicker('title') });
+    $('ov-text').innerHTML = partyStrip();
+    index = Math.max(0, items.findIndex((it) => it.cls === 'new'));
+    if (arg && arg.id) index = Math.max(0, MISSIONS.findIndex((m) => m.id === arg.id));
+  } else if (kind === 'brief') {
+    const m = arg;
+    title(m.title.toUpperCase());
+    $('ov-text').innerHTML = `<span class="brief"><span class="comp-por unknown">${compImg(m.companion)}<b>?</b></span><span>${esc(m.intro)}</span></span>`
+      + `<span class="party-note">Win the battle. The ${esc(m.alias.toLowerCase())} (green ring) fights on their own and must survive.</span>`;
+    items = [{ id: 'begin', label: 'Begin', sub: resolveMap(m.map).name, act: () => reset(m.map, { mission: m }) },
+      { id: 'back-board', label: 'Back', act: () => openPicker('missions', m) }];
+  } else if (kind === 'recruit') {
+    // FFTA2: you learn who it was, then choose. Declining is final for now (DESIGN open question).
+    const m = mission, c = companionDef(m.companion), t = traitDef(c.trait);
+    title(c.name.toUpperCase());
+    $('ov-text').innerHTML = `<span class="brief"><span class="comp-por">${compImg(m.companion)}</span><span>${esc(m.outro)}</span></span>`
+      + `<span class="trait"><b>${esc(CONFIG.creation.classLabel[c.role])} · ${esc(t.name)}</b><br>＋ ${esc(t.pro)}<br>－ ${esc(t.con)}</span>`;
+    const decide = (yes) => () => { recruit(party, m.id, m.companion, yes); saveParty(party); openPicker('missions', m); };
+    items = [{ id: 'accept', label: `Accept`, sub: `${esc(c.name)} joins your company`, act: decide(true) },
+      { id: 'decline', label: 'Decline', sub: 'Part ways. The mission stays done.', act: decide(false) }];
+  } else if (hero) {
+    // Victory / Defeat with a hero: back to the board
+    const again = mission && mission.kind === 'recruit' ? 'Try again' : 'Play again';
+    items = [];
+    if (!(mission && mission.kind === 'recruit' && party.done[mission.id])) items.push({ id: 'restart', label: again, sub: mission ? mission.title : S.mapName, act: () => reset(mapId, { mission }) });
+    items.push({ id: 'to-board', label: 'Mission board', act: () => openPicker('missions', mission) });
   } else {
-    const next = MAPS[(cur + 1) % MAPS.length];
-    items = [{ id: 'restart', label: 'Play again', sub: MAPS[cur].name, act: () => reset(mapId) }];
-    if (MAPS.length > 1) items.push({ id: 'next-map', label: `Next map: ${next.name}`, act: () => reset(next.id) });
+    const maps = skirmishMaps(), ci = Math.max(0, maps.findIndex((m) => m.id === mapId));
+    const next = maps[(ci + 1) % maps.length];
+    items = [{ id: 'restart', label: 'Play again', sub: (MAPS[cur] || maps[0]).name, act: () => reset(mapId) }];
+    if (maps.length > 1) items.push({ id: 'next-map', label: `Next map: ${next.name}`, act: () => reset(next.id) });
     items.push({ id: 'choose-map', label: 'Choose map', act: () => openPicker('title') });
   }
-  picker = { kind, items, index: kind === 'title' ? (hero ? Math.max(0, cur) : playedBefore ? Math.max(0, cur) + 1 : 0) : 0 }; // first visit: "Create your hero"
+  picker = { kind, items, index, arg };
   $('ov-list').innerHTML = items.map((it, i) =>
-    `<button class="btn pick" ${it.id ? `id="${it.id}"` : ''} data-pick="${i}">${it.label}${it.sub ? `<small>${it.sub}</small>` : ''}</button>`).join('');
+    `<button class="btn pick ${it.cls || ''}" ${it.id ? `id="${it.id}"` : ''} data-pick="${i}">${it.label}${it.sub ? `<small>${it.sub}</small>` : ''}</button>`).join('');
   syncPicker();
   $('overlay').classList.remove('hidden');
+  setPicking(true);
   syncPad();
+}
+// while a list screen is up, the unit panel steps aside so the list gets the room (the pad stays)
+function setPicking(on) {
+  if ($('app').classList.contains('picking') === on) return;
+  $('app').classList.toggle('picking', on);
+  if (layout) resize();
+}
+// B on a picker: one screen back (recruit offer: must choose)
+function pickerBack() {
+  const k = picker.kind;
+  if (k === 'title' && S.over) return openPicker('end');
+  if (k === 'missions') return openPicker('title');
+  if (k === 'brief') return openPicker('missions', picker.arg);
 }
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 // "New hero": the BG-style creation wizard (src/create.js). Done = save + rebuild the squad + back to the title.
 function startCreator() {
   closePicker();
   openCreator({
-    onDone: (h) => { hero = h; saveHero(h); reset(mapId, { start: false }); openPicker('title'); },
+    // a new hero starts a new company: recruited companions and mission progress are cleared
+    onDone: (h) => { hero = h; saveHero(h); party = emptyParty(); clearParty(); reset(skirmishMaps().some((m) => m.id === mapId) ? mapId : CONFIG.defaultMap, { start: false }); openPicker('title'); },
     onCancel: () => openPicker('title'),
   });
   syncPad();
 }
-function closePicker() { picker = null; $('overlay').classList.add('hidden'); syncPad(); }
+function closePicker() { picker = null; $('overlay').className = 'hidden'; setPicking(false); syncPad(); }
 function syncPicker() {
   if (!picker) return;
-  $('ov-list').querySelectorAll('[data-pick]').forEach((b) => b.classList.toggle('sel', Number(b.dataset.pick) === picker.index));
+  $('ov-list').querySelectorAll('[data-pick]').forEach((b) => {
+    const on = Number(b.dataset.pick) === picker.index;
+    b.classList.toggle('sel', on);
+    if (on && b.scrollIntoView) b.scrollIntoView({ block: 'nearest' }); // long lists scroll with the pad
+  });
 }
 function pickerStep(step) { picker.index = (picker.index + step + picker.items.length) % picker.items.length; syncPicker(); }
 function pickerChoose(i = picker.index) { const it = picker.items[i]; if (it) it.act(); }
@@ -215,6 +303,7 @@ function drawUnit(u, now) {
   const x = pos.x, y = pos.y;
   // ground: shadow, active ring, facing wedge
   ctx.beginPath(); ctx.ellipse(x, y, 15 * k, 7 * k, 0, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,0,0,.32)'; ctx.fill();
+  if (u.npc) { ctx.beginPath(); ctx.ellipse(x, y, 17 * k, 8.5 * k, 0, 0, Math.PI * 2); ctx.strokeStyle = P.npcRing; ctx.lineWidth = 2 * k; ctx.setLineDash([4 * k, 3 * k]); ctx.stroke(); ctx.setLineDash([]); }
   if (isActive) { ctx.beginPath(); ctx.ellipse(x, y, 19 * k, 9.5 * k, 0, 0, Math.PI * 2); ctx.strokeStyle = '#ffd85a'; ctx.lineWidth = 2.5 * k; ctx.stroke(); }
   ctx.beginPath();
   ctx.moveTo(x + dir[0] * 25 * k, y + dir[1] * 25 * k);
@@ -250,7 +339,9 @@ function drawUnit(u, now) {
   // body / tunic
   ctx.fillStyle = pal.body; ctx.strokeStyle = 'rgba(0,0,0,.45)'; ctx.lineWidth = 1.2;
   ctx.beginPath(); ctx.moveTo(-11, -38); ctx.lineTo(11, -38); ctx.lineTo(13, -10); ctx.lineTo(-13, -10); ctx.closePath(); ctx.fill(); ctx.stroke();
-  if (!back) {
+  if (u.team === 'player' && !u.templar) { // companions outside the Order: no cross, a plain sash
+    ctx.strokeStyle = P.companionSash; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-10, -36); ctx.lineTo(11, -13); ctx.stroke();
+  } else if (!back) {
     if (u.team === 'player') { // Templar red cross
       ctx.fillStyle = pal.trim; ctx.fillRect(-2.5, -35, 5, 20); ctx.fillRect(-8, -29, 16, 5);
     } else { // raider sash + trim
@@ -313,6 +404,33 @@ function drawUnit(u, now) {
   }
   ctx.globalAlpha = 1;
 }
+// Turncoat's Eye (Yusuf): dashed line from each raider near him to whoever it means to strike.
+// Recomputed only when the board changes (positions / HP / statuses / whose turn).
+function currentIntents() {
+  if (!S || S.over || !S.units.some((u) => u.hp > 0 && u.trait === 'turncoatsEye' && u.team === 'player')) return [];
+  const key = S.turnCount + '|' + S.units.map((u) => `${u.x},${u.y},${u.hp},${u.facing},${Object.keys(u.status).join('')}`).join(';');
+  if (!intentCache || intentCache.key !== key) intentCache = { key, list: intents(S, 'player') };
+  return intentCache.list;
+}
+function drawIntents(now) {
+  const list = currentIntents();
+  if (!list.length) return;
+  const { k } = layout;
+  ctx.save();
+  ctx.strokeStyle = P.intent; ctx.fillStyle = P.intent; ctx.lineWidth = 2 * k; ctx.setLineDash([5 * k, 4 * k]);
+  ctx.lineDashOffset = -now / 40;
+  for (const { from, to } of list) {
+    const a = unitScreenPos(from, now), b = unitScreenPos(to, now);
+    const ay = a.y - 30 * k, by = b.y - 30 * k;
+    ctx.globalAlpha = 0.85;
+    ctx.beginPath(); ctx.moveTo(a.x, ay); ctx.lineTo(b.x, by); ctx.stroke();
+    const ang = Math.atan2(by - ay, b.x - a.x), L = 9 * k;
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(b.x, by); ctx.lineTo(b.x - L * Math.cos(ang - 0.45), by - L * Math.sin(ang - 0.45)); ctx.lineTo(b.x - L * Math.cos(ang + 0.45), by - L * Math.sin(ang + 0.45)); ctx.closePath(); ctx.fill();
+    ctx.setLineDash([5 * k, 4 * k]);
+  }
+  ctx.restore();
+}
 const STATUS = {
   wall: { pip: 'W', name: 'Shield Wall', text: 'front dmg ×½, covers adjacent allies' },
   brace: { pip: 'B', name: 'Braced', text: 'strikes the first foe entering its front zone' },
@@ -353,6 +471,7 @@ function render(now) {
     drawTile(x, y, hl.get(key(x, y)));
   }
   while (ui2 < units.length) drawUnit(units[ui2++].u, now);
+  if (isPlayerTurn()) drawIntents(now);
   if (ui.mode === 'facing' && S.active) drawFacingArrows(S.active, now);
   if (showCursor()) drawCursor(now);
   // floating numbers
@@ -469,7 +588,8 @@ cv.addEventListener('pointerup', (e) => {
 // ---------------------------------------------------------------- player input (FFTA2-style state machine)
 // modes: busy | menu | actmenu | free | move | target | confirm | facing
 const C = CONFIG.controls;
-const isPlayerTurn = () => S.active && S.active.team === 'player' && !S.over && ui.mode !== 'busy';
+// allied NPCs (recruit missions) are on your side but act on their own (AI)
+const isPlayerTurn = () => S.active && S.active.team === 'player' && !S.active.npc && !S.over && ui.mode !== 'busy';
 
 function setCursor(x, y) {
   ui.cursor = { x: Math.max(0, Math.min(S.w - 1, x)), y: Math.max(0, Math.min(S.h - 1, y)) };
@@ -489,7 +609,7 @@ function menuItems() {
   }
   return [
     { id: 'move', label: 'Move', on: !S.moved },
-    { id: 'action', label: 'Action', on: !S.acted },
+    { id: 'action', label: 'Action', on: !S.acted && G.canAct(S), note: G.canAct(S) ? '' : 'skittish' },
     { id: 'wait', label: 'Wait', on: true },
   ];
 }
@@ -596,7 +716,7 @@ function pressA() {
 }
 
 function pressB() {
-  if (picker) { if (picker.kind === 'title' && S.over) openPicker('end'); return; } // B on "Choose map" goes back
+  if (picker) return pickerBack(); // one screen back
   if (!isPlayerTurn()) return;
   const u = S.active;
   switch (ui.mode) {
@@ -811,11 +931,12 @@ async function nextTurn() {
   const u = G.startNextTurn(S);
   ui.mode = 'busy'; ui.rangeOf = null; updatePanel();
   setCursor(u.x, u.y);
-  if (u.team === 'player') {
+  if (u.team === 'player' && !u.npc) {
     banner(u.name, 'player');
+    if (S.skittish) floats.push({ x: u.x, y: u.y, text: 'Skittish!', color: '#ffb36b', t0: performance.now() });
     openMenu();
   } else {
-    await banner(u.name, 'enemy');
+    await banner(u.name, u.npc ? 'player npc' : 'enemy');
     await wait(CONFIG.ai.thinkDelayMs);
     let plan = planTurn(S, u);
     if (plan.path && plan.path.length > 1) {
@@ -841,12 +962,17 @@ async function nextTurn() {
 }
 
 function finish() {
+  if (S.finishShown) return; // forceWin (tests) can race an AI turn that also ends the battle
+  S.finishShown = true;
   updatePanel();
   const win = S.over === 'victory';
+  if (win && mission && mission.kind === 'skirmish') { party.done[mission.id] = (party.done[mission.id] || 0) + 1; saveParty(party); }
   setTimeout(() => {
+    if (win && mission && mission.kind === 'recruit' && !party.done[mission.id]) return openPicker('recruit'); // who was it? Accept / Decline
     openPicker('end');
     $('ov-title').textContent = win ? 'VICTORY' : 'DEFEAT';
-    $('ov-text').textContent = win ? 'The field is held. Deus vult.' : 'Your company has fallen.';
+    const fell = S.units.find((u) => u.mustSurvive && u.hp <= 0);
+    $('ov-text').textContent = win ? 'The field is held. Deus vult.' : fell ? `The ${fell.name.toLowerCase()} has fallen. The mission is lost.` : 'Your company has fallen.';
   }, 500);
 }
 
@@ -854,8 +980,11 @@ function finish() {
 function updateOrder() {
   const list = G.previewOrder(S);
   $('order').innerHTML = list.map((u, i) =>
-    `<button class="chip ${u.team} ${u.hero ? 'hero' : ''} ${i === 0 && S.active ? 'now' : ''}" data-uid="${u.id}" title="${u.name}">${roleGlyph(u.role)}<small>${i === 0 ? '' : i}</small></button>`).join('');
+    `<button class="chip ${u.team} ${u.hero ? 'hero' : ''} ${u.companion ? 'comp' : ''} ${u.npc ? 'npc' : ''} ${i === 0 && S.active ? 'now' : ''}" data-uid="${u.id}" title="${esc(u.name)}">${chipFace(u)}<small>${i === 0 ? '' : i}</small></button>`).join('');
 }
+// hero / companions show their face in the turn strip (unknown NPC: silhouette + ?)
+const chipFace = (u) => u.hero ? `<span class="chip-por">${portraitSvg(u.hero.portrait)}</span>`
+  : u.companion ? `<span class="chip-por ${u.unknown ? 'unknown' : ''}"><img src="${u.portraitImg}" alt="">${u.unknown ? '<b>?</b>' : ''}</span>` : roleGlyph(u.role);
 const roleGlyph = (r) => ({ knight: '⚔', sergeant: '↟', archer: '➶', skirmisher: '»' }[r] || '?');
 // tapping a chip = FFTA2's L/R unit cycling: look at that unit
 $('order').addEventListener('click', (e) => {
@@ -871,6 +1000,13 @@ function unitInfo(u) {
   const r = CONFIG.roles[u.role];
   const terr = Object.entries(r.terrainCost || {}).map(([k, v]) => `${CONFIG.terrain[k].short || CONFIG.terrain[k].name[0]}${v}`).join(' ');
   const row1 = `<div class="row1"><span class="name ${u.team}">${esc(u.name)}</span><span class="hpt">HP <b>${u.hp}</b>/${u.maxHp}</span></div>`;
+  if (u.companion) {
+    const t = traitDef(u.trait);
+    const por = `<span class="hero-por comp-por ${u.unknown ? 'unknown' : ''}" title="${esc(u.name)}"><img src="${u.portraitImg}" alt="">${u.unknown ? '<b>?</b>' : ''}</span>`;
+    const tline = u.unknown ? `<div class="traitline">${esc(CONFIG.party.npcLabel)} · fights on their own · must survive</div>`
+      : `<div class="traitline"><b>${esc(t.name)}</b> ＋${esc(t.pro)} · －${esc(t.con)}${u.npc ? ` · ${esc(CONFIG.party.npcLabel)}` : ''}</div>`;
+    return `<div class="herorow">${por}<div>${row1}${unitInfoRest(u, f, col, r, terr)}${tline}</div></div>`;
+  }
   if (u.hero) return `<div class="herorow"><span class="hero-por" title="${esc(u.name)} (your hero)">${portraitSvg(u.hero.portrait)}</span><div>${row1}${unitInfoRest(u, f, col, r, terr)}</div></div>`;
   return row1 + unitInfoRest(u, f, col, r, terr);
 }
@@ -940,8 +1076,8 @@ function updatePanel() {
   $('info').innerHTML = shown ? unitInfo(shown) : '';
   let hint = '';
   if (S.over) hint = S.over === 'victory' ? 'Victory!' : 'Defeat.';
-  else if (!u || ui.mode === 'busy') hint = u && u.team === 'enemy' ? `${u.name} is acting…` : '';
-  else if (u.team === 'player') hint = (HINTS[ui.mode] || (() => ''))();
+  else if (!u || ui.mode === 'busy') hint = u && (u.team === 'enemy' || u.npc) ? `${u.name} is acting…` : '';
+  else if (u.team === 'player') hint = (S.skittish && ui.mode === 'menu' ? 'Skittish: too many foes close — move away, no action this turn · ' : '') + (HINTS[ui.mode] || (() => ''))();
   $('hint').textContent = hint;
   // command menu (right side of the field, like FFTA2)
   const cmd = $('cmd');
@@ -968,6 +1104,13 @@ $('cmd').addEventListener('pointerdown', (e) => {
   ui.menuIndex = Number(b.dataset.cmd);
   selectMenuItem(menuItems()[ui.menuIndex]);
 });
+$('ov-text').addEventListener('pointerdown', (e) => {
+  const b = e.target.closest('[data-comp]'); if (!b || !picker || picker.kind !== 'missions') return;
+  e.preventDefault();
+  toggleActive(party, b.dataset.comp); saveParty(party);
+  const i = picker.index; openPicker('missions'); picker.index = i; syncPicker();
+  reset(mapId, { start: false }); // rebuild the idle squad behind the board
+});
 $('ov-list').addEventListener('pointerdown', (e) => {
   const b = e.target.closest('[data-pick]'); if (!b || !picker) return;
   e.preventDefault();
@@ -981,7 +1124,8 @@ document.addEventListener('dblclick', (e) => e.preventDefault());
 
 window.addEventListener('resize', () => resize());
 
-if (mapParam) reset(mapParam.id);           // ?map= skips the title screen
+if (missionParam && hero) reset(missionParam.map, { mission: missionParam }); // ?mission= (tests) skips the board
+else if (mapParam) reset(mapParam.id);      // ?map= skips the title screen
 else { reset(mapId, { start: false }); openPicker('title'); }
 resize();
 requestAnimationFrame(loop);
@@ -999,5 +1143,9 @@ window.__outremer = {
   groundClient(x, y) { const r = cv.getBoundingClientRect(); const c = proj(x, y, 0); return { x: r.left + c.x, y: r.top + c.y }; }, // ignores tile height (screen direction checks)
   unitClient(id) { const u = S.units[id]; const r = cv.getBoundingClientRect(); const p = unitScreenPos(u, performance.now()); return { x: r.left + p.x, y: r.top + p.y - 25 * layout.k }; },
   facingClient(d) { const r = cv.getBoundingClientRect(); const p = facingArrowPos(S.active, d); return { x: r.left + p.x, y: r.top + p.y }; },
+  get party() { return JSON.parse(JSON.stringify(party)); }, get mission() { return mission ? mission.id : null; },
+  get intents() { return currentIntents().map((i) => ({ from: i.from.id, to: i.to.id })); },
+  // auto-resolve for tests: every enemy falls, the battle ends as a victory (normal finish flow)
+  forceWin() { if (S.over) return false; for (const u of S.units) if (u.team === 'enemy') u.hp = 0; G.checkOver(S); finish(); return S.over; },
   G, CONFIG,
 };

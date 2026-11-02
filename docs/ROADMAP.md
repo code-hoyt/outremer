@@ -59,8 +59,9 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 **Progress**
 - [x] **Hero creation (v0.6):** mockup B wizard: Portrait → Class → Stats (BG roll, pool, Store/Recall) → Name; all six stats wired (Aim → hit/crit, Resolve → resist); the hero replaces the same-class Templar and is saved on the device.
-- [ ] Set companions (2–3) with a join scene
-- [ ] 3–4 linked battles with a between-battle screen
+- [x] **Missions & recruitment (v0.8):** FFTA2-style **mission board** after the title. Three recruit missions with vague titles: *A Templar in Need* (Brother Renaud), *Smoke at the Well* (Yusuf ibn Qasim), *Thief in the Baggage Train* (Wren, on a new map, The Baggage Train). Plus The Ridge / The Breach as skirmishes. The stranger fights beside you as an AI ally who must survive; win and you learn who it was, then **Accept / Decline** (the mission stays done either way). The party (hero + up to 2 companions, extras rest in camp) is saved on the device; companions show their portrait in the info panel and turn strip, and each has a simple pro/con trait. See [DESIGN.md → Missions & recruitment](DESIGN.md#missions--recruitment-v08).
+- [x] Set companions (3) with a join scene
+- [ ] Linked battles: a between-battle screen / camp, story order for the missions (they're all open at once now)
 - [ ] Decide what carries over (HP, wounds, loot)
 
 **Done when:** **two different heroes play noticeably differently**, the companions are remembered by name, and at the end Cletus **wants to roll a new hero**.
@@ -122,4 +123,6 @@ Ideas that come up outside the current stage. Add freely; review at each stage b
 - A unit placement phase before battle (FFTA2-style)
 - L/R next/previous unit buttons
 - Whether the end-of-turn facing step is worth its button press (pillar 1 tension)
+- **How you win decides recruitment** (Cletus, v0.8): e.g. Renaud joins only if no Templar falls, Yusuf if you spare a fleeing raider, Wren if you reach her before the raiders loot the carts. For now, winning the mission is enough. *(Stage 2)*
+- Re-recruiting a declined companion later (camp, a second mission)? *(Stage 2, open question in DESIGN)*
 - Possible winged race (wind/flight) with effectively unlimited jump — discuss later. *(No race modifiers on movement for now.)*

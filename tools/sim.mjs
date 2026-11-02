@@ -5,6 +5,10 @@ function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t 
 import { CONFIG } from '../src/config.js';
 import { MAPS } from '../src/maps.js';
 import { rollStats } from '../src/hero.js';
+import { MISSIONS, missionById } from '../src/missions.js';
+// COMP=renaud,wren -> field those companions with the hero. Map arg 'missions' = every recruit mission
+// (or a mission id); the companion-to-be is an AI ally that must survive.
+const COMP = (process.env.COMP || '').split(',').filter(Boolean);
 // HERO=avg|great|poor|roll [HERO_ROLE=knight|sergeant|archer|skirmisher]: put a created hero in the squad
 // avg = 3d6 average (10/11s), roll = a fresh 3d6 roll per battle, great/poor = strong/weak redistributed rolls
 const HERO = process.env.HERO, HERO_ROLE = process.env.HERO_ROLE || 'knight';
@@ -19,9 +23,10 @@ CONFIG.teams.player.disabledAbilities = (process.env.OFF_P || '').split(',');
 CONFIG.teams.enemy.disabledAbilities = (process.env.OFF_E || '').split(',');
 for (const r of Object.values(CONFIG.roles)) r.abilities = (r.abilities || []).filter((a) => !OFF.includes(a) && !OFF.includes('all'));
 function run(mapId) {
-let w = 0, l = 0, turns = 0; const used = {};
+let w = 0, l = 0, turns = 0, lostAlly = 0; const used = {};
 for (let i = 0; i < N; i++) {
-  const s = G.createState(mulberry32(i + 1), mapId, heroFor(i));
+  const mission = missionById(mapId);
+  const s = G.createState(mulberry32(i + 1), mapId, heroFor(i), { companions: COMP, mission });
   for (let t = 0; t < 300 && !s.over; t++) {
     const u = G.startNextTurn(s);
     let p = planTurn(s, u);
@@ -38,10 +43,11 @@ for (let i = 0; i < N; i++) {
     if (!s.over) { G.faceNearestFoe(s, u); G.endTurn(s); }
     turns++;
   }
-  if (s.over === 'victory') w++; else if (s.over === 'defeat') l++;
+  if (s.over === 'victory') w++; else if (s.over === 'defeat') { l++; if (s.lostAlly) lostAlly++; }
 }
-console.log(`[${mapId}${HERO ? ` hero ${HERO} ${HERO_ROLE}` : ''}] player (Templar) win rate ${(w / N).toFixed(3)} · loss ${(l / N).toFixed(3)} · stalled ${((N - w - l) / N).toFixed(3)} · avg turns ${(turns / N).toFixed(1)} · N ${N}`);
+console.log(`[${mapId}${HERO ? ` hero ${HERO} ${HERO_ROLE}` : ''}${COMP.length ? ` +${COMP}` : ''}] player (Templar) win rate ${(w / N).toFixed(3)} · loss ${(l / N).toFixed(3)} · stalled ${((N - w - l) / N).toFixed(3)} · avg turns ${(turns / N).toFixed(1)}${lostAlly ? ` · ally fell ${(lostAlly / N).toFixed(3)}` : ''} · N ${N}`);
 console.log('ability uses per battle:', Object.fromEntries(Object.entries(used).sort().map(([k, v]) => [k, +(v / N).toFixed(2)])));
 }
 const arg = process.argv[3] || process.env.MAP || CONFIG.defaultMap;
-for (const id of arg === 'all' ? MAPS.map((m) => m.id) : [arg]) run(id);
+const ids = arg === 'all' ? MAPS.filter((m) => !m.missionOnly).map((m) => m.id) : arg === 'missions' ? MISSIONS.filter((m) => m.kind === 'recruit').map((m) => m.id) : [arg];
+for (const id of ids) run(id);

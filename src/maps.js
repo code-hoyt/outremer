@@ -77,8 +77,44 @@ export const MAPS = [
       enemy: [['knight', 6, 4, 3], ['skirmisher', 5, 1, 3], ['archer', 6, 3, 3]],
     },
   },
+  {
+    id: 'baggage',
+    name: 'The Baggage Train',
+    blurb: 'A raided column on the coast road. Overturned carts block the way.',
+    missionOnly: true, // only used by a mission: not listed in the skirmish / map pickers
+    width: 8,
+    height: 8,
+    // The coast road runs west-east along rows 3-4. Overturned carts (terrain c, height 1)
+    // break it up; low dunes north and south, a rocky shoulder in the corners.
+    heights: [
+      [1, 1, 0, 0, 0, 1, 2, 2],
+      [1, 0, 0, 0, 0, 0, 1, 2],
+      [0, 0, 0, 1, 0, 0, 0, 1],
+      [0, 0, 0, 1, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 1, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0, 1],
+      [2, 1, 0, 0, 0, 0, 1, 2],
+    ],
+    terrain: [
+      'sssggsss',
+      'ssgggsrs',
+      'sggcgggs',
+      'dddcddcd',
+      'dddddddd',
+      'sgcggcgs',
+      'ssggggss',
+      'rssgggsr',
+    ],
+    deployment: {
+      player: [['knight', 0, 4, 1], ['sergeant', 0, 3, 1], ['archer', 1, 6, 1]],
+      enemy: [['knight', 7, 4, 3], ['skirmisher', 6, 1, 3], ['archer', 7, 6, 3]],
+    },
+  },
 ];
 
+// maps offered as skirmishes / in the map picker (mission-only maps are left out)
+export const skirmishMaps = () => MAPS.filter((m) => !m.missionOnly);
 export const mapById = (id) => MAPS.find((m) => m.id === id) || null;
 // accepts an id ('breach') or a 1-based number ('2')
 export function resolveMap(key) {

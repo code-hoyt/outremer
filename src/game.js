@@ -2,39 +2,72 @@
 import { CONFIG } from './config.js';
 import { MAPS, resolveMap } from './maps.js';
 import { applyHero } from './hero.js';
+import { companionDef, applyCompanion } from './party.js';
 
 export const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]]; // N E S W
 
 // mapKey: a map id ('breach') or 1-based number; unknown/empty = CONFIG.defaultMap
 // hero: optional created main character (src/hero.js); replaces the Templar of the same class (keeps its slot),
 // or slot 0 if the squad has no unit of that class.
-export function createState(rng = Math.random, mapKey, hero = null) {
-  const m = resolveMap(mapKey) || resolveMap(CONFIG.defaultMap) || MAPS[0];
+// opts: { companions: [id...] fielded with the hero, mission: recruit/skirmish mission from src/missions.js }
+export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
+  const mission = opts.mission || null;
+  const m = resolveMap(mission ? mission.map : mapKey) || resolveMap(CONFIG.defaultMap) || MAPS[0];
   const units = [];
   let id = 0;
-  for (const team of ['player', 'enemy']) {
-    for (const [role, x, y, facing] of m.deployment[team]) {
-      const b = CONFIG.teams[team].statBonus || {};
-      const r = Object.fromEntries(Object.entries(CONFIG.roles[role]).map(([k, v]) => [k, typeof v === 'number' && b[k] ? v + b[k] : v]));
-      units.push({
-        id: id++, team, role, name: CONFIG.teams[team].names[role],
-        x, y, facing,
-        hp: r.hp, maxHp: r.hp, atk: r.atk, def: r.def, spd: r.spd,
-        move: r.move, jump: r.jump,
-        ct: Math.floor(rng() * (CONFIG.turn.startCtSpread + 1)),
-        status: {}, cd: {},
-      });
-    }
+  const make = (team, role, x, y, facing) => {
+    const b = CONFIG.teams[team].statBonus || {};
+    const r = Object.fromEntries(Object.entries(CONFIG.roles[role]).map(([k, v]) => [k, typeof v === 'number' && b[k] ? v + b[k] : v]));
+    const u = {
+      id: id++, team, role, name: CONFIG.teams[team].names[role],
+      x, y, facing,
+      hp: r.hp, maxHp: r.hp, atk: r.atk, def: r.def, spd: r.spd,
+      move: r.move, jump: r.jump,
+      ct: Math.floor(rng() * (CONFIG.turn.startCtSpread + 1)),
+      status: {}, cd: {}, templar: team === 'player',
+    };
+    units.push(u);
+    return u;
+  };
+  const dep = { player: m.deployment.player, enemy: (mission && mission.enemy) || m.deployment.enemy };
+  for (const team of ['player', 'enemy']) for (const [role, x, y, facing] of dep[team]) make(team, role, x, y, facing);
+  const mine = units.filter((u) => u.team === 'player');
+  if (hero) applyHero(mine.find((u) => u.role === hero.role) || mine[0], hero);
+  // companions take a generic slot of their own class if there is one, else any generic slot
+  for (const cid of opts.companions || []) {
+    const c = companionDef(cid);
+    const free = mine.filter((u) => !u.hero && !u.companion);
+    if (!c || !free.length) continue;
+    applyCompanion(free.find((u) => u.role === c.role) || free[0], cid);
   }
-  if (hero) {
-    const mine = units.filter((u) => u.team === 'player');
-    applyHero(mine.find((u) => u.role === hero.role) || mine[0], hero);
+  // recruit mission: the companion-to-be stands on the field as an AI-driven ally who must survive
+  if (mission && mission.npc) {
+    const c = companionDef(mission.companion), [x, y, facing] = mission.npc;
+    applyCompanion(make('player', c.role, x, y, facing), mission.companion, { npc: true, alias: mission.alias });
   }
   return {
     mapId: m.id, mapName: m.name, w: m.width, h: m.height, heights: m.heights, terrain: m.terrain,
+    missionId: mission ? mission.id : null,
     units, active: null, moved: false, acted: false, over: null, turnCount: 0, rng,
   };
 }
+
+// ---------------------------------------------------------------- companion traits (CONFIG.party.traits)
+const TR = (id) => CONFIG.party.traits[id] || {};
+const adjFoes = (s, u, x = u.x, y = u.y) => s.units.filter((f) => f.hp > 0 && f.team !== u.team && Math.abs(f.x - x) + Math.abs(f.y - y) === 1);
+// Under the Rule (Renaud): +DEF next to another Templar
+export function traitDefBonus(s, t) {
+  if (t.trait !== 'underTheRule') return 0;
+  const near = s.units.some((a) => a !== t && a.hp > 0 && a.team === t.team && a.templar && Math.abs(a.x - t.x) + Math.abs(a.y - t.y) === 1);
+  return near ? TR('underTheRule').defAdjTemplar : 0;
+}
+// Mercy (Yusuf): won't strike a foe below the threshold
+export const mercyBlocks = (u, t) => u.trait === 'turncoatsEye' && t.hp > 0 && t.hp < t.maxHp * TR('turncoatsEye').mercyBelow;
+// Skittish (Wren): starting her turn next to 2+ foes, she can't act this turn
+export const skittishAt = (s, u) => u.trait === 'lightFeet' && adjFoes(s, u).length >= TR('lightFeet').skittishAdj;
+// Holds ground (Renaud): starting next to a foe, may only end a move next to a foe
+export const holdsGround = (s, u) => u.trait === 'underTheRule' && adjFoes(s, u).length > 0;
+export const canAct = (s) => !s.skittish;
 
 export const heightAt = (s, x, y) => s.heights[y][x];
 export const inBounds = (s, x, y) => x >= 0 && y >= 0 && x < s.w && y < s.h;
@@ -60,6 +93,7 @@ export function nextActor(units) {
 export function startNextTurn(s) {
   const u = nextActor(s.units);
   s.active = u; s.moved = false; s.acted = false; s.intercepted = false; s.turnCount++;
+  s.skittish = !!(u && skittishAt(s, u));
   if (u) {
     for (const k of Object.keys(u.cd)) if (u.cd[k] > 0) u.cd[k]--;
     const had = { ...u.status };
@@ -140,9 +174,11 @@ export function reachable(s, u) {
     }
   }
   const tiles = [];
+  const hold = holdsGround(s, u);
   for (const k of dist.keys()) {
     const x = k % s.w, y = Math.floor(k / s.w);
     const occ = unitAt(s, x, y);
+    if (hold && !(x === u.x && y === u.y) && !adjFoes(s, u, x, y).length) continue;
     if (!occ || occ === u) tiles.push({ x, y });
   }
   const pathTo = (x, y) => {
@@ -185,7 +221,7 @@ export function attackTiles(s, u, fx = u.x, fy = u.y) {
 }
 
 export function targetsFrom(s, u, fx = u.x, fy = u.y) {
-  return alive(s).filter((t) => t.team !== u.team && canAttackFrom(s, u, fx, fy, t.x, t.y));
+  return alive(s).filter((t) => t.team !== u.team && !mercyBlocks(u, t) && canAttackFrom(s, u, fx, fy, t.x, t.y));
 }
 
 // ---------------------------------------------------------------- combat
@@ -228,7 +264,7 @@ export function preview(s, u, t, fx = u.x, fy = u.y, opt = {}) {
   const cover = side !== 'front' ? coveredBy(s, t) : null;
   if (cover) side = 'front'; // Shield Wall: no side/back bonus against covered allies
   const wallMod = t.status.wall && side === 'front' ? CONFIG.abilities.shieldWall.frontDmgMul : 1;
-  const def = t.def - (t.status.exposed ? t.status.exposed.def : 0);
+  const def = t.def + traitDefBonus(s, t) - (t.status.exposed ? t.status.exposed.def : 0);
   const base = u.atk * c.atkMul - def * c.defMul;
   const mul = (opt.mul ?? 1) * (opt.extraMul ?? 1);
   const dmg = Math.max(c.minDamage, Math.round(base * heightMod * c.facingMod[side] * flankMod * wallMod * mul));
@@ -265,9 +301,12 @@ export function moveUnit(s, u, x, y, path) {
 }
 
 export function checkOver(s) {
-  const p = s.units.some((u) => u.team === 'player' && u.hp > 0);
+  // you lose when your own (controllable) units are all down, or a must-survive ally falls
+  const p = s.units.some((u) => u.team === 'player' && !u.npc && u.hp > 0);
   const e = s.units.some((u) => u.team === 'enemy' && u.hp > 0);
-  if (!e) s.over = 'victory';
+  const lostAlly = s.units.some((u) => u.mustSurvive && u.hp <= 0);
+  if (lostAlly) { s.over = 'defeat'; s.lostAlly = true; }
+  else if (!e) s.over = 'victory';
   else if (!p) s.over = 'defeat';
   return s.over;
 }
@@ -300,7 +339,7 @@ const free = (s, x, y) => inBounds(s, x, y) && !unitAt(s, x, y);
 export function abilityCanTarget(s, u, id, t, fx = u.x, fy = u.y) {
   const a = AB()[id], r = CONFIG.roles[u.role];
   if (a.kind === 'self') return t === u;
-  if (!t || t.team === u.team || t.hp <= 0) return false;
+  if (!t || t.team === u.team || t.hp <= 0 || mercyBlocks(u, t)) return false;
   const d = Math.abs(t.x - fx) + Math.abs(t.y - fy), dh = Math.abs(heightAt(s, fx, fy) - heightAt(s, t.x, t.y));
   switch (id) {
     case 'shieldBash': case 'feint': return d === 1 && dh <= r.maxHeightReach;
