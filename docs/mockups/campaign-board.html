@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Outremer: campaign board (PITCH mockup)</title>
+<link rel="stylesheet" href="mock.css">
+<style>
+.chain { display:flex; align-items:center; gap:3px; margin:6px 0 8px; font:10px system-ui,sans-serif; }
+.step { flex:1; text-align:center; padding:5px 2px; border-radius:7px; border:1.5px solid #4b3f4f; background:#221f2b; color:#9c907c; line-height:1.25; }
+.step b { display:block; font:bold 11px Georgia,serif; color:#efe7d4; letter-spacing:.5px; }
+.step.done { border-color:#5fd36a55; } .step.done b { color:#5fd36a; }
+.step.now { border-color:#ffd85a; box-shadow:0 0 8px rgba(255,216,90,.3); } .step.now b { color:#ffd85a; }
+.step.lock b { color:#7d7262; }
+.arrow { color:#6a5a46; font-size:12px; }
+.sect { font:10px system-ui,sans-serif; letter-spacing:2px; color:#8c8070; margin:8px 2px 4px; text-transform:uppercase; }
+.note { display:flex; gap:9px; align-items:center; padding:5px 8px; margin-bottom:5px; border-radius:9px; background:#efe3c4; color:#2a2016; border:2px solid #b39b6a; position:relative; }
+.note img { width:46px; height:46px; border-radius:6px; object-fit:cover; border:1.5px solid #7a6440; }
+.note .t { font:bold 14px Georgia,serif; }
+.note .s { font:11px Georgia,serif; color:#5a4a33; margin-top:1px; }
+.note .m { font:9.5px system-ui,sans-serif; color:#7a6440; margin-top:3px; letter-spacing:.3px; }
+.note.done { background:#cfc6ae; opacity:.78; }
+.note.sel { box-shadow:0 0 0 2.5px #ffd85a, 0 0 12px rgba(255,216,90,.45); }
+.stamp { position:absolute; right:8px; top:6px; font:bold 10px system-ui,sans-serif; color:#2f7a37; border:1.5px solid #2f7a37; border-radius:4px; padding:1px 4px; transform:rotate(-6deg); }
+.new { position:absolute; right:8px; top:6px; font:bold 9px system-ui,sans-serif; color:#fff; background:#8e1119; border-radius:4px; padding:1px 5px; }
+.note.finale { background:#2a2430; color:#9c907c; border:2px dashed #6a5a46; }
+.note.finale .t { color:#d8c48f; } .note.finale .s { color:#9c907c; }
+.lockic { width:46px; height:46px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:24px; background:#1b1820; border:1.5px solid #4b3f4f; }
+.skirm { display:flex; gap:6px; } .skirm div { flex:1; padding:6px; border-radius:7px; background:#221f2b; border:1.5px solid #4b3f4f; font:11px Georgia,serif; color:#c9bda5; text-align:center; }
+.squad { display:flex; gap:6px; align-items:center; margin-top:8px; font:10px system-ui,sans-serif; color:#8c8070; }
+.squad img, .squad .hero { width:30px; height:30px; border-radius:50%; object-fit:cover; border:1.5px solid #d8c48f; }
+.squad .hero { background:#8e1119; display:flex; align-items:center; justify-content:center; color:#fff; font:bold 13px Georgia,serif; }
+.squad .empty { width:30px; height:30px; border-radius:50%; border:1.5px dashed #6a5a46; }
+.flow { margin-top:7px; padding:7px 8px 8px; border-radius:9px; border:1px solid #4b3f4f; background:#17161f; font:9.5px system-ui,sans-serif; color:#a99d88; }
+.flow .h { letter-spacing:2px; color:#8c8070; margin-bottom:5px; }
+.fr { display:flex; align-items:center; justify-content:center; gap:4px; margin:3px 0; }
+.fb { padding:3px 6px; border-radius:5px; background:#2a2430; border:1px solid #5a4a46; color:#efe7d4; white-space:nowrap; }
+.fb.g { border-color:#ffd85a; color:#ffd85a; } .fb.r { border-color:#d8414a; }
+.fa { color:#6a5a46; }
+</style></head><body>
+<div class="phone">
+  <div class="top"><div class="title">OUTREMER <span>Mission Board</span></div></div>
+  <div class="body">
+    <span class="ph-tag" style="right:12px;top:-14px">PITCH · OPTION B</span>
+    <div class="chain">
+      <div class="step done"><b>✓ Hero</b>Brother Tancred</div><span class="arrow">▸</span>
+      <div class="step now"><b>Recruit 1/2</b>any order</div><span class="arrow">▸</span>
+      <div class="step lock"><b>🔒 Finale</b>after 2 wins</div><span class="arrow">▸</span>
+      <div class="step lock"><b>New hero?</b>chronicle</div>
+    </div>
+    <div class="sect">Notices</div>
+    <div class="note done"><img src="../../assets/companions/renaud.jpg"><div><div class="t">A Templar in Need</div><div class="s">Renaud joined: "They took the coast road with the carts."</div><div class="m">THE BREACH · WON</div></div><span class="stamp">JOINED</span></div>
+    <div class="note sel"><img src="../../assets/companions/yusuf.jpg"><div><div class="t">Smoke at the Well</div><div class="s">Raiders cutting down one of their own.</div><div class="m">THE RIDGE · Yusuf ibn Qasim, Scout</div></div><span class="new">+ CLUE</span></div>
+    <div class="note"><img src="../../assets/companions/wren.jpg"><div><div class="t">Thief in the Baggage Train</div><div class="s">Renaud: "the carts". Something small is still moving.</div><div class="m">THE BAGGAGE TRAIN · Wren, Scout</div></div></div>
+    <div class="note finale"><div class="lockic">🔒</div><div><div class="t">The Chapel Ford</div><div class="s">Win 1 more notice. Whatever you haven't done stays undone.</div><div class="m">FINALE · NEW MAP · defeat the Red Captain</div></div></div>
+    <div class="sect">Side jobs</div>
+    <div class="skirm"><div>Skirmish: The Ridge</div><div>Skirmish: The Breach</div></div>
+    <div class="flow"><div class="h">CAMPAIGN FLOW (OPTION B)</div>
+      <div class="fr"><span class="fb">Create hero</span><span class="fa">▸</span><span class="fb g">Mission board</span></div>
+      <div class="fr"><span class="fa">▾ any order ▾</span></div>
+      <div class="fr"><span class="fb">Templar in Need</span><span class="fb">Smoke at the Well</span><span class="fb">Baggage Train</span></div>
+      <div class="fr"><span class="fa">win ▸ Accept / Decline ▸ board · lose ▸ Retry / Board</span></div>
+      <div class="fr"><span class="fa">▾ after 2 wins (the 3rd closes) ▾</span></div>
+      <div class="fr"><span class="fb r">Finale: The Chapel Ford</span><span class="fa">▸</span><span class="fb">Ending + Chronicle</span></div>
+      <div class="fr"><span class="fa">▾</span></div>
+      <div class="fr"><span class="fb g">Roll a new hero?</span><span class="fa">↺ back to Create hero</span></div>
+    </div>
+    <div class="squad">SQUAD <span class="hero">T</span><img src="../../assets/companions/renaud.jpg"><span class="empty"></span><span style="margin-left:auto">full HP every battle</span></div>
+  </div>
+  <div class="panel">
+    <div class="hint">▲▼ choose a notice · A brief · B title</div>
+    <div class="pad">
+      <div><div class="dpad"><div class="arm u">▲</div><div class="arm r dim">▶</div><div class="arm d">▼</div><div class="arm l dim">◀</div><div class="hub">✠</div></div></div>
+      <div class="ab"><div class="round a">A<small>brief</small></div><div class="round b">B<small>back</small></div></div>
+    </div>
+  </div>
+</div></body></html>
