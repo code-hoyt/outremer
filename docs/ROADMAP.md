@@ -86,6 +86,8 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 **Done when:** a short written game brief (scope, platform, tech, story premise) is agreed and the vertical slice is planned against it.
 
+**Draft:** [stage3-decisions.md](stage3-decisions.md): the key decisions with options and recommendations, plus a Stage 2 evidence check (awaiting Cletus).
+
 ---
 
 ## Stage 4 — Vertical slice
