@@ -1,6 +1,6 @@
-# Stage 2 mini-campaign: PITCH, not decided
+# Stage 2 mini-campaign: pitch (decided: Option B, built in v0.11)
 
-> **Status:** a pitch for Cletus to approve or redirect. **Nothing here is in the game yet**, and nothing here locks the story. Names, places and the finale are placeholders.
+> **Status (v0.11):** Cletus picked **Option B**. It is built with the recommended defaults for the other open decisions; what was built and which choices were defaults is in [DESIGN.md → Campaign](DESIGN.md#campaign-v011-open-board-finale-after-2). Below is the original pitch, kept for reference. Nothing here locks the story. Names, places and the finale are placeholders.
 > **Purpose:** link the battles we already have into a short campaign, so the Stage 2 **Done when** can be tested end to end: create a hero → recruit companions from an FFTA2-style mission board → finale → *"do I want to roll a new hero?"* ([ROADMAP → Stage 2](ROADMAP.md#stage-2--core-loop-prototype)).
 > Mockup: [`mockups/campaign-board.png`](mockups/campaign-board.png) (phone size; source `mockups/campaign-board.html`).
 

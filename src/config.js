@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.10.0',
+  version: '0.11.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -23,6 +23,8 @@ export const CONFIG = {
     // The Baggage Train (mission map)
     c: { name: 'Cart', short: 'C', cost: 2 },      // overturned baggage carts: slow to clamber over
     t: { name: 'Stairs', short: 'St', cost: 1 },   // stone steps up to a wall: one height level per step
+    // The Chapel Ford (finale map)
+    f: { name: 'Shallows', short: 'Sh', cost: 2 }, // wading the river: slow
   },
   // Map design rule (Cletus, v0.10): every walkable tile must be reachable (over any number of turns)
   // by a unit with MOV 2 / JUMP 2. We also hold maps to JUMP 1 so Knights can contest every perch.
@@ -128,7 +130,59 @@ export const CONFIG = {
     npcHpMul: 1.25,     // recruit-mission ally's max HP × (toughness instead of cowardice; × the mission's own npcHpMul)
     // per-battle scale on top, keyed by mission id or skirmish map id; missing = 1. A number scales enemy HP and ATK;
     // { hp, atk } scales them apart (Smoke: tougher raiders that hit no harder, so Yusuf isn't cut down before you arrive)
-    byBattle: { ridge: 1.13, breach: { hp: 1.4, atk: 1.12 }, 'templar-in-need': { hp: 1.6, atk: 1.15 }, 'smoke-at-the-well': { hp: 1.6, atk: 1.25 }, 'thief-in-the-baggage': 1.2 },
+    byBattle: { ridge: 1.13, breach: { hp: 1.4, atk: 1.12 }, 'templar-in-need': { hp: 1.65, atk: 1.19 }, 'smoke-at-the-well': { hp: 1.68, atk: 1.31 }, 'thief-in-the-baggage': 1.2, 'chapel-ford': 0.98 },
+    // v0.11: × enemy HP and ATK per companion fielded in your squad (any battle). In the basic-attack sim a fielded
+    // Yusuf or Wren is weaker than the generic Templar they replace (frail Scouts), so the open board would punish
+    // fielding them; this keeps each battle in the 65–75% band whoever you bring. (See DESIGN.md › Campaign.)
+    // Scales enemy HP only (ATK rounding makes cliffs). Used when bySquad has no entry for the exact squad.
+    byCompanion: { renaud: 1, yusuf: 0.93, wren: 0.82 },
+    // the tuned table: enemy HP × per battle per exact squad ('' = no companions; finale keys add '/missed').
+    // Fitted with tools/sim.mjs (HUMAN=1, HERO=avg) so each lands near 70% wins. On top of byBattle and
+    // CONFIG.campaign.stepByWins. Wren squads get the biggest trims: in the basic-attack sim she is frail and
+    // falls in almost every battle (a human using her MOV and Scout abilities should do better: revisit).
+    bySquad: {
+      'templar-in-need': { '': 1.005, 'wren': 0.827, 'yusuf': 0.925, 'wren+yusuf': 0.901 },
+      'smoke-at-the-well': { '': 1.356, 'wren': 0.735, 'renaud': 1.102, 'renaud+wren': 1.02 },
+      'thief-in-the-baggage': { '': 1.039, 'yusuf': 1.049, 'renaud': 1.114, 'renaud+yusuf': 0.942 },
+      ridge: { '': 1.38, 'renaud': 1.08, 'yusuf': 0.785, 'wren': 0.715, 'renaud+yusuf': 0.931, 'renaud+wren': 0.983, 'wren+yusuf': 0.864 },
+      breach: { '': 0.936, 'renaud': 0.75, 'yusuf': 1.03, 'renaud+yusuf': 1.274, 'renaud+wren': 1.094, 'wren+yusuf': 1.097 },
+      'chapel-ford': { 'renaud/wren+yusuf': 0.673, 'yusuf/renaud+wren': 0.606, 'wren/renaud+yusuf': 0.588, '/renaud+wren+yusuf': 0.548,
+         'wren+yusuf': 0.662, 'renaud+wren': 1.035, 'renaud+yusuf': 1.121, 'renaud+wren/yusuf': 0.716, 'renaud+yusuf/wren': 0.934, 'wren+yusuf/renaud': 0.632 },
+    },
+  },
+
+  // ---------------------------------------------------------------- campaign (v0.11, Option B of docs/campaign-pitch.md)
+  // Open board: the 3 recruit missions in any order; the finale unlocks after `finaleAfterWins` of them are won
+  // (accepted or declined both count). Starting the finale closes whatever recruit mission is left: that
+  // companion is "missed". Carry-over is the party + story flags only; every battle starts at full HP.
+  // Decisions marked (default) in DESIGN.md › Campaign were picked by the dev as the pitch's recommended defaults.
+  campaign: {
+    chronicleKey: 'outremer.chronicle', // finished runs, newest first (kept when you roll a new hero)
+    chronicleMax: 20,          // (the campaign itself lives in the party save, CONFIG.party.storageKey)
+    finaleId: 'chapel-ford',
+    finaleAfterWins: 2,
+    closeLeftoverOnFinale: true,
+    // enemy HP and ATK × by recruit missions already won when the battle starts (index = wins, last value repeats).
+    // Applied to recruit missions and the finale, not skirmishes. On top of difficulty.byBattle.
+    stepByWins: [1, 1.03, 1.06, 1.09],
+    finale: {
+      // the boss: replaces the Raider Swordsman deployed at captainAt. Win when he falls (his band flees).
+      captain: { name: 'The Red Captain', hpMul: 1.5, atkAdd: 1, defAdd: 1, at: [7, 3] },
+      // Renaud next to the Captain: Shaken (the Captain's attacks lose hit chance)
+      shaken: { by: 'renaud', hitPenalty: 20, dmgMul: 0.9 },
+      // Yusuf fielded: Turncoat's Eye shows the Captain's intent from anywhere on the map
+      captainIntentAnywhere: true,
+      // Wren fielded: the reliquary tile is marked, and stepping stones through the north shallows
+      // (Stairs terrain, cost 1) open a second crossing. The map is fully reachable without them.
+      reliquary: [7, 1],
+      wrenShortcut: [[3, 1, 0, 't'], [4, 1, 0, 't']], // [x, y, height, terrain]
+      // not in your company (missed or declined) → the finale is a little harder
+      missed: {
+        wren: { reinforce: ['skirmisher', 7, 4, 3], atRound: 3, name: 'Raider Urchin' }, // "about fifteen": opens the side door; round = one turn per unit
+        renaud: { captainAtkAdd: 1 },                                 // the Captain carries Renaud's sword
+        yusuf: { extra: ['archer', 6, 6, 3] },                         // the band never split: one more bow on the hill
+      },
+    },
   },
 
   teams: {
@@ -385,7 +439,10 @@ export const CONFIG = {
       b: { top: '#8f8371', side: '#5e5446' }, // rubble
       c: { top: '#8a5a32', side: '#5a3a1e' }, // baggage cart (wood)
       t: { top: '#b8a888', side: '#776a55' }, // stone stairs / ramp
+      f: { top: '#5f93b0', side: '#3c6378' }, // river shallows
     },
+    reliquary: '#ffd36a',          // Wren's amulet: the reliquary tile on the Chapel Ford
+    captainRing: '#e0453a',        // the Red Captain's ground ring
     npcRing: '#7fd48f',            // allied NPC (recruit mission) ground ring
     companionSash: '#6a4a2a',      // companions who are not Templars wear a sash, not the cross
     intent: '#ff8a4a',             // Turncoat's Eye: raider → intended target

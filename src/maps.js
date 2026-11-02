@@ -113,6 +113,43 @@ export const MAPS = [
       enemy: [['knight', 7, 4, 3], ['skirmisher', 6, 1, 3], ['archer', 7, 6, 3]],
     },
   },
+  {
+    id: 'ford',
+    name: 'The Chapel Ford',
+    blurb: 'A ruined chapel on a hill above a river ford. The Red Captain waits on its steps.',
+    missionOnly: true, // the campaign finale (v0.11)
+    width: 8,
+    height: 8,
+    // A shallow river (terrain f, cost 2) runs north-south at x = 3-4; one stone ford (road) crosses it at
+    // rows 3-4. West bank: open grass, rocky corners. East bank: the ground rises to the chapel (height 2-3),
+    // climbed by stairs on the north and south flanks and a road ramp in the middle. Wren's stepping stones
+    // (CONFIG.campaign.finale.wrenShortcut) are added only when she is fielded. Passes tools/reach.mjs.
+    heights: [
+      [0, 0, 0, 0, 0, 1, 2, 3],
+      [0, 1, 0, 0, 0, 1, 2, 3],
+      [0, 1, 0, 0, 0, 0, 1, 2],
+      [0, 0, 0, 0, 0, 0, 1, 2],
+      [0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 1, 1, 2],
+      [2, 1, 0, 0, 0, 1, 2, 3],
+      [2, 2, 1, 0, 0, 0, 2, 3],
+    ],
+    terrain: [
+      'ggsffgte',
+      'grsffgte',
+      'ggdffgte',
+      'dddddddt',
+      'ggdddddd',
+      'gggffgtt',
+      'rggffgte',
+      'rrgffgte',
+    ],
+    deployment: {
+      player: [['knight', 0, 3, 1], ['sergeant', 0, 4, 1], ['archer', 1, 6, 1]],
+      // the knight at (7, 3) is the Red Captain (CONFIG.campaign.finale.captain.at)
+      enemy: [['knight', 7, 3, 3], ['sergeant', 5, 3, 3], ['archer', 6, 1, 3], ['skirmisher', 5, 6, 3]],
+    },
+  },
 ];
 
 // maps offered as skirmishes / in the map picker (mission-only maps are left out)

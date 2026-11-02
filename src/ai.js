@@ -150,7 +150,8 @@ export function intents(s, team = 'player') {
   const eyes = alive(s).filter((u) => u.team === team && u.trait === 'turncoatsEye');
   if (!eyes.length) return [];
   const R = CONFIG.party.traits.turncoatsEye.intentRange, out = [];
-  for (const e of alive(s).filter((f) => f.team !== team && eyes.some((y) => manhattan(y, f) <= R))) {
+  const far = (f) => f.captain && CONFIG.campaign && CONFIG.campaign.finale.captainIntentAnywhere; // finale: Yusuf reads the Captain anywhere
+  for (const e of alive(s).filter((f) => f.team !== team && (far(f) || eyes.some((y) => manhattan(y, f) <= R)))) {
     const p = planTurn(s, e);
     const a = p.action;
     if (a && a.target && a.target !== e && a.target.team !== e.team) out.push({ from: e, to: a.target, id: a.type === 'ability' ? a.id : 'attack' });

@@ -6,10 +6,21 @@ import { companionDef, applyCompanion } from './party.js';
 
 export const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]]; // N E S W
 
+// Squad-aware enemy HP trim (CONFIG.difficulty.bySquad / byCompanion): the exact squad's entry for this battle
+// if tuned ('' = no companions, 'renaud+wren', finale keys add '/missed' e.g. 'renaud+wren/yusuf'), else the
+// product of the per-companion trims.
+export const squadKey = (comps, missed = []) => [...comps].sort().join('+') + (missed.length ? '/' + [...missed].sort().join('+') : '');
+export function squadTrim(d, battleId, comps, missed = []) {
+  const t = (d.bySquad || {})[battleId] || {}, k = squadKey(comps, missed);
+  if (t[k] != null) return t[k];
+  return comps.reduce((a, c) => a * ((d.byCompanion || {})[c] ?? 1), 1);
+}
+
 // mapKey: a map id ('breach') or 1-based number; unknown/empty = CONFIG.defaultMap
 // hero: optional created main character (src/hero.js); replaces the Templar of the same class (keeps its slot),
 // or slot 0 if the squad has no unit of that class.
-// opts: { companions: [id...] fielded with the hero, mission: recruit/skirmish mission from src/missions.js }
+// opts: { companions: [id...] fielded with the hero, mission: recruit/skirmish/finale mission from src/missions.js,
+//   wins: recruit missions already won (campaign difficulty step), missed: [companion id...] not in your company (finale) }
 export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
   const mission = opts.mission || null;
   const m = resolveMap(mission ? mission.map : mapKey) || resolveMap(CONFIG.defaultMap) || MAPS[0];
@@ -29,7 +40,11 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
     if (team === 'enemy') {
       const d = CONFIG.difficulty || {};
       const b = ((d.byBattle || {})[mission ? mission.id : m.id]) ?? 1; // a number, or { hp, atk } to tune them apart
-      const kh = typeof b === 'number' ? b : (b.hp ?? 1), ka = typeof b === 'number' ? b : (b.atk ?? 1);
+      const camp = CONFIG.campaign || {}, steps = camp.stepByWins || [1];
+      const step = mission && mission.kind !== 'skirmish' ? steps[Math.min(opts.wins || 0, steps.length - 1)] : 1; // by missions won
+      const sq = squadTrim(d, mission ? mission.id : m.id, opts.companions || [], opts.missed || []); // squad-aware trim
+      // the step and the squad trim scale HP only: ATK is a small integer, so × ATK jumps in rounding cliffs
+      const kh = (typeof b === 'number' ? b : (b.hp ?? 1)) * step * sq, ka = typeof b === 'number' ? b : (b.atk ?? 1);
       u.hp = u.maxHp = Math.max(1, Math.round(u.hp * (d.enemyHpMul ?? 1) * kh));
       u.atk = Math.max(1, Math.round(u.atk * (d.enemyAtkMul ?? 1) * ka));
       u.def = Math.max(0, u.def + (d.enemyDefAdd || 0));
@@ -40,6 +55,20 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
   };
   const dep = { player: m.deployment.player, enemy: (mission && mission.enemy) || m.deployment.enemy };
   for (const team of ['player', 'enemy']) for (const [role, x, y, facing] of dep[team]) make(team, role, x, y, facing);
+  // the finale (CONFIG.campaign.finale): the Red Captain, and what the companions you don't have cost you
+  const F = mission && mission.kind === 'finale' ? CONFIG.campaign.finale : null;
+  const missed = opts.missed || [], fielded = opts.companions || [];
+  let reserve = null;
+  if (F) {
+    const cap = units.find((u) => u.team === 'enemy' && u.x === F.captain.at[0] && u.y === F.captain.at[1]);
+    if (cap) {
+      cap.captain = true; cap.name = F.captain.name;
+      cap.hp = cap.maxHp = Math.round(cap.maxHp * F.captain.hpMul);
+      cap.atk += (F.captain.atkAdd || 0) + (missed.includes('renaud') ? F.missed.renaud.captainAtkAdd : 0);
+      cap.def += F.captain.defAdd || 0;
+    }
+    if (missed.includes('yusuf')) make('enemy', ...F.missed.yusuf.extra);
+  }
   const mine = units.filter((u) => u.team === 'player');
   if (hero) applyHero(mine.find((u) => u.role === hero.role) || mine[0], hero);
   // companions take a generic slot of their own class if there is one, else any generic slot
@@ -57,9 +86,22 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
     const hm = (mission.npcHpMul || 1) * ((CONFIG.difficulty && CONFIG.difficulty.npcHpMul) || 1); // per-mission toughness × global knob
     a.hp = a.maxHp = Math.round(a.maxHp * hm);
   }
+  // skipped Wren: a raider urchin opens the chapel's side door on round N (made last so ids stay = indices)
+  if (F && missed.includes('wren')) {
+    const w = F.missed.wren;
+    reserve = { unit: make('enemy', ...w.reinforce), round: w.atRound };
+    reserve.unit.name = w.name;
+    units.pop();
+  }
+  let heights = m.heights, terrain = m.terrain, reliquary = null;
+  if (F && fielded.includes('wren')) { // Wren: stepping stones + the marked reliquary
+    heights = m.heights.map((r) => r.slice()); terrain = m.terrain.slice();
+    for (const [x, y, h, t] of F.wrenShortcut) { heights[y][x] = h; terrain[y] = terrain[y].slice(0, x) + t + terrain[y].slice(x + 1); }
+    reliquary = { x: F.reliquary[0], y: F.reliquary[1] };
+  }
   return {
-    mapId: m.id, mapName: m.name, w: m.width, h: m.height, heights: m.heights, terrain: m.terrain,
-    missionId: mission ? mission.id : null,
+    mapId: m.id, mapName: m.name, w: m.width, h: m.height, heights, terrain,
+    missionId: mission ? mission.id : null, finale: !!F, reliquary, reserve, roundLen: units.length,
     units, active: null, moved: false, acted: false, over: null, turnCount: 0, rng,
   };
 }
@@ -102,7 +144,27 @@ export function nextActor(units) {
   }
 }
 
+// finale: the reserve raider steps onto the field at the start of its round (nearest free tile to its spot)
+function spawnReserve(s) {
+  const r = s.reserve;
+  if (!r || s.turnCount < (r.round - 1) * s.roundLen) return null;
+  s.reserve = null;
+  const u = r.unit;
+  let best = null;
+  for (let y = 0; y < s.h; y++) for (let x = 0; x < s.w; x++) {
+    if (unitAt(s, x, y)) continue;
+    const d = Math.abs(x - u.x) + Math.abs(y - u.y);
+    if (!best || d < best.d) best = { x, y, d };
+  }
+  if (!best) return null;
+  u.x = best.x; u.y = best.y; u.id = s.units.length; u.ct = 0;
+  s.units.push(u);
+  s.spawned = u;
+  return u;
+}
+
 export function startNextTurn(s) {
+  spawnReserve(s);
   const u = nextActor(s.units);
   s.active = u; s.moved = false; s.acted = false; s.intercepted = false; s.turnCount++;
   s.skittish = !!(u && skittishAt(s, u));
@@ -130,9 +192,9 @@ export function endTurn(s) {
 export function previewOrder(s, n = CONFIG.turn.previewLength) {
   const sim = s.units.filter((u) => u.hp > 0).map((u) => ({ id: u.id, ct: u.ct, spd: u.spd, hp: 1 }));
   const out = [];
-  if (s.active) {
-    out.push(s.active.id);
-    const a = sim.find((x) => x.id === s.active.id);
+  const a = s.active && sim.find((x) => x.id === s.active.id); // (the active unit may have just fallen)
+  if (a) {
+    out.push(a.id);
     a.ct -= CONFIG.turn.costMovedAndActed;
   }
   while (out.length < n && sim.length) {
@@ -263,6 +325,12 @@ export function coveredBy(s, t) {
   return alive(s).find((a) => a !== t && a.team === t.team && a.status.wall && Math.abs(a.x - t.x) + Math.abs(a.y - t.y) === 1) || null;
 }
 
+// Finale: the Red Captain is Shaken while Renaud (alive) stands next to him (at fx, fy)
+export function isShaken(s, u, fx = u.x, fy = u.y) {
+  if (!u.captain) return false;
+  const by = CONFIG.campaign.finale.shaken.by;
+  return s.units.some((r) => r.hp > 0 && r.companion === by && r.team !== u.team && Math.abs(r.x - fx) + Math.abs(r.y - fy) === 1);
+}
 // opt: { mul, minSide ('side' = never a front hit), extraMul }
 export function preview(s, u, t, fx = u.x, fy = u.y, opt = {}) {
   const c = CONFIG.combat;
@@ -281,9 +349,11 @@ export function preview(s, u, t, fx = u.x, fy = u.y, opt = {}) {
   const def = t.def + traitDefBonus(s, t) - (t.status.exposed ? t.status.exposed.def : 0);
   const base = u.atk * c.atkMul - def * c.defMul;
   const mul = (opt.mul ?? 1) * (opt.extraMul ?? 1);
-  const dmg = Math.max(c.minDamage, Math.round(base * heightMod * c.facingMod[side] * flankMod * wallMod * mul));
-  const hit = Math.max(5, Math.min(100, c.hitChance[side] + c.hitPerHeightLevel * hAdv + (u.hitBonus || 0))); // hitBonus: hero's Aim
-  return { dmg, hit, crit: Math.max(0, c.critChance + (u.critBonus || 0)), side, rawSide, heightMod, hAdv, nFlank, flankMod, facingMod: c.facingMod[side], cover, wallMod, exposed: !!t.status.exposed };
+  let dmg = Math.max(c.minDamage, Math.round(base * heightMod * c.facingMod[side] * flankMod * wallMod * mul));
+  const shaken = isShaken(s, u, fx, fy), SH = shaken ? CONFIG.campaign.finale.shaken : null;
+  if (SH) dmg = Math.max(c.minDamage, Math.round(dmg * SH.dmgMul));
+  const hit = Math.max(5, Math.min(100, c.hitChance[side] + c.hitPerHeightLevel * hAdv + (u.hitBonus || 0) - (SH ? SH.hitPenalty : 0))); // hitBonus: hero's Aim
+  return { dmg, hit, shaken, crit: Math.max(0, c.critChance + (u.critBonus || 0)), side, rawSide, heightMod, hAdv, nFlank, flankMod, facingMod: c.facingMod[side], cover, wallMod, exposed: !!t.status.exposed };
 }
 
 // roll + apply damage from a preview
@@ -319,8 +389,9 @@ export function checkOver(s) {
   const p = s.units.some((u) => u.team === 'player' && !u.npc && u.hp > 0);
   const e = s.units.some((u) => u.team === 'enemy' && u.hp > 0);
   const lostAlly = s.units.some((u) => u.mustSurvive && u.hp <= 0);
+  const capFell = s.finale && s.units.some((u) => u.captain && u.hp <= 0); // his band breaks and flees
   if (lostAlly) { s.over = 'defeat'; s.lostAlly = true; }
-  else if (!e) s.over = 'victory';
+  else if (!e || capFell) { s.over = 'victory'; if (capFell) s.captainFell = true; }
   else if (!p) s.over = 'defeat';
   return s.over;
 }

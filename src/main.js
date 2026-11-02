@@ -4,7 +4,8 @@ import * as G from './game.js';
 import { planTurn, intents } from './ai.js';
 import { MAPS, resolveMap, skirmishMaps } from './maps.js';
 import { MISSIONS, missionById } from './missions.js';
-import { loadParty, saveParty, clearParty, emptyParty, activeCompanions, joined, recruit, toggleActive, companionDef, traitDef } from './party.js';
+import { loadParty, saveParty, clearParty, emptyParty, activeCompanions, joined, recruit, toggleActive, companionDef, traitDef,
+  recruitWins, finaleUnlocked, startFinale, notJoined, recordWin, recordLoss, loadChronicle, addChronicle, openRecruits } from './party.js';
 import { loadHero, saveHero, portraitSvg } from './hero.js';
 import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js';
 
@@ -40,11 +41,13 @@ function reset(id = mapId, { start = true, mission: m = null } = {}) {
   if (m) id = m.map;
   mapId = id;
   try { if (!resolveMap(id).missionOnly) localStorage.setItem(MAP_KEY, id); } catch (_) { /* private mode */ }
-  S = G.createState(makeRng(), id, hero, { companions: hero ? activeCompanions(party) : [], mission: m });
+  // campaign: the difficulty step counts recruit missions already won; the finale knows who you don't have
+  const camp = hero && m && m.kind !== 'skirmish' ? { wins: recruitWins(party), missed: m.kind === 'finale' ? notJoined(party) : [] } : {};
+  S = G.createState(makeRng(), id, hero, { companions: hero ? activeCompanions(party) : [], mission: m, ...camp });
   intentCache = null;
   ui = { mode: 'busy', cursor: { x: 0, y: 0 }, menu: null, menuIndex: 0, moveInfo: null, target: null, rangeOf: null, lastTap: null, ability: null };
   anims = new Map(); floats = [];
-  $('title').querySelector('span').textContent = m && m.kind === 'recruit' ? m.title : S.mapName;
+  $('title').querySelector('span').textContent = m && m.kind !== 'skirmish' ? m.title : S.mapName;
   if (layout) resize();
   if (!start) { updatePanel(); return; }
   playedBefore = true;
@@ -69,10 +72,17 @@ function missionItem(m) {
     const map = resolveMap(m.map), wins = party.done[m.id] || 0;
     return { id: 'm-' + m.id, label: m.title, sub: `${map.blurb}${wins ? ` · ✓ won ×${wins}` : ''}`, act: () => reset(m.map, { mission: m }) };
   }
+  if (m.kind === 'finale') {
+    if (party.finale === 'won') return { id: 'm-' + m.id, cls: 'done', label: `✓ ${m.title}`, sub: 'Done · the Red Captain fell', act: () => {} };
+    const need = CONFIG.campaign.finaleAfterWins - recruitWins(party);
+    if (need > 0) return { id: 'm-' + m.id, cls: 'locked', label: `🔒 ${m.title}`, sub: `Win ${need} more recruit mission${need > 1 ? 's' : ''} to unlock`, act: () => {} };
+    return { id: 'm-' + m.id, cls: 'new finale', label: `★ ${m.title}`, sub: m.sub, act: () => openPicker('brief', m) };
+  }
   const done = party.done[m.id];
   if (done) {
     const c = companionDef(m.companion);
-    return { id: 'm-' + m.id, cls: 'done', label: `✓ ${m.title}`, sub: done === 'recruited' ? `Done · ${esc(c.name)} joined` : `Done · ${esc(c.name)} declined`, act: () => {} };
+    const sub = done === 'missed' ? `Closed · ${esc(c.name)} was missed` : `${done === 'recruited' ? `Done · ${esc(c.name)} joined` : `Done · ${esc(c.name)} declined`}<br>Clue: ${esc(m.clue)}`;
+    return { id: 'm-' + m.id, cls: 'done', label: `${done === 'missed' ? '✗' : '✓'} ${m.title}`, sub, act: () => {} };
   }
   return { id: 'm-' + m.id, cls: 'new', label: m.title, sub: m.sub, act: () => openPicker('brief', m) };
 }
@@ -86,6 +96,8 @@ function openPicker(kind, arg = null) {
     if (hero) {
       items = [{ id: 'mission-board', label: 'Mission board', sub: 'Take a mission · recruit companions · skirmish', act: () => openPicker('missions') },
         { id: 'new-hero', label: 'New hero', sub: `Roll a new main character (replaces ${esc(hero.name)} and starts a new company)`, act: startCreator }];
+      const chr = loadChronicle();
+      if (chr.length) items.push({ id: 'chronicle', label: 'Chronicle', sub: `Last run: ${esc(chr[0].hero.name)} · ${chr.length} on this device`, act: () => openPicker('chronicle', { ...chr[0], fromTitle: true }) });
       $('ov-text').innerHTML = heroLine() + (joined(party).length ? `<br>Company: ${joined(party).map((id) => esc(companionDef(id).name)).join(', ')}` : '');
     } else {
       const maps = skirmishMaps();
@@ -96,18 +108,29 @@ function openPicker(kind, arg = null) {
     }
   } else if (kind === 'missions') {
     // FFTA2-style quest board: vague titles; the brief shows who you're going to save
-    if (S.over || (mission && mission.kind === 'recruit')) reset(skirmishMaps().some((m) => m.id === mapId) ? mapId : CONFIG.defaultMap, { start: false }); // idle current squad behind the board
+    if (S.over || (mission && mission.kind !== 'skirmish')) reset(skirmishMaps().some((m) => m.id === mapId) ? mapId : CONFIG.defaultMap, { start: false }); // idle current squad behind the board
     title('MISSION BOARD');
     items = MISSIONS.map(missionItem);
     items.push({ id: 'back-title', label: '◀ Back', act: () => openPicker('title') });
     $('ov-text').innerHTML = partyStrip();
     index = Math.max(0, items.findIndex((it) => it.cls === 'new'));
     if (arg && arg.id) index = Math.max(0, MISSIONS.findIndex((m) => m.id === arg.id));
+  } else if (kind === 'brief' && arg.kind === 'finale') {
+    const m = arg, act = activeCompanions(party), miss = notJoined(party).concat(openRecruits(party).map((r) => r.companion));
+    title(m.title.toUpperCase());
+    const won = MISSIONS.filter((r) => r.kind === 'recruit' && (party.done[r.id] === 'recruited' || party.done[r.id] === 'declined'));
+    const li = (t, cls = '') => `<li class="${cls}">${esc(t)}</li>`;
+    const leftover = openRecruits(party);
+    $('ov-text').innerHTML = `<span class="brief finale-brief"><span>${esc(m.intro)}<ul class="clues">${won.map((r) => li(r.clue, 'clue')).join('')}`
+      + `${act.map((c) => li(m.fielded[c], 'pay')).join('')}${miss.filter((c, i) => miss.indexOf(c) === i).map((c) => li(m.missed[c], 'miss')).join('')}</ul></span></span>`
+      + `<span class="party-note">Defeat the Red Captain (red ring), or every raider. ${leftover.length ? `Beginning closes ${leftover.map((r) => esc(r.title)).join(', ')}: ${leftover.map((r) => esc(companionDef(r.companion).short)).join(', ')} will be missed.` : ''}</span>`;
+    items = [{ id: 'begin', label: 'Begin', sub: `${resolveMap(m.map).name}${leftover.length ? ' · closes the last mission' : ''}`, act: () => { startFinale(party); saveParty(party); reset(m.map, { mission: m }); } },
+      { id: 'back-board', label: 'Back', act: () => openPicker('missions', m) }];
   } else if (kind === 'brief') {
     const m = arg;
     title(m.title.toUpperCase());
     const c = companionDef(m.companion);
-    $('ov-text').innerHTML = `<span class="brief"><span class="comp-por">${compImg(m.companion)}</span><span><b class="who">${esc(c.name)}</b> <small>${esc(CONFIG.creation.classLabel[c.role])}</small><br>${esc(m.intro)}</span></span>`
+    $('ov-text').innerHTML = `<span class="brief"><span class="comp-por">${compImg(m.companion)}</span><span><b class="who">${esc(c.name)}</b> <small>${esc(CONFIG.creation.classLabel[c.role])}</small><br>${esc(m.intro)}${Object.entries(m.clueLines || {}).filter(([id]) => party.done[id] === 'recruited' || party.done[id] === 'declined').map(([, t]) => `<br><i class="clue">${esc(t)}</i>`).join('')}</span></span>`
       + `<span class="party-note">Win the battle. ${esc(c.short)} (green ring) fights on their own and must survive.</span>`;
     items = [{ id: 'begin', label: 'Begin', sub: resolveMap(m.map).name, act: () => reset(m.map, { mission: m }) },
       { id: 'back-board', label: 'Back', act: () => openPicker('missions', m) }];
@@ -120,12 +143,33 @@ function openPicker(kind, arg = null) {
     const decide = (yes) => () => { recruit(party, m.id, m.companion, yes); saveParty(party); openPicker('missions', m); };
     items = [{ id: 'accept', label: `Accept`, sub: `${esc(c.name)} joins your company`, act: decide(true) },
       { id: 'decline', label: 'Decline', sub: 'Part ways. The mission stays done.', act: decide(false) }];
+  } else if (kind === 'ending') {
+    // the finale won: one ending card (the reliquary stays a mystery; a hint if Wren was there)
+    const m = mission, act = arg.squad;
+    title('THE RELIQUARY');
+    $('ov-text').innerHTML = `<span class="ending">${esc(m.ending)}${act.includes('wren') ? `<br><i>${esc(m.endingWren)}</i>` : ''}</span>`
+      + `<span class="ending-lines">${act.map((c) => `<span class="brief"><span class="comp-por">${compImg(c)}</span><span>${esc(m.endLines[c])}</span></span>`).join('')}</span>`;
+    items = [{ id: 'to-chronicle', label: 'Chronicle', sub: 'How this company\'s story went', act: () => openPicker('chronicle', arg) }];
+  } else if (kind === 'chronicle') {
+    // this run (saved on the device), then: roll a new hero, or keep this one on the board (skirmishes)
+    const e = arg, all = loadChronicle();
+    title('CHRONICLE');
+    const st = { joined: 'joined', declined: 'declined', missed: 'missed' };
+    const name = (id) => (MISSIONS.find((x) => x.id === id) || {}).title || id;
+    $('ov-text').innerHTML = `<span class="chronicle"><span class="hero-line"><span class="hero-por">${portraitSvg(e.hero.portrait)}</span>${esc(e.hero.name)} · ${esc(CONFIG.creation.classLabel[e.hero.role] || e.hero.role)}</span>`
+      + `<span class="chr-row">${Object.entries(e.companions).map(([c, v]) => `<span class="chr-comp ${v}">${compImg(c)}<small>${esc(companionDef(c).short)} · ${st[v] || v}</small></span>`).join('')}</span>`
+      + `<span class="chr-line">Order: ${e.order.map((id) => esc(name(id))).join(' → ')}</span>`
+      + `<span class="chr-line">Finale squad: ${esc(e.hero.name)}${e.squad.map((c) => ', ' + esc(companionDef(c).short)).join('')} · battles lost: ${e.losses}</span>`
+      + `<span class="chr-line small">${all.length} run${all.length === 1 ? '' : 's'} in the chronicle on this device</span></span>`;
+    items = arg.fromTitle ? [{ id: 'back-title', label: '◀ Back', act: () => openPicker('title') }]
+      : [{ id: 'new-run', cls: 'primary', label: 'Roll a new hero', sub: 'Starts a new company (this chronicle is kept)', act: startCreator },
+        { id: 'to-board', label: 'Back to board', sub: `Keep ${esc(hero.name)}: skirmishes stay open`, act: () => openPicker('missions') }];
   } else if (hero) {
-    // Victory / Defeat with a hero: back to the board
-    const again = mission && mission.kind === 'recruit' ? 'Try again' : 'Play again';
+    // Victory / Defeat with a hero: Retry (same squad, fresh battle; no penalty) or back to the board
+    const lost = S.over !== 'victory';
     items = [];
-    if (!(mission && mission.kind === 'recruit' && party.done[mission.id])) items.push({ id: 'restart', label: again, sub: mission ? mission.title : S.mapName, act: () => reset(mapId, { mission }) });
-    items.push({ id: 'to-board', label: 'Mission board', act: () => openPicker('missions', mission) });
+    if (lost || !(mission && mission.kind === 'recruit' && party.done[mission.id])) items.push({ id: 'restart', label: lost ? 'Retry' : 'Play again', sub: mission ? mission.title : S.mapName, act: () => reset(mapId, { mission }) });
+    items.push({ id: 'to-board', label: lost ? 'Back to board' : 'Mission board', act: () => openPicker('missions', mission) });
   } else {
     const maps = skirmishMaps(), ci = Math.max(0, maps.findIndex((m) => m.id === mapId));
     const next = maps[(ci + 1) % maps.length];
@@ -257,6 +301,12 @@ function drawTile(x, y, hl) {
   ctx.fillStyle = shade(t.top, light); ctx.fill();
   ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.stroke();
   if (hl) { diamond(c.x, c.y, tw * 0.92); ctx.fillStyle = hl; ctx.fill(); }
+  if (S.reliquary && S.reliquary.x === x && S.reliquary.y === y) { // Wren's amulet hums: the reliquary lies here
+    const pulse = 0.55 + 0.35 * Math.sin(performance.now() * 0.004);
+    diamond(c.x, c.y, tw * 0.7); ctx.globalAlpha = pulse; ctx.strokeStyle = P.reliquary; ctx.lineWidth = 2.5 * layout.k; ctx.stroke();
+    ctx.font = `bold ${Math.round(14 * Math.max(0.8, layout.k))}px Georgia, serif`; ctx.textAlign = 'center'; ctx.fillStyle = P.reliquary;
+    ctx.fillText('✦', c.x, c.y + tw / 8 + 5 * layout.k); ctx.globalAlpha = 1; ctx.lineWidth = 1;
+  }
 }
 
 // Screen direction of a facing: N(-y)=up-right, E(+x)=down-right, S(+y)=down-left, W(-x)=up-left
@@ -304,6 +354,7 @@ function drawUnit(u, now) {
   const x = pos.x, y = pos.y;
   // ground: shadow, active ring, facing wedge
   ctx.beginPath(); ctx.ellipse(x, y, 15 * k, 7 * k, 0, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,0,0,.32)'; ctx.fill();
+  if (u.captain) { ctx.beginPath(); ctx.ellipse(x, y, 18 * k, 9 * k, 0, 0, Math.PI * 2); ctx.strokeStyle = P.captainRing; ctx.lineWidth = 2.5 * k; ctx.stroke(); }
   if (u.npc) { ctx.beginPath(); ctx.ellipse(x, y, 17 * k, 8.5 * k, 0, 0, Math.PI * 2); ctx.strokeStyle = P.npcRing; ctx.lineWidth = 2 * k; ctx.setLineDash([4 * k, 3 * k]); ctx.stroke(); ctx.setLineDash([]); }
   if (isActive) { ctx.beginPath(); ctx.ellipse(x, y, 19 * k, 9.5 * k, 0, 0, Math.PI * 2); ctx.strokeStyle = '#ffd85a'; ctx.lineWidth = 2.5 * k; ctx.stroke(); }
   ctx.beginPath();
@@ -931,6 +982,12 @@ async function nextTurn() {
   if (S.over) return finish();
   const u = G.startNextTurn(S);
   ui.mode = 'busy'; ui.rangeOf = null; updatePanel();
+  if (S.spawned) { // finale, Wren missed: a raider urchin opens the chapel's side door
+    const r = S.spawned; S.spawned = null;
+    setCursor(r.x, r.y); floats.push({ x: r.x, y: r.y, text: 'Side door!', color: '#ff8a4a', t0: performance.now() });
+    await banner(`${r.name} slips in by the side door`, 'enemy');
+    setCursor(u.x, u.y);
+  }
   setCursor(u.x, u.y);
   if (u.team === 'player' && !u.npc) {
     banner(u.name, 'player');
@@ -968,12 +1025,22 @@ function finish() {
   updatePanel();
   const win = S.over === 'victory';
   if (win && mission && mission.kind === 'skirmish') { party.done[mission.id] = (party.done[mission.id] || 0) + 1; saveParty(party); }
+  if (hero && mission && mission.kind !== 'skirmish') { if (win) recordWin(party, mission.id); else recordLoss(party); saveParty(party); }
+  let run = null;
+  if (win && hero && mission && mission.kind === 'finale' && party.finale !== 'won') {
+    party.finale = 'won'; saveParty(party);
+    const squad = S.units.filter((u) => u.companion && !u.npc).map((u) => u.companion);
+    run = { at: new Date().toISOString(), version: CONFIG.version, hero: { name: hero.name, role: hero.role, portrait: hero.portrait },
+      companions: Object.fromEntries(Object.entries(party.companions).map(([c, v]) => [c, v.status])), order: party.order.slice(), losses: party.losses, squad };
+    addChronicle(run);
+  }
   setTimeout(() => {
+    if (run) return openPicker('ending', run);
     if (win && mission && mission.kind === 'recruit' && !party.done[mission.id]) return openPicker('recruit'); // who was it? Accept / Decline
     openPicker('end');
     $('ov-title').textContent = win ? 'VICTORY' : 'DEFEAT';
     const fell = S.units.find((u) => u.mustSurvive && u.hp <= 0);
-    $('ov-text').textContent = win ? 'The field is held. Deus vult.' : fell ? `${fell.name} has fallen. The mission is lost.` : 'Your company has fallen.';
+    $('ov-text').textContent = win ? (S.captainFell ? 'The Red Captain falls. His band breaks and flees.' : 'The field is held. Deus vult.') : fell ? `${fell.name} has fallen. The mission is lost.` : 'Your company has fallen.';
   }, 500);
 }
 
@@ -1023,8 +1090,11 @@ const heroExtras = (u) => (u.hitBonus ? `<span>Hit <b>${u.hitBonus > 0 ? '+' : '
 function statusLine(u) {
   const st = Object.keys(u.status || {}).filter((k) => STATUS[k]);
   const cds = Object.entries(u.cd || {}).filter(([, v]) => v > 0).map(([id, v]) => `${CONFIG.abilities[id].short} CD${v}`);
-  if (!st.length && !cds.length) return '';
-  return `<div class="status">${st.map((k) => `<span style="color:${P.status[k]}" title="${STATUS[k].text}">● ${STATUS[k].name}</span>`).join('')}${cds.map((c) => `<span class="cd">${c}</span>`).join('')}</div>`;
+  const SH = CONFIG.campaign.finale.shaken;
+  const shaken = G.isShaken(S, u) ? `<span style="color:#ffb36b" title="Renaud is next to him: −${SH.hitPenalty}% hit">● Shaken</span>` : '';
+  const boss = u.captain ? `<span style="color:${P.captainRing}" title="When he falls, his band flees">● Captain</span>` : '';
+  if (!st.length && !cds.length && !shaken && !boss) return '';
+  return `<div class="status">${boss}${shaken}${st.map((k) => `<span style="color:${P.status[k]}" title="${STATUS[k].text}">● ${STATUS[k].name}</span>`).join('')}${cds.map((c) => `<span class="cd">${c}</span>`).join('')}</div>`;
 }
 function abilityPredictionHtml(u, id, t, confirming) {
   const pv = G.abilityPreview(S, u, id, t);
@@ -1053,6 +1123,7 @@ function predictionHtml(u, t, confirming) {
   tags.push(p.side === 'front' ? 'Front' : `${p.side === 'back' ? 'Back' : 'Side'} +${Math.round((p.facingMod - 1) * 100)}%`);
   if (p.nFlank) tags.push(`Flank ×${p.nFlank} +${Math.round((p.flankMod - 1) * 100)}%`);
   if (p.hAdv) tags.push(`Height ${p.hAdv > 0 ? '+' : ''}${Math.round((p.heightMod - 1) * 100)}%`);
+  if (p.shaken) tags.push(`Shaken −${CONFIG.campaign.finale.shaken.hitPenalty}% hit`);
   return `<div class="pv-title">Attack → ${t.name}</div>
     <div class="pv-main"><span>Hit <b>${p.hit}%</b></span><span>Dmg <b>~${p.dmg}</b></span><span>HP ${t.hp}→${Math.max(0, t.hp - p.dmg)}</span></div>
     <div class="pv-tags">${tags.join(' · ')}</div>
@@ -1148,5 +1219,7 @@ window.__outremer = {
   get intents() { return currentIntents().map((i) => ({ from: i.from.id, to: i.to.id })); },
   // auto-resolve for tests: every enemy falls, the battle ends as a victory (normal finish flow)
   forceWin() { if (S.over) return false; for (const u of S.units) if (u.team === 'enemy') u.hp = 0; G.checkOver(S); finish(); return S.over; },
+  // ... and a defeat: your whole squad falls (Retry / Back to board)
+  forceLose() { if (S.over) return false; for (const u of S.units) if (u.team === 'player' && !u.npc) u.hp = 0; G.checkOver(S); finish(); return S.over; },
   G, CONFIG,
 };

@@ -9,6 +9,10 @@ import { MISSIONS, missionById } from '../src/missions.js';
 // COMP=renaud,wren -> field those companions with the hero. Map arg 'missions' = every recruit mission
 // (or a mission id); the companion-to-be is an AI ally that must survive.
 const COMP = (process.env.COMP || '').split(',').filter(Boolean);
+// v0.11 campaign: WINS=n recruit missions already won (difficulty step; default = number of companions, i.e. the
+// battle's place in a run). MISSED=wren -> companions not in your company (finale effects). Map 'chapel-ford' = finale.
+const MISSED = (process.env.MISSED || '').split(',').filter(Boolean);
+const WINS = (mission) => process.env.WINS != null ? Number(process.env.WINS) : mission && mission.kind === 'finale' ? (MISSED.length ? 2 : 3) : COMP.length;
 // HERO=avg|great|poor|roll [HERO_ROLE=knight|sergeant|archer|skirmisher]: put a created hero in the squad
 // avg = 3d6 average (10/11s), roll = a fresh 3d6 roll per battle, great/poor = strong/weak redistributed rolls
 const HERO = process.env.HERO, HERO_ROLE = process.env.HERO_ROLE || 'knight';
@@ -22,16 +26,22 @@ const N = Number(process.argv[2] || 2000);
 const HUMAN = !!process.env.HUMAN, PLAYER_NOISE = HUMAN ? Number(process.env.PLAYER_NOISE || 6) : 0;
 // DIFF='{"enemyAtkMul":0.85}' -> override CONFIG.difficulty knobs for tuning
 if (process.env.DIFF) Object.assign(CONFIG.difficulty, JSON.parse(process.env.DIFF));
+// KMUL=1.1 -> × every enemy's HP and ATK on top of everything (tuning: find the multiplier that hits a target)
+if (process.env.KMUL) { CONFIG.difficulty.enemyHpMul *= Number(process.env.KMUL); CONFIG.difficulty.enemyAtkMul *= Number(process.env.KMUL); }
+if (process.env.HKMUL) CONFIG.difficulty.enemyHpMul *= Number(process.env.HKMUL); // HP only (smooth: no ATK rounding cliffs)
+if (process.env.BYCOMP) CONFIG.difficulty.byCompanion = JSON.parse(process.env.BYCOMP);
+if (process.env.BYSQUAD) CONFIG.difficulty.bySquad = JSON.parse(process.env.BYSQUAD);
+if (process.env.STEP) CONFIG.campaign.stepByWins = JSON.parse(process.env.STEP);
 // OFF=shieldWall,brace  -> remove abilities (ablation); OFF=all -> no abilities at all
 const OFF = (process.env.OFF || '').split(',').filter(Boolean);
 CONFIG.teams.player.disabledAbilities = (process.env.OFF_P || '').split(',');
 CONFIG.teams.enemy.disabledAbilities = (process.env.OFF_E || '').split(',');
 for (const r of Object.values(CONFIG.roles)) r.abilities = (r.abilities || []).filter((a) => !OFF.includes(a) && !OFF.includes('all'));
 function run(mapId) {
-let w = 0, l = 0, turns = 0, lostAlly = 0, npcT = 0, npcHits = 0, npcDist = 0, npcDn = 0; const used = {};
+let capFell = 0, compFell = 0, w = 0, l = 0, turns = 0, lostAlly = 0, npcT = 0, npcHits = 0, npcDist = 0, npcDn = 0; const used = {};
 for (let i = 0; i < N; i++) {
   const mission = missionById(mapId);
-  const s = G.createState(mulberry32(i + 1), mapId, heroFor(i), { companions: COMP, mission });
+  const s = G.createState(mulberry32(i + 1), mapId, heroFor(i), { companions: COMP, mission, wins: WINS(mission), missed: MISSED });
   for (let t = 0; t < 300 && !s.over; t++) {
     const u = G.startNextTurn(s);
     const human = PLAYER_NOISE && u.team === 'player' && !u.npc;
@@ -59,11 +69,14 @@ for (let i = 0; i < N; i++) {
     if (!s.over) { G.faceNearestFoe(s, u); G.endTurn(s); }
     turns++;
   }
+  if (process.env.DEATHS && s.over === 'victory') for (const u of s.units) if (u.team === 'player' && u.hp <= 0) used['dead:' + u.name] = (used['dead:' + u.name] || 0) + 1;
+  if (s.captainFell) capFell++;
+  if (s.units.some((u) => u.companion && !u.npc && u.hp <= 0)) compFell++; // a fielded companion went down (they get up after: full HP every battle)
   if (s.over === 'victory') w++; else if (s.over === 'defeat') { l++; if (s.lostAlly) lostAlly++; }
 }
-console.log(`[${mapId}${HERO ? ` hero ${HERO} ${HERO_ROLE}` : ''}${COMP.length ? ` +${COMP}` : ''}] player (Templar) win rate ${(w / N).toFixed(3)} · loss ${(l / N).toFixed(3)} · stalled ${((N - w - l) / N).toFixed(3)} · avg turns ${(turns / N).toFixed(1)}${lostAlly ? ` · ally fell ${(lostAlly / N).toFixed(3)}` : ''}${npcT ? ` · ally attacks ${(npcHits / npcT).toFixed(2)}/turn, dist ${(npcDist / Math.max(1, npcDn)).toFixed(1)}` : ''} · N ${N}`);
+console.log(`[${mapId}${HERO ? ` hero ${HERO} ${HERO_ROLE}` : ''}${COMP.length ? ` +${COMP}` : ''}${MISSED.length ? ` missed ${MISSED}` : ''}] player (Templar) win rate ${(w / N).toFixed(3)} · loss ${(l / N).toFixed(3)} · stalled ${((N - w - l) / N).toFixed(3)} · avg turns ${(turns / N).toFixed(1)}${lostAlly ? ` · ally fell ${(lostAlly / N).toFixed(3)}` : ''}${capFell ? ` · captain fell ${(capFell / N).toFixed(3)}` : ''}${COMP.length ? ` · companion down ${(compFell / N).toFixed(3)}` : ''}${npcT ? ` · ally attacks ${(npcHits / npcT).toFixed(2)}/turn, dist ${(npcDist / Math.max(1, npcDn)).toFixed(1)}` : ''} · N ${N}`);
 console.log('ability uses per battle:', Object.fromEntries(Object.entries(used).sort().map(([k, v]) => [k, +(v / N).toFixed(2)])));
 }
 const arg = process.argv[3] || process.env.MAP || CONFIG.defaultMap;
-const ids = arg === 'all' ? MAPS.filter((m) => !m.missionOnly).map((m) => m.id) : arg === 'missions' ? MISSIONS.filter((m) => m.kind === 'recruit').map((m) => m.id) : [arg];
+const ids = arg === 'all' ? MAPS.filter((m) => !m.missionOnly).map((m) => m.id) : arg === 'missions' ? MISSIONS.filter((m) => m.kind === 'recruit' || m.kind === 'finale').map((m) => m.id) : [arg];
 for (const id of ids) run(id);

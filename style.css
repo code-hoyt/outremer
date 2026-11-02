@@ -260,3 +260,28 @@ html, body {
 #overlay .brief { font-size: 12.5px; line-height: 1.35; }
 #overlay .brief .comp-por { width: 84px; height: 112px; }
 #overlay.kind-recruit .pick, #overlay.kind-brief .pick { padding: 6px 12px; }
+/* v0.11 campaign: finale on the board, clue lines, ending + chronicle */
+#overlay .pick.locked { opacity: .5; }
+#overlay .pick.locked small { color: #a89c86; }
+#overlay .pick.finale { border-color: #e0453a; }
+#overlay .pick.finale small { color: #ffb3a8; }
+#overlay .pick.primary { border-color: #ffd85a; }
+#overlay .clue { color: #c9d8f0; }
+#overlay .finale-brief ul.clues { margin: 6px 0 0; padding-left: 16px; }
+#overlay .finale-brief li { margin: 2px 0; }
+#overlay .finale-brief li.clue { color: #c9d8f0; }
+#overlay .finale-brief li.pay { color: #9fe0a8; }
+#overlay .finale-brief li.miss { color: #ffb3a8; }
+#overlay.kind-ending .card, #overlay.kind-chronicle .card { width: 90%; }
+#overlay .ending { display: block; text-align: left; font-size: 13px; line-height: 1.45; color: #e3d9c3; }
+#overlay .ending i { color: #ffd36a; }
+#overlay .ending-lines .brief { margin-top: 8px; }
+#overlay .ending-lines .brief .comp-por { width: 44px; height: 58px; border-radius: 7px; }
+#overlay .chronicle { display: block; text-align: left; font-size: 12.5px; line-height: 1.45; color: #e3d9c3; }
+#overlay .chr-row { display: flex; gap: 10px; margin: 6px 0; }
+#overlay .chr-comp { display: flex; flex-direction: column; align-items: center; }
+#overlay .chr-comp .comp-img { width: 42px; height: 52px; border-radius: 7px; border: 2px solid #d8c48f; }
+#overlay .chr-comp.declined .comp-img, #overlay .chr-comp.missed .comp-img { filter: grayscale(1) brightness(.6); border-color: #5a5248; }
+#overlay .chr-comp small { font-size: 10px; color: #c9bea6; }
+#overlay .chr-line { display: block; }
+#overlay .chr-line.small { font-size: 11px; color: #a89c86; margin-top: 4px; }

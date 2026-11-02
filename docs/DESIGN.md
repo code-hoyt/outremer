@@ -1,4 +1,4 @@
-# Outremer — Design Notes (v0.10, slice + FFTA2 controls + context-aware cross pad + class abilities + 3 maps + hero creation + missions & recruitment + easier difficulty + ally personalities, softer height, reachable maps)
+# Outremer — Design Notes (v0.11, slice + FFTA2 controls + context-aware cross pad + class abilities + 4 maps + hero creation + missions & recruitment + easier difficulty + ally personalities, softer height, reachable maps + Option B mini-campaign: open board, Chapel Ford finale, Chronicle)
 
 > **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 under way: hero creation, the mission board and three recruitable companions are in).
 
@@ -130,7 +130,7 @@ An average hero leaves balance where it was. A great roll is a big swing on The 
 | `evasive` | 25 | 0.3 | — | **Wren** | a thief: keeps out of reach and strikes only when it's safe. Her hiding *is* her story, so it stays |
 
 Fleeing or hiding happens only where it's the companion's story (Wren) or a mission sets `npcAi`. Ally deaths are kept rare by other means:
-- **Toughness:** the ally's max HP × `CONFIG.difficulty.npcHpMul` (1.25) × the mission's own `npcHpMul` (Smoke at the Well: 1.2, because Yusuf starts in the middle of his old band).
+- **Toughness:** the ally's max HP × `CONFIG.difficulty.npcHpMul` (1.25) × the mission's own `npcHpMul` (Smoke at the Well: 1.2, **1.4 since v0.11**, because Yusuf starts in the middle of his old band).
 - **Enemy targeting weight:** raiders value hitting the ally at ×0.25 (`npcTargetMul`). Since v0.10 that also scales the flat +100 "I can attack" head of the score, so a raider with your squad in reach really does pick your squad.
 - **Separate HP and ATK trims:** `byBattle` can set `{ hp, atk }`, so a recruit battle gets tougher raiders who don't hit the ally harder (see Difficulty).
 - **Path-aware approach (all AI units):** units used to approach by straight-line distance, so Renaud pressed against the foot of the wall under an archer. Now the "move toward the foe" pull uses the **walking cost** (terrain, height, JUMP) to the nearest tile they could attack from. He walks round to the stairs.
@@ -149,6 +149,44 @@ Losing because the ally fell stays rare: at most 7.4% of battles (Smoke at the W
 - Should **how** you win matter (parking lot): e.g. Renaud only joins if no Templar falls, Yusuf if you spare a fleeing raider.
 - ~~Squad size~~ → **3** (hero + 2), decided v0.9 (Mass Effect feel). The recruit-mission NPC stays a 4th, AI-only unit.
 - Should the stranger take orders (FFTA2 guests are AI-only, as here)?
+
+## Campaign (v0.11): open board, finale after 2
+*Cletus picked **Option B** of the [campaign pitch](campaign-pitch.md) ("Let's go with b").* Everything else in the pitch's open-decisions list was left to the dev. Those decisions are marked **(default)**: the dev chose the pitch's recommended answer, and Cletus should revisit them after a playtest. All numbers are in `CONFIG.campaign`.
+
+**Decisions**
+| # | Question | Decision | Who |
+|---|---|---|---|
+| 1 | Option A or B | **B:** open board, the 3 recruit missions in any order, then a finale | Cletus |
+| 2 | Finale unlock | after **2** recruit wins (`finaleAfterWins`; Accept or Decline both count) | (default) |
+| 3 | Does the finale close the leftover mission? | **Yes** (`closeLeftoverOnFinale`). Beginning the finale marks the open recruit mission ✗ Closed, and that companion is *missed*. The brief warns you first | (default) |
+| 4 | Finale map | new **The Chapel Ford** (passes `tools/reach.mjs`) | (default) |
+| 5 | What persists | **party + story flags** (who joined / declined / was missed, the order you won in, losses). Full HP every battle, no wounds, no loot | (default) |
+| 6 | Losing | Defeat offers **Retry / Back to board**, no penalty (the board counts losses for the Chronicle) | (default) |
+| 7 | Missed-companion effects | **in, modest** (see below). They also apply to a companion you *declined*, as in the pitch: they aren't at the ford either way | (default) |
+| 8 | Ending | **stays a mystery:** the reliquary is empty but warm. If Wren is fielded, her amulet hums and something hums back (the mythology door, left shut) | (default) |
+| 9 | Names | the Red Captain, the Chapel Ford and the reliquary stay **placeholders** | (default) |
+| 10 | Ingvar | **after Stage 2** (not a 4th recruit mission) | (default) |
+| 11 | Difficulty step | small **step by recruit wins** (`stepByWins` [1, 1.03, 1.06, 1.09], raider HP ×) | (default) |
+| 12 | Skirmishes | stay on the board, replayable; they don't count toward the finale | (default) |
+
+**Flow**
+1. **Board:** the 3 recruit missions, then the finale item, then the 2 skirmishes. The finale shows "🔒 The Chapel Ford · Win N more" until unlocked, then ★, then ✓. A won recruit mission shows its **clue** ("Clue: …"). A closed one shows "✗ … Closed · *Name* was missed".
+2. **Recruit briefs vary by clues:** each recruit mission has a `clue`, plus a line per *other* mission already won (`clueLines`) that ties it to the same band. Example: once Wren is rescued, Renaud's brief mentions the reliquary she saw the raiders carry off.
+3. **Finale brief:** the intro, the clues you've found, one line per fielded companion (their payoff), one line per companion not in your company (what it costs), and, if a recruit mission is still open, a warning that Begin will close it.
+4. **The Chapel Ford:** win by bringing down **the Red Captain** (a raider Knight, ×1.5 HP, +1 ATK, +1 DEF, red ring). When he falls his band breaks: Victory, even with raiders left. You can also win by routing everyone.
+5. **Ending → Chronicle:** the ending text (plus the Wren line if she was there, plus a line from each fielded companion). Then the **Chronicle**, a local log of finished runs (`localStorage['outremer.chronicle']`, newest first, max 20). Each entry has the hero, class, squad, missed companions, the order you won in and losses. From there: **Roll a new hero** (a fresh campaign; the Chronicle is kept) or **Back to board**. The title gets a Chronicle item too.
+
+**Companion payoffs in the finale (fielded)**
+- **Renaud: Shaken.** While Renaud is next to the Captain (orthogonally), the Captain is Shaken: −20% hit and ×0.9 damage on his strikes. This shows in the prediction ("Shaken −20% hit") and in the status line. *Deviation:* the pitch's "counter" became a hit/damage penalty, because there's no counter system.
+- **Yusuf: the Captain's intent from anywhere.** His Turncoat's Eye arrow for the Captain shows map-wide, not just within 4 tiles.
+- **Wren: the reliquary and the shortcut.** She marks the reliquary tile (7,1) with a pulsing ✦. She also adds **stepping stones** at (3,1),(4,1) across the north shallows (Stairs terrain, cost 1). *Deviation:* the pitch called this a "stair shortcut". The reliquary's hum stopping when someone stands on it is not in.
+
+**Missed / declined companions in the finale (modest)**
+- **Renaud:** the Captain carries Renaud's sword: **+1 ATK**.
+- **Yusuf:** no deserter split the band: **one more Raider Bowman** on the hill (6,6).
+- **Wren:** a raider urchin knows the side door: **one more Skirmisher arrives on round 3** at (7,4), with a banner. A round is as many turns as there are units at the start.
+
+**Not built / deviations:** the finale keeps the squad of 3 (hero + 2), so with 3 companions one sits out, as usual. Yusuf's map-wide intent and Wren's marker are UI only; the sim doesn't model them.
 
 ## Difficulty (v0.9, retuned v0.10)
 *Cletus, playtesting v0.8: "Feels like I'm getting totally destroyed."* He mostly uses basic attacks. Target: **~65–75% Templar wins** in every battle with a typical party, erring easy.
@@ -221,6 +259,56 @@ Losing because the ally fell stays rare: at most 7.4% of battles (Smoke at the W
 
 *(v0.9 notes:)* **Basic-attack model: mean 41% → 72%, range 3–79% → 57–98%.** Hero alone with other classes (basic-attack, v0.9): Sergeant or Archer hero 62–79% everywhere. **Scout hero is the outlier:** 22% on Smoke at the Well, 95–99% on The Breach / Templar in Need. A Scout hero takes the Knight's slot (there's no Templar Scout), so that squad has no Knight. Still swingy: Breach + Yusuf/Wren 98%, Smoke + Renaud/Wren 57%. Composition matters (companions replace the Sergeant and Archer), and that's for playtests to judge. Retune with `HUMAN=1 HERO=avg COMP=… node tools/sim.mjs 2000 <map|mission id|all|missions>`; `DIFF='{"enemyAtkMul":0.9}'` overrides knobs for a run.
 
+### v0.11: squad trims and the campaign step
+With the open board, any companion can be in your squad for any battle, and the finale can have any 2 of them. In the basic-attack sim (`HUMAN=1 HERO=avg`), a fielded Yusuf or Wren made a battle *harder*, not easier: Scouts are frail, and they fall in nearly every battle. Wren replaces the Sergeant. So v0.10's per-battle trims spread from 6% to 84% across squads. v0.11 adds:
+- **`bySquad`:** an enemy-HP trim per battle per exact squad (`''` = hero + Templars). Finale keys add `/` and the companions not in your company (missed or declined), because those change the fight. `byCompanion` (Renaud 1, Yusuf 0.93, Wren 0.82, multiplied) is the fallback for any squad not in the table. Each entry was fitted by bisection and then checked at N = 2000.
+- **`CONFIG.campaign.stepByWins`:** [1, 1.03, 1.06, 1.09] raider HP × by recruit wins so far. *Deviation:* this is only a small step. The sim found companions no stronger than the generic Templars they replace, so a bigger step would have punished progress.
+- **HP only:** the step and the squad trims scale HP, not ATK. One point of rounded ATK made 15–25-point cliffs.
+- Smoke at the Well's ally toughness went from `npcHpMul` 1.2 to 1.4, because Yusuf fell in 14–17% of battles once the raiders were tougher.
+- The finale's `byBattle` is 0.98. The Captain is ×1.5 HP, +1 ATK, +1 DEF on top.
+
+**v0.11 results** (`HUMAN=1 HERO=avg`, N = 2000; win% / ally-fell%; the step uses the battle's place in a run, i.e. wins = companions fielded; finale = 2 or 3 wins):
+| Battle | Squad | Win % / ally fell % |
+|---|---|---|
+| The Ridge (skirmish) | hero + Templars | **72.6** |
+|  | + Renaud | **71.1** |
+|  | + Yusuf | **65.0** |
+|  | + Wren | **68.9** |
+|  | + Renaud, Yusuf | **72.8** |
+|  | + Renaud, Wren | **66.4** |
+|  | + Yusuf, Wren | **66.6** |
+| The Breach (skirmish) | hero + Templars | **70.3** |
+|  | + Renaud | **71.0** |
+|  | + Yusuf | **72.3** |
+|  | + Wren | **70.8** |
+|  | + Renaud, Yusuf | **71.3** |
+|  | + Renaud, Wren | **69.3** |
+|  | + Yusuf, Wren | **69.1** |
+| A Templar in Need | hero + Templars | **69.3** / 4.4 |
+|  | + Yusuf | **71.9** / 4.1 |
+|  | + Wren | **71.9** / 3.3 |
+|  | + Yusuf, Wren | **69.9** / 4.3 |
+| Smoke at the Well | hero + Templars | **70.7** / 6.7 |
+|  | + Renaud | **69.6** / 7.8 |
+|  | + Wren | **72.6** / 10.7 |
+|  | + Renaud, Wren | **70.3** / 6.6 |
+| Baggage Train | hero + Templars | **68.5** |
+|  | + Renaud | **70.6** / 0.1 |
+|  | + Yusuf | **70.4** / 0.1 |
+|  | + Renaud, Yusuf | **69.8** / 1.8 |
+| The Chapel Ford (finale) | + Renaud, Yusuf (all 3 recruited) | **70.8** |
+|  | + Renaud, Yusuf (Wren missed) | **70.5** |
+|  | + Renaud, Wren (all 3 recruited) | **70.3** |
+|  | + Renaud, Wren (Yusuf missed) | **71.4** |
+|  | + Yusuf, Wren (all 3 recruited) | **72.7** |
+|  | + Yusuf, Wren (Renaud missed) | **67.7** |
+| | + Renaud only (other recruit declined, 3rd missed) | **73.9** |
+| | + Yusuf only (other recruit declined, 3rd missed) | **69.7** |
+| | + Wren only (other recruit declined, 3rd missed) | **72.4** |
+| | hero + Templars (both declined, 3rd missed) | **70.6** |
+
+**All 36 cells: 65.0–73.9% wins (mean 70.4%). Ally fell ≤ 10.7%** (Smoke at the Well + Wren; every other cell ≤ 7.8%). Every finale win in the sim ends with the Captain falling. **Watch in playtests:** a fielded Yusuf or Wren is knocked out in 74–100% of sim battles (Renaud 30–39%). A companion going down isn't a loss, but the basic-attack model plays the Scouts badly (no use of their MOV, Vault or Feint). If a human keeps them alive, the Wren and Yusuf trims will feel easy. Retune with `tools/sim.mjs`: `MISSED=`, `WINS=`, `HKMUL=` (HP-only scale), `BYSQUAD='{...}'`, `STEP='[...]'`, `DEATHS=1`; map arg `chapel-ford` for the finale.
+
 ## Turn order — CT system (FFTA-like)
 - Every unit has a **CT** counter. Time ticks; each tick every living unit gains CT = its **SPD**.
 - When a unit reaches **CT ≥ 100** it acts (ties: higher CT, then higher SPD, then id).
@@ -251,6 +339,8 @@ Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../src/ma
 |---|---|---|---|
 | 1 | **The Ridge** (`ridge`) | Open hills, raiders on a height-2 ridge to the north, Templars below on grass/road. Sand and rock patches. | Fighting uphill; archers' height range; knights bogged in sand/rock. |
 | 2 | **The Breach** (`breach`) | A ruined keep. Templars deploy west on open ground (small rubble mound, rocky rise in the south-west). A height-3 curtain wall runs north–south at x=4, broken by a 2-tile rubble **breach** (height 1). Behind it: a sunken flagstone courtyard (height 0) and a stair tower in the south-east climbing to height 4. **v0.10: stone stairs** (terrain `t`, cost 1, one level per step) climb the wall from both sides: west (3,2)→(3,1)→ wall (4,1) and (3,5)→(3,6)→ wall (4,6); east (6,2)→(5,2)→ wall (4,2), (7,2)→(7,1)→ north tower (7,0), (5,5)→(5,6)/(6,5)→ south tower. | The breach is still the short way in, but **the wall can be contested by anyone.** A Knight (JUMP 1) walks up the west stair and fights an archer on the wall-walk. Archers and skirmishers (JUMP 3) can still scale the wall from the ground. Flanks come from wall-top drops, height from the tower. |
+| 3 | **The Baggage Train** (`baggage`, mission only, v0.8) | A raided column on the coast road with overturned carts (terrain *Cart*, height 1, cost 2). See Missions & recruitment. | Wren's recruit mission. |
+| 4 | **The Chapel Ford** (`ford`, finale only, v0.11) | 8×8. A shallow river (terrain *Shallows*, cost 2) runs north–south at x = 3–4, crossed by one stone ford (road) on rows 3–4. Open west bank. On the east bank the ground rises to a ruined chapel (height 2–3), climbed by stairs on the north and south flanks and a road ramp in the middle. The Red Captain waits at (7,3), the reliquary is at (7,1). When Wren is fielded she adds stepping stones (Stairs) at (3,1),(4,1). Passes `tools/reach.mjs`, with and without the stones. | Crossing under fire: the ford is the fast, exposed way over, the shallows the slow one. Then the hill. A 'kill the leader' objective, so a rush at the Captain is a real alternative to clearing the field. |
 
 ### Map rule: everywhere is reachable (v0.10)
 *Cletus, playtesting v0.9: "the higher areas like on the wall are unreachable for many units, causing the archer to have total dominance across the map. We need to make sure in map balance that every location is reachable within reason… some rule like 'everywhere reachable by someone with at least 2 move and 2 jump'."*
@@ -392,7 +482,7 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 - Hero portraits: 8 simple SVG busts marked PLACEHOLDER. Companion portraits (`assets/companions/`) are placeholders too.
 - **Art direction (decided by Cletus, v0.9; to do at the art stage):** heavily based on **Final Fantasy** art; **portraits in the style of FFTA2's portraits**. No art changes until then (ROADMAP Stage 4).
 - All art: procedural canvas shapes (shaded iso blocks, simple figures with team colors, Templar red cross on tunic/shield). No sound.
-- Two hand-made maps, fixed deployment per map, no squad building beyond the created hero, no companions yet, two abilities per class only (no jobs/secondary sets), no items, no XP.
+- Hand-made maps, fixed deployment per map, two abilities per class only (no jobs/secondary sets), no items, no XP.
 - Raider faction is a generic stand-in. Names are generic.
 - AI is a one-ply greedy scorer.
 
