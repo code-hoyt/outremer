@@ -24,7 +24,7 @@ export const MISSIONS = [
     title: 'Smoke at the Well',
     sub: 'Raiders fighting among themselves on the ridge.',
     map: 'ridge',
-    npc: [4, 3, 2],
+    npc: [4, 3, 2], npcHpMul: 1.2, // starts in the thick of his old band: tougher so the rescue is a race, not a coin flip
     enemy: [['knight', 3, 1, 2], ['sergeant', 1, 1, 2], ['archer', 5, 1, 2], ['skirmisher', 6, 2, 3]],
     intro: 'Shepherds report smoke at the old well and raiders cutting down one of their own: Yusuf ibn Qasim, a rider who turned on his band. They want him dead — which is reason enough to keep him alive.',
     outro: 'Yusuf wipes his blade and lowers it. "Those were my brothers until this morning. I know how they think, where they water, whom they strike first. Take me with you and I will show you."',

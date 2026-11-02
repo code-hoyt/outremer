@@ -27,3 +27,5 @@ Run locally: `python3 -m http.server` in the repo root, open http://localhost:80
 | `src/hero.js` | Hero rules: 3d6 rolls, pool redistribution, stat → battle formula, save/load, placeholder portraits, iso move preview (node-safe; the sim uses it) |
 | `src/create.js` | Hero creation wizard UI (Portrait → Class → Stats → Name) |
 | `src/main.js` | Rendering, touch/mouse input, turn flow, HUD |
+| `tools/sim.mjs` | Balance sim: `HUMAN=1 HERO=avg COMP=renaud,yusuf node tools/sim.mjs 2000 <map\|mission\|all\|missions>` (win rate, ally-fell, how the ally fights) |
+| `tools/reach.mjs` | Map reachability validator: every tile reachable at MOV 2 / JUMP 2 and JUMP 1 and for every class (`CONFIG.mapRules`); exits 1 on a cut-off tile. Stairs (`t`) are how maps climb more than 1 level |

@@ -1,4 +1,4 @@
-# Outremer — Design Notes (v0.9, slice + FFTA2 controls + context-aware cross pad + class abilities + 3 maps + hero creation + missions & recruitment + easier difficulty)
+# Outremer — Design Notes (v0.10, slice + FFTA2 controls + context-aware cross pad + class abilities + 3 maps + hero creation + missions & recruitment + easier difficulty + ally personalities, softer height, reachable maps)
 
 > **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 under way: hero creation, the mission board and three recruitable companions are in).
 
@@ -120,7 +120,29 @@ An average hero leaves balance where it was. A great roll is a big swing on The 
 
 **Simplified from the pitch (deviations):** Renaud's Shield Wall covering a 2nd ally, "never Waits with a foe in reach" and refusing camp with Yusuf are not in. Yusuf's intent display is a line to the target, not the exact move/ability. Wren's swap-with-an-ally, post-battle loot and the 2-tile auto-bolt are not in: Scouts already ignore rough terrain, so her terrain pro became +1 MOV, and her bolt became "can't act". The amulet is only flavour text.
 
-**Allied NPC AI:** the NPC uses the normal scoring AI with its danger penalty ×30 (`CONFIG.ai.npcDangerMul`). With the normal weight they charged in and died on their first turn (Yusuf: 99% of sims); this makes them keep their distance while you do the fighting. **v0.9:** raiders also value hitting the NPC at only ×0.25 (`CONFIG.difficulty.npcTargetMul`), so they go for your squad first. Losing because the ally fell is now rare (≤ 6% in the sim, was up to 54%); see Difficulty below for the numbers.
+**Allied NPC AI: in-character personalities (v0.10).** *Cletus, playtesting v0.9: "I don't like how the companion runs away during the battle. This should only happen if that's part of the companion's story or how the battle is supposed to play out. It makes no sense that the Templar runs away instead of running headlong into battle."* v0.8–v0.9 kept every ally alive by multiplying its danger penalty ×30 (`npcDangerMul`), so all of them hid. That knob is gone. Each companion now has an **AI personality** (`aiStyle` on the companion; a mission can override it with `npcAi`), defined in `CONFIG.ai.personalities`:
+
+| Personality | danger × | approach × | other | Who | Why |
+|---|---|---|---|---|---|
+| `steady` | 1 | 1 | — | raiders, default | the normal scoring AI |
+| `aggressive` | 0.3 | 2 | `stance` 0.2 (rarely stops to Shield Wall) | **Renaud** | an old Templar: charges in |
+| `wary` | 3 | 1 | `rally` 2 (−2 per tile from the nearest squad member) | **Yusuf** | a wounded raider who fights, but from safer tiles and falls back on you |
+| `evasive` | 25 | 0.3 | — | **Wren** | a thief: keeps out of reach and strikes only when it's safe. Her hiding *is* her story, so it stays |
+
+Fleeing or hiding happens only where it's the companion's story (Wren) or a mission sets `npcAi`. Ally deaths are kept rare by other means:
+- **Toughness:** the ally's max HP × `CONFIG.difficulty.npcHpMul` (1.25) × the mission's own `npcHpMul` (Smoke at the Well: 1.2, because Yusuf starts in the middle of his old band).
+- **Enemy targeting weight:** raiders value hitting the ally at ×0.25 (`npcTargetMul`). Since v0.10 that also scales the flat +100 "I can attack" head of the score, so a raider with your squad in reach really does pick your squad.
+- **Separate HP and ATK trims:** `byBattle` can set `{ hp, atk }`, so a recruit battle gets tougher raiders who don't hit the ally harder (see Difficulty).
+- **Path-aware approach (all AI units):** units used to approach by straight-line distance, so Renaud pressed against the foot of the wall under an archer. Now the "move toward the foe" pull uses the **walking cost** (terrain, height, JUMP) to the nearest tile they could attack from. He walks round to the stairs.
+
+How the ally behaves (sim, `HUMAN=1`, N = 2000; attacks per ally turn, average distance to the nearest raider):
+| Ally (mission) | v0.9 | **v0.10** |
+|---|---|---|
+| Renaud (A Templar in Need) | 0.00–0.13 attacks/turn, 4.8–5.7 tiles away | **0.52–0.53 attacks/turn, 2.4–2.5 tiles** |
+| Yusuf (Smoke at the Well) | 0.01–0.09, 5.6–7.4 tiles | **0.50–0.62, 3.1–3.8 tiles** |
+| Wren (Baggage Train) | 0.02, 5.9–6.0 tiles | 0.02–0.03, 6.8–7.1 tiles (evasive by design) |
+
+Losing because the ally fell stays rare: at most 7.4% of battles (Smoke at the Well + Renaud). It was ≤ 5.4% in v0.9, when the allies hid.
 
 **Open questions**
 - **Can a declined companion be recruited later** (e.g. found again at camp, or a second mission), or is Decline final? It's final for now.
@@ -128,7 +150,7 @@ An average hero leaves balance where it was. A great roll is a big swing on The 
 - ~~Squad size~~ → **3** (hero + 2), decided v0.9 (Mass Effect feel). The recruit-mission NPC stays a 4th, AI-only unit.
 - Should the stranger take orders (FFTA2 guests are AI-only, as here)?
 
-## Difficulty (v0.9)
+## Difficulty (v0.9, retuned v0.10)
 *Cletus, playtesting v0.8: "Feels like I'm getting totally destroyed."* He mostly uses basic attacks. Target: **~65–75% Templar wins** in every battle with a typical party, erring easy.
 
 **Knobs** (`CONFIG.difficulty`, all global, applied to every enemy when the battle starts):
@@ -139,7 +161,16 @@ An average hero leaves balance where it was. A great roll is a big swing on The 
 | `enemyDefAdd`, `enemySpdAdd` | 0 | 0 | flat DEF / SPD (unused; there if needed) |
 | `npcTargetMul` | 1 | **0.25** | how much raiders want to hit the recruit-mission ally (AI score ×) |
 | `byBattle` | — | Ridge **1.02**, Breach **0.90**, Templar in Need **0.91**, Smoke at the Well **1.03**, Baggage Train **1.15** | per-battle trim on top (× raider HP and ATK), keyed by mission id or skirmish map id |
-So a Raider Swordsman (HP 44, ATK 14) is 38/12 on The Ridge, 34/11 on The Breach, 43/14 in the Baggage Train. No enemy was removed and no unit was hand-edited: the global ×0.85 does most of the work, the per-battle trim evens the maps out (the Baggage Train was easy, The Breach hard). Because stats are rounded, a small knob change can jump (e.g. The Ridge: ×1.01 → 86–96%, ×1.02 → 64–74%, because a Raider Bowman's ATK goes 9 → 10).
+**v0.10 retune:** the height nerf, the Breach stairs, the path-aware AI and the fighting allies made every battle easier (untuned, basic-attack sim: Ridge 76–99%, Breach 91–99%, Templar in Need 98–99%). The trims went back up. `byBattle` now also accepts `{ hp, atk }` to scale raider HP and ATK separately; recruit battles use it so raiders are tougher without killing the ally faster. New knob: `npcHpMul` **1.25** (ally toughness; × the mission's `npcHpMul`).
+| `byBattle` | v0.9 | **v0.10** |
+|---|---|---|
+| The Ridge | 1.02 | **1.13** |
+| The Breach | 0.90 | **HP 1.4, ATK 1.12** |
+| A Templar in Need | 0.91 | **HP 1.6, ATK 1.15** |
+| Smoke at the Well | 1.03 | **HP 1.6, ATK 1.25** (+ Yusuf ×1.2 HP) |
+| Baggage Train | 1.15 | **1.2** |
+
+*(v0.9 text:)* So a Raider Swordsman (HP 44, ATK 14) is 38/12 on The Ridge, 34/11 on The Breach, 43/14 in the Baggage Train. No enemy was removed and no unit was hand-edited: the global ×0.85 does most of the work, the per-battle trim evens the maps out (the Baggage Train was easy, The Breach hard). Because stats are rounded, a small knob change can jump (e.g. The Ridge: ×1.01 → 86–96%, ×1.02 → 64–74%, because a Raider Bowman's ATK goes 9 → 10).
 
 **New sim model: `HUMAN=1`.** The old sim plays both sides with the full AI (abilities, perfect choices), which is better than a player who mostly attacks. `HUMAN=1 node tools/sim.mjs` makes the **player squad** use **basic attacks only** and pick with a little noise (±6 score points, `PLAYER_NOISE`). The ally NPC and the raiders are unchanged. This is the main target; full-AI numbers are kept for comparison. Noise also smooths out the deterministic-AI cliffs.
 
@@ -163,7 +194,32 @@ So a Raider Swordsman (HP 44, ATK 14) is 38/12 on The Ridge, 34/11 on The Breach
 | Baggage Train | hero + Templars | 66.7 / 2.8 | **66.6 / 0.6** | 68.5 / 9.9 | 70.6 / 0.3 |
 | | + Renaud | 79.0 / 5.6 | **81.4 / 1.3** | 39.6 / 1.2 | 38.9 / 0.6 |
 | | + Renaud, Yusuf | 73.3 / 4.4 | **75.0 / 1.1** | 70.6 / 0.5 | 76.0 / 0.2 |
-(v0.8 full-AI column: N = 1000.) **Basic-attack model: mean 41% → 72%, range 3–79% → 57–98%.** Hero alone with other classes (basic-attack, v0.9): Sergeant or Archer hero 62–79% everywhere. **Scout hero is the outlier:** 22% on Smoke at the Well, 95–99% on The Breach / Templar in Need. A Scout hero takes the Knight's slot (there's no Templar Scout), so that squad has no Knight. Still swingy: Breach + Yusuf/Wren 98%, Smoke + Renaud/Wren 57%. Composition matters (companions replace the Sergeant and Archer), and that's for playtests to judge. Retune with `HUMAN=1 HERO=avg COMP=… node tools/sim.mjs 2000 <map|mission id|all|missions>`; `DIFF='{"enemyAtkMul":0.9}'` overrides knobs for a run.
+(v0.8 full-AI column: N = 1000.)
+
+**v0.10 results** (same setup, N = 2000; win% / ally-fell%):
+| Battle | Party | v0.9 basic-attack | **v0.10 basic-attack** | v0.9 full AI | v0.10 full AI |
+|---|---|---|---|---|---|
+| The Ridge | hero + Templars | 70.9 | **83.5** | 62.7 | 85.1 |
+| | + Renaud, Yusuf | 65.2 | **60.0** | 67.6 | 44.5 |
+| | + Renaud, Wren | 73.4 | **65.8** | 63.9 | 42.2 |
+| | + Yusuf, Wren | 66.2 | **65.3** | 62.4 | 41.5 |
+| The Breach | hero + Templars | 78.4 | **60.8** | 97.9 | 69.7 |
+| | + Renaud, Yusuf | 64.4 | **76.0** | 86.8 | 97.4 |
+| | + Renaud, Wren | 74.1 | **73.2** | 99.4 | 99.2 |
+| | + Yusuf, Wren | 98.3 | **76.6** | 100 | 89.0 |
+| A Templar in Need | hero + Templars | 61.6 / 0.3 | **72.4 / 4.2** | 98.1 / 0.1 | 88.5 / 3.4 |
+| | + Yusuf | 80.5 / 0 | **68.3 / 4.8** | 90.1 / 0.3 | 36.7 / 2.3 |
+| | + Yusuf, Wren | 64.6 / 0.1 | **69.5 / 4.3** | 51.8 / 0.2 | 19.3 / 0.1 |
+| Smoke at the Well | hero + Templars | 65.8 / 5.4 | **94.2 / 2.9** | 82.6 / 8.7 | 97.4 / 1.2 |
+| | + Renaud | 85.4 / 1.8 | **85.0 / 7.4** | 72.1 / 5.9 | 86.1 / 7.6 |
+| | + Renaud, Wren | 56.9 / 0.3 | **74.9 / 6.6** | 51.5 / 0.4 | 68.3 / 25.0 |
+| Baggage Train | hero + Templars | 66.6 / 0.6 | **72.6 / 0** | 70.6 / 0.3 | 44.1 / 0.4 |
+| | + Renaud | 81.4 / 1.3 | **79.8 / 0** | 38.9 / 0.6 | 65.2 / 0 |
+| | + Renaud, Yusuf | 75.0 / 1.1 | **69.5 / 1.8** | 76.0 / 0.2 | 93.3 / 0 |
+
+**Basic-attack model: mean 72.3% → 73.4%, range 57–98% → 60–94%; worst ally-fell 5.4% → 7.4%.** The Breach no longer swings 64–98% by squad. Smoke at the Well stays the easiest battle (75–94%): pushing it harder mainly made Yusuf die more, because there harder means longer and he is in the thick of it. Full AI (both sides use abilities): mean 74.8% → 68.7%. It swings more (A Templar in Need + Yusuf 19–37%, Smoke + Renaud + Wren 25% ally deaths). The full AI is a comparison only; the basic-attack model is the target.
+
+*(v0.9 notes:)* **Basic-attack model: mean 41% → 72%, range 3–79% → 57–98%.** Hero alone with other classes (basic-attack, v0.9): Sergeant or Archer hero 62–79% everywhere. **Scout hero is the outlier:** 22% on Smoke at the Well, 95–99% on The Breach / Templar in Need. A Scout hero takes the Knight's slot (there's no Templar Scout), so that squad has no Knight. Still swingy: Breach + Yusuf/Wren 98%, Smoke + Renaud/Wren 57%. Composition matters (companions replace the Sergeant and Archer), and that's for playtests to judge. Retune with `HUMAN=1 HERO=avg COMP=… node tools/sim.mjs 2000 <map|mission id|all|missions>`; `DIFF='{"enemyAtkMul":0.9}'` overrides knobs for a run.
 
 ## Turn order — CT system (FFTA-like)
 - Every unit has a **CT** counter. Time ticks; each tick every living unit gains CT = its **SPD**.
@@ -194,7 +250,14 @@ Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../src/ma
 | # | Map | Shape | What it tests |
 |---|---|---|---|
 | 1 | **The Ridge** (`ridge`) | Open hills, raiders on a height-2 ridge to the north, Templars below on grass/road. Sand and rock patches. | Fighting uphill; archers' height range; knights bogged in sand/rock. |
-| 2 | **The Breach** (`breach`) | A ruined keep. Templars deploy west on open ground (small rubble mound, rocky rise in the south-west). A height-3 curtain wall runs north–south at x=4, broken by a 2-tile rubble **breach** (height 1). Behind it: a sunken flagstone courtyard (height 0), a ramp tile at (5,2) and a stair tower in the south-east climbing to height 4. | **JUMP decides the route.** Knights (JUMP 1) can only go through the breach chokepoint. Sergeants (2) can take the ramp and stairs. Archers and skirmishers (3) scale the wall from the ground and use it as a ledge. Flanks come from wall-top drops, height from the tower. |
+| 2 | **The Breach** (`breach`) | A ruined keep. Templars deploy west on open ground (small rubble mound, rocky rise in the south-west). A height-3 curtain wall runs north–south at x=4, broken by a 2-tile rubble **breach** (height 1). Behind it: a sunken flagstone courtyard (height 0) and a stair tower in the south-east climbing to height 4. **v0.10: stone stairs** (terrain `t`, cost 1, one level per step) climb the wall from both sides: west (3,2)→(3,1)→ wall (4,1) and (3,5)→(3,6)→ wall (4,6); east (6,2)→(5,2)→ wall (4,2), (7,2)→(7,1)→ north tower (7,0), (5,5)→(5,6)/(6,5)→ south tower. | The breach is still the short way in, but **the wall can be contested by anyone.** A Knight (JUMP 1) walks up the west stair and fights an archer on the wall-walk. Archers and skirmishers (JUMP 3) can still scale the wall from the ground. Flanks come from wall-top drops, height from the tower. |
+
+### Map rule: everywhere is reachable (v0.10)
+*Cletus, playtesting v0.9: "the higher areas like on the wall are unreachable for many units, causing the archer to have total dominance across the map. We need to make sure in map balance that every location is reachable within reason… some rule like 'everywhere reachable by someone with at least 2 move and 2 jump'."*
+
+**Rule:** every walkable tile on every map must be reachable from every other tile by a **MOV 2 / JUMP 2** unit. Several turns are fine; terrain costs and height count. We also hold maps to **JUMP 1**, because the v0.9 Breach passed the 2/2 rule (sergeants could hop up) but cut off 17 tiles (the walls and towers) from Knights, and the Knight is exactly the unit that has to go up and fight the archer. Each real class (its own MOV, JUMP and terrain costs) is checked too.
+- **Validator:** [`tools/reach.mjs`](../tools/reach.mjs) (`node tools/reach.mjs`). It checks strong connectivity with a forward and a reverse search: a step is legal if the height change ≤ JUMP and the tile's entry cost (+ `climbCostPerLevel` per level up) ≤ MOV. A tile that costs more than MOV to enter (e.g. Knight in rubble at MOV 2) counts as cut off. The rules live in `CONFIG.mapRules`. It exits 1 and lists the cut-off tiles if a map fails, and it runs in the test suite (`outremer-test/reach.mjs`, which also checks that the old Breach is caught). v0.10: **all 3 maps, 64/64 tiles, every rule and class.**
+- **Designing maps:** to raise ground by more than 1 level, put a stair or ramp tile (one level per step) somewhere, on both sides of a wall that both teams should be able to contest.
 
 **Choosing a map (phone-first, FFTA2 flow):** with no `?map=`, the game opens on a title card listing the maps. It works like the command menu: ▲▼ on the d-pad (or keys) moves the highlight, A starts, and a tap picks directly. The last map played is preselected (localStorage). The Victory/Defeat card offers **Play again / Next map: … / Choose map**, and B on Choose map goes back. `?map=breach` or `?map=2` skips the title. The header shows the current map name.
 
@@ -206,7 +269,7 @@ Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../src/ma
   - Damage: Front ×1.0, **Side ×1.25, Back ×1.5**
   - Hit chance: Front 80%, **Side 90%, Back 100%**
 - **Flanking (pincer):** +15% damage per *other* ally adjacent to the target (max 2). Emerges from positioning — no extra button.
-- **Height:** ±10% damage per level of height difference (clamped 0.7–1.4), ±3% hit per level; archers gain range from height; melee can't reach targets too far above/below (`maxHeightReach`).
+- **Height (softened v0.10):** per level of height advantage, **+5% damage for melee and abilities, +3% for ranged shots** (attacker more than 1 tile away). Per level of disadvantage, **−5%**. The total is clamped to **×0.85–×1.1**, and hit chance is **±2% per level**. Archers gain **+1 range per 3 levels** above the target (was per 2). Melee can't reach targets too far above/below (`maxHeightReach`). *Why:* Cletus, v0.9: on The Breach the raider archer "sits up there and murders everyone, doing wicked damage and unable to be countered." v0.9 had ±10%/level clamped 0.7–1.4, ±3% hit, +1 range per 2 levels. So an archer on the height-3 wall shot down at **×1.3 damage and +9% hit**; now it's **×1.09 and +6%**. From the height-4 tower: range +2 → +1. The wall is also reachable now (see Maps).
 - **Prediction before executing:** hovering a valid target shows, and the confirm step repeats, e.g. `Hit 90% · Dmg ~22 · HP 28→6 · Back +50% · Flank ×1 +15% · Height +10%`.
 - **Facing at end of turn is an explicit choice (FFTA2-style).** Auto-facing was removed after Cletus's playtest (v0.2): every player turn ends on a facing step with four arrows drawn on the ground around the unit. Attacking still turns the attacker toward the target (as in FFTA2), but the final facing is always yours.
 - The enemy AI values side/back attacks, and the AI picks its own facing (toward its nearest foe).
@@ -216,12 +279,15 @@ Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../src/ma
 base     = ATK × 1.6 − DEF × 1.0
 damage   = max(1, round(base × heightMod × facingMod × flankMod))
 final    = damage × (1 ± 10% variance) × (1.5 on 5% crit)
-hit%     = clamp(5..100, facingHit + 3 × heightAdvantage)
+hit%     = clamp(5..100, facingHit + 2 × heightAdvantage)
+heightMod = clamp(0.85..1.1, 1 + perLevel × heightAdvantage)
+            perLevel = +0.05 melee / +0.03 ranged when above, 0.05 when below
 ```
 All constants: `CONFIG.combat`.
 
 ## Enemy AI (simple scoring)
 For every reachable tile × every target attackable from it: `100 + expectedDamage + killBonus(25×hit) + sideBonus(4)/backBonus(10) + 2×tileHeight − 0.35×danger`. If no attack is possible: move toward the nearest foe (`−1.5 × distance`). Archers avoid ending closer than 3 tiles. Weights: `CONFIG.ai`.
+**v0.10:** "distance" for the approach pull is the **walking cost** (terrain, height, JUMP; units ignored) to the nearest tile the unit could attack a foe from, not the straight-line distance. Units go round to stairs instead of getting stuck at the foot of a wall. Each unit's personality (`aiStyle` → `CONFIG.ai.personalities`) multiplies the danger penalty and the approach pull. It can also add a pull toward the squad (`rally`) and scale self-stances (`stance`). Raiders are `steady`. Raiders score the recruit-mission ally at ×`npcTargetMul`, including the +100 attack head.
 
 ## Abilities (v0.4) — two per class, all about position
 Every class gets two abilities that **make or punish a position**, not bigger numbers. Raiders use the same kit as their Templar counterpart (Swordsman = knight, Bowman = archer, Skirmisher has its own). All numbers live in `CONFIG.abilities`.

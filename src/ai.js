@@ -2,7 +2,7 @@
 import { CONFIG } from './config.js';
 import {
   reachable, targetsFrom, preview, heightAt, alive, canAttackFrom, faceNearestFoe, effMove, hitSide, facingTo,
-  abilitiesOf, abilityReady, abilityTargets, abilityPreview, braceIntercept, braceZone, unitAt, canAct, skittishAt,
+  abilitiesOf, abilityReady, moveCost, abilityTargets, abilityPreview, braceIntercept, braceZone, unitAt, canAct, skittishAt,
 } from './game.js';
 
 const manhattan = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
@@ -17,6 +17,29 @@ function dangerAt(s, u, x, y) {
     if (manhattan(f, ghost) <= effMove(f) + r.maxRange) total += preview(s, f, ghost, f.x, f.y).dmg;
   }
   return total;
+}
+
+// Walking distance (move points, over terrain cost + height, ignoring units) from every tile to the nearest
+// tile u could attack a foe from. The approach pull uses this instead of straight-line distance, so a unit
+// walks round to the stairs instead of pressing against the foot of a wall (v0.10). Unreachable = Infinity.
+function approachField(s, u, foes) {
+  const W = s.w, H = s.h, JUMP = u.jump, d = new Array(W * H).fill(Infinity), open = [];
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (foes.some((f) => canAttackFrom(s, u, x, y, f.x, f.y))) { d[y * W + x] = 0; open.push([0, x, y]); }
+  }
+  while (open.length) {
+    open.sort((a, b) => a[0] - b[0]);
+    const [c, x, y] = open.shift();
+    if (c > d[y * W + x]) continue;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { // reverse edge: stepping (nx,ny) -> (x,y)
+      const nx = x + dx, ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      if (Math.abs(heightAt(s, nx, ny) - heightAt(s, x, y)) > JUMP) continue;
+      const nc = c + moveCost(s, u, x, y, heightAt(s, nx, ny));
+      if (nc < d[ny * W + nx]) { d[ny * W + nx] = nc; open.push([nc, nx, ny]); }
+    }
+  }
+  return (x, y) => d[y * W + x];
 }
 
 // value of hitting t for `dmg` (+extra) at `hit`% from side
@@ -75,14 +98,20 @@ export function planTurn(s, u, opts = {}) {
   const abil = abilitiesOf(u).filter((a) => abilityReady(u, a.id));
   const mayAct = s.active === u ? canAct(s) : !skittishAt(s, u); // Wren's Skittish: no action this turn
   let best = null;
+  const P = (A.personalities || {})[u.aiStyle] || { danger: 1, approach: 1 }; // AI personality
+  const friends = P.rally ? alive(s).filter((f) => f.team === u.team && f !== u && !f.npc) : [];
   const npcMul = (CONFIG.difficulty && CONFIG.difficulty.npcTargetMul) ?? 1; // raiders' interest in the recruit-mission stranger
   // opts.noise (sim only): random jitter on every option, a stand-in for a human's imperfect choices
   const jit = opts.noise ? () => opts.noise * (2 * (opts.rng || Math.random)() - 1) : () => 0;
   const offer = (score, tile, action) => { score += jit(); if (!best || score > best.score) best = { score, tile, action }; };
+  const walk = foes.length ? approachField(s, u, foes) : () => 0;
   for (const tile of tiles) {
-    let baseScore = A.wHeight * heightAt(s, tile.x, tile.y) - A.wDanger * (u.npc ? A.npcDangerMul : 1) * dangerAt(s, u, tile.x, tile.y);
+    let baseScore = A.wHeight * heightAt(s, tile.x, tile.y) - A.wDanger * P.danger * dangerAt(s, u, tile.x, tile.y);
     if (!opts.fixed && braceIntercept(s, u, pathTo(tile.x, tile.y))) baseScore -= A.wAvoidBrace;
     const nearest = Math.min(...foes.map((f) => manhattan(tile, f)));
+    const wd = walk(tile.x, tile.y); // approach distance: walking cost to an attack tile (+1 ≈ the old 'adjacent = 1')
+    const far = wd === Infinity ? nearest + 20 : wd + 1;
+    if (P.rally && friends.length) baseScore -= P.rally * Math.min(...friends.map((f) => manhattan(tile, f))); // stay near the squad
     let spacing = 0;
     if (u.role === 'archer' && nearest < A.archerKeepDistance) spacing = -A.wArcherSpacing * (A.archerKeepDistance - nearest);
     // ghost u on the tile so geometry (facing, flankers, cover) is evaluated from there
@@ -92,23 +121,23 @@ export function planTurn(s, u, opts = {}) {
       const p = preview(s, u, t, tile.x, tile.y);
       const v = hitValue(A, t, p.dmg, 0, p.hit, p.side) * (t.npc ? npcMul : 1);
       bestAttack = Math.max(bestAttack, v);
-      offer(100 + v + baseScore + spacing, tile, { type: 'attack', target: t });
+      offer((t.npc ? 100 * npcMul : 100) + v + baseScore + spacing, tile, { type: 'attack', target: t });
     }
     for (const ab of mayAct ? abil : []) {
       for (const t of abilityTargets(s, u, ab.id, tile.x, tile.y)) {
         const pv = abilityPreview(s, u, ab.id, t, tile.x, tile.y);
         const bonus = abilityBonus(s, u, ab.id, t, pv, tile);
         if (bonus === -Infinity) continue;
-        const v = ab.kind === 'self' ? bonus : hitValue(A, t, pv.dmg, pv.extra || 0, pv.hit, pv.side) * (t.npc ? npcMul : 1) + bonus;
+        const v = ab.kind === 'self' ? bonus * (P.stance ?? 1) : hitValue(A, t, pv.dmg, pv.extra || 0, pv.hit, pv.side) * (t.npc ? npcMul : 1) + bonus;
         if (ab.kind !== 'self' && bestAttack > -Infinity && v < bestAttack + A.abilityMinGain) continue;
         // stances don't hit anything: they compete with repositioning, not with attacks
-        const head = ab.kind === 'self' ? -A.wApproach * nearest : 100;
+        const head = ab.kind === 'self' ? -A.wApproach * P.approach * far : t.npc ? 100 * npcMul : 100;
         offer(head + v + baseScore + spacing, tile, { type: 'ability', id: ab.id, target: t });
       }
     }
     u.x = ox; u.y = oy;
     // option: just reposition toward foes
-    offer(-A.wApproach * nearest + baseScore + spacing, tile, null);
+    offer(-A.wApproach * P.approach * far + baseScore + spacing, tile, null);
   }
   if (!best) return { tile: { x: u.x, y: u.y }, path: [{ x: u.x, y: u.y }], action: null, target: null };
   const a = best.action;

@@ -28,7 +28,7 @@ CONFIG.teams.player.disabledAbilities = (process.env.OFF_P || '').split(',');
 CONFIG.teams.enemy.disabledAbilities = (process.env.OFF_E || '').split(',');
 for (const r of Object.values(CONFIG.roles)) r.abilities = (r.abilities || []).filter((a) => !OFF.includes(a) && !OFF.includes('all'));
 function run(mapId) {
-let w = 0, l = 0, turns = 0, lostAlly = 0; const used = {};
+let w = 0, l = 0, turns = 0, lostAlly = 0, npcT = 0, npcHits = 0, npcDist = 0, npcDn = 0; const used = {};
 for (let i = 0; i < N; i++) {
   const mission = missionById(mapId);
   const s = G.createState(mulberry32(i + 1), mapId, heroFor(i), { companions: COMP, mission });
@@ -51,12 +51,17 @@ for (let i = 0; i < N; i++) {
     const a = p.action;
     if (a && a.type === 'attack' && G.canAttackFrom(s, u, u.x, u.y, a.target.x, a.target.y)) G.resolveAttack(s, u, a.target);
     if (a && a.type === 'ability' && G.abilityCanTarget(s, u, a.id, a.target)) { G.useAbility(s, u, a.id, a.target); used[`${u.team[0]}:${a.id}`] = (used[`${u.team[0]}:${a.id}`] || 0) + 1; }
+    if (u.npc) { // how the recruit-mission ally behaves: does it fight, how close does it stay?
+      npcT++; if (a && a.target && a.target.team !== u.team) npcHits++;
+      const foes = s.units.filter((f) => f.team === 'enemy' && f.hp > 0);
+      if (foes.length) { npcDist += Math.min(...foes.map((f) => Math.abs(f.x - u.x) + Math.abs(f.y - u.y))); npcDn++; }
+    }
     if (!s.over) { G.faceNearestFoe(s, u); G.endTurn(s); }
     turns++;
   }
   if (s.over === 'victory') w++; else if (s.over === 'defeat') { l++; if (s.lostAlly) lostAlly++; }
 }
-console.log(`[${mapId}${HERO ? ` hero ${HERO} ${HERO_ROLE}` : ''}${COMP.length ? ` +${COMP}` : ''}] player (Templar) win rate ${(w / N).toFixed(3)} · loss ${(l / N).toFixed(3)} · stalled ${((N - w - l) / N).toFixed(3)} · avg turns ${(turns / N).toFixed(1)}${lostAlly ? ` · ally fell ${(lostAlly / N).toFixed(3)}` : ''} · N ${N}`);
+console.log(`[${mapId}${HERO ? ` hero ${HERO} ${HERO_ROLE}` : ''}${COMP.length ? ` +${COMP}` : ''}] player (Templar) win rate ${(w / N).toFixed(3)} · loss ${(l / N).toFixed(3)} · stalled ${((N - w - l) / N).toFixed(3)} · avg turns ${(turns / N).toFixed(1)}${lostAlly ? ` · ally fell ${(lostAlly / N).toFixed(3)}` : ''}${npcT ? ` · ally attacks ${(npcHits / npcT).toFixed(2)}/turn, dist ${(npcDist / Math.max(1, npcDn)).toFixed(1)}` : ''} · N ${N}`);
 console.log('ability uses per battle:', Object.fromEntries(Object.entries(used).sort().map(([k, v]) => [k, +(v / N).toFixed(2)])));
 }
 const arg = process.argv[3] || process.env.MAP || CONFIG.defaultMap;

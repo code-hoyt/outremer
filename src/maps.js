@@ -45,29 +45,31 @@ export const MAPS = [
     height: 8,
     // x=4 is the curtain wall (height 3) with a rubble breach at rows 3–4 (height 1).
     // West: open ground outside the walls with a small rubble mound (2,1)-(2,2) and a
-    // rocky rise in the south-west. East: a sunken flagstone courtyard (height 0) with a
-    // ramp (5,2) and a stair tower in the south-east climbing to height 4.
-    // JUMP decides who uses the walls: knights (JUMP 1) can only go through the breach;
-    // sergeants (2) can take the ramp and stairs; archers/skirmishers (3) scale the
-    // curtain wall straight from the ground.
+    // rocky rise in the south-west. East: a sunken flagstone courtyard (height 0) and a
+    // stair tower in the south-east climbing to height 4.
+    // v0.10 (map rule: every tile reachable at MOV 2 / JUMP 2, and we hold it to JUMP 1):
+    // stone STAIRS (terrain t, one level per step) climb the wall from BOTH sides, so a
+    // Knight can walk up and fight an archer on the wall-walk:
+    //   west, outside: (3,2)→(3,1)→ wall (4,1)   and   (3,5)→(3,6)→ wall (4,6)
+    //   east, inside:  (6,2)→(5,2)→ wall (4,2)   (7,2)→(7,1)→ tower (7,0)   (5,5)→(5,6)/(6,5)→ south tower
     heights: [
       [0, 0, 0, 0, 3, 0, 0, 3],
-      [0, 0, 1, 0, 3, 0, 0, 2],
-      [0, 1, 1, 0, 3, 2, 0, 0],
+      [0, 0, 1, 2, 3, 0, 0, 2],
+      [0, 1, 1, 1, 3, 2, 1, 1],
       [0, 0, 0, 0, 1, 0, 0, 0],
       [0, 0, 0, 0, 1, 0, 0, 0],
-      [1, 0, 0, 0, 3, 0, 2, 3],
-      [2, 1, 0, 0, 3, 2, 3, 4],
+      [1, 0, 0, 1, 3, 1, 2, 3],
+      [2, 1, 0, 2, 3, 2, 3, 4],
       [2, 2, 1, 0, 3, 3, 3, 4],
     ],
     terrain: [
       'sggsweew',
-      'sgbgweew',
-      'sgbsweee',
+      'sgbtweew',
+      'sgbtwttt',
       'ggddbbee',
       'gddsbbee',
-      'gggsweew',
-      'rgssweww',
+      'gggtwtew',
+      'rgstweww',
       'rrgswwww',
     ],
     deployment: {

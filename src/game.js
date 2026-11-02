@@ -28,9 +28,10 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
     };
     if (team === 'enemy') {
       const d = CONFIG.difficulty || {};
-      const k = ((d.byBattle || {})[mission ? mission.id : m.id]) ?? 1;
-      u.hp = u.maxHp = Math.max(1, Math.round(u.hp * (d.enemyHpMul ?? 1) * k));
-      u.atk = Math.max(1, Math.round(u.atk * (d.enemyAtkMul ?? 1) * k));
+      const b = ((d.byBattle || {})[mission ? mission.id : m.id]) ?? 1; // a number, or { hp, atk } to tune them apart
+      const kh = typeof b === 'number' ? b : (b.hp ?? 1), ka = typeof b === 'number' ? b : (b.atk ?? 1);
+      u.hp = u.maxHp = Math.max(1, Math.round(u.hp * (d.enemyHpMul ?? 1) * kh));
+      u.atk = Math.max(1, Math.round(u.atk * (d.enemyAtkMul ?? 1) * ka));
       u.def = Math.max(0, u.def + (d.enemyDefAdd || 0));
       u.spd = Math.max(1, u.spd + (d.enemySpdAdd || 0));
     }
@@ -51,7 +52,10 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
   // recruit mission: the companion-to-be stands on the field as an AI-driven ally who must survive
   if (mission && mission.npc) {
     const c = companionDef(mission.companion), [x, y, facing] = mission.npc;
-    applyCompanion(make('player', c.role, x, y, facing), mission.companion, { npc: true });
+    const a = applyCompanion(make('player', c.role, x, y, facing), mission.companion, { npc: true });
+    a.aiStyle = mission.npcAi || c.aiStyle || 'steady'; // in-character AI (CONFIG.ai.personalities)
+    const hm = (mission.npcHpMul || 1) * ((CONFIG.difficulty && CONFIG.difficulty.npcHpMul) || 1); // per-mission toughness × global knob
+    a.hp = a.maxHp = Math.round(a.maxHp * hm);
   }
   return {
     mapId: m.id, mapName: m.name, w: m.width, h: m.height, heights: m.heights, terrain: m.terrain,
@@ -265,7 +269,9 @@ export function preview(s, u, t, fx = u.x, fy = u.y, opt = {}) {
   const nFlank = Math.min(c.flankMaxAllies, flankers(s, u, t, fx, fy));
   const flankMod = 1 + c.flankBonusPerAlly * nFlank;
   const hAdv = heightAt(s, fx, fy) - heightAt(s, t.x, t.y);
-  const heightMod = Math.min(c.heightModMax, Math.max(c.heightModMin, 1 + c.heightBonusPerLevel * hAdv));
+  const ranged = Math.abs(fx - t.x) + Math.abs(fy - t.y) > 1;
+  const perLevel = hAdv > 0 ? (ranged ? c.rangedHeightBonusPerLevel ?? c.heightBonusPerLevel : c.heightBonusPerLevel) : (c.heightPenaltyPerLevel ?? c.heightBonusPerLevel);
+  const heightMod = Math.min(c.heightModMax, Math.max(c.heightModMin, 1 + perLevel * hAdv));
   const rawSide = hitSide({ x: fx, y: fy }, t);
   let side = rawSide;
   if (opt.minSide === 'side' && side === 'front') side = 'side';

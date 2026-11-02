@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.9.0',
+  version: '0.10.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -22,7 +22,15 @@ export const CONFIG = {
     b: { name: 'Rubble', short: 'Ru', cost: 2 },   // the breach and the rubble mound
     // The Baggage Train (mission map)
     c: { name: 'Cart', short: 'C', cost: 2 },      // overturned baggage carts: slow to clamber over
+    t: { name: 'Stairs', short: 'St', cost: 1 },   // stone steps up to a wall: one height level per step
   },
+  // Map design rule (Cletus, v0.10): every walkable tile must be reachable (over any number of turns)
+  // by a unit with MOV 2 / JUMP 2. We also hold maps to JUMP 1 so Knights can contest every perch.
+  // Checked by tools/reach.mjs (run in the tests); a map that fails is a bug.
+  mapRules: [
+    { move: 2, jump: 2, why: 'Cletus\'s rule: anyone with MOV 2 / JUMP 2 can get anywhere' },
+    { move: 2, jump: 1, why: 'Knights (JUMP 1) can reach every tile too' },
+  ],
   // extra move cost for each height level climbed UP in one step (down is free)
   climbCostPerLevel: 0,
 
@@ -52,7 +60,7 @@ export const CONFIG = {
       terrainCost: { r: 1, b: 1 },
       minRange: 2, maxRange: 4, straightLine: false,
       maxHeightReach: 99,
-      rangeBonusPerHeight: 2, // +1 max range for every N levels above the target
+      rangeBonusPerHeight: 3, // +1 max range for every N levels above the target (v0.10: was 2)
       abilities: ['pinningShot', 'plungingShot'],
     },
     skirmisher: {
@@ -111,13 +119,16 @@ export const CONFIG = {
   // ---------------------------------------------------------------- difficulty (v0.9, global knobs)
   // Applied to every enemy unit at battle start (after the team statBonus). Mul = ×, rounded; Add = flat.
   // v0.9 (Cletus: "getting totally destroyed"): raiders at 85% HP and ATK, then a per-battle trim so every
-  // battle lands near 65–75% wins in the basic-attack sim (HUMAN=1, see DESIGN.md › Difficulty).
+  // battle lands near 65–75% wins in the basic-attack sim (HUMAN=1, see DESIGN.md › Difficulty). v0.10 retuned the
+  // trims after the height nerf, the Breach stairs and the path-aware AI made everything easier.
   // Rounding makes small changes jumpy (e.g. a Raider Bowman's ATK 9 vs 10 on The Ridge).
   difficulty: {
     enemyHpMul: 0.85, enemyAtkMul: 0.85, enemyDefAdd: 0, enemySpdAdd: 0,
-    npcTargetMul: 0.25, // enemy AI: × score for hitting the recruit-mission stranger (<1 = raiders go for your squad)
-    // per-battle scale on top (× enemy HP and ATK), keyed by mission id or skirmish map id; missing = 1
-    byBattle: { ridge: 1.02, breach: 0.9, 'templar-in-need': 0.91, 'smoke-at-the-well': 1.03, 'thief-in-the-baggage': 1.15 },
+    npcTargetMul: 0.25, // enemy AI: × score for hitting the recruit-mission ally (<1 = raiders go for your squad first)
+    npcHpMul: 1.25,     // recruit-mission ally's max HP × (toughness instead of cowardice; × the mission's own npcHpMul)
+    // per-battle scale on top, keyed by mission id or skirmish map id; missing = 1. A number scales enemy HP and ATK;
+    // { hp, atk } scales them apart (Smoke: tougher raiders that hit no harder, so Yusuf isn't cut down before you arrive)
+    byBattle: { ridge: 1.13, breach: { hp: 1.4, atk: 1.12 }, 'templar-in-need': { hp: 1.6, atk: 1.15 }, 'smoke-at-the-well': { hp: 1.6, atk: 1.25 }, 'thief-in-the-baggage': 1.2 },
   },
 
   teams: {
@@ -199,19 +210,19 @@ export const CONFIG = {
     companions: {
       renaud: {
         name: 'Brother Renaud', short: 'Renaud', role: 'knight', templar: true, trait: 'underTheRule',
-        portrait: 'assets/companions/renaud.jpg',
+        portrait: 'assets/companions/renaud.jpg', aiStyle: 'aggressive', // a Templar charges in
         stats: { mgt: 12, end: 13, fort: 14, agi: 7, aim: 10, res: 14 },
         blurb: 'Templar of the old Rule, about sixty. Holds the line; will not give ground.',
       },
       yusuf: {
         name: 'Yusuf ibn Qasim', short: 'Yusuf', role: 'skirmisher', templar: false, trait: 'turncoatsEye',
-        portrait: 'assets/companions/yusuf.jpg',
+        portrait: 'assets/companions/yusuf.jpg', aiStyle: 'wary', // wounded, outnumbered, knows their tricks
         stats: { mgt: 12, end: 10, fort: 9, agi: 14, aim: 13, res: 10 },
         blurb: 'A raider who turned on his own band. Reads them like a book; shows mercy.',
       },
       wren: {
         name: 'Wren', short: 'Wren', role: 'skirmisher', templar: false, trait: 'lightFeet',
-        portrait: 'assets/companions/wren.jpg',
+        portrait: 'assets/companions/wren.jpg', aiStyle: 'evasive', // a thief: hiding is her story
         stats: { mgt: 9, end: 6, fort: 6, agi: 16, aim: 12, res: 8 },
         blurb: 'A camp orphan of fifteen with quick hands. Frail and skittish. Her amulet hums.',
       },
@@ -284,16 +295,21 @@ export const CONFIG = {
     atkMul: 1.6,
     defMul: 1.0,
     minDamage: 1,
-    heightBonusPerLevel: 0.10, // +10% per level above target, -10% per level below
-    heightModMin: 0.7,
-    heightModMax: 1.4,
+    // Height (v0.10, was +10%/level, 0.7–1.4: an archer on The Breach's wall did +30%, unanswerable).
+    // Asymmetric: striking down from above helps melee a little, ranged even less (a shot from a wall
+    // is about reach, not power); striking up is a small penalty. Capped tight either way.
+    heightBonusPerLevel: 0.05,        // melee (adjacent) attacks: +5% per level above the target
+    rangedHeightBonusPerLevel: 0.03,  // attacks from 2+ tiles away: +3% per level above
+    heightPenaltyPerLevel: 0.05,      // any attack: −5% per level below the target
+    heightModMin: 0.85,
+    heightModMax: 1.1,
     // Facing matters: where the attacker stands relative to the target's facing.
     facingMod: { front: 1.0, side: 1.25, back: 1.5 },   // damage multiplier
     hitChance: { front: 80, side: 90, back: 100 },     // percent
     // Flanking: +X damage per OTHER ally of the attacker adjacent to the target (pincer).
     flankBonusPerAlly: 0.15,
     flankMaxAllies: 2,
-    hitPerHeightLevel: 3,  // +/- hit% per level of height advantage
+    hitPerHeightLevel: 2,  // +/- hit% per level of height advantage (was 3)
     variance: 0.10,        // ±10% random spread
     critChance: 5,         // percent
     critMul: 1.5,
@@ -305,8 +321,18 @@ export const CONFIG = {
     wKill: 25,           // bonus for a likely kill
     wHeight: 2,          // bonus per height level of the destination tile
     wDanger: 0.35,       // penalty per point of damage enemies could deal back next turn
-    npcDangerMul: 30,    // allied NPC in a recruit mission (must survive): x danger penalty
     wApproach: 1.5,
+    // AI personalities (v0.10, replaces the single npcDangerMul ×30 that made every ally hide):
+    // × the danger penalty and × the pull toward the nearest foe; rally = pull toward the squad;
+    // stance = × the value of self-buff stances (Shield Wall etc.). An AI unit uses u.aiStyle
+    // (recruit-mission ally: the companion's aiStyle, or the mission's npcAi override); none = steady.
+    // Fleeing / hiding only where it's the companion's story or the battle's design.
+    personalities: {
+      steady:     { danger: 1,   approach: 1 },   // raiders, generic units
+      aggressive: { danger: 0.3, approach: 2, stance: 0.2 }, // charges in, barely minds the risk, rarely stops to dig in (Renaud)
+      wary:       { danger: 3,   approach: 1, rally: 2 }, // fights, but from safer tiles, falling back on the squad (Yusuf, wounded)
+      evasive:    { danger: 25,  approach: 0.3 }, // a thief: keeps out of reach, strikes only when safe (Wren)
+    },
     wFlankSide: 4,       // extra score for attacking from a side / back
     wFlankBack: 10,      // per tile closer to nearest foe (when no attack available)
     archerKeepDistance: 3, // archers try not to end turn closer than this
@@ -358,6 +384,7 @@ export const CONFIG = {
       w: { top: '#a99f8e', side: '#6b6153' }, // wall stone
       b: { top: '#8f8371', side: '#5e5446' }, // rubble
       c: { top: '#8a5a32', side: '#5a3a1e' }, // baggage cart (wood)
+      t: { top: '#b8a888', side: '#776a55' }, // stone stairs / ramp
     },
     npcRing: '#7fd48f',            // allied NPC (recruit mission) ground ring
     companionSash: '#6a4a2a',      // companions who are not Templars wear a sash, not the cross
