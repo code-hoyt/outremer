@@ -35,7 +35,7 @@ export function createState(rng = Math.random, mapKey, hero = null, opts = {}) {
       hp: r.hp, maxHp: r.hp, atk: r.atk, def: r.def, spd: r.spd,
       move: r.move, jump: r.jump,
       ct: Math.floor(rng() * (CONFIG.turn.startCtSpread + 1)),
-      status: {}, cd: {}, templar: team === 'player',
+      status: {}, templar: team === 'player',
     };
     if (team === 'enemy') {
       const d = CONFIG.difficulty || {};
@@ -166,10 +166,10 @@ function spawnReserve(s) {
 export function startNextTurn(s) {
   spawnReserve(s);
   const u = nextActor(s.units);
-  s.active = u; s.moved = false; s.acted = false; s.intercepted = false; s.turnCount++;
+  s.active = u; s.moved = false; s.acted = false; s.intercepted = false; s.rooted = false; s.turnCount++;
   s.skittish = !!(u && skittishAt(s, u));
   if (u) {
-    for (const k of Object.keys(u.cd)) if (u.cd[k] > 0) u.cd[k]--;
+    u.prevAbility = u.lastAbility || null; u.lastAbility = null; // AI variety memory (see ai.wRepeatAbility)
     const had = { ...u.status };
     for (const [k, v] of Object.entries(u.status)) if (v.until === 'start') delete u.status[k];
     if (had.wall && CONFIG.abilities.shieldWall.slowNextTurn) u.status.slowed = { until: 'end', move: CONFIG.abilities.shieldWall.slowNextTurn };
@@ -416,7 +416,11 @@ const AB = () => CONFIG.abilities;
 const dist = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 export const abilitiesOf = (u) => (CONFIG.roles[u.role].abilities || [])
   .filter((id) => !(CONFIG.teams[u.team].disabledAbilities || []).includes(id)).map((id) => ({ id, ...AB()[id] }));
-export const abilityReady = (u, id) => !(u.cd[id] > 0);
+// v0.13: no cooldowns. An ability is always ready unless its own drawback rules it out: a noMoveBefore ability
+// (Pinning Shot: plant your feet) can't follow a move. `moved` defaults to the active unit's turn state.
+export const abilityReady = (s, u, id, moved = s.active === u && s.moved) => !(AB()[id].noMoveBefore && moved);
+// can the active unit still walk this turn? (no after a noMoveBefore / noMoveAfter ability)
+export const canMove = (s) => !s.moved && !s.rooted;
 const foesOf = (s, u) => alive(s).filter((t) => t.team !== u.team);
 const free = (s, x, y) => inBounds(s, x, y) && !unitAt(s, x, y);
 
@@ -513,7 +517,7 @@ export function abilityPreview(s, u, id, t, fx = u.x, fy = u.y) {
     const land = vaultLanding(s, u, t, fx, fy);
     p = preview(s, u, t, land.x, land.y, { mul: a.dmgMul });
     out.dest = land; out.self = land; out.tiles = [land];
-    out.effects.push('Leap behind the target, strike on landing (Move still free)');
+    out.effects.push('Leap behind the target, strike on landing', "Trade-off: hard landing, you can't move after");
   } else if (id === 'plungingShot') {
     const adv = heightAt(s, fx, fy) - heightAt(s, t.x, t.y);
     p = preview(s, u, t, fx, fy, { mul: a.dmgMul, extraMul: 1 + a.dmgBonusPerLevel * adv, minSide: 'side' });
@@ -531,7 +535,7 @@ export function abilityPreview(s, u, id, t, fx = u.x, fy = u.y) {
     else out.effects.push(id === 'hook' ? `Can't pull (${o.why === 'edge' ? 'edge' : 'too high'}): +${o.extra}` : `Slams into the ${o.why === 'edge' ? 'map edge' : 'wall'}: +${o.extra}`);
     if (id === 'hook' && o.kind !== 'move') { out.extra = 0; out.effects[out.effects.length - 1] = o.kind === 'collide' ? `Pull blocked by ${o.other.name}` : "Can't pull (blocked)"; }
   }
-  if (id === 'pinningShot') out.effects.push(`Pinned next turn: MOV −${a.pinMovePenalty}, JUMP ≤${a.pinJumpCap}`);
+  if (id === 'pinningShot') out.effects.push(`Pinned next turn: MOV −${a.pinMovePenalty}, JUMP ≤${a.pinJumpCap}`, "Trade-off: planted, you can't move this turn");
   if (id === 'feint') out.effects.push('Target turns to face you, showing its back to the other side');
   if (t.resist > 0 && ['shieldBash', 'hook', 'pinningShot', 'feint'].includes(id)) out.effects.push(`${t.name} may resist (${t.resist}%)`);
   return out;
@@ -541,8 +545,9 @@ export function abilityPreview(s, u, id, t, fx = u.x, fy = u.y) {
 export function useAbility(s, u, id, t) {
   const a = AB()[id];
   const pv = abilityPreview(s, u, id, t);
-  u.cd[id] = a.cooldown + 1; // ticks down at the start of each of u's turns
   s.acted = true;
+  u.lastAbility = id;
+  if (a.noMoveBefore || a.noMoveAfter) s.rooted = true; // the ability's built-in drawback: no walking after it
   const res = { id, name: a.name, miss: false, amount: 0, extra: 0, moves: [], tags: [], pv };
   if (id === 'shieldWall') { u.status.wall = { until: 'start' }; res.tags.push({ x: u.x, y: u.y, text: 'WALL' }); return res; }
   if (id === 'brace') { u.status.brace = { until: 'start' }; res.tags.push({ x: u.x, y: u.y, text: 'BRACE' }); return res; }

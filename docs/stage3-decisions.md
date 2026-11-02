@@ -1,6 +1,6 @@
 # Stage 3: decide the real game (DRAFT for Cletus)
 
-> **Status: draft, nothing decided.** These are proposals to react to. Each decision lists 2–3 options and a **recommendation**. ✅ marks what Cletus has already decided. Sources: [ROADMAP](ROADMAP.md#stage-3--decide-the-real-game), [DESIGN](DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](research/abilities-vs-attack.md), and Cletus's playtest notes.
+> **Status: draft, being walked through with Cletus one topic at a time (2026-11-02).** #1 is decided; the rest are proposals to react to. Each decision lists 2–3 options and a **recommendation**. ✅ marks what Cletus has already decided. Sources: [ROADMAP](ROADMAP.md#stage-3--decide-the-real-game), [DESIGN](DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](research/abilities-vs-attack.md), and Cletus's playtest notes.
 > **Stage 3 is done when:** a short game brief (scope, platform, tech, story premise) is agreed and the vertical slice is planned against it.
 
 **Already decided (✅), carried forward**
@@ -20,7 +20,7 @@ Stage 2 is done when two heroes play noticeably differently, companions are reme
 | Criterion | Evidence | Status |
 |---|---|---|
 | The loop exists end to end | v0.11: creation → open board → 3 recruit missions → Chapel Ford finale → ending → Chronicle → roll a new hero. Cletus: "Pretty solid." | ✅ built and played |
-| Two heroes play differently | Sim: hero class changes results (v0.9: a Scout hero runs 22–99% by battle, other classes 62–79%), and companions take different slots. **No playtest verdict from Cletus yet.** | ❓ needs a 2-hero playtest |
+| Two heroes play differently | Cletus (2026-11-02), after a second full run on a different class: "Feels pretty good and different on a different class." Sim agrees (hero class changes results). | ✅ playtested |
 | Companions remembered by name | Named portraits, briefs, AI personalities (Renaud charges, Yusuf wary, Wren evasive), finale payoffs and missed effects. Cletus asked to see identities in battle "since story will be part of those fights". | 🟡 promising, unconfirmed |
 | Wants to roll a new hero | The Chronicle + "Roll a new hero" exist. **Not observed yet.** | ❓ the key test |
 | Battles fair | Sim: all 36 squad/battle cells at 65–74% wins (basic-attack model). Cletus's early "getting destroyed" was fixed in v0.9. | ✅ (sim) |
@@ -40,7 +40,16 @@ Stage 2 is done when two heroes play noticeably differently, companions are reme
 | **B. Chaptered boards** | Each chapter is an FFTA2-style board: recruit and side jobs in any order, then a story finale that closes what's left (today's Option B, repeated) | Reuses what works; choices and misses carry between chapters |
 | C. Run-based (roguelite) | Short runs, procedural maps and events, meta-unlocks | Most replayable; fights the BG-style named-companion story |
 
-**Rec: B.** About **5 chapters × 5–6 battles (~25–30 battles, 8–12 h)**. Each chapter: 2–3 recruit or story jobs, 1–2 optional side jobs, a finale. Missed companions and choices change later chapters. Skirmishes become optional side jobs, not the main way to grind.
+✅ **Decided (Cletus, 2026-11-02): B, chaptered boards, made FFTA2-like: a mission *tree*, mostly side missions.**
+- About **5 chapters**, each an open board that ends in a story finale.
+- **Fewer recruit missions, many more side missions.** As in FFTA2, side missions are where most of the play time goes (the draft's "2–3 recruit jobs + 1–2 side jobs" is replaced).
+- Missions form a **tree**, not a flat list. Unlock types:
+  - **Chain:** a mission only appears after you beat a specific earlier mission.
+  - **Branch:** a side mission can open one or more follow-up missions (a short storyline of its own).
+  - **Companion-only:** some missions only appear if a given companion was recruited (their personal story).
+  - **Ability-unlock:** beating a companion's mission can unlock a new ability for that companion.
+- Missed companions and choices still change later chapters. Skirmishes become optional side jobs, not the main way to grind.
+- Open details for the slice plan: how many side missions per chapter, whether the finale closes unfinished branches (as v0.11 closes recruit missions), and which branches carry over between chapters.
 
 ### 2. Party size
 | Option | What |
@@ -68,7 +77,9 @@ Today there are 4 classes (Knight, Sergeant, Archer, Scout), 2 abilities each, a
 | **B. 6** | + the pitched Mariam (Archer), Ingvar (Sergeant, relic orders), Ishaq (Physician, new class) |
 | C. 8–10 | BG2 scale |
 
-**Rec: B, 6 companions**, with **~4 recruitable in any one run** (boards close jobs, as in v0.11), so who you missed matters and replays differ. Keep the friction hooks: Renaud ⇄ Yusuf, Wren ⇄ Ingvar, Ingvar ⇄ Ishaq.
+**Rec (draft): B, 6 companions**, with **~4 recruitable in any one run** (boards close jobs, as in v0.11), so who you missed matters and replays differ. Keep the friction hooks: Renaud ⇄ Yusuf, Wren ⇄ Ingvar, Ingvar ⇄ Ishaq.
+
+🟡 **Cletus's lean (2026-11-02), not final, still to discuss:** fewer companions, since the squad only has 3 slots: **about one recruitable companion per chapter** (so ~5 over ~5 chapters). This fits #1 (fewer recruit missions, more side missions, companion-only missions).
 
 ### 5. Progression between battles (currently none)
 | Option | What |
@@ -87,6 +98,10 @@ Today there are 4 classes (Knight, Sergeant, Archer, Scout), 2 abilities each, a
 | C. More abilities via jobs | Only with option 3B |
 
 **Rec: B, in the research's order (forecast + retune first: cheap and measurable)**, tested as a short Stage 1 close-out before the slice. The Chapel Ford's "kill the Captain" goal is already one non-kill objective.
+
+✅ **Decided (Cletus, 2026-11-02): no cooldowns, no generic cost.** Abilities are usable every turn. An ability's only cost is a drawback built into what it does (his example: "you smash into the ground and now you're stuck in the ground for a turn"). **Done in v0.13.0:** cooldowns removed; Pinning Shot now *plants* you (no moving that turn), Vault Strike has a *hard landing* (no moving after); Shield Wall (Slowed) and Plunging Shot (Exposed) keep their existing drawbacks; Bash, Hook, Brace and Feint have none. See [DESIGN.md → Abilities](DESIGN.md#abilities-v04--two-per-class-all-about-position).
+
+**Later (not now): Magic & MP.** Cletus expects to add magic and an MP pool later. Until then, nothing costs MP; when it comes, MP is for spells, and the physical abilities keep their built-in drawbacks. (Parked in the [ROADMAP](ROADMAP.md#parking-lot).)
 
 ### 7. Art direction
 ✅ FF-based, FFTA2-style portraits. Still to choose:

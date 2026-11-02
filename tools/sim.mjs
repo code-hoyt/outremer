@@ -26,6 +26,8 @@ const N = Number(process.argv[2] || 2000);
 const HUMAN = !!process.env.HUMAN, PLAYER_NOISE = HUMAN ? Number(process.env.PLAYER_NOISE || 6) : 0;
 // DIFF='{"enemyAtkMul":0.85}' -> override CONFIG.difficulty knobs for tuning
 if (process.env.DIFF) Object.assign(CONFIG.difficulty, JSON.parse(process.env.DIFF));
+// AIW='{"wRepeatAbility":3}' -> override CONFIG.ai weights for a run
+if (process.env.AIW) Object.assign(CONFIG.ai, JSON.parse(process.env.AIW));
 // KMUL=1.1 -> × every enemy's HP and ATK on top of everything (tuning: find the multiplier that hits a target)
 if (process.env.KMUL) { CONFIG.difficulty.enemyHpMul *= Number(process.env.KMUL); CONFIG.difficulty.enemyAtkMul *= Number(process.env.KMUL); }
 if (process.env.HKMUL) CONFIG.difficulty.enemyHpMul *= Number(process.env.HKMUL); // HP only (smooth: no ATK rounding cliffs)
@@ -60,7 +62,11 @@ for (let i = 0; i < N; i++) {
     }
     const a = p.action;
     if (a && a.type === 'attack' && G.canAttackFrom(s, u, u.x, u.y, a.target.x, a.target.y)) G.resolveAttack(s, u, a.target);
-    if (a && a.type === 'ability' && G.abilityCanTarget(s, u, a.id, a.target)) { G.useAbility(s, u, a.id, a.target); used[`${u.team[0]}:${a.id}`] = (used[`${u.team[0]}:${a.id}`] || 0) + 1; }
+    const usedId = a && a.type === 'ability' && G.abilityCanTarget(s, u, a.id, a.target) ? a.id : null;
+    if (usedId) { G.useAbility(s, u, a.id, a.target); used[`${u.team[0]}:${a.id}`] = (used[`${u.team[0]}:${a.id}`] || 0) + 1; }
+    // v0.13 (no cooldowns): same ability on back-to-back own turns, to spot an AI spamming one ability
+    if (usedId && u.simLast === usedId) used[`again:${u.team[0]}:${usedId}`] = (used[`again:${u.team[0]}:${usedId}`] || 0) + 1;
+    u.simLast = usedId;
     if (u.npc) { // how the recruit-mission ally behaves: does it fight, how close does it stay?
       npcT++; if (a && a.target && a.target.team !== u.team) npcHits++;
       const foes = s.units.filter((f) => f.team === 'enemy' && f.hp > 0);

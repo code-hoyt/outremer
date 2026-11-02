@@ -665,13 +665,13 @@ function menuItems() {
   if (ui.mode === 'actmenu') {
     const u = S.active;
     return [{ id: 'attack', label: 'Attack', on: true }].concat(G.abilitiesOf(u).map((a) => {
-      const cd = u.cd[a.id] || 0;
-      const any = G.abilityTargets(S, u, a.id).length > 0;
-      return { id: 'ab:' + a.id, ability: a.id, label: a.name, on: cd === 0 && any, note: cd > 0 ? `CD ${cd}` : any ? '' : 'no target' };
+      const ready = G.abilityReady(S, u, a.id); // v0.13: no cooldowns; Pin can't follow a move (planted)
+      const any = ready && G.abilityTargets(S, u, a.id).length > 0;
+      return { id: 'ab:' + a.id, ability: a.id, label: a.name, on: any, note: !ready ? 'moved' : any ? '' : 'no target' };
     }));
   }
   return [
-    { id: 'move', label: 'Move', on: !S.moved },
+    { id: 'move', label: 'Move', on: G.canMove(S), note: S.rooted && !S.moved ? 'rooted' : '' },
     { id: 'action', label: 'Action', on: !S.acted && G.canAct(S), note: G.canAct(S) ? '' : 'skittish' },
     { id: 'wait', label: 'Wait', on: true },
   ];
@@ -863,7 +863,7 @@ async function doPlayerAbility(id, t) {
   ui.mode = 'busy'; ui.target = null; ui.ability = null; updatePanel();
   await abilitySequence(u, id, t);
   if (S.over) return finish();
-  if (S.moved || id === 'brace') return enterFacing(); // brace: the zone follows the facing you pick now
+  if (S.moved || S.rooted || id === 'brace') return enterFacing(); // brace: the zone follows the facing you pick now; rooted (Pin, Vault): no move left
   openMenu();
 }
 
@@ -1018,7 +1018,7 @@ async function nextTurn() {
     if (a && a.type === 'attack' && G.canAttackFrom(S, u, u.x, u.y, a.target.x, a.target.y)) {
       await wait(150);
       await attackSequence(u, a.target);
-    } else if (a && a.type === 'ability' && G.abilityReady(u, a.id) && G.abilityCanTarget(S, u, a.id, a.target)) {
+    } else if (a && a.type === 'ability' && G.abilityReady(S, u, a.id) && G.abilityCanTarget(S, u, a.id, a.target)) {
       await wait(150);
       await abilitySequence(u, a.id, a.target);
     }
@@ -1100,12 +1100,11 @@ function unitInfoRest(u, f, col, r, terr) {
 const heroExtras = (u) => (u.hitBonus ? `<span>Hit <b>${u.hitBonus > 0 ? '+' : ''}${u.hitBonus}%</b></span>` : '') + (u.resist ? `<span>Res <b>${u.resist}%</b></span>` : '');
 function statusLine(u) {
   const st = Object.keys(u.status || {}).filter((k) => STATUS[k]);
-  const cds = Object.entries(u.cd || {}).filter(([, v]) => v > 0).map(([id, v]) => `${CONFIG.abilities[id].short} CD${v}`);
   const SH = CONFIG.campaign.finale.shaken;
   const shaken = G.isShaken(S, u) ? `<span style="color:#ffb36b" title="Renaud is next to him: −${SH.hitPenalty}% hit">● Shaken</span>` : '';
   const boss = u.captain ? `<span style="color:${P.captainRing}" title="When he falls, his band flees">● Captain</span>` : '';
-  if (!st.length && !cds.length && !shaken && !boss) return '';
-  return `<div class="status">${boss}${shaken}${st.map((k) => `<span style="color:${P.status[k]}" title="${STATUS[k].text}">● ${STATUS[k].name}</span>`).join('')}${cds.map((c) => `<span class="cd">${c}</span>`).join('')}</div>`;
+  if (!st.length && !shaken && !boss) return '';
+  return `<div class="status">${boss}${shaken}${st.map((k) => `<span style="color:${P.status[k]}" title="${STATUS[k].text}">● ${STATUS[k].name}</span>`).join('')}</div>`;
 }
 function abilityPredictionHtml(u, id, t, confirming) {
   const pv = G.abilityPreview(S, u, id, t);
@@ -1120,7 +1119,7 @@ function abilityPredictionHtml(u, id, t, confirming) {
   }
   const main = pv.p
     ? `<span>Hit <b>${pv.hit}%</b></span><span>Dmg <b>~${pv.dmg}${pv.extra ? '+' + pv.extra : ''}</b></span><span>HP ${t.hp}→${Math.max(0, t.hp - pv.dmg - (pv.extra || 0))}</span>`
-    : `<span>Stance · CD ${CONFIG.abilities[id].cooldown}</span>`;
+    : '<span>Stance · until your next turn</span>';
   return `<div class="pv-title">${pv.name} → ${pv.p ? t.name : 'self'}</div>
     <div class="pv-main">${main}</div>
     ${tags.length ? `<div class="pv-tags">${tags.join(' · ')}</div>` : ''}

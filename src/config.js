@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.12.0',
+  version: '0.13.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -76,45 +76,51 @@ export const CONFIG = {
   },
 
   // ---------------------------------------------------------------- abilities (Action ▸ submenu)
-  // Cost model: per-ability COOLDOWN in the user's own turns. Using an ability takes the Action.
-  // `cooldown: N` = after use, unavailable for your next N turns (0 = usable every turn).
+  // Cost model (v0.13, Cletus): NO cooldowns and no generic cost (MP/magic come later). Using an ability takes
+  // the Action, and every ability is usable every turn. Its only cost is a drawback built into what it does:
+  //   noMoveBefore: true = you plant your feet: only usable if you haven't moved this turn, and you can't move after
+  //   noMoveAfter: true  = you can't move after using it this turn (Move is spent)
+  //   plus the stance/self statuses below (Slowed after Shield Wall, Exposed after Plunging Shot).
   // Damage abilities run through the normal formula (facing, flank, height) times `dmgMul`.
   // Statuses end at the start ('start') or end ('end') of the affected unit's next turn.
   abilities: {
     shieldBash: { // knight: shove 1 tile straight away. Off a ledge = fall damage; into a wall/unit = slam
-      name: 'Shield Bash', short: 'Bash', kind: 'unit', cooldown: 1,
+      name: 'Shield Bash', short: 'Bash', kind: 'unit',
       dmgMul: 0.6, fallDmgPerLevel: 5, slamDmg: 6, collideDmg: 4,
     },
     shieldWall: { // knight stance: front hits halved; adjacent allies can't be hit for side/back bonus
-      name: 'Shield Wall', short: 'Wall', kind: 'self', cooldown: 2,
+      name: 'Shield Wall', short: 'Wall', kind: 'self',
       frontDmgMul: 0.5, // knight's own front damage taken
       coverAllies: true, // orthogonally adjacent allies: side/back hits count as front
       slowNextTurn: 1,   // trade-off: MOV −1 on the knight's next turn (setting down the wall)
     },
     brace: { // sergeant stance: the first foe to step into the 2 tiles in front gets a free thrust and stops
-      name: 'Brace', short: 'Brace', kind: 'self', cooldown: 1,
+      name: 'Brace', short: 'Brace', kind: 'self',
       zoneLength: 2, dmgMul: 1.0, // zone follows the facing you pick at end of turn
     },
     hook: { // sergeant: spear-hook a foe exactly 2 tiles away in a line, pulling it 1 tile in
-      name: 'Hook', short: 'Hook', kind: 'unit', cooldown: 2,
+      name: 'Hook', short: 'Hook', kind: 'unit',
       range: 2, dmgMul: 0.5, fallDmgPerLevel: 5, maxPullUp: 1, // can't drag a foe up more than this
     },
     pinningShot: { // archer: weak shot, target's next turn: MOV −2 and JUMP capped
-      name: 'Pinning Shot', short: 'Pin', kind: 'unit', cooldown: 2,
+      name: 'Pinning Shot', short: 'Pin', kind: 'unit',
       dmgMul: 0.6, pinMovePenalty: 2, pinJumpCap: 1,
+      noMoveBefore: true, // drawback (v0.13): Planted, a steady aimed shot. No moving this turn, before or after,
+      // so an archer can't walk back and pin the same foe every turn (perma-kite) now that there's no cooldown
     },
     plungingShot: { // archer: only from higher ground; never counts as a front hit; leaves archer Exposed
-      name: 'Plunging Shot', short: 'Plunge', kind: 'unit', cooldown: 2,
+      name: 'Plunging Shot', short: 'Plunge', kind: 'unit',
       minHeightAdv: 1, rangeBonus: 0, // was 1: +1 reach let archers duel from spawn heights and swung the sim 46%→85%
       dmgBonusPerLevel: 0.15, dmgMul: 1.0,
       exposedDefPenalty: 3, // trade-off: archer DEF −3 until its next turn
     },
     feint: { // skirmisher: light hit that turns the target to face the skirmisher (its back to everyone else)
-      name: 'Feint', short: 'Feint', kind: 'unit', cooldown: 1, dmgMul: 0.4,
+      name: 'Feint', short: 'Feint', kind: 'unit', dmgMul: 0.4,
     },
     vaultStrike: { // skirmisher: leap over an adjacent foe to the tile behind it and strike as you land
-      name: 'Vault Strike', short: 'Vault', kind: 'unit', cooldown: 2, dmgMul: 0.8,
-      // landing tile must be empty and within the skirmisher's JUMP of its start height. Doesn't use Move.
+      name: 'Vault Strike', short: 'Vault', kind: 'unit', dmgMul: 0.8,
+      // landing tile must be empty and within the skirmisher's JUMP of its start height. You may move before it.
+      noMoveAfter: true, // drawback (v0.13): Hard landing. You can't walk away after, so every-turn hit-and-run is out
     },
   },
 
@@ -136,18 +142,19 @@ export const CONFIG = {
     // fielding them; this keeps each battle in the 65–75% band whoever you bring. (See DESIGN.md › Campaign.)
     // Scales enemy HP only (ATK rounding makes cliffs). Used when bySquad has no entry for the exact squad.
     byCompanion: { renaud: 1, yusuf: 0.93, wren: 0.82 },
+    // v0.13: cells refitted after cooldowns were removed (raiders' abilities changed; see DESIGN.md › Difficulty).
     // the tuned table: enemy HP × per battle per exact squad ('' = no companions; finale keys add '/missed').
     // Fitted with tools/sim.mjs (HUMAN=1, HERO=avg) so each lands near 70% wins. On top of byBattle and
     // CONFIG.campaign.stepByWins. Wren squads get the biggest trims: in the basic-attack sim she is frail and
     // falls in almost every battle (a human using her MOV and Scout abilities should do better: revisit).
     bySquad: {
       'templar-in-need': { '': 1.005, 'wren': 0.827, 'yusuf': 0.925, 'wren+yusuf': 0.901 },
-      'smoke-at-the-well': { '': 1.356, 'wren': 0.735, 'renaud': 1.102, 'renaud+wren': 1.02 },
+      'smoke-at-the-well': { '': 1.356, 'wren': 0.735, 'renaud': 0.953, 'renaud+wren': 1.02 },
       'thief-in-the-baggage': { '': 1.039, 'yusuf': 1.049, 'renaud': 1.114, 'renaud+yusuf': 0.942 },
-      ridge: { '': 1.38, 'renaud': 1.08, 'yusuf': 0.785, 'wren': 0.715, 'renaud+yusuf': 0.931, 'renaud+wren': 0.983, 'wren+yusuf': 0.864 },
-      breach: { '': 0.936, 'renaud': 0.75, 'yusuf': 1.03, 'renaud+yusuf': 1.274, 'renaud+wren': 1.094, 'wren+yusuf': 1.097 },
-      'chapel-ford': { 'renaud/wren+yusuf': 0.673, 'yusuf/renaud+wren': 0.606, 'wren/renaud+yusuf': 0.588, '/renaud+wren+yusuf': 0.548,
-         'wren+yusuf': 0.662, 'renaud+wren': 1.035, 'renaud+yusuf': 1.121, 'renaud+wren/yusuf': 0.716, 'renaud+yusuf/wren': 0.934, 'wren+yusuf/renaud': 0.632 },
+      ridge: { '': 1.38, 'renaud': 1.279, 'yusuf': 0.785, 'wren': 0.715, 'renaud+yusuf': 1.062, 'renaud+wren': 0.914, 'wren+yusuf': 0.864 },
+      breach: { '': 0.936, 'renaud': 0.75, 'yusuf': 1.03, 'renaud+yusuf': 1.274, 'renaud+wren': 0.952, 'wren+yusuf': 1.097 },
+      'chapel-ford': { 'renaud/wren+yusuf': 0.717, 'yusuf/renaud+wren': 0.606, 'wren/renaud+yusuf': 0.536, '/renaud+wren+yusuf': 0.543,
+         'wren+yusuf': 0.662, 'renaud+wren': 1.035, 'renaud+yusuf': 0.886, 'renaud+wren/yusuf': 0.737, 'renaud+yusuf/wren': 0.712, 'wren+yusuf/renaud': 0.632 },
     },
   },
 
@@ -407,6 +414,8 @@ export const CONFIG = {
     wFeintSide: 3,
     wAvoidBrace: 22,     // penalty for a path that walks into a braced spear
     abilityMinGain: 2,   // ability must beat a plain attack by this much to be picked
+    wRepeatAbility: 6,   // v0.13 (no cooldowns): penalty for the same ability as on this unit's previous turn, so the
+                         // AI doesn't turtle in Shield Wall or Bash the same foe every single turn. AI taste, not a rule
     // AI picks its own end-of-turn facing: toward the nearest foe
   },
 

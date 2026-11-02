@@ -1,4 +1,5 @@
-// Simple scoring AI: evaluate every reachable tile × (attack | each ready ability) × target, pick the best.
+// Simple scoring AI: evaluate every reachable tile × (attack | each usable ability) × target, pick the best.
+// v0.13: no cooldowns, so only an ability's own drawback limits it (Pin: only from the tile you start on).
 import { CONFIG } from './config.js';
 import {
   reachable, targetsFrom, preview, heightAt, alive, canAttackFrom, faceNearestFoe, effMove, hitSide, facingTo,
@@ -95,7 +96,8 @@ export function planTurn(s, u, opts = {}) {
   const A = CONFIG.ai;
   const { tiles, pathTo } = opts.fixed ? { tiles: [{ x: u.x, y: u.y }], pathTo: () => [{ x: u.x, y: u.y }] } : reachable(s, u);
   const foes = alive(s).filter((f) => f.team !== u.team);
-  const abil = abilitiesOf(u).filter((a) => abilityReady(u, a.id));
+  const abil = abilitiesOf(u).filter((a) => abilityReady(s, u, a.id));
+  const prevAb = s.active === u ? u.prevAbility : u.lastAbility; // this unit's ability on its previous turn
   const mayAct = s.active === u ? canAct(s) : !skittishAt(s, u); // Wren's Skittish: no action this turn
   let best = null;
   const P = (A.personalities || {})[u.aiStyle] || { danger: 1, approach: 1 }; // AI personality
@@ -124,11 +126,13 @@ export function planTurn(s, u, opts = {}) {
       offer((t.npc ? 100 * npcMul : 100) + v + baseScore + spacing, tile, { type: 'attack', target: t });
     }
     for (const ab of mayAct ? abil : []) {
+      if (ab.noMoveBefore && (tile.x !== ox || tile.y !== oy)) continue; // planted: can't walk to the shot
       for (const t of abilityTargets(s, u, ab.id, tile.x, tile.y)) {
         const pv = abilityPreview(s, u, ab.id, t, tile.x, tile.y);
         const bonus = abilityBonus(s, u, ab.id, t, pv, tile);
         if (bonus === -Infinity) continue;
-        const v = ab.kind === 'self' ? bonus * (P.stance ?? 1) : hitValue(A, t, pv.dmg, pv.extra || 0, pv.hit, pv.side) * (t.npc ? npcMul : 1) + bonus;
+        const rep = ab.id === prevAb ? A.wRepeatAbility || 0 : 0; // no cooldowns: don't spam one ability every turn
+        const v = (ab.kind === 'self' ? bonus * (P.stance ?? 1) : hitValue(A, t, pv.dmg, pv.extra || 0, pv.hit, pv.side) * (t.npc ? npcMul : 1) + bonus) - rep;
         if (ab.kind !== 'self' && bestAttack > -Infinity && v < bestAttack + A.abilityMinGain) continue;
         // stances don't hit anything: they compete with repositioning, not with attacks
         const head = ab.kind === 'self' ? -A.wApproach * P.approach * far : t.npc ? 100 * npcMul : 100;
