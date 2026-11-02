@@ -3,6 +3,7 @@
 // because nudging six numbers up and down is where a held pad beats tapping. See DESIGN.md → d-pad states.
 import { CONFIG } from './config.js';
 import * as H from './hero.js';
+import { onTap } from './tap.js';
 
 const CR = CONFIG.creation;
 const $ = (id) => document.getElementById(id);
@@ -136,7 +137,18 @@ function startRepeat(f, heldSel) {
 }
 function stopRepeat() { clearTimeout(padTimer); clearInterval(padTimer); padTimer = null; document.querySelectorAll('#create .held').forEach((b) => b.classList.remove('held')); }
 const PAD = { up: () => A.row(-1), down: () => A.row(1), left: () => A.lower(), right: () => A.raise() };
-window.addEventListener('pointerup', stopRepeat); window.addEventListener('pointercancel', stopRepeat);
+// a list button armed on pointerdown: a release within tapSlopPx = one step; holding still past repeatDelayMs =
+// auto-repeat; moving (or the list scrolling: pointercancel) = nothing happens
+let armed = null;
+function armPress(e, f, heldSel, scroller) {
+  disarm();
+  armed = { id: e.pointerId, x: e.clientX, y: e.clientY, f, heldSel, scroller, top: scroller.scrollTop,
+    timer: setTimeout(() => { const a = armed; armed = null; if (a) startRepeat(a.f, a.heldSel); }, CONFIG.controls.repeatDelayMs) };
+}
+function disarm() { if (armed) clearTimeout(armed.timer); armed = null; }
+window.addEventListener('pointermove', (e) => { if (armed && e.pointerId === armed.id && (Math.hypot(e.clientX - armed.x, e.clientY - armed.y) > CONFIG.controls.tapSlopPx || armed.scroller.scrollTop !== armed.top)) disarm(); });
+window.addEventListener('pointerup', (e) => { if (armed && e.pointerId === armed.id) { const a = armed; disarm(); if (a.scroller.scrollTop === a.top) a.f(); } stopRepeat(); });
+window.addEventListener('pointercancel', () => { disarm(); stopRepeat(); });
 
 function wire() {
   const root = $('create'), on = (sel, fn) => root.querySelectorAll(sel).forEach((el) => el.addEventListener('click', (e) => fn(el, e)));
@@ -146,11 +158,14 @@ function wire() {
   on('[data-por]', (el) => A.portrait(Number(el.dataset.por)));
   on('[data-cls]', (el) => A.cls(Number(el.dataset.cls)));
   on('[data-setcls]', (el) => A.setCls(el.dataset.setcls));
-  root.querySelectorAll('[data-row]').forEach((el) => el.addEventListener('pointerdown', (e) => { if (!e.target.closest('button')) { W.row = Number(el.dataset.row); render(); } }));
-  const press = (sel, mk) => root.querySelectorAll(sel).forEach((el) => el.addEventListener('pointerdown', (e) => { e.preventDefault(); const [f, hs] = mk(el); startRepeat(f, hs); }));
+  // v0.12: the stat list scrolls on small phones, so rows and the − / ＋ buttons act on a tap or a still hold, never on a drag
+  const body = () => root.querySelector('.cr-body') || root;
+  root.querySelectorAll('[data-row]').forEach((el) => onTap(el, '[data-row]', (r, e) => { if (!e.target.closest('button')) { W.row = Number(r.dataset.row); render(); } }, body));
+  const press = (sel, mk) => root.querySelectorAll(sel).forEach((el) => el.addEventListener('pointerdown', (e) => { e.preventDefault(); const [f, hs] = mk(el); armPress(e, f, hs, body()); }));
+  const now = (sel, mk) => root.querySelectorAll(sel).forEach((el) => el.addEventListener('pointerdown', (e) => { e.preventDefault(); const [f, hs] = mk(el); startRepeat(f, hs); }));
   press('[data-lo]', (el) => [() => { W.row = H.statKeys().indexOf(el.dataset.lo); return A.lower(el.dataset.lo); }, `[data-lo="${el.dataset.lo}"]`]);
   press('[data-hi]', (el) => [() => { W.row = H.statKeys().indexOf(el.dataset.hi); return A.raise(el.dataset.hi); }, `[data-hi="${el.dataset.hi}"]`]);
-  press('[data-pad]', (el) => [PAD[el.dataset.pad], `[data-pad="${el.dataset.pad}"]`]);
+  now('[data-pad]', (el) => [PAD[el.dataset.pad], `[data-pad="${el.dataset.pad}"]`]); // the on-screen pad isn't in the scrolling list: acts on press
   if ($('cr-reroll')) { $('cr-reroll').onclick = A.reroll; $('cr-store').onclick = A.store; $('cr-recall').onclick = A.recall; }
   const card = $('cr-card');
   if (card) { // swipe between classes

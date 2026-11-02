@@ -8,6 +8,7 @@ import { loadParty, saveParty, clearParty, emptyParty, activeCompanions, joined,
   recruitWins, finaleUnlocked, startFinale, notJoined, recordWin, recordLoss, loadChronicle, addChronicle, openRecruits } from './party.js';
 import { loadHero, saveHero, portraitSvg } from './hero.js';
 import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js';
+import { onTap } from './tap.js';
 
 const V = CONFIG.view, P = CONFIG.palette;
 const $ = (id) => document.getElementById(id);
@@ -70,7 +71,7 @@ function partyStrip() {
 function missionItem(m) {
   if (m.kind === 'skirmish') {
     const map = resolveMap(m.map), wins = party.done[m.id] || 0;
-    return { id: 'm-' + m.id, label: m.title, sub: `${map.blurb}${wins ? ` · ✓ won ×${wins}` : ''}`, act: () => reset(m.map, { mission: m }) };
+    return { id: 'm-' + m.id, label: m.title, sub: `${map.blurb}${wins ? ` · ✓ won ×${wins}` : ''}`, act: () => confirmStart({ title: m.title, line: map.blurb, go: () => reset(m.map, { mission: m }), back: () => openPicker('missions', m) }) };
   }
   if (m.kind === 'finale') {
     if (party.finale === 'won') return { id: 'm-' + m.id, cls: 'done', label: `✓ ${m.title}`, sub: 'Done · the Red Captain fell', act: () => {} };
@@ -101,7 +102,7 @@ function openPicker(kind, arg = null) {
       $('ov-text').innerHTML = heroLine() + (joined(party).length ? `<br>Company: ${joined(party).map((id) => esc(companionDef(id).name)).join(', ')}` : '');
     } else {
       const maps = skirmishMaps();
-      items = maps.map((m, i) => ({ label: mapLabel(m, i), sub: m.blurb, act: () => reset(m.id) }));
+      items = maps.map((m, i) => ({ id: 'map-' + m.id, label: mapLabel(m, i), sub: m.blurb, act: () => confirmStart({ title: m.name, line: m.blurb, go: () => reset(m.id), back: () => { openPicker('title'); picker.index = i + 1; syncPicker(); } }) }));
       items.unshift({ id: 'create-hero', label: 'Create your hero', sub: 'Portrait, class, stats, name — then take missions', act: startCreator });
       $('ov-text').innerHTML = 'Make your hero, or fight with the default squad';
       index = playedBefore ? Math.max(0, maps.findIndex((m) => m.id === mapId)) + 1 : 0; // first visit: "Create your hero"
@@ -124,7 +125,7 @@ function openPicker(kind, arg = null) {
     $('ov-text').innerHTML = `<span class="brief finale-brief"><span>${esc(m.intro)}<ul class="clues">${won.map((r) => li(r.clue, 'clue')).join('')}`
       + `${act.map((c) => li(m.fielded[c], 'pay')).join('')}${miss.filter((c, i) => miss.indexOf(c) === i).map((c) => li(m.missed[c], 'miss')).join('')}</ul></span></span>`
       + `<span class="party-note">Defeat the Red Captain (red ring), or every raider. ${leftover.length ? `Beginning closes ${leftover.map((r) => esc(r.title)).join(', ')}: ${leftover.map((r) => esc(companionDef(r.companion).short)).join(', ')} will be missed.` : ''}</span>`;
-    items = [{ id: 'begin', label: 'Begin', sub: `${resolveMap(m.map).name}${leftover.length ? ' · closes the last mission' : ''}`, act: () => { startFinale(party); saveParty(party); reset(m.map, { mission: m }); } },
+    items = [{ id: 'begin', label: 'Begin', sub: `${resolveMap(m.map).name}${leftover.length ? ' · closes the last mission' : ''}`, act: () => confirmStart({ title: m.title, line: esc(m.sub), warn: leftover.length ? `This closes ${leftover.map((r) => esc(r.title)).join(', ')}: ${leftover.map((r) => esc(companionDef(r.companion).short)).join(', ')} will be missed.` : '', go: () => { startFinale(party); saveParty(party); reset(m.map, { mission: m }); }, back: () => openPicker('brief', m) }) },
       { id: 'back-board', label: 'Back', act: () => openPicker('missions', m) }];
   } else if (kind === 'brief') {
     const m = arg;
@@ -132,8 +133,14 @@ function openPicker(kind, arg = null) {
     const c = companionDef(m.companion);
     $('ov-text').innerHTML = `<span class="brief"><span class="comp-por">${compImg(m.companion)}</span><span><b class="who">${esc(c.name)}</b> <small>${esc(CONFIG.creation.classLabel[c.role])}</small><br>${esc(m.intro)}${Object.entries(m.clueLines || {}).filter(([id]) => party.done[id] === 'recruited' || party.done[id] === 'declined').map(([, t]) => `<br><i class="clue">${esc(t)}</i>`).join('')}</span></span>`
       + `<span class="party-note">Win the battle. ${esc(c.short)} (green ring) fights on their own and must survive.</span>`;
-    items = [{ id: 'begin', label: 'Begin', sub: resolveMap(m.map).name, act: () => reset(m.map, { mission: m }) },
+    items = [{ id: 'begin', label: 'Begin', sub: resolveMap(m.map).name, act: () => confirmStart({ title: m.title, line: `${esc(c.name)} · ${resolveMap(m.map).name}`, go: () => reset(m.map, { mission: m }), back: () => openPicker('brief', m) }) },
       { id: 'back-board', label: 'Back', act: () => openPicker('missions', m) }];
+  } else if (kind === 'confirm') {
+    // v0.12: every battle start asks first. Input-agnostic (tap, ▲▼ + A/B, Enter/Escape, later a controller).
+    // Yes is highlighted, but taking it needs a fresh press after confirmDebounceMs; No and B go back.
+    title('BEGIN MISSION?');
+    $('ov-text').innerHTML = `<span class="confirm"><b>${esc(arg.title)}</b>${arg.line ? `<br><small>${arg.line}</small>` : ''}${arg.warn ? `<span class="warn">⚠ ${arg.warn}</span>` : ''}</span>`;
+    items = [{ id: 'confirm-yes', cls: 'primary', label: 'Yes, begin', act: arg.go }, { id: 'confirm-no', label: 'No', sub: 'Back', act: arg.back }];
   } else if (kind === 'recruit') {
     // their join offer, then you choose. Declining is final for now (DESIGN open question).
     const m = mission, c = companionDef(m.companion), t = traitDef(c.trait);
@@ -177,7 +184,7 @@ function openPicker(kind, arg = null) {
     if (maps.length > 1) items.push({ id: 'next-map', label: `Next map: ${next.name}`, act: () => reset(next.id) });
     items.push({ id: 'choose-map', label: 'Choose map', act: () => openPicker('title') });
   }
-  picker = { kind, items, index, arg };
+  picker = { kind, items, index, arg, at: performance.now() };
   $('ov-list').innerHTML = items.map((it, i) =>
     `<button class="btn pick ${it.cls || ''}" ${it.id ? `id="${it.id}"` : ''} data-pick="${i}">${it.label}${it.sub ? `<small>${it.sub}</small>` : ''}</button>`).join('');
   syncPicker();
@@ -197,7 +204,11 @@ function pickerBack() {
   if (k === 'title' && S.over) return openPicker('end');
   if (k === 'missions') return openPicker('title');
   if (k === 'brief') return openPicker('missions', picker.arg);
+  if (k === 'confirm') return picker.arg.back();
 }
+// the confirm dialog swallows input for a moment after it opens (a double tap or a held key can't pass through)
+const pickerBusy = () => picker && picker.kind === 'confirm' && performance.now() - picker.at < C.confirmDebounceMs;
+function confirmStart(o) { openPicker('confirm', o); }
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 // "New hero": the BG-style creation wizard (src/create.js). Done = save + rebuild the squad + back to the title.
 function startCreator() {
@@ -218,8 +229,8 @@ function syncPicker() {
     if (on && b.scrollIntoView) b.scrollIntoView({ block: 'nearest' }); // long lists scroll with the pad
   });
 }
-function pickerStep(step) { picker.index = (picker.index + step + picker.items.length) % picker.items.length; syncPicker(); }
-function pickerChoose(i = picker.index) { const it = picker.items[i]; if (it) it.act(); }
+function pickerStep(step) { if (pickerBusy()) return; picker.index = (picker.index + step + picker.items.length) % picker.items.length; syncPicker(); }
+function pickerChoose(i = picker.index) { if (pickerBusy()) return; const it = picker.items[i]; if (it) it.act(); }
 
 // ---------------------------------------------------------------- layout / projection
 function resize() {
@@ -768,7 +779,7 @@ function pressA() {
 }
 
 function pressB() {
-  if (picker) return pickerBack(); // one screen back
+  if (picker) { if (pickerBusy()) return; return pickerBack(); } // one screen back
   if (!isPlayerTurn()) return;
   const u = S.active;
   switch (ui.mode) {
@@ -1175,16 +1186,16 @@ $('cmd').addEventListener('pointerdown', (e) => {
   ui.menuIndex = Number(b.dataset.cmd);
   selectMenuItem(menuItems()[ui.menuIndex]);
 });
-$('ov-text').addEventListener('pointerdown', (e) => {
-  const b = e.target.closest('[data-comp]'); if (!b || !picker || picker.kind !== 'missions') return;
-  e.preventDefault();
+// v0.12: a tap is press + release on the same button without moving more than tapSlopPx and without the
+// card scrolling, so dragging a list to scroll never picks anything (pointercancel = the browser took it as a scroll)
+onTap($('ov-text'), '[data-comp]', (b) => {
+  if (!picker || picker.kind !== 'missions') return;
   toggleActive(party, b.dataset.comp); saveParty(party);
   const i = picker.index; openPicker('missions'); picker.index = i; syncPicker();
   reset(mapId, { start: false }); // rebuild the idle squad behind the board
 });
-$('ov-list').addEventListener('pointerdown', (e) => {
-  const b = e.target.closest('[data-pick]'); if (!b || !picker) return;
-  e.preventDefault();
+onTap($('ov-list'), '[data-pick]', (b) => {
+  if (!picker || pickerBusy()) return;
   picker.index = Number(b.dataset.pick); syncPicker();
   pickerChoose();
 });

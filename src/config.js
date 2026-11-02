@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.11.0',
+  version: '0.12.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -324,6 +324,9 @@ export const CONFIG = {
     abSizePx: 70,           // A / B button diameter
     repeatDelayMs: 320,     // hold a d-pad arm: delay before auto-repeat starts
     repeatRateMs: 120,      // then one step per this many ms
+    // v0.12 (Cletus: "accidentally started some random mission when I was trying just to scroll"):
+    tapSlopPx: 10,          // lists (board, title, briefs, creator): a touch that moves more than this, or scrolls the list, is not a tap
+    confirmDebounceMs: 350, // "Begin mission?" ignores every input (tap, pad, keys) this long after it opens, so a double tap can't pass through
     menuItemHeightPx: 44,   // command menu row height
     // Context-aware d-pad: the pad shows only the directions that mean something right now.
     //   map cursor (free/move/target) = ▲▶▼◀ cross (padCross); menus = vertical ▲▼;

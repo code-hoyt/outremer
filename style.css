@@ -285,3 +285,8 @@ html, body {
 #overlay .chr-comp small { font-size: 10px; color: #c9bea6; }
 #overlay .chr-line { display: block; }
 #overlay .chr-line.small { font-size: 11px; color: #a89c86; margin-top: 4px; }
+
+/* v0.12: "Begin mission?" confirm */
+.confirm { display: block; text-align: center; font-size: 17px; }
+.confirm small { color: #a99d88; font-size: 13px; }
+.confirm .warn { display: block; margin-top: 10px; padding: 8px 10px; border: 1px solid #b0553a; border-radius: 8px; background: rgba(176,85,58,.15); color: #f0c2a8; font-size: 14px; text-align: left; }

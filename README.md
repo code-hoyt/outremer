@@ -26,6 +26,7 @@ Run locally: `python3 -m http.server` in the repo root, open http://localhost:80
 | `src/ai.js` | Scoring AI (enemies and the allied stranger in recruit missions), plus Yusuf's intent preview |
 | `src/hero.js` | Hero rules: 3d6 rolls, pool redistribution, stat → battle formula, save/load, placeholder portraits, iso move preview (node-safe; the sim uses it) |
 | `src/create.js` | Hero creation wizard UI (Portrait → Class → Stats → Name) |
-| `src/main.js` | Rendering, touch/mouse input, turn flow, HUD |
+| `src/main.js` | Rendering, touch/mouse input, turn flow, HUD, list screens (title, board, briefs, "Begin mission?" confirm) |
+| `src/tap.js` | Tap vs scroll for list screens: acts on release, only if the touch didn't move past `controls.tapSlopPx` or scroll the list |
 | `tools/sim.mjs` | Balance sim: `HUMAN=1 HERO=avg COMP=renaud,yusuf node tools/sim.mjs 2000 <map\|mission\|chapel-ford\|all\|missions>` (win rate, ally-fell, Captain fell, companion down, how the ally fights). Campaign knobs: `MISSED=wren` (not in your company), `WINS=2` (difficulty step), `HKMUL=` (enemy HP ×), `BYSQUAD='{…}'`, `STEP='[…]'`, `DEATHS=1` |
 | `tools/reach.mjs` | Map reachability validator: every tile reachable at MOV 2 / JUMP 2 and JUMP 1 and for every class (`CONFIG.mapRules`); exits 1 on a cut-off tile. Stairs (`t`) are how maps climb more than 1 level |
