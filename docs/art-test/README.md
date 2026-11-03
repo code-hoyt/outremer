@@ -31,3 +31,16 @@ Picks: `v3/renaud-full.png`, `v3/yusuf-full.png`, `v3/wren-full.png`, `v3/contac
 - Wren (Renaud b as style ref): "17-year-old English camp follower turned scout, choppy auburn hair, freckles, nervous eyes, patched brown cloak flaring, faded blue tunic, pouches, bronze amulet, dagger, mid-dodge."
 - Battle a (rejected, came out as pixel art): "FFT-style compact iso map with stacked heights, sandstone ruins, sand and grass; small FFT-proportion sprites of the knight, archer and girl; two raiders on a ledge; blue movement tiles."
 - Battle b (pick): the three full-body pieces as reference + "same soft watercolor painterly style, NOT pixel art, small painted sprites about 4 heads tall, raiders on the raised ledge, pale blue movement tiles."
+
+# Round 4 (v4/) — style test only (MIX direction)
+
+The direction combines Dojen/Yoshida-style full-body art (round 3) with FFTA2-style dialogue portraits and battle sprites. Only Renaud was made this round. Reference sheets were used for study only; none were used as generation inputs. 4 generations in total.
+
+**In-game test:** open the game with `?art=test` (https://code-hoyt.github.io/outremer/?art=test). Renaud is drawn with the new sprite (front or back, mirrored for the other facings) and uses the new portrait in the turn strip and info panel. The default build is unchanged. Assets are in `assets/art-test/`.
+
+Files: `renaud-portrait-hires.png` plus `-96x128` and `-64x90` (white background flood-filled to transparent). `renaud-sprite-{front,back}-hires.png`, plus `-128` (used in game, drawn at about 58 base px, roughly 1 tile wide) and `-32` (FFTA2-native height, for comparison). Screenshots: `ingame-phone.png` (iPhone 13) and `ingame-zoom.png` (2x crop around Renaud).
+
+- Portrait (renaud-full.png as reference): "handheld tactics RPG dialogue portrait: head-and-shoulders bust turned three-quarters right, top of head slightly cropped, cut at upper chest; clean even dark-brown outline, flat cel shading 3-4 tone bands, rim light on grey hair, younger stylized anime face, large almond eyes, tiny nose, slim jaw, still a grizzled middle-aged Templar with grey stubble, stern but kind; white surcoat with red cross, chainmail coif; bright clean palette; flat white background."
+- Sprite a (rejected, about 5 heads tall; renaud-full.png as reference): "single pixel-art isometric battle sprite, chibi 2.5-3 heads, three-quarter front facing down-left, 1 px dark outline, ~3 shades per material, white surcoat with red cross, kite shield, longsword, 8x nearest-neighbour, flat magenta background."
+- Sprite front (pick; sprite a as reference): "super-deformed CHIBI, only 2.5 heads tall, oversized head ~40% of height, grey spiky hair, tiny dot eyes, stubby body, chunky boots; same surcoat, shield, sword; facing down-left; 1 px outline, 3 shades per color; magenta background."
+- Sprite back (front as reference): "the exact same chibi sprite seen from behind, three-quarter back view facing up-left; magenta background."

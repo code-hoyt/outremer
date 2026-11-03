@@ -347,6 +347,10 @@ function unitScreenPos(u, now) {
   return { x: p.x + ox, y: p.y + oy, depth: fx + fy };
 }
 
+// ?art=test — style-test sprite for Renaud only; default build unchanged.
+const ART_TEST = typeof location !== 'undefined' && /[?&]art=test\b/.test(location.search) ? (() => {
+  const f = new Image(), b = new Image(); f.src = 'assets/art-test/renaud-sprite-front-128.png'; b.src = 'assets/art-test/renaud-sprite-back-128.png'; return { f, b };
+})() : null;
 function drawUnit(u, now) {
   const { k } = layout;
   const pos = unitScreenPos(u, now);
@@ -377,6 +381,11 @@ function drawUnit(u, now) {
 
   ctx.translate(x, y - 2 * k + bob);
   ctx.scale(k * flip, k);
+  const artImg = ART_TEST && u.companion === 'renaud' ? (back ? ART_TEST.b : ART_TEST.f) : null;
+  if (artImg && artImg.complete && artImg.naturalWidth) { // ?art=test: painted sprite (art faces left, so mirror)
+    const H = 58, W = H * artImg.naturalWidth / artImg.naturalHeight;
+    ctx.save(); ctx.scale(-1, 1); ctx.drawImage(artImg, -W / 2, -H + 3, W, H); ctx.restore();
+  } else {
   // legs
   ctx.fillStyle = '#2b2420';
   ctx.fillRect(-7, -12, 5, 12); ctx.fillRect(2, -12, 5, 12);
@@ -442,6 +451,7 @@ function drawUnit(u, now) {
     ctx.restore();
   }
   if (!back) drawWeapon();
+  } // end legacy unit drawing
   // hit flash
   if (a && a.type === 'flash' && now - a.t0 < V.hitFlashMs) {
     ctx.globalCompositeOperation = 'source-atop'; ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.fillRect(-25, -75, 50, 80);

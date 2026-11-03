@@ -89,7 +89,7 @@ export function applyCompanion(u, id, { npc = false } = {}) {
   const c = companionDef(id), t = traitDef(c.trait);
   applyHero(u, { name: c.name, role: c.role, portrait: 0, stats: c.stats });
   delete u.hero;
-  u.companion = id; u.trait = c.trait; u.templar = !!c.templar; u.portraitImg = c.portrait;
+  u.companion = id; u.trait = c.trait; u.templar = !!c.templar; u.portraitImg = c.portrait; if (id === 'renaud' && typeof location !== 'undefined' && /[?&]art=test\b/.test(location.search)) u.portraitImg = 'assets/art-test/renaud-portrait-96x128.png';
   if (t && t.moveBonus) u.move += t.moveBonus;
   if (npc) { u.npc = true; u.mustSurvive = true; }
   return u;
