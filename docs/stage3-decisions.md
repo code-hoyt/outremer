@@ -1,169 +1,117 @@
-# Stage 3: decide the real game (DRAFT for Cletus)
+# Stage 3: decide the real game: DECIDED
 
-> **Status: draft, being walked through with Cletus one topic at a time (2026-11-02).** #1 is decided; the rest are proposals to react to. Each decision lists 2–3 options and a **recommendation**. ✅ marks what Cletus has already decided. Sources: [ROADMAP](ROADMAP.md#stage-3--decide-the-real-game), [DESIGN](DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](research/abilities-vs-attack.md), and Cletus's playtest notes.
-> **Stage 3 is done when:** a short game brief (scope, platform, tech, story premise) is agreed and the vertical slice is planned against it.
+> **Status: all 12 decisions made by Cletus (2026-11-02). Stage 3 is done.** Each topic below shows ✅ **his choice**, then a short note on the options he rejected and why. The agreed one-page brief is [GAME-BRIEF.md](GAME-BRIEF.md), and the Stage 4 plan built on it is [SLICE-PLAN.md](SLICE-PLAN.md). Sources: [ROADMAP](ROADMAP.md#stage-3--decide-the-real-game), [DESIGN](DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](research/abilities-vs-attack.md), and Cletus's playtest notes.
+> **Stage 3 done-when:** a short game brief (scope, platform, tech, story premise) is agreed and the vertical slice is planned against it. ✅ The brief and slice plan are written. The story premise is deliberately left to a dedicated story session (#10).
 
-**Already decided (✅), carried forward**
+**Decided before Stage 3, carried forward**
 - ✅ A **Baldur's Gate structure on FFTA-style tactics**: one created hero (rolled stats, class, portrait; fixed background) plus set companions with their own stories. No D&D rules.
-- ✅ **Squad of 3** (hero + 2), "Mass Effect feel". Recruit missions add the person you're saving as an AI ally.
+- ✅ **Squad of 3** (hero + 2), "Mass Effect feel".
 - ✅ **Class decides movement** (MOV, JUMP, terrain). No race modifiers for now; a winged race is parked.
-- ✅ **Art:** heavily Final Fantasy-based, **portraits in the FFTA2 style**, done at the art stage.
 - ✅ **Controls:** FFTA2 scheme (cursor, command menu, A/B), a context-aware cross pad, and **no phone-only controls**. It must map to a controller.
 - ✅ **Map rule:** every tile reachable at MOV 2 / JUMP 2. Allies act in character.
-- ✅ **Pillars:** no stop-and-press; every playthrough differs; trade-off upgrades over raw power; story later, with room for mythology; flanking and positioning are central.
+- ✅ **Pillars:** no stop-and-press; every playthrough differs; trade-off upgrades over raw power; flanking and positioning are central. (Pillar 4, "story later", is replaced by #10: mythology is central from the start.)
 
 ---
 
-## Stage 2 check: what's evidenced so far
-Stage 2 is done when two heroes play noticeably differently, companions are remembered by name, and Cletus wants to roll a new hero.
+## Stage 2 check: ✅ done
+Stage 2 was done when two heroes play noticeably differently, companions are remembered by name, and Cletus wants to roll a new hero.
 
 | Criterion | Evidence | Status |
 |---|---|---|
-| The loop exists end to end | v0.11: creation → open board → 3 recruit missions → Chapel Ford finale → ending → Chronicle → roll a new hero. Cletus: "Pretty solid." | ✅ built and played |
-| Two heroes play differently | Cletus (2026-11-02), after a second full run on a different class: "Feels pretty good and different on a different class." Sim agrees (hero class changes results). | ✅ playtested |
-| Companions remembered by name | Named portraits, briefs, AI personalities (Renaud charges, Yusuf wary, Wren evasive), finale payoffs and missed effects. Cletus asked to see identities in battle "since story will be part of those fights". | 🟡 promising, unconfirmed |
-| Wants to roll a new hero | The Chronicle + "Roll a new hero" exist. **Not observed yet.** | ❓ the key test |
-| Battles fair | Sim: all 36 squad/battle cells at 65–74% wins (basic-attack model). Cletus's early "getting destroyed" was fixed in v0.9. | ✅ (sim) |
-| Board UX | v0.12: scroll can't start a mission; "Begin mission?" confirm. | ✅ fixed after feedback |
-
-**Still open from Stage 1:** the done-when ("a fight is fun to replay with the same squad") hasn't been confirmed. Abilities are rarely used (Cletus mostly attacks, by his own account), and the research fixes are shelved.
-**Before locking Stage 3:** one playtest with 2 different heroes through the whole run, then ask: "Do you want to roll a third?"
+| The loop exists end to end | v0.11: creation → open board → 3 recruit missions → Chapel Ford finale → ending → Chronicle → roll a new hero. Cletus: "Pretty solid." | ✅ |
+| Two heroes play differently | Cletus (2026-11-02) played **two full runs on different classes**: "Feels pretty good and different on a different class." | ✅ playtested |
+| Companions remembered by name | Named portraits, briefs, AI personalities, finale payoffs. Cletus asked to see identities in battle "since story will be part of those fights". | ✅ |
+| Wants to roll a new hero | He rolled a second hero and played the whole run again. | ✅ |
+| Battles fair | Sim: HUMAN=1 mean 70.0%, 35 of 36 cells at 65–74% (v0.13). | ✅ (sim) |
 
 ---
 
 ## The decisions
 
-### 1. Campaign scope & structure
-| Option | What | For / against |
-|---|---|---|
-| A. Linear chapters | Story battles in a fixed order | Easiest to write; weakest on "every playthrough differs" |
-| **B. Chaptered boards** | Each chapter is an FFTA2-style board: recruit and side jobs in any order, then a story finale that closes what's left (today's Option B, repeated) | Reuses what works; choices and misses carry between chapters |
-| C. Run-based (roguelite) | Short runs, procedural maps and events, meta-unlocks | Most replayable; fights the BG-style named-companion story |
+### 1. Campaign scope & structure ✅
+**Chaptered boards (~5 chapters), FFTA2-style, built around a mission tree.**
+- Each chapter is an open board of missions that ends in a story finale.
+- **Fewer recruit missions, many side missions.** As in FFTA2, side missions are where most of the play time goes.
+- Missions form a **tree**. Unlock types:
+  - **Chain:** a mission only appears after you beat a specific earlier one.
+  - **Branch:** a side mission opens one or more follow-ups (its own short storyline).
+  - **Companion-only:** a mission only appears if that companion was recruited; beating it can **unlock a new ability for that companion**.
+- **Multi-part missions** span several locations, travelled in sequence (see #5: no return to town between parts).
+- Still to settle in the slice: side missions per chapter, whether a finale closes unfinished branches, and which branches carry into later chapters.
+- *Rejected:* linear chapters (weakest on "every playthrough differs"); run-based roguelite (fights the named-companion story).
 
-✅ **Decided (Cletus, 2026-11-02): B, chaptered boards, made FFTA2-like: a mission *tree*, mostly side missions.**
-- About **5 chapters**, each an open board that ends in a story finale.
-- **Fewer recruit missions, many more side missions.** As in FFTA2, side missions are where most of the play time goes (the draft's "2–3 recruit jobs + 1–2 side jobs" is replaced).
-- Missions form a **tree**, not a flat list. Unlock types:
-  - **Chain:** a mission only appears after you beat a specific earlier mission.
-  - **Branch:** a side mission can open one or more follow-up missions (a short storyline of its own).
-  - **Companion-only:** some missions only appear if a given companion was recruited (their personal story).
-  - **Ability-unlock:** beating a companion's mission can unlock a new ability for that companion.
-- Missed companions and choices still change later chapters. Skirmishes become optional side jobs, not the main way to grind.
-- Open details for the slice plan: how many side missions per chapter, whether the finale closes unfinished branches (as v0.11 closes recruit missions), and which branches carry over between chapters.
+### 2. Party size ✅
+**Squad of 3 all game, plus a few solo or duo story missions** (e.g. the hero alone).
+- *Rejected:* 3 → 4 slots later; per-mission squad size as the general rule.
 
-### 2. Party size
-| Option | What |
-|---|---|
-| **A. 3 all game** ✅ (hero + 2) | Confirmed feel; maps sized 3v4–3v6 |
-| B. 3 → 4 later | A slot unlocks mid-game for scale |
-| C. Per-mission size | Some jobs force 1–2 (stealth, escort) |
+### 3. Classes & hero growth ✅
+**Fixed class + branches + ability-teaching gear + one borrowed skill set.**
+- **Fixed class** for life: it keeps the class's movement identity (MOV, JUMP, terrain).
+- **Branches:** at milestones, pick **1 of 2** branches (e.g. Knight → *Bulwark* or *Lancer*).
+- **Learning from gear (FFTA-style):** some gear teaches an ability; once learned, you keep it.
+- **One borrowed secondary skill set** from another class. Your movement stays your own.
+- **New classes:** +1–2 later: **Physician** (Ishaq), and a magic class when magic arrives (#6).
+- **Leveling (FFTA2-style):** XP from fights. **Level-ups only raise stats** (no picks; choices come from branches, gear and the secondary set). Gains vary by class. **Stat max 100, level cap 50.**
+  - ⚠️ The current 3d6 stats (3–18) and the creation rolls must be **rebalanced to the 1–100 range** (see [SLICE-PLAN](SLICE-PLAN.md#big-unknowns)).
+- *Rejected / changed from the recommendation:* fixed class with only trade-off gear (too little customization); a full FFTA job system (blurs movement identity; too much content). The draft's "milestone levels only unlock branches" became full FFTA2-style XP leveling.
 
-**Rec: A, plus C for a few story jobs** (e.g. a hero-alone mission). Keep the guest AI ally as the variety lever. Revisit B only if late fights feel thin.
+### 4. Companions ✅
+**10 companions, about 2 per chapter (adjustable for the story), and all 10 can be recruited in one run.**
+- From the pitch: Renaud, Yusuf, Wren, Mariam, Ingvar, Ishaq. **4 more to be written.**
+- Recruiting by *how* you win (spare, protect, reach in time) stays **parked**; winning the mission is enough for now.
+- *Rejected / changed:* 6 companions with only ~4 per run (missed companions as replay driver); Cletus's earlier lean of one per chapter; 3 companions. Variety now comes from the mission tree, branches and squad choice, not from locking people out.
 
-### 3. Classes, jobs & hero class progression
-Today there are 4 classes (Knight, Sergeant, Archer, Scout), 2 abilities each, and no progression.
-| Option | What | Pillar fit |
-|---|---|---|
-| A. Fixed class + trade-off gear | Class never changes; gear changes how you play | Strong pillar 3; little customization |
-| B. FFTA-style jobs | Change job, learn abilities, secondary set | Deep customization; MOV/JUMP identity blurs; lots of content |
-| **C. Class + branches** | Hero keeps their class (movement identity), picks **1 of 2 branches** at 2–3 milestones (e.g. Knight → *Bulwark* (tougher, −1 MOV) or *Lancer* (charge, lower DEF)). Companions have their own fixed branch choice | Trade-off by design; customization that differs per run; bounded content |
+### 5. Between battles ✅
+**An FFTA2-style world map of nodes.**
+- **At any node:** change party and equipment.
+- **Only at town nodes:** shops and taking missions. You take a mission in town, then travel to its location.
+- **Gear:** mostly stats. **Rare gear** does other things: teaches abilities (#3) or gives perks with a trade-off.
+- **Wounds, not permadeath:** a fallen companion is **Wounded for the next battle**. If the **hero falls, the battle is lost**.
+- **Travel makes choices without extra presses:** side jobs on the way; multi-part jobs can't return to town between parts.
+- *Rejected / changed:* a camp screen of trade-off upgrades only (gear is now mostly stats, with trade-offs on rare pieces); permadeath; no progression.
 
-**Rec: C + trade-off gear (#5).** The class list stays at 4, with **+1–2 new classes** decided here. Candidates: **Physician** (Ishaq, already pitched and flagged) and a ranged/mounted option. A full job system (B) is out of scope for a small team.
+### 6. Abilities ✅
+- **No cooldowns, no generic cost** (done in **v0.13.0**): an ability's only cost is a built-in drawback (Pin plants you, Vault can't move after, Wall slows, Plunge exposes; Bash, Hook, Brace, Feint have none).
+- **Build from the research** ([abilities-vs-attack](research/abilities-vs-attack.md)):
+  - **Fix 4:** deadly edges (falls, water, fire) and goals other than kill-all.
+  - **Fix 1:** an Action-menu forecast + an end-of-battle tally.
+- **Magic & MP later** (parked): MP is for spells; physical abilities keep their drawbacks.
+- *Rejected:* the "attack-plus" retune (fix 2), the frontal riposte (fix 3), and enemy intent shown for everyone (fix 5; Yusuf's version stays as his trait). Also rejected: keeping abilities as they were.
 
-### 4. Companion count & roster
-| Option | What |
-|---|---|
-| A. 3 (today) | Renaud, Yusuf, Wren |
-| **B. 6** | + the pitched Mariam (Archer), Ingvar (Sergeant, relic orders), Ishaq (Physician, new class) |
-| C. 8–10 | BG2 scale |
+### 7. Art direction ✅
+**2D sprites on iso tiles**, Final Fantasy-based, **FFTA2-style portraits**, a **pre-made set of 8–12 hero portraits** (no builder). **Tancred (the AI partner) makes the art.**
+- *Rejected:* HD-2D (cost, engine); low-poly 3D (drifts from FFTA2); a portrait builder; commissioned art.
 
-**Rec (draft): B, 6 companions**, with **~4 recruitable in any one run** (boards close jobs, as in v0.11), so who you missed matters and replays differ. Keep the friction hooks: Renaud ⇄ Yusuf, Wren ⇄ Ingvar, Ingvar ⇄ Ishaq.
+### 8. Platform & controls ✅
+**Phone first + Steam with controller.** Switch is a stretch at most.
+- *Rejected:* phone only; Switch as a target (would force an engine change, #9).
 
-🟡 **Cletus's lean (2026-11-02), not final, still to discuss:** fewer companions, since the squad only has 3 slots: **about one recruitable companion per chapter** (so ~5 over ~5 chapters). This fits #1 (fewer recruit missions, more side missions, companion-only missions).
+### 9. Tech ✅
+**Grow this codebase:** TypeScript + a renderer (e.g. PixiJS), **Capacitor** for iOS/Android, **Tauri or Electron** for Steam. **Keep the balance sim** (`tools/sim.mjs`) and the engine-agnostic rules modules.
+- *Rejected:* Godot 4 (lose the JS sim); Unity (licensing, full rebuild).
 
-### 5. Progression between battles (currently none)
-| Option | What |
-|---|---|
-| A. XP & levels | Familiar; mostly bigger numbers (against pillar 3) |
-| **B. Camp with trade-off upgrades** | Between battles: gear and vows that swap one strength for another (heavy mail: +DEF, −1 JUMP; Templar vow: +RES, can't retreat) |
-| C. Wounds / permadeath | Stakes; punishing on phones |
+### 10. Story & mythology ✅
+**Mythology is central from the start:** relics and the uncanny drive the plot.
+- **The premise is not written yet.** It gets its own dedicated story session with Cletus. **Don't invent it in the meantime** (open item).
+- **Told in the engine, FFTA2-style:** sprites act out scenes on the iso maps with portrait text boxes. No pre-rendered cutscenes.
+- *Rejected / changed:* the recommendation "premise now, mythology door ajar"; historical-first.
 
-**Rec: B, plus a few milestone levels** that only unlock the class branches (#3). **Wounds, not permadeath:** a fallen companion is Wounded for the next battle. If the hero falls, the battle is lost (BG). Loot is a short list of trade-off items, not an inventory grind.
+### 11. Vertical slice (Stage 4) ✅
+**A polished Chapter 1, about 2 hours.** Full plan: [SLICE-PLAN.md](SLICE-PLAN.md).
+- Hero creation (final UI, portraits); a small world map with a town and travel.
+- A Ch.1 mission tree: **2 recruits**, branching side missions, **one multi-part mission**, a finale.
+- Leveling; stat gear plus **one rare ability-teaching piece**; one class-branch pick; a borrowed skill set if it fits; wounds.
+- The forecast + tally; one deadly-edge or non-kill-objective map.
+- A real mythology hook; in-engine story scenes.
+- Final art, sound and music; saves; touch + controller + keyboard; onboarding with no tutorial popups.
+- **All maps pass the MOV2/JUMP2 rule.**
+- *Changed from the recommendation:* 2 recruits instead of 3; a world map instead of a board + camp screen; leveling, wounds and story scenes added.
 
-### 6. Abilities
-| Option | What |
-|---|---|
-| A. Keep as is | 2 per class; the AI rarely uses Bash/Hook/Pin/Feint; Cletus mostly attacks |
-| **B. Build the research top 5** | 1) Action-menu forecast + end-of-battle tally, 2) "attack-plus" retune, 3) frontal riposte, 4) a map with lethal edges and a non-kill objective, 5) visible Raider intent (Yusuf's version exists) |
-| C. More abilities via jobs | Only with option 3B |
-
-**Rec: B, in the research's order (forecast + retune first: cheap and measurable)**, tested as a short Stage 1 close-out before the slice. The Chapel Ford's "kill the Captain" goal is already one non-kill objective.
-
-✅ **Decided (Cletus, 2026-11-02): no cooldowns, no generic cost.** Abilities are usable every turn. An ability's only cost is a drawback built into what it does (his example: "you smash into the ground and now you're stuck in the ground for a turn"). **Done in v0.13.0:** cooldowns removed; Pinning Shot now *plants* you (no moving that turn), Vault Strike has a *hard landing* (no moving after); Shield Wall (Slowed) and Plunging Shot (Exposed) keep their existing drawbacks; Bash, Hook, Brace and Feint have none. See [DESIGN.md → Abilities](DESIGN.md#abilities-v04--two-per-class-all-about-position).
-
-**Later (not now): Magic & MP.** Cletus expects to add magic and an MP pool later. Until then, nothing costs MP; when it comes, MP is for spells, and the physical abilities keep their built-in drawbacks. (Parked in the [ROADMAP](ROADMAP.md#parking-lot).)
-
-### 7. Art direction
-✅ FF-based, FFTA2-style portraits. Still to choose:
-| Option | What |
-|---|---|
-| **A. 2D sprites on iso tiles** | FFTA/FFTA2 lineage; matches the portraits |
-| B. HD-2D (sprites in a lit 3D world) | Striking; costly, needs an engine |
-| C. Low-poly 3D | Flexible camera; drifts from FFTA2 |
-
-**Rec: A**, with a **pre-made portrait set** (8–12 for the hero, one per companion) rather than a builder. Commission one test piece (a portrait plus a unit sprite) during Stage 3 to set the bar and the cost.
-
-### 8. Platform & controls
-| Option | What |
-|---|---|
-| A. Phone only | Web/PWA, then App Store / Google Play |
-| **B. Phone + PC (Steam)** | Touch and controller/keyboard from one input layer |
-| C. + Switch | Biggest tactics audience; console certification and an engine requirement |
-
-**Rec: B. Phone-first, with Steam + controller support from the slice on.** Input is already abstract (pad, A/B, keys; v0.12 confirms aren't touch-only). Keep Switch as a stretch target, and let that weigh on #9.
-
-### 9. Tech for production
-| Option | What | For / against |
-|---|---|---|
-| **A. Grow this codebase** | Plain JS → TypeScript + a renderer (PixiJS/WebGL) for real art; Capacitor (iOS/Android) and Tauri/Electron (Steam) wrappers | Keeps the node-safe rules + balance sim (`tools/sim.mjs`) and fast phone playtests via Pages; consoles hard |
-| B. Godot 4 | Rebuild the rules and UI in GDScript/C# | Free; good 2D; console ports via partners; loses the JS sim (port it) |
-| C. Unity | Industry standard; console ready | Licensing history, heavier; full rebuild |
-
-**Rec: A, unless Switch becomes a must** (then B). The rules modules (game, ai, hero, party, missions) are already engine-agnostic and sim-tested. The rebuild cost sits in rendering and UI, which the slice redoes anyway.
-
-### 10. Story & mythology timing
-| Option | What |
-|---|---|
-| **A. Premise now, mythology "door ajar"** | Write the premise and the hero's fixed origin in Stage 3. Mythology stays hints (the reliquary, Wren's humming amulet, Ingvar's relic orders) through chapter 1; decide how real it gets by chapter 2 |
-| B. Historical first | No uncanny until late; a safer tone, but we lose the hook |
-| C. Mythology central | Relics/djinn drive the plot from the start; a bigger writing and art load |
-
-**Rec: A.** The v0.11 thread (the Red Captain, the empty reliquary) is a cheap test of whether hints land.
-
-### 11. What the vertical slice (Stage 4) contains
-**Rec: Chapter 1, polished, about 2 hours:**
-- hero creation (final UI, pre-made FFTA2-style portraits)
-- a chapter board: 3 recruit jobs + 1–2 side jobs + the finale (e.g. a reworked Chapel Ford)
-- 3 companions with final portraits, sprites, join scenes and finale payoffs
-- a camp screen with trade-off gear and one class-branch milestone (#3, #5)
-- the ability fixes (#6)
-- 5–6 maps that pass the map rule
-- sound and music
-- save/continue
-- touch + controller + keyboard
-- a light first-battle onboarding with no tutorial popups (pillar 1)
-
-Built on the chosen tech (#9) for phone + Steam (#8).
-
-### 12. Budget, team & "commercial quality"
-| Option | What |
-|---|---|
-| **A. Solo dev + contract art/music** | Keeps control; art is the main cost |
-| B. Small team | Faster; needs funding |
-| C. Publisher after the slice | The slice is the pitch |
-
-**Rec: A through the slice, then decide on C with the slice in hand.** Define "commercial quality" as: final art and audio, no placeholder text, stable saves, 60 fps on a mid-range phone, and controller parity.
+### 12. Team & budget ✅
+**Cletus solo; Tancred makes the art.** Music and sound are a **trial by Tancred**; if the result isn't good enough, Cletus does them himself. **Publishers: decide after the slice.**
+- "Commercial quality" (kept from the draft): final art and audio, no placeholder text, stable saves, 60 fps on a mid-range phone, controller parity.
+- *Rejected:* contract art/music; a small funded team.
 
 ---
 
-**Next step:** Cletus marks each decision (keep / change / park). Then the answers become a one-page **game brief** and a slice plan (the Stage 3 done-when).
+**Next:** Stage 4, the vertical slice. See [SLICE-PLAN.md](SLICE-PLAN.md).

@@ -9,7 +9,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 ---
 
-## Stage 1 — Combat prototype ← **CURRENT**
+## Stage 1 — Combat prototype ✅ (closed into Stage 4)
 **Purpose:** prove that one battle feels good on a phone.
 
 **Questions it answers**
@@ -40,9 +40,11 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 **Done when:** a fight is **fun to replay with the same squad**. Cletus wants to play the same battle again and tries different positioning each time.
 
+**Status:** closed by the Stage 2 playtests. The ability fixes Cletus chose (research fix 1, forecast + tally, and fix 4, deadly edges / non-kill goals) moved into the slice ([SLICE-PLAN.md](SLICE-PLAN.md) M9). Fixes 2, 3 and 5 were rejected.
+
 ---
 
-## Stage 2 — Core loop prototype
+## Stage 2 — Core loop prototype ✅ DONE
 **Purpose:** prove that making a hero and growing a party around them is fun. Baldur's Gate 1/2 structure (create one main character, set companions join), FFTA-style tactics combat, no D&D rules. See [DESIGN.md → Main character & party](DESIGN.md#main-character--party-baldurs-gate-style-structure).
 
 **Loop:** create hero → fight → a set companion joins → next fight.
@@ -67,15 +69,15 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 - [x] **What carries over (v0.11, default chosen by the dev; revisit):** the party and story flags only (joined / declined / missed, win order). Full HP every battle, no wounds, no loot.
 - [x] **Board fixes from Cletus's v0.11 playtest (v0.12):** scrolling the board can't start a mission (a tap is a release without dragging), and every battle start asks **"Begin mission?"** Yes / No. It works with tap, pad A/B and Enter/Escape, so it carries over to a controller. The finale's confirm repeats the "third mission closes" warning.
 - [x] **No ability cooldowns (v0.13, Cletus):** abilities are usable every turn and cost only a drawback built into them. Magic + MP parked for later. See [DESIGN.md → Abilities](DESIGN.md#abilities-v04--two-per-class-all-about-position).
-- [ ] **Playtest the full run** (Cletus): create a hero → 2–3 recruit missions → finale → Chronicle → roll again. Do the companions' payoffs and absences register? Do the defaults (unlock after 2, leftover closes, modest missed effects, mystery ending) hold up?
+- [x] **Playtest the full run** (Cletus, 2026-11-02): he played **2 full runs on different classes**: "Feels pretty good and different on a different class."
 
 **Done when:** **two different heroes play noticeably differently**, the companions are remembered by name, and at the end Cletus **wants to roll a new hero**.
 
-**Status (v0.11): playtest-ready.** The whole loop exists end to end (hero → board → recruits → finale → ending → Chronicle → new hero). What's left is Cletus's playtest against the done-when above.
+**Status: ✅ done (2026-11-02).** The whole loop exists end to end, and Cletus played two runs on different classes and said it feels good and different.
 
 ---
 
-## Stage 3 — Decide the real game
+## Stage 3 — Decide the real game ✅ DONE
 **Purpose:** use what Stages 1–2 taught us to commit to what the actual game is. **Nothing here gets locked earlier.**
 
 **Decisions made here**
@@ -87,15 +89,17 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 **Done when:** a short written game brief (scope, platform, tech, story premise) is agreed and the vertical slice is planned against it.
 
-**Draft:** [stage3-decisions.md](stage3-decisions.md): the key decisions with options and recommendations, plus a Stage 2 evidence check (awaiting Cletus).
+**Status: ✅ done (2026-11-02).** Cletus decided all 12 topics: [stage3-decisions.md](stage3-decisions.md). The one-page brief is [GAME-BRIEF.md](GAME-BRIEF.md), and the slice is planned in [SLICE-PLAN.md](SLICE-PLAN.md). The story premise is left to a dedicated story session (a Stage 4 item, before Ch.1 content).
 
 ---
 
-## Stage 4 — Vertical slice
+## Stage 4 — Vertical slice ← **NEXT**
 **Purpose:** one polished chapter, built the way the full game will be built.
 
+**Plan:** [SLICE-PLAN.md](SLICE-PLAN.md): 12 milestones in build order, each with a done-when, plus the big unknowns (stat rescale to 1–100 / level 50, the world map, the mission tree format, the TypeScript + renderer migration, the art pipeline, the audio trial).
+
 **Scope**
-- *In:* real art direction (**decided by Cletus:** heavily based on **Final Fantasy** art; **portraits in the style of FFTA2's portraits**; every current portrait is a placeholder), sound and music, story and writing for one chapter, final UI, saving, and the production tech and pipeline chosen in Stage 3.
+- *In:* a polished **Chapter 1 (~2 hours)**: hero creation (final UI, 8–12 portraits), a small world map with a town and travel, a Ch.1 mission tree (2 recruits, branching side missions, one multi-part mission, a finale), leveling, stat gear + one rare ability-teaching piece, one class-branch pick, a borrowed skill set if it fits, wounds, forecast + tally, one deadly-edge or non-kill map, a real mythology hook, in-engine story scenes, final art (2D sprites on iso tiles, FF-based, FFTA2-style portraits; by Tancred), sound and music (Tancred trial), saves, touch + controller + keyboard, onboarding without tutorial popups. Built in TypeScript + a renderer, for phone (Capacitor) and Steam (Tauri/Electron).
 - *Out:* the remaining content.
 
 **Done when:** the chapter is good enough to show people (playtesters, potential partners or publishers) as "this is the game," and building more of it is mostly content work.
@@ -125,8 +129,8 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 
 ## Parking lot
 Ideas that come up outside the current stage. Add freely; review at each stage boundary.
-- Mythology layer: relics, saints' legends, djinn/desert folklore *(Stage 3)*
-- Permadeath vs wounds; does the hero's death end the game (BG) *(Stage 2)*
+- ~~Mythology layer~~ → decided: central from the start (Stage 3 #10); premise in a dedicated story session
+- ~~Permadeath vs wounds~~ → decided: wounds; the hero falling = battle lost (Stage 3 #5)
 - Procedural maps, random events, relic drafts for run variety *(Stage 2)*
 - Reactions or zones of control vs keeping turns snappy *(Stage 1–2)*
 - Shields blocking some front damage, to make flanking even more decisive *(Stage 1 balance)*
@@ -135,6 +139,8 @@ Ideas that come up outside the current stage. Add freely; review at each stage b
 - L/R next/previous unit buttons
 - Whether the end-of-turn facing step is worth its button press (pillar 1 tension)
 - **How you win decides recruitment** (Cletus, v0.8): e.g. Renaud joins only if no Templar falls, Yusuf if you spare a fleeing raider, Wren if you reach her before the raiders loot the carts. For now, winning the mission is enough. *(Stage 2)*
-- Re-recruiting a declined companion later (camp, a second mission)? *(Stage 2, open question in DESIGN)*
+- Re-recruiting a declined companion later? (All 10 are gettable in one run per Stage 3 #4, so a decline shouldn't lock one out for good.)
 - Possible winged race (wind/flight) with effectively unlimited jump — discuss later. *(No race modifiers on movement for now.)*
-- **Magic & MP** (Cletus, 2026-11-02): spells with an MP pool, later. Physical abilities stay free with built-in drawbacks (no cooldowns since v0.13). *(Stage 3+, see [stage3-decisions.md](stage3-decisions.md) #6)*
+- **Magic & MP** (Cletus, 2026-11-02): spells with an MP pool, later. Physical abilities stay free with built-in drawbacks (no cooldowns since v0.13). *(after the slice, with a magic class; see [stage3-decisions.md](stage3-decisions.md) #6)*
+- Switch port: a stretch at most (Stage 3 #8)
+- Publishers: decide after the slice (Stage 3 #12)

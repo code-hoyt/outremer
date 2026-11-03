@@ -1,6 +1,6 @@
 # Outremer — Design Notes (v0.13, slice + FFTA2 controls + context-aware cross pad + class abilities + 4 maps + hero creation + missions & recruitment + easier difficulty + ally personalities, softer height, reachable maps + Option B mini-campaign: open board, Chapel Ford finale, Chronicle + tap-vs-scroll and "Begin mission?" confirm + no ability cooldowns: built-in drawbacks only)
 
-> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (now: Stage 1 combat prototype, Stage 2 under way: hero creation, the mission board and three recruitable companions are in).
+> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (Stages 1–3 done; **now: Stage 4, the vertical slice**, see [SLICE-PLAN.md](SLICE-PLAN.md)). The agreed game is in [GAME-BRIEF.md](GAME-BRIEF.md) and [stage3-decisions.md](stage3-decisions.md). This file describes the **prototype as built (v0.13)**; the [Stage 3 decisions](#stage-3-decisions-what-changes-for-the-real-game) section below lists what changes.
 
 Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the Crusades.
 **Story is deliberately undecided.** Unit names are generic (Templar Knight, Sergeant, Turcopole Archer; Raider Swordsman / Skirmisher / Bowman) so nothing is locked in.
@@ -9,9 +9,21 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the
 1. **No stop-and-press chores.** Avoid mechanics where the player must stop, press a button, then get back to work. Prefer systems that *emerge from choices the player is already making* (where you move, who you hit, from where).
 2. **Customization, and every playthrough feels different.** Squad building, class mixes, and (later) variable maps/encounters.
 3. **Trade-off upgrades over pure power.** An upgrade should change *how* a unit plays (e.g. heavier armor = tougher but shorter move / lower jump), not just make numbers bigger.
-4. **Story later, with room for mythology.** Leave hooks (relics, legends, the uncanny) without committing now.
+4. ~~Story later, with room for mythology.~~ **Mythology central from the start** (Stage 3 #10): relics and the uncanny drive the plot. The premise is written in a dedicated story session; told in-engine, FFTA2-style.
 5. **Party building where classes move differently** (FFTA-style movement): class determines move, jump and terrain affinity. The party is your created hero plus set companions (BG-style), not a menu-built squad.
 6. **Flanking and positioning are central** to combat.
+
+## Stage 3 decisions: what changes for the real game
+*Cletus, 2026-11-02. Full list: [stage3-decisions.md](stage3-decisions.md); brief: [GAME-BRIEF.md](GAME-BRIEF.md); build plan: [SLICE-PLAN.md](SLICE-PLAN.md).* The rest of this file still describes the v0.13 prototype; these override it where they differ.
+- **Campaign:** ~5 chapters; each is a **mission tree** (chain, branch, companion-only and ability-unlock missions, multi-part missions across locations), mostly side missions, few recruit missions, a story finale. Replaces the v0.11 flat board where "beginning the finale closes the third mission".
+- **Party:** squad of 3 all game, plus a few solo/duo story missions.
+- **Companions:** **10**, about 2 per chapter, **all gettable in one run** (v0.11's "missed companion" is no longer the replay driver). Recruiting by how you win stays parked.
+- **Hero growth:** fixed class (movement identity) + pick 1 of 2 branches at milestones + gear that teaches abilities you keep + one borrowed secondary skill set (movement stays yours). FFTA2-style XP leveling: level-ups only raise stats, gains vary by class, **stats 1–100, level cap 50**. New classes later: Physician, and a magic class with magic.
+- **Between battles:** an FFTA2-style **world map** of nodes; party/equipment at any node; shops and missions only in towns; take a mission in town and travel to it; side jobs on the way; multi-part jobs can't return to town between parts. Replaces "full HP, no loot, no wounds" carry-over.
+- **Wounds:** a fallen companion is Wounded for the next battle; the hero falling loses the battle.
+- **Abilities:** no cooldowns (v0.13); build research fix 1 (forecast + tally) and fix 4 (deadly edges, non-kill goals). Rejected: attack-plus retune, frontal riposte, intent for everyone. Magic + MP later.
+- **Story:** mythology central; premise still to be written (dedicated story session); scenes in-engine with sprites and portrait text boxes, no pre-rendered cutscenes.
+- **Art / platform / tech:** 2D sprites on iso tiles, FFTA2-style portraits (by Tancred); phone first + Steam with controller (Switch a stretch); TypeScript + a renderer (e.g. PixiJS), Capacitor, Tauri/Electron, keep the sim.
 
 ## Core loop (slice)
 Battle only: 3 Templars vs 3 Raiders on an 8×8 height-mapped iso map. On your unit's turn: **Move** (optional) and **Act** (optional) in either order, then the turn ends. Win by defeating all raiders; lose if all Templars fall. Victory/Defeat screen → Play again.
@@ -28,7 +40,7 @@ Future loop (not built, Stage 2): **create your hero → fight → a set compani
 - Classes keep their movement identity: **MOV and JUMP come from class only and are never rolled** (no race movement modifiers either; winged race parked).
 - Story stays unlocked.
 
-**Proposed stat set (draft, to confirm with Cletus).** Six rolled stats, each 3–18 (3d6), 10 is neutral. Each one feeds an existing combat number, so nothing new has to be learned in battle:
+**Stat set (built in v0.6).** ⚠️ *Stage 3 #3: stats move to **1–100** with a **level cap of 50** (FFTA2-style XP leveling, stat-only level-ups, class-specific gains), so the 3–18 scale and rolls below get rebalanced in the slice ([SLICE-PLAN](SLICE-PLAN.md) M5).* Six rolled stats, each 3–18 (3d6), 10 is neutral. Each one feeds an existing combat number, so nothing new has to be learned in battle:
 
 | Stat | Feeds | Draft per point from 10 |
 |---|---|---|
@@ -45,11 +57,11 @@ Class base stats from `CONFIG.roles` stay the backbone; rolled stats nudge them 
 
 **Open questions**
 - Is this the right stat set, and how does each map to combat (above is a draft)? Does Aim make facing's fixed hit% too swingy?
-- Stat ranges: 3–18 with floor 3 / cap 18, or a narrower band (e.g. 6–16)? Class minimums like BG (Knight needs MGT 9)?
+- ~~Stat ranges: 3–18?~~ → **1–100, level cap 50** (Stage 3 #3); how creation rolls and class minimums map to it is open (SLICE-PLAN M5).
 - ~~Do companions use the same six stats?~~ Yes, hand-set (v0.8). Does the hero's class limit which companions want to join?
 - ~~How are companions recruited?~~ v0.8: win their mission, then Accept/Decline; squad 3 (hero + 2), extras rest in camp (see Missions & recruitment). Still open: a bigger party cap later?
-- Can the main character die? BG: hero death = game over. Alternatives: knocked out but the fight continues, or a wound system (ties into permadeath vs wounds).
-- ~~Portrait art style~~ → **FFTA2-style portraits, Final Fantasy-based art** (Cletus, v0.9), done at the art stage. Still open: a pre-made set to pick from vs a builder (face/helm/colours)?
+- ~~Can the main character die?~~ → **Wounds, not permadeath** (Stage 3 #5): a fallen companion is Wounded for the next battle; the hero falling = the battle is lost.
+- ~~Portrait art style~~ → **FFTA2-style portraits, Final Fantasy-based art** (Cletus, v0.9), done at the art stage. → **a pre-made set of 8–12 hero portraits**, no builder (Stage 3 #7); Tancred makes the art.
 
 ### Hero creation as built (v0.6)
 Mockup **B** (wizard) was picked. After the title screen: **Create your hero** (first visit; preselected) or **New hero** (later). The map list stays on the title screen as before.
@@ -493,20 +505,20 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 - Hero portraits: 8 simple SVG busts marked PLACEHOLDER. Companion portraits (`assets/companions/`) are placeholders too.
 - **Art direction (decided by Cletus, v0.9; to do at the art stage):** heavily based on **Final Fantasy** art; **portraits in the style of FFTA2's portraits**. No art changes until then (ROADMAP Stage 4).
 - All art: procedural canvas shapes (shaded iso blocks, simple figures with team colors, Templar red cross on tunic/shield). No sound.
-- Hand-made maps, fixed deployment per map, two abilities per class only (no jobs/secondary sets), no items, no XP.
-- Raider faction is a generic stand-in. Names are generic.
+- Hand-made maps, fixed deployment per map, two abilities per class only (no branches/secondary sets yet), no items, no XP (all coming in the slice, Stage 3 #3 and #5).
+- Raider faction is a generic stand-in. Names are generic. Story premise: still to be written (Stage 3 #10).
 - AI is a one-ply greedy scorer.
 
 ## Open questions
 - ~~Squad building~~ → replaced by one created hero + set companions (see Main character & party). Companion origins (Frankish knights, local Turcopoles, Armenian/Syriac allies?) remain a story question.
-- Trade-off upgrades: armor weight ⇄ MOV/JUMP, shield ⇄ side-hit protection, banners that grant flank bonuses to nearby allies?
+- Trade-off upgrades → Stage 3 #5: gear is **mostly stats**; **rare gear** teaches abilities or gives a perk with a trade-off (armor weight ⇄ MOV/JUMP, banners, etc. are candidates).
 - Should facing protect more (e.g. shields block some front damage) to make flanking even more decisive?
 - Reactions/zones of control vs. keeping turns snappy (pillar 1). v0.4 answer: only Brace, set on your own turn and resolved automatically. Should more reactions follow this pattern?
 - ~~Abilities: keep cooldowns, or move to MP?~~ Decided v0.13: no cooldowns, built-in drawbacks only; magic + MP later (parked). Should Shield Wall cover also cancel flank bonuses (it doesn't now)? Should shoves/pulls into a brace zone trigger it (they don't now)?
 - Per-playthrough variety: procedural maps? random events? relic draft?
-- Mythology layer: relics, saints' legends, djinn/desert folklore — when and how much?
-- Permadeath or wounds?
+- ~~Mythology layer — when and how much?~~ → central from the start (Stage 3 #10).
+- ~~Permadeath or wounds?~~ → wounds (Stage 3 #5).
 - Should waiting (CT −60) be more visible as a tactic?
-- Controls: keep the FFTA2 menu structure as abilities arrive (Action → job set / secondary set)? Is the end-of-turn facing step worth its press (see pillar-1 tension above)?
+- Controls: keep the FFTA2 menu structure as abilities arrive (Action → class set / borrowed secondary set, Stage 3 #3)? Is the end-of-turn facing step worth its press (see pillar-1 tension above)?
 - Add L/R-style "next/previous unit" buttons, or are turn-order chips enough?
 - Terrain beyond movement (cover, high ground for defense, water/marsh)?
