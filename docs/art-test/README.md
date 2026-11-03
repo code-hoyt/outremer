@@ -44,3 +44,15 @@ Files: `renaud-portrait-hires.png` plus `-96x128` and `-64x90` (white background
 - Sprite a (rejected, about 5 heads tall; renaud-full.png as reference): "single pixel-art isometric battle sprite, chibi 2.5-3 heads, three-quarter front facing down-left, 1 px dark outline, ~3 shades per material, white surcoat with red cross, kite shield, longsword, 8x nearest-neighbour, flat magenta background."
 - Sprite front (pick; sprite a as reference): "super-deformed CHIBI, only 2.5 heads tall, oversized head ~40% of height, grey spiky hair, tiny dot eyes, stubby body, chunky boots; same surcoat, shield, sword; facing down-left; 1 px outline, 3 shades per color; magenta background."
 - Sprite back (front as reference): "the exact same chibi sprite seen from behind, three-quarter back view facing up-left; magenta background."
+
+# Round 5 (v5/) — style test only (Renaud, building on round 4)
+
+5 generations. The `?art=test` build now uses the v5 assets; the default build is unchanged. The comparison sheet is `v5/compare.png` (top row round 4, bottom row round 5: portrait, front sprite, back sprite, 32px sprite).
+
+**Post-processing (code):** the magenta or white background is removed; images are downscaled with Lanczos; the palette is reduced with median-cut (20 colors for the 128px sprite, 16 at 32px, 24 for the portraits); and a crisp 1px dark-brown (#341E14) outline is added around the silhouette.
+
+- Portrait a (rejected; round 4 portrait as reference, so it stayed realistic with an oval cut): "DS tactics RPG dialogue portrait, strongly stylized anime: big bright almond eyes, tiny nose, slim pointed jaw; grey hair, simple stubble strokes; flat chainmail bands; rectangular crop, no oval; 3 tone bands; white background."
+- Portrait b (no reference; this is what broke the realism): "Anime JRPG dialogue portrait in the style of Final Fantasy Tactics A2 / DS-era Square Enix portraits: youthful bishounen face, very large glossy almond eyes, tiny nose, very slim V jaw; veteran Templar, spiky silver-grey hair with anime highlights, faint stubble, stern brow, kind smile; white surcoat with bold red cross, chainmail coif as flat grey diamond pattern; rectangular framing edge to edge; thin dark-brown outline, 3-tone cel shading; white background."
+- Portrait c (pick; b as reference): "edit: add clearly visible grey stubble along jaw, chin and lip, a small cheek scar, heavier brows, faint under-eye lines so he reads in his forties; keep the big anime eyes and slim jaw; one red cross centered."
+- Sprite front (pick; round 4 front as reference): "same chibi sprite and proportions, but an older veteran: grey stubble, furrowed brow, age lines, narrower eyes; simplified: flat color areas, plain chainmail, one belt, plain shield; thick dark-brown outline, 3 shades per material; magenta background."
+- Sprite back (pick; v5 front as reference): "exact same sprite seen from behind, three-quarter back view facing up-left; magenta background."
