@@ -8,17 +8,20 @@
 - **Other single- or few-frame poses:** taking damage (front and back), dodge or guard, critical (low-HP kneel), dead, jump up and down, charging or casting (looped), cast execute, plus special per-ability animations.
 - **Size:** DS sprite cells are about 32–36 px, and the figure is about 28–32 px tall (2.5–3 heads) on a tile diamond about 32 px wide. The unit is about 1 tile wide and 2 tile-heights tall.
 
-## Our spec
-Cell: **176×128 px** at master size, with the feet 2 px above the bottom edge and the body centered horizontally. It's drawn in game at about 58 base px tall (tile width is 64 base px). Rows: 0 = front (down-left), 1 = back (up-left). Down-right and up-right are mirrors.
+## Our spec (round 7)
+Cell: **176×128 px** at master size, feet on the bottom row (outline at y = 127), head centred at x = 88. Drawn in game at `CONFIG.artTest.drawHeightPx` (58) base px tall (tile width is 64 base px). Rows: 0 = front (down-left), 1 = back (up-left). Down-right and up-right are mirrors. Everything below is in `CONFIG.artTest`.
 
-| Anim | Frames (cols) | Timing | When |
-|---|---|---|---|
-| stand | 0 | held | the unit's own turn (menu open, choosing) |
-| idle walk-in-place | 1, 0, 2, 0 | 210 ms each | everyone not acting |
-| walk (moving) | 1, 2 | 130 ms each | while moving along a path |
-| attack | 3 (wind-up), 4 (swing) | 200 ms, then 320 ms | when attacking; **the weapon exists only in these frames** |
-| hurt / guard / KO / cast | (planned) one frame each | 300 ms or held | later: hit flash for now, fade on KO |
+| Col | Frame | Use |
+|---|---|---|
+| 0 | stand | the unit's own turn (menu open, choosing), held |
+| 1 | stepL | walk: left foot forward, right arm forward |
+| 2 | pass | walk: feet together under the hem, arms half-swung |
+| 3 | stepR | walk: right foot forward, left arm forward |
+| 4 | windup | attack, 200 ms (`windupMs`) — **empty-handed** |
+| 5 | swing | attack, held until 520 ms (`attackMs`) — **empty-handed** |
 
-- Shields are stowed (not drawn) when idle or walking, and could appear in a future guard frame.
-- The weapon is baked into the attack frames for now. A separate weapon overlay layer (FFT-style, one set of swing frames per weapon type) is the scalable version once there's gear.
-- Each frame gets a palette reduction (about 20 colors) and a 1 px #341E14 outline.
+- **Walk / idle:** `walk = [1, 2, 3, 2]` (left, pass, right, pass). Idle walk-in-place at 210 ms per frame (`idleFrameMs`); moving along a path at 130 ms (`moveFrameMs`). Every frame is a full step: the left and right steps differ in which leg is forward, so the loop reads as walking in place, FFTA2-style.
+- **Weapon layer (decision, round 7):** body frames never contain a weapon. Each attack frame records a **hand anchor** `hand[facing][frame] = [x, y, angleDeg]` (cell px, unmirrored art space, angle 0 = weapon pointing up, + = clockwise). A weapon sprite has a **grip point**; in game it is drawn with the grip on the anchor, rotated by the angle, inside the body's mirror transform. One body animation therefore works with any weapon sprite (FFT-style). Today there is one placeholder, `weapons.sword`. Later: per-weapon-type sprites (sword, spear, bow…) and possibly per-frame weapon poses; anchors for guard/cast frames when those exist.
+- Shields are stowed (not drawn) when idle or walking, and could appear in a future guard frame as another layer.
+- Planned single frames: hurt, guard, KO, cast (hit flash and fade for now).
+- Each frame: shared ~20-colour palette and a 1 px #341E14 outline.

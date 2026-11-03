@@ -419,6 +419,30 @@ export const CONFIG = {
     // AI picks its own end-of-turn facing: toward the nearest foe
   },
 
+  // ---------------------------------------------------------------- ?art=test battle sprite (Renaud only)
+  // Sheet: 6 cols x 2 rows of 176x128 cells (row 0 front, row 1 back; art faces left, mirrored in game).
+  // Body frames are empty-handed; weapons are their own sprites drawn at the hand anchor during attacks.
+  artTest: {
+    sheet: 'assets/art-test/renaud-sheet.png',
+    cell: [176, 128],
+    drawHeightPx: 58,          // drawn figure height at scale 1 (tile width 64)
+    cols: ['stand', 'stepL', 'pass', 'stepR', 'windup', 'swing'],
+    frames: { stand: 0, stepL: 1, pass: 2, stepR: 3, windup: 4, swing: 5 },
+    walk: [1, 2, 3, 2],        // left foot, pass, right foot, pass (idle walk-in-place and moving)
+    idleFrameMs: 210,          // idle walk-in-place, per frame
+    moveFrameMs: 130,          // walking along a path, per frame
+    windupMs: 200,             // attack: wind-up frame, then swing held until attackMs
+    attackMs: 520,
+    // hand anchor per facing per attack frame: [x, y, angleDeg] in cell px (unmirrored art space);
+    // angle 0 = weapon pointing straight up, + = clockwise. The weapon's grip point lands on [x, y].
+    hand: {
+      front: { windup: [111, 25, 35], swing: [37, 66, -105] },
+      back: { windup: [111, 32, 25], swing: [33, 64, -100] },
+    },
+    weapons: { sword: { src: 'assets/art-test/weapon-sword.png', grip: [6, 49] } }, // grip = px in the weapon sprite
+    placeholderWeapon: 'sword',
+  },
+
   // ---------------------------------------------------------------- presentation
   view: {
     tileHeightPx: 16,        // vertical px per height level (at scale 1, tile width 64)

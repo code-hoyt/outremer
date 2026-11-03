@@ -1,0 +1,54 @@
+{
+ "cell": [
+  176,
+  128
+ ],
+ "rows": [
+  "front",
+  "back"
+ ],
+ "cols": [
+  "stand",
+  "stepL",
+  "pass",
+  "stepR",
+  "windup",
+  "swing"
+ ],
+ "hand": {
+  "front": {
+   "windup": [
+    111,
+    25,
+    35
+   ],
+   "swing": [
+    37,
+    66,
+    -105
+   ]
+  },
+  "back": {
+   "windup": [
+    111,
+    32,
+    25
+   ],
+   "swing": [
+    33,
+    64,
+    -100
+   ]
+  }
+ },
+ "weapon": {
+  "sword": {
+   "src": "weapon-sword.png",
+   "grip": [
+    6,
+    49
+   ]
+  }
+ },
+ "note": "hand = [x, y, angleDeg] in unmirrored cell px (art faces left); angle 0 = blade straight up, + = clockwise. Weapon sprite grip point is placed on the hand."
+}

@@ -348,18 +348,33 @@ function unitScreenPos(u, now) {
 }
 
 // ?art=test — style-test sprite sheet for Renaud only; default build unchanged.
-// Sheet: 5 cols x 2 rows of 176x128 cells (row 0 front, row 1 back): stand, walk1, walk2, atk1, atk2.
+// Sheet + timings + hand anchors: CONFIG.artTest (cols: stand, stepL, pass, stepR, windup, swing; row 0 front, row 1 back).
+// Body frames are always empty-handed; during an attack the weapon sprite is drawn at the frame's hand anchor.
+const AT = CONFIG.artTest;
 const ART_TEST = typeof location !== 'undefined' && /[?&]art=test\b/.test(location.search) ? (() => {
-  const img = new Image(); img.src = 'assets/art-test/renaud-sheet.png'; return { img, atk: new Map() };
+  const img = new Image(); img.src = AT.sheet;
+  const weapons = {};
+  for (const [id, w] of Object.entries(AT.weapons)) { const wi = new Image(); wi.src = w.src; weapons[id] = { img: wi, grip: w.grip }; }
+  return { img, weapons, atk: new Map(), force: new Map() };
 })() : null;
-const ART_IDLE = [1, 0, 2, 0]; // walk-in-place loop (FFT-style ping-pong through the stand frame)
 function artFrame(u, a, now, isActive) {
+  const F = AT.frames;
+  if (ART_TEST.force.has(u.id)) return ART_TEST.force.get(u.id); // test hook: hold one frame
   if (a && a.type === 'lunge' && ART_TEST.atk.get(u.id) !== a.t0) ART_TEST.atk.set(u.id, a.t0);
   const at = ART_TEST.atk.get(u.id);
-  if (at != null && now - at < 520) return now - at < 200 ? 3 : 4;   // wind-up, then swing (held)
-  if (a && a.type === 'move') return 1 + (Math.floor(now / 130) % 2);  // walking
-  if (isActive) return 0;                                             // standing frame on his turn
-  return ART_IDLE[Math.floor(now / 210) % 4];                         // idle walk-in-place
+  if (at != null && now - at < AT.attackMs) return now - at < AT.windupMs ? F.windup : F.swing; // wind-up, then swing (held)
+  if (a && a.type === 'move') return AT.walk[Math.floor(now / AT.moveFrameMs) % AT.walk.length]; // walking along a path
+  if (isActive) return F.stand;                                                                   // standing frame on his turn
+  return AT.walk[Math.floor(now / AT.idleFrameMs) % AT.walk.length];                             // idle walk-in-place
+}
+// Weapon layer: draw weapon `id` gripped at the hand anchor of frame f (cell px, unmirrored art space).
+function drawArtWeapon(f, back, id, sc, ox, oy) {
+  const name = AT.cols[f], hand = AT.hand[back ? 'back' : 'front'][name], w = ART_TEST.weapons[id];
+  if (!hand || !w || !w.img.complete || !w.img.naturalWidth) return;
+  ctx.save();
+  ctx.translate(ox + hand[0] * sc, oy + hand[1] * sc); ctx.rotate(hand[2] * Math.PI / 180); ctx.scale(sc, sc);
+  ctx.drawImage(w.img, -w.grip[0], -w.grip[1]);
+  ctx.restore();
 }
 function drawUnit(u, now) {
   const { k } = layout;
@@ -393,9 +408,11 @@ function drawUnit(u, now) {
   ctx.scale(k * flip, k);
   const artOn = ART_TEST && u.companion === 'renaud' && ART_TEST.img.complete && ART_TEST.img.naturalWidth;
   if (artOn) { // ?art=test: sheet sprite (art faces left, so mirror)
-    const f = artFrame(u, a, now, isActive), sc = 58 / 120;
+    const f = artFrame(u, a, now, isActive), sc = AT.drawHeightPx / 120, [cw, ch] = AT.cell;
+    const ox = -cw / 2 * sc, oy = -126 * sc + 3;
     ctx.save(); ctx.scale(-1, 1);
-    ctx.drawImage(ART_TEST.img, f * 176, back ? 128 : 0, 176, 128, -88 * sc, -126 * sc + 3, 176 * sc, 128 * sc);
+    ctx.drawImage(ART_TEST.img, f * cw, back ? ch : 0, cw, ch, ox, oy, cw * sc, ch * sc);
+    if (f === AT.frames.windup || f === AT.frames.swing) drawArtWeapon(f, back, AT.placeholderWeapon, sc, ox, oy);
     ctx.restore();
   } else {
   // legs
@@ -1253,5 +1270,6 @@ window.__outremer = {
   forceWin() { if (S.over) return false; for (const u of S.units) if (u.team === 'enemy') u.hp = 0; G.checkOver(S); finish(); return S.over; },
   // ... and a defeat: your whole squad falls (Retry / Back to board)
   forceLose() { if (S.over) return false; for (const u of S.units) if (u.team === 'player' && !u.npc) u.hp = 0; G.checkOver(S); finish(); return S.over; },
+  artForce(id, f) { if (ART_TEST) { if (f == null) ART_TEST.force.delete(id); else ART_TEST.force.set(id, f); } }, // ?art=test: hold a sheet frame (tests)
   G, CONFIG,
 };
