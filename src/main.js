@@ -347,10 +347,20 @@ function unitScreenPos(u, now) {
   return { x: p.x + ox, y: p.y + oy, depth: fx + fy };
 }
 
-// ?art=test — style-test sprite for Renaud only; default build unchanged.
+// ?art=test — style-test sprite sheet for Renaud only; default build unchanged.
+// Sheet: 5 cols x 2 rows of 176x128 cells (row 0 front, row 1 back): stand, walk1, walk2, atk1, atk2.
 const ART_TEST = typeof location !== 'undefined' && /[?&]art=test\b/.test(location.search) ? (() => {
-  const f = new Image(), b = new Image(); f.src = 'assets/art-test/renaud-sprite-front-128.png'; b.src = 'assets/art-test/renaud-sprite-back-128.png'; return { f, b };
+  const img = new Image(); img.src = 'assets/art-test/renaud-sheet.png'; return { img, atk: new Map() };
 })() : null;
+const ART_IDLE = [1, 0, 2, 0]; // walk-in-place loop (FFT-style ping-pong through the stand frame)
+function artFrame(u, a, now, isActive) {
+  if (a && a.type === 'lunge' && ART_TEST.atk.get(u.id) !== a.t0) ART_TEST.atk.set(u.id, a.t0);
+  const at = ART_TEST.atk.get(u.id);
+  if (at != null && now - at < 520) return now - at < 200 ? 3 : 4;   // wind-up, then swing (held)
+  if (a && a.type === 'move') return 1 + (Math.floor(now / 130) % 2);  // walking
+  if (isActive) return 0;                                             // standing frame on his turn
+  return ART_IDLE[Math.floor(now / 210) % 4];                         // idle walk-in-place
+}
 function drawUnit(u, now) {
   const { k } = layout;
   const pos = unitScreenPos(u, now);
@@ -381,10 +391,12 @@ function drawUnit(u, now) {
 
   ctx.translate(x, y - 2 * k + bob);
   ctx.scale(k * flip, k);
-  const artImg = ART_TEST && u.companion === 'renaud' ? (back ? ART_TEST.b : ART_TEST.f) : null;
-  if (artImg && artImg.complete && artImg.naturalWidth) { // ?art=test: painted sprite (art faces left, so mirror)
-    const H = 58, W = H * artImg.naturalWidth / artImg.naturalHeight;
-    ctx.save(); ctx.scale(-1, 1); ctx.drawImage(artImg, -W / 2, -H + 3, W, H); ctx.restore();
+  const artOn = ART_TEST && u.companion === 'renaud' && ART_TEST.img.complete && ART_TEST.img.naturalWidth;
+  if (artOn) { // ?art=test: sheet sprite (art faces left, so mirror)
+    const f = artFrame(u, a, now, isActive), sc = 58 / 120;
+    ctx.save(); ctx.scale(-1, 1);
+    ctx.drawImage(ART_TEST.img, f * 176, back ? 128 : 0, 176, 128, -88 * sc, -126 * sc + 3, 176 * sc, 128 * sc);
+    ctx.restore();
   } else {
   // legs
   ctx.fillStyle = '#2b2420';

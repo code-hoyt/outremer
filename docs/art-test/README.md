@@ -56,3 +56,14 @@ Files: `renaud-portrait-hires.png` plus `-96x128` and `-64x90` (white background
 - Portrait c (pick; b as reference): "edit: add clearly visible grey stubble along jaw, chin and lip, a small cheek scar, heavier brows, faint under-eye lines so he reads in his forties; keep the big anime eyes and slim jaw; one red cross centered."
 - Sprite front (pick; round 4 front as reference): "same chibi sprite and proportions, but an older veteran: grey stubble, furrowed brow, age lines, narrower eyes; simplified: flat color areas, plain chainmail, one belt, plain shield; thick dark-brown outline, 3 shades per material; magenta background."
 - Sprite back (pick; v5 front as reference): "exact same sprite seen from behind, three-quarter back view facing up-left; magenta background."
+
+# Round 6 (v6/) — animated sprite test (Renaud)
+
+The spec is in `ffta2-sprite-anim-notes.md`. Renaud is unarmed when idle or walking, with no shield. The sword exists only in the attack frames. 3 generations.
+
+- **Generated:** 10 poses in total. Front sheet (1 call): stand, walk1, walk2, attack wind-up, attack swing. Back sheet (2 calls): the first call got the stand right but drew poses 3–5 from the front, so a second "back-only" call produced walk1, walk2, wind-up and swing.
+- **Done in code:** slicing by transparent columns; a common scale per facing (stand = 120 px); feet aligned at the bottom and the body centered (lower-body center of mass); 20-color palette and 1 px #341E14 outline; packing into `renaud-sheet.png` (5×2 cells of 176×128); mirroring for the other facings; frame selection and timing in `src/main.js`, `?art=test` only.
+- **In game (`?art=test`):** idle loops walk1/stand/walk2/stand at 210 ms; moving uses walk1/walk2 at 130 ms; his own turn shows the stand frame; attacking shows the wind-up for 200 ms, then holds the swing until 520 ms.
+- Preview: `renaud-anim.gif` (3×) and `sheet.png`.
+
+Prompts: front sheet, with the v5 front sprite as reference: "pixel-art sprite sheet of this exact same chibi Templar knight…ONE horizontal row of 5 poses, magenta background: 1) standing still, UNARMED, no shield; 2) walking-in-place step, left foot forward; 3) right foot forward; 4) attack wind-up, sword raised; 5) attack swing." Back sheet: the same, but "every pose seen from BEHIND, three-quarter back view facing up-left". The back retry: "ONE row of 4 poses, ONLY FROM BEHIND, NO face visible: walk L, walk R, wind-up from behind, swing from behind."
