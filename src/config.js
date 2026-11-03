@@ -428,7 +428,7 @@ export const CONFIG = {
     drawHeightPx: 58,          // drawn figure height at scale 1 (tile width 64)
     cols: ['stand', 'stepL', 'pass', 'stepR', 'windup', 'swing'],
     frames: { stand: 0, stepL: 1, pass: 2, stepR: 3, windup: 4, swing: 5 },
-    walk: [1, 2, 3, 2],        // left foot, pass, right foot, pass (idle walk-in-place and moving)
+    walk: [1, 3],              // 2-frame walk: stepL, stepR (rd2: Retro Diffusion from our stand frame); pass col unused
     idleFrameMs: 210,          // idle walk-in-place, per frame
     moveFrameMs: 130,          // walking along a path, per frame
     windupMs: 200,             // attack: wind-up frame, then swing held until attackMs

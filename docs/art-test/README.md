@@ -79,3 +79,13 @@ Cletus on round 6: each walk frame must be a full step, left foot then right foo
 - **Post-processing:** magenta keyed by chroma; premultiplied Lanczos downscale (front stand = 120 px tall, back stand = 118); one shared 19-colour median-cut palette for all 12 frames + the #341E14 1 px outline = 20 colours; specks removed and pinholes filled.
 - **Known rough spots:** the `stand` frame and the attack frames are separate generations, so the face is redrawn slightly differently from the walk frames (stand is only held on his turn, so it doesn't flicker). The derived step's hem edge where the old boot was has a few stray pixels. The front wind-up has the fists apart (cheer pose) rather than together on a hilt; the anchor uses the rear fist.
 - Previews: `v7/sheet.png` (labelled, anchors marked), `v7/renaud-walk.gif` (3×, front and back), `v7/ingame-zoom.png` (iPhone 13, every frame forced in game, weapons drawn at the anchors).
+
+# Round 8 (rd2/) — 2-frame walk made with Retro Diffusion (Renaud)
+
+Cletus picked the Retro Diffusion walk (`rd2/walk-2frame.gif`) as the walk.
+
+- **Walk = 2 frames:** `stepL, stepR` (`artTest.walk = [1, 3]`), 210 ms idle / 130 ms moving. His own turn still shows the round 7 `stand`; the empty-handed attacks and the hand anchors are unchanged. The `pass` column (2) stays in the sheet but is no longer used.
+- **How:** Retro Diffusion API, `rd_advanced_animation__walking` (8 frames, `remove_bg`, our 20-colour palette as `input_palette`). The input was our round 7 stand frame, front and back. From each 8-frame walk we picked frames 7 and 2 (front stepL/stepR; back is the other way round). Cleanup in code: snap to the palette, flood-fill away the halo and dust, keep the largest blob, align on the head centre with the feet on one baseline.
+- **In the sheet:** the frames go in 1:1 (same source scale as the stand, about 122–125 px tall; the game draws every cell at 58 px). Feet sit on the stand's ground row (cell y 127) and the head centre matches the stand's, so he doesn't jump between stand and walk.
+- **Known:** the two RD frames have slightly different body angles (a small swivel between steps). A hybrid with one shared body was tried and rejected: it lost the arm swing.
+- Files: `rd2/walk-2frame.gif` (3x preview), `rd2/renaud-sheet.png`, `rd2/ingame-zoom.png` (iPhone 13, front then back: stand, stepL, stepR).
