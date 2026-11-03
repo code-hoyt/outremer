@@ -20,7 +20,7 @@ Cell: **176×128 px** at master size, feet on the bottom row (outline at y = 127
 | 4 | windup | attack, 200 ms (`windupMs`) — **empty-handed** |
 | 5 | swing | attack, held until 520 ms (`attackMs`) — **empty-handed** |
 
-- **Walk / idle:** `walk = [1, 3]` (stepL, stepR; 2 frames, Retro Diffusion rd2, see `README.md`). Idle walk-in-place at 210 ms per frame (`idleFrameMs`); moving along a path at 130 ms (`moveFrameMs`). The two frames differ in which leg is forward, so the loop reads as walking in place, FFTA2-style.
+- **Walk / idle:** `walk = [1, 3]` (stepL, stepR; 2 frames, Retro Diffusion rd2, see `README.md`). Idle walk-in-place at 410 ms per frame (`idleFrameMs`); moving along a path at 170 ms (`moveFrameMs`), with 340 ms per tile (`view.moveStepMs`). Timing measured from FFTA2 footage, see `ffta2-timing.md`. The two frames differ in which leg is forward, so the loop reads as walking in place, FFTA2-style.
 - **Weapon layer (decision, round 7):** body frames never contain a weapon. Each attack frame records a **hand anchor** `hand[facing][frame] = [x, y, angleDeg]` (cell px, unmirrored art space, angle 0 = weapon pointing up, + = clockwise). A weapon sprite has a **grip point**; in game it is drawn with the grip on the anchor, rotated by the angle, inside the body's mirror transform. One body animation therefore works with any weapon sprite (FFT-style). Today there is one placeholder, `weapons.sword`. Later: per-weapon-type sprites (sword, spear, bow…) and possibly per-frame weapon poses; anchors for guard/cast frames when those exist.
 - Shields are stowed (not drawn) when idle or walking, and could appear in a future guard frame as another layer.
 - Planned single frames: hurt, guard, KO, cast (hit flash and fade for now).

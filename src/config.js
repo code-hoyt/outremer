@@ -429,8 +429,8 @@ export const CONFIG = {
     cols: ['stand', 'stepL', 'pass', 'stepR', 'windup', 'swing'],
     frames: { stand: 0, stepL: 1, pass: 2, stepR: 3, windup: 4, swing: 5 },
     walk: [1, 3],              // 2-frame walk: stepL, stepR (rd2: Retro Diffusion from our stand frame); pass col unused
-    idleFrameMs: 210,          // idle walk-in-place, per frame
-    moveFrameMs: 130,          // walking along a path, per frame
+    idleFrameMs: 410,          // idle walk-in-place, per frame. Measured from FFTA2 footage: a new step pose every ~410 ms (long hold ~275 ms + in-between ~135 ms); see docs/art-test/ffta2-timing.md
+    moveFrameMs: 170,          // walking along a path, per frame: one stepL+stepR stride per tile (2 x 170 = moveStepMs)
     windupMs: 200,             // attack: wind-up frame, then swing held until attackMs
     attackMs: 520,
     // hand anchor per facing per attack frame: [x, y, angleDeg] in cell px (unmirrored art space);
@@ -452,7 +452,7 @@ export const CONFIG = {
     zoomBelowWidthPx: 520,   // only zoom/pan on narrow (phone) stages
     camFollow: 0.15,         // camera easing toward the cursor per frame
     dragThresholdPx: 12,     // movement before a touch counts as a pan instead of a tap
-    moveStepMs: 140,         // per tile of movement
+    moveStepMs: 340,         // per tile of movement (all units). FFTA2 footage: ~0.35-0.45 s per tile incl. stairs; see docs/art-test/ffta2-timing.md
     attackLungeMs: 220,
     damageFloatMs: 900,
     damageFloatRisePx: 34,

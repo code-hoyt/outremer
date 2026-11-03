@@ -89,3 +89,8 @@ Cletus picked the Retro Diffusion walk (`rd2/walk-2frame.gif`) as the walk.
 - **In the sheet:** the frames go in 1:1 (same source scale as the stand, about 122–125 px tall; the game draws every cell at 58 px). Feet sit on the stand's ground row (cell y 127) and the head centre matches the stand's, so he doesn't jump between stand and walk.
 - **Known:** the two RD frames have slightly different body angles (a small swivel between steps). A hybrid with one shared body was tried and rejected: it lost the arm swing.
 - Files: `rd2/walk-2frame.gif` (3x preview), `rd2/renaud-sheet.png`, `rd2/ingame-zoom.png` (iPhone 13, front then back: stand, stepL, stepR).
+
+## Round 9: FFTA2 timing
+
+- Owner said the walk and the tile-to-tile movement were a little fast. FFTA2 timing measured from gameplay footage is in `ffta2-timing.md`.
+- Idle walk-in-place is now **410 ms** per frame (was 210). The moving walk is **170 ms** per frame (was 130). Movement is **340 ms per tile** for all units (`view.moveStepMs`, was 140).
