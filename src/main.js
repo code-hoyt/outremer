@@ -353,9 +353,10 @@ function unitScreenPos(u, now) {
 const AT = CONFIG.artTest;
 const ART_TEST = typeof location !== 'undefined' && /[?&]art=test\b/.test(location.search) ? (() => {
   const img = new Image(); img.src = AT.sheet;
+  const nat = AT.native ? Object.assign(new Image(), { src: AT.native.sheet }) : null; // native-res pixel sheet
   const weapons = {};
   for (const [id, w] of Object.entries(AT.weapons)) { const wi = new Image(); wi.src = w.src; weapons[id] = { img: wi, grip: w.grip }; }
-  return { img, weapons, atk: new Map(), force: new Map() };
+  return { img, nat, weapons, atk: new Map(), force: new Map() };
 })() : null;
 function artFrame(u, a, now, isActive) {
   const F = AT.frames;
@@ -404,11 +405,24 @@ function drawUnit(u, now) {
   ctx.closePath(); ctx.fillStyle = u.team === 'player' ? '#ffffff' : '#f0cf72'; ctx.globalAlpha = alpha * 0.85; ctx.fill();
   ctx.globalAlpha = alpha;
 
+  const m0 = ctx.getTransform(); // CSS px -> device px (dpr), before the unit's own transform
   ctx.translate(x, y - 2 * k + bob);
   ctx.scale(k * flip, k);
   const artOn = ART_TEST && u.companion === 'renaud' && ART_TEST.img.complete && ART_TEST.img.naturalWidth;
-  if (artOn) { // ?art=test: sheet sprite (art faces left, so mirror)
-    const f = artFrame(u, a, now, isActive), sc = AT.drawHeightPx / 120, [cw, ch] = AT.cell;
+  const artF = artOn ? artFrame(u, a, now, isActive) : -1;
+  const N = AT.native, natCol = artOn && N && ART_TEST.nat && ART_TEST.nat.complete && ART_TEST.nat.naturalWidth ? N.cols.indexOf(AT.cols[artF]) : -1;
+  if (natCol >= 0) { // ?art=test native pixel sprite: whole device px per art px, snapped to the device grid, no smoothing
+    const s = Math.max(1, Math.round(AT.pixelScale * k * m0.a));
+    const [cw, ch] = N.cell, [ax, ay] = N.anchor;
+    const fy = y + N.footOffsetPx * k;
+    const X = Math.round(m0.a * x + m0.c * fy + m0.e);
+    const Y = Math.round(m0.b * x + m0.d * fy + m0.f) + Math.round(bob * m0.d / s) * s; // bob in whole art px
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, X, Y); ctx.imageSmoothingEnabled = false;
+    if (flip > 0) ctx.scale(-1, 1); // art faces left (same mirroring as the old sheet)
+    ctx.drawImage(ART_TEST.nat, natCol * cw, back ? ch : 0, cw, ch, -ax * s, -ay * s, cw * s, ch * s);
+    ctx.restore();
+  } else if (artOn) { // ?art=test: old sheet sprite (attack frames; art faces left, so mirror)
+    const f = artF, sc = AT.drawHeightPx / 120, [cw, ch] = AT.cell;
     const ox = -cw / 2 * sc, oy = -126 * sc + 3;
     ctx.save(); ctx.scale(-1, 1);
     ctx.drawImage(ART_TEST.img, f * cw, back ? ch : 0, cw, ch, ox, oy, cw * sc, ch * sc);

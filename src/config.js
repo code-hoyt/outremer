@@ -441,6 +441,16 @@ export const CONFIG = {
     },
     weapons: { sword: { src: 'assets/art-test/weapon-sword.png', grip: [6, 49] } }, // grip = px in the weapon sprite
     placeholderWeapon: 'sword',
+    // Native-res pixel sprite (round 10): stand/stepL/stepR hand-placed at ~30 px, drawn at an exact integer
+    // multiple of device pixels with smoothing off. Attack frames (windup/swing) still use the old sheet above.
+    pixelScale: 2,             // art px -> base px (tile width 64); rounded to a whole number of device px per art px
+    native: {
+      sheet: 'assets/art-test/renaud-native.png',
+      cell: [24, 32],          // 3 cols x 2 rows (row 0 front, row 1 back); art faces left, mirrored in game
+      cols: ['stand', 'stepL', 'stepR'],
+      anchor: [11, 31],        // feet point in cell px (pixel boundary), so mirroring stays on the grid
+      footOffsetPx: 1.5,       // feet sit this many base px below the tile point (matches the old sheet)
+    },
   },
 
   // ---------------------------------------------------------------- presentation
