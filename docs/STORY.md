@@ -38,9 +38,15 @@ The working doc for story decisions, written with Cletus. Earlier test character
   - a love interest;
   - someone who switches sides (direction to be decided; suggestion: starts on the wrong side and earns redemption).
 
+## Cast so far (locked 2026-11-09)
+- **Protagonist:** a young Templar knight. He's sceptical, not bitter: he has never seen anything supernatural himself and has quiet doubts nobody answered. The other world finally gives him something to see.
+- **Reunions in order:**
+  1. **The medic (love interest):** starts as a cute, kind medic; the relationship grows over the story.
+  2. **The loyal friend:** hot-headed, but holds strong when it counts.
+  3. **The prodigal son:** from the hero's own side, found having joined the enemy; later returns to the good.
+
 ## Open questions
-- The protagonist: who he is, why he's at the castle, and why a Crusades-era man is a sceptic.
-- The turncoat's direction.
+- Names, backgrounds and classes for each character.
 - The exact period.
 - The protagonist and their arc.
 - The cast.
