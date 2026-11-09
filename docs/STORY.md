@@ -12,8 +12,11 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Demons** are real and play a part.
 - **Saints and angels** are on the side of the light, possibly as summons in combat.
 
+## How real the myth is (locked 2026-11-09)
+- **Open from the start:** the supernatural is an accepted part of the world (relics, blessings, known legends).
+- **Escalation:** the war first looks like a normal one, but strange events build until the true, demonic scale of the threat is revealed.
+
 ## Open questions
-- How real is the myth from the start: slow reveal, rumours first, or open from the start?
 - Setting and time period.
 - The protagonist and their arc.
 - The cast.
