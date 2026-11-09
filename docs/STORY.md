@@ -45,8 +45,14 @@ The working doc for story decisions, written with Cletus. Earlier test character
   2. **The loyal friend:** hot-headed, but holds strong when it counts.
   3. **The prodigal son:** from the hero's own side, found having joined the enemy; later returns to the good.
 
+## Names (locked 2026-11-09)
+- **Tristan:** the young Templar knight (MC).
+- **Aveline:** the medic and love interest.
+- **Godric:** the hot-headed loyal friend.
+- **Lucien:** the prodigal son. **Aveline's brother**, which makes his betrayal hit harder and his return pay off for both of them.
+
 ## Open questions
-- Names, backgrounds and classes for each character.
+- Classes and backstories for each character.
 - The exact period.
 - The protagonist and their arc.
 - The cast.
