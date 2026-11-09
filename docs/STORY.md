@@ -21,8 +21,17 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Two layers:** the real world, and a spiritual side of the same world where the true (demonic) enemies are seen. The story starts in the real world and crosses over as it escalates.
 - **Gameplay idea:** a map's spiritual version could have different terrain, demons in place of soldiers, and saints you can call on.
 
+## Crossing over (locked 2026-11-09)
+- **The tear:** a Satanist cult tears the veil, and it pulls the heroes into the other world early in Act 1 (like the book in FFTA).
+- **Sceptical protagonist:** he doesn't really believe in the supernatural, then lands in a world where it's everyday and is almost in shock. His arc runs from scepticism to conviction.
+
+## Mechanic idea: holy and profane ground (leaning, 2026-11-09)
+- Territory you hold is holy, and enemy territory is profane.
+- Map nodes are worth taking for what they offer (shops, mercenaries, upgrades, saint summons). Winning a node consecrates it; profane nodes favour demons.
+- No extra button press; it comes out of which battles you choose. Different node priorities make each playthrough different.
+
 ## Open questions
-- How people cross into the spiritual side (veil tears, a relic or vision, demons pulling them in, or a mix).
+- Is the party pulled through together or scattered?
 - The exact period.
 - The protagonist and their arc.
 - The cast.
