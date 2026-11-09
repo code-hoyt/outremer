@@ -16,8 +16,14 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Open from the start:** the supernatural is an accepted part of the world (relics, blessings, known legends).
 - **Escalation:** the war first looks like a normal one, but strange events build until the true, demonic scale of the threat is revealed.
 
+## Setting (locked 2026-11-09)
+- **Lightly fictionalised Crusades:** our own characters and smaller towns and castles in the real Crusader states. Real kings and campaigns are heard about in the background, but the story is our own.
+- **Two layers:** the real world, and a spiritual side of the same world where the true (demonic) enemies are seen. The story starts in the real world and crosses over as it escalates.
+- **Gameplay idea:** a map's spiritual version could have different terrain, demons in place of soldiers, and saints you can call on.
+
 ## Open questions
-- Setting and time period.
+- How people cross into the spiritual side (veil tears, a relic or vision, demons pulling them in, or a mix).
+- The exact period.
 - The protagonist and their arc.
 - The cast.
 - The act structure.
