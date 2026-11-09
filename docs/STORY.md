@@ -30,8 +30,17 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - Map nodes are worth taking for what they offer (shops, mercenaries, upgrades, saint summons). Winning a node consecrates it; profane nodes favour demons.
 - No extra button press; it comes out of which battles you choose. Different node priorities make each playthrough different.
 
+## Opening and the scattered squad (locked 2026-11-09)
+- **The squad is scattered** when the veil tears. Finding each other is an early goal.
+- **Opening scene:** the protagonist is pulled through alongside one of the Satanists. Both arrive confused. A demon finds them, the Satanist worships it or panics, and it kills him. That's the hero's crash course in the new world.
+- **His squad (about 3, found later in different places):**
+  - a loyal friend;
+  - a love interest;
+  - someone who switches sides (direction to be decided; suggestion: starts on the wrong side and earns redemption).
+
 ## Open questions
-- Is the party pulled through together or scattered?
+- The protagonist: who he is, why he's at the castle, and why a Crusades-era man is a sceptic.
+- The turncoat's direction.
 - The exact period.
 - The protagonist and their arc.
 - The cast.
