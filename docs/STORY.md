@@ -72,8 +72,8 @@ The working doc for story decisions, written with Cletus. Earlier test character
 
 ## Act structure (DRAFT 2026-11-09, not locked)
 1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a Fiend, joins Dismas's hunters, and answers Aveline's call at the holy stronghold, where the first true Demon is attacking. Ends there, with the map game (consecrating nodes) beginning.
-2. **The Lamp:** Aveline tells Tristan that she, Godric and Lucien saw him fall into the tear and followed. Lucien was taken in a later battle; Godric went after him and she has heard from neither since. Simeon is the opponent from the first (never an ally). The party takes jobs from the Order of the Eighth Day (called Eighth Day), which Aveline already joined. Quests lead into Simeon's forces. Climax: they find Godric facing Vaskar and team up against him. Vaskar is defeated but survives and escapes. Lucien is not shown; he is found in Act 3.
-3. **Two Faces:** Lucien is found (the betrayal is revealed here, perhaps as he rescues the wounded Vaskar). A way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
+2. **The Lamp:** Aveline tells Tristan that she, Godric and Lucien saw him fall into the tear and followed. Lucien was taken in a later battle; Godric went after him and she has heard from neither since. Simeon is the opponent from the first (never an ally). The party takes jobs from the Order of the Eighth Day (called Eighth Day), which Aveline already joined. Quests lead into Simeon's forces. Climax: they find Godric facing Vaskar and team up against him. Vaskar is defeated, but a shadowy figure pulls him out and he escapes. The figure is Lucien, though that is not confirmed until Act 3.
+3. **Two Faces:** the shadowy figure who saved Vaskar is revealed to be Lucien. A way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
 4. **Holy Ground:** Lucien returns (the prodigal son). Holy ground spreads. Guérin and Simeon are beaten on both sides of the veil at once. Sulthrane is defeated with saints and angels. They return home and the veil is sealed.
 
 ## Act 1 opening (LOCKED 2026-11-09)
@@ -109,8 +109,8 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **What happened to them:** they fought in a battle, and Lucien was taken. Godric went after him. Aveline has not heard from either since.
 - **Simeon:** always seen as the opponent, never as a false ally. His following is still a counterfeit faith the world must contend with, but the heroes do not trust him.
 - **The act:** the party takes jobs and missions from Eighth Day, which eventually lead to facing more of Simeon's forces.
-- **Climax:** the party runs into Godric facing Vaskar and teams up with him. Vaskar is defeated, but he survives and escapes. Lucien is not at this fight (held for Act 3 so the betrayal is not shown too soon). Godric rejoins the party, and Lucien is still missing.
-- The image of Lucien rescuing Vaskar is reserved for Act 3, when Lucien is found, so that reveal can set up his return in Act 4.
+- **Climax:** the party runs into Godric facing Vaskar and teams up with him. Vaskar is defeated, but a shadowy figure pulls him out and he escapes. The party is left in confusion. The figure is Lucien, but they do not get a clear look: Godric might almost recognize the way he moves, or Aveline might see something familiar and refuse to believe it. The betrayal is not confirmed yet.
+- **Into Act 3:** they catch up to that figure and it is Lucien, so the betrayal lands here and sets up his return in Act 4.
 
 
 ## Open questions
@@ -118,4 +118,4 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - Whether any party member dies for good.
 - Tristan's final faith moment.
 - The exact period.
-- The exact beat in Act 3 for finding Lucien (recommendation: he is the one who gets the wounded Vaskar out, or is already standing with him).
+- The exact scene in Act 3 where the shadowy rescuer is confirmed to be Lucien.
