@@ -234,10 +234,10 @@ body {
   line-height: 1.45;
   text-align: center;
   grid-area: 1 / 1;
-  align-self: center;
+  align-self: start;
   width: 100%;
   margin: 0;
-  /* Both verses share this cell so the card does not resize mid-sequence. */
+  /* Top-aligned in the same cell so the fire-front shares one spatial path. */
 }
 #latin {
   position: relative;
@@ -269,10 +269,10 @@ body {
   color: inherit;
 }
 
-/* Latin: default fully visible. After --hold-ms, each glyph burns in reading order. */
+/* Delays are computed in JS from each glyph's wrapped position (--delay). */
 #latin.play .ch {
-  animation: letter-burn var(--burn-letter-ms, 580ms) linear forwards;
-  animation-delay: calc(var(--hold-ms, 0ms) + var(--i) * var(--burn-stagger-ms, 16ms));
+  animation: letter-burn var(--burn-letter-ms, 540ms) linear forwards;
+  animation-delay: var(--delay, 0ms);
 }
 @keyframes letter-burn {
   0% {
@@ -290,8 +290,8 @@ body {
       0 0 16px rgba(255, 80, 0, 0.85);
     transform: translateY(0);
   }
-  36% {
-    opacity: 0.85;
+  32% {
+    opacity: 0.7;
     color: #2a0c00;
     text-shadow: 0 0 4px #4a1808;
     transform: translateY(-2px);
@@ -300,35 +300,41 @@ body {
     opacity: 0;
     color: #1a0a00;
     text-shadow: none;
-    transform: translateY(-8px);
+    transform: translateY(-7px);
   }
 }
 
-/* English: letters occupy space from the start (opacity 0) so layout is reserved.
-   Fade begins only after the Latin wave and the pause. */
+/* English occupies space from the start (opacity 0) so the card does not resize.
+   Each glyph ignites just behind the front, cooling from ember to ink. */
 #english .ch {
   opacity: 0;
 }
 #english.play .ch {
-  animation: letter-fade var(--fade-letter-ms, 500ms) ease-out forwards;
-  animation-delay: calc(
-    var(--hold-ms, 0ms)
-    + var(--burn-wave-ms, 0ms)
-    + var(--pause-ms, 0ms)
-    + var(--i) * var(--fade-stagger-ms, 13ms)
-  );
+  animation: letter-ignite var(--ignite-letter-ms, 580ms) ease-out forwards;
+  animation-delay: var(--delay, 0ms);
 }
-@keyframes letter-fade {
+@keyframes letter-ignite {
   0% {
     opacity: 0;
-    color: #ffd89a;
-    text-shadow: 0 0 8px rgba(255, 180, 80, 0.65);
-    transform: translateY(4px);
+    color: var(--ember-core);
+    text-shadow:
+      0 0 4px var(--ember),
+      0 0 10px var(--ember-hot),
+      0 0 16px rgba(255, 80, 0, 0.85);
+    transform: translateY(2px);
   }
-  50% {
+  18% {
+    opacity: 1;
+    color: #fff4c8;
+    text-shadow:
+      0 0 5px var(--ember),
+      0 0 12px var(--ember-hot);
+    transform: translateY(0);
+  }
+  52% {
     opacity: 1;
     color: #ffe7c0;
-    text-shadow: 0 0 8px rgba(255, 200, 120, 0.4);
+    text-shadow: 0 0 6px rgba(255, 180, 80, 0.35);
     transform: translateY(0);
   }
   100% {

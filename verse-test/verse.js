@@ -1,25 +1,20 @@
 /* Outremer scripture burn feel-test.
-   Latin letters burn away one glyph at a time (CSS animation-delay),
-   then the KJV English fades in one letter at a time. All timings
-   live in CONFIG; the speed slider divides every duration and stagger. */
+   One spatial fire-front: Latin burns away into English. Delays are
+   computed once from each glyph's wrapped position and applied as CSS
+   animation-delay. The speed slider divides every duration. */
 
 const CONFIG = {
   // Timing at speed 1 (milliseconds)
-  holdLatinMs: 1700,       // Latin sits fully visible before the burn
-  burnLetterMs: 580,       // one glyph: flare → char → drift away
-  burnStaggerMs: 16,       // delay between letters; scaled to the wave window
-  pauseBetweenMs: 380,     // beat of ash after the last Latin letter
-  fadeLetterMs: 500,       // one English glyph: glow in and settle
-  fadeStaggerMs: 13,       // delay between English letters; also scaled
+  holdLatinMs: 1500,       // Latin sits fully visible before the fire starts
+  frontMs: 4000,           // time for the front to travel 0→1; scaled by length
+  frontMinMs: 2600,
+  frontMaxMs: 4500,
+  frontRefGlyphs: 165,     // Ephesians 6:12 Latin glyph count; scale relative to this
+  burnLetterMs: 540,       // one Latin glyph: flare → char → drift away
+  igniteLetterMs: 580,     // one English glyph: ember-hot → cool to ink
+  englishLagMs: 90,        // English is born from the embers, just after the front
   lingerEnglishMs: 4500,   // toast reading hold after the reveal, then auto-hide
   toastFadeOutMs: 900,
-  // Keep the burn/fade waves in these windows after scaling by text length,
-  // so short verses are not sluggish and Eph 6:12 stays around 6–9s total.
-  burnWaveMinMs: 2000,
-  burnWaveMaxMs: 3450,
-  fadeWaveMinMs: 1600,
-  fadeWaveMaxMs: 2700,
-  // Reduced-motion crossfade
   reducedFadeMs: 700,
   // Typography (px). fitVerses() may shrink to minFontPx.
   titleFontPx: 20,
@@ -78,7 +73,7 @@ const els = {};
 let index = CONFIG.startIndex;
 let hideTimer = 0;
 let phaseTimers = [];
-let phase = "idle"; // idle | hold | burn | pause | fade | revealed | hidden
+let phase = "idle"; // idle | hold | sweep | revealed | hidden
 let startedAt = 0;
 let currentTimings = null;
 let reducedMotion = false;
@@ -94,48 +89,37 @@ function glyphCount(text) {
   return n;
 }
 
-function scaleStagger(base, count, letterMs, minWave, maxWave) {
-  if (count <= 1) return base;
-  const natural = (count - 1) * base + letterMs;
-  const wave = Math.min(maxWave, Math.max(minWave, natural));
-  return (wave - letterMs) / (count - 1);
+function frontDuration(nL, nE, s) {
+  const n = Math.max(nL, nE, 1);
+  const scaled = (CONFIG.frontMs / s) * (n / CONFIG.frontRefGlyphs);
+  return Math.min(CONFIG.frontMaxMs / s, Math.max(CONFIG.frontMinMs / s, scaled));
 }
 
 function timingsFor(verse, spd) {
   const s = spd == null ? speed() : spd;
   const hold = CONFIG.holdLatinMs / s;
   const burnLetter = CONFIG.burnLetterMs / s;
-  const fadeLetter = CONFIG.fadeLetterMs / s;
-  const pause = CONFIG.pauseBetweenMs / s;
+  const igniteLetter = CONFIG.igniteLetterMs / s;
+  const lag = CONFIG.englishLagMs / s;
   const linger = CONFIG.lingerEnglishMs / s;
   const toastFade = CONFIG.toastFadeOutMs / s;
   const nL = glyphCount(verse.latin);
   const nE = glyphCount(verse.english);
-  const burnStagger = scaleStagger(
-    CONFIG.burnStaggerMs / s, nL, burnLetter,
-    CONFIG.burnWaveMinMs / s, CONFIG.burnWaveMaxMs / s
-  );
-  const fadeStagger = scaleStagger(
-    CONFIG.fadeStaggerMs / s, nE, fadeLetter,
-    CONFIG.fadeWaveMinMs / s, CONFIG.fadeWaveMaxMs / s
-  );
-  const burnWave = nL <= 1 ? burnLetter : (nL - 1) * burnStagger + burnLetter;
-  const fadeWave = nE <= 1 ? fadeLetter : (nE - 1) * fadeStagger + fadeLetter;
+  const front = frontDuration(nL, nE, s);
   if (reducedMotion) {
     const fade = CONFIG.reducedFadeMs / s;
     return {
       reduced: true, hold, fade, linger, toastFade,
-      burnLetter: 0, burnStagger: 0, burnWave: 0, pause: 0,
-      fadeLetter: fade, fadeStagger: 0, fadeWave: fade,
+      front: 0, burnLetter: 0, igniteLetter: fade, lag: 0,
       total: hold + fade, nL, nE,
     };
   }
+  // Sweep ends when the last English glyph finishes cooling.
+  const total = hold + front + lag + igniteLetter;
   return {
     reduced: false,
-    hold, burnLetter, burnStagger, burnWave, pause,
-    fadeLetter, fadeStagger, fadeWave, linger, toastFade,
-    total: hold + burnWave + pause + fadeWave,
-    nL, nE,
+    hold, front, burnLetter, igniteLetter, lag,
+    linger, toastFade, total, nL, nE,
   };
 }
 
@@ -150,16 +134,17 @@ function escapeHtml(s) {
 }
 
 function wrapLetters(text) {
-  let i = 0;
+  let n = 0;
   const html = text.split(/(\s+)/).map((tok) => {
     if (!tok) return "";
     if (/^\s+$/.test(tok)) return tok;
-    const letters = [...tok].map((ch) =>
-      `<span class="ch" style="--i:${i++}">${escapeHtml(ch)}</span>`
-    ).join("");
+    const letters = [...tok].map((ch) => {
+      n++;
+      return `<span class="ch">${escapeHtml(ch)}</span>`;
+    }).join("");
     return `<span class="word">${letters}</span>`;
   }).join("");
-  return { html, count: i };
+  return { html, count: n };
 }
 
 function currentVerse() {
@@ -226,16 +211,65 @@ function fitVerses() {
   return { fontPx: size, height: h, overflow: tooBig() };
 }
 
+function lineHeightPx(el) {
+  const raw = getComputedStyle(el).lineHeight;
+  const parsed = parseFloat(raw);
+  if (raw === "normal" || !Number.isFinite(parsed)) {
+    const fs = parseFloat(getComputedStyle(el).fontSize) || 20;
+    return fs * 1.45;
+  }
+  return parsed;
+}
+
+/**
+ * Map every glyph onto a shared 0..1 reading-order progress, using its
+ * wrapped position in the well (line index + x). Latin and English share
+ * the same coordinate space so the front sweeps both at once.
+ */
+function assignDelays(t) {
+  const glyphs = [
+    ...els.latin.querySelectorAll(".ch"),
+    ...els.english.querySelectorAll(".ch"),
+  ];
+  if (!glyphs.length) return { minD: 0, maxD: 1 };
+
+  const well = els.well.getBoundingClientRect();
+  const lineH = lineHeightPx(els.latin);
+  const colW = Math.max(well.width, 1);
+  const measured = glyphs.map((el) => {
+    const r = el.getBoundingClientRect();
+    return {
+      el,
+      x: r.left + r.width / 2 - well.left,
+      y: r.top + r.height / 2 - well.top,
+      lang: el.closest("#english") ? "en" : "la",
+    };
+  });
+  const y0 = Math.min(...measured.map((m) => m.y));
+  for (const m of measured) {
+    const line = Math.max(0, Math.round((m.y - y0) / lineH));
+    m.d = line * colW + m.x;
+  }
+  const minD = Math.min(...measured.map((m) => m.d));
+  const maxD = Math.max(...measured.map((m) => m.d));
+  const span = Math.max(maxD - minD, 1);
+
+  for (const m of measured) {
+    const p = (m.d - minD) / span;
+    const lag = m.lang === "en" ? t.lag : 0;
+    const delay = t.hold + p * t.front + lag;
+    m.el.style.setProperty("--delay", delay.toFixed(2) + "ms");
+    m.el.dataset.p = p.toFixed(4);
+  }
+  return { minD, maxD, span, count: measured.length };
+}
+
 function applyCssTimings(t) {
   currentTimings = t;
   const st = els.stage;
   st.style.setProperty("--hold-ms", t.hold + "ms");
   st.style.setProperty("--burn-letter-ms", t.burnLetter + "ms");
-  st.style.setProperty("--burn-stagger-ms", t.burnStagger + "ms");
-  st.style.setProperty("--pause-ms", t.pause + "ms");
-  st.style.setProperty("--fade-letter-ms", t.fadeLetter + "ms");
-  st.style.setProperty("--fade-stagger-ms", t.fadeStagger + "ms");
-  st.style.setProperty("--burn-wave-ms", t.burnWave + "ms");
+  st.style.setProperty("--ignite-letter-ms", t.igniteLetter + "ms");
   st.style.setProperty("--rm-fade-ms", (t.fade || CONFIG.reducedFadeMs) + "ms");
   els.frame.style.setProperty("--toast-fade-ms", t.toastFade + "ms");
 }
@@ -243,8 +277,12 @@ function applyCssTimings(t) {
 function updateSpeedLabel() {
   const t = timings();
   const s = speed();
-  els.speedVals.textContent =
-    `${s.toFixed(1)}×  ·  ${ (t.total / 1000).toFixed(1)}s  ·  hold ${(t.hold / 1000).toFixed(1)}s  ·  burn ${(t.burnWave / 1000).toFixed(1)}s  ·  fade ${(t.fadeWave / 1000).toFixed(1)}s`;
+  const parts = [`${s.toFixed(1)}×`, `${(t.total / 1000).toFixed(1)}s`, `hold ${(t.hold / 1000).toFixed(1)}s`];
+  if (!t.reduced) {
+    parts.push(`sweep ${(t.front / 1000).toFixed(1)}s`);
+    parts.push(`lag ${Math.round(t.lag)}ms`);
+  }
+  els.speedVals.textContent = parts.join("  ·  ");
   els.speed.setAttribute("aria-valuetext", `${s} times`);
 }
 
@@ -264,30 +302,21 @@ function clearTimers() {
   phaseTimers = [];
 }
 
-function schedulePhases(t, fromMs) {
+function schedulePhases(t) {
   clearTimers();
-  const start = fromMs || 0;
-  const marks = reducedMotion
-    ? [
-        [t.hold, "fade"],
-        [t.total, "revealed"],
-      ]
-    : [
-        [t.hold, "burn"],
-        [t.hold + t.burnWave, "pause"],
-        [t.hold + t.burnWave + t.pause, "fade"],
-        [t.total, "revealed"],
-      ];
+  const marks = [
+    [t.hold, "sweep"],
+    [t.total, "revealed"],
+  ];
   for (const [at, name] of marks) {
-    const delay = at - start;
-    if (delay <= 0) {
+    if (at <= 0) {
       if (name === "revealed") afterReveal();
       else phase = name;
     } else {
       phaseTimers.push(setTimeout(() => {
         if (name === "revealed") afterReveal();
         else phase = name;
-      }, delay));
+      }, at));
     }
   }
 }
@@ -310,15 +339,8 @@ function letterAnimations() {
 }
 
 function phaseAt(ms, t) {
-  if (reducedMotion) {
-    if (ms < t.hold) return "hold";
-    if (ms < t.total) return "fade";
-    return "revealed";
-  }
   if (ms < t.hold) return "hold";
-  if (ms < t.hold + t.burnWave) return "burn";
-  if (ms < t.hold + t.burnWave + t.pause) return "pause";
-  if (ms < t.total) return "fade";
+  if (ms < t.total) return "sweep";
   return "revealed";
 }
 
@@ -332,11 +354,7 @@ function freezeAt(ms) {
   }
   phase = phaseAt(clamped, t);
   clearTimers();
-  if (phase === "revealed" && CONFIG.mode === "toast") {
-    // Screenshots and seeks should keep the toast visible.
-  } else {
-    els.frame.classList.remove("is-hidden");
-  }
+  els.frame.classList.remove("is-hidden");
 }
 
 function armAnimations() {
@@ -363,6 +381,7 @@ function play(opts) {
   const fit = fitVerses();
   const t = timings();
   applyCssTimings(t);
+  if (!t.reduced) assignDelays(t);
   updateSpeedLabel();
   els.frame.classList.remove("is-hidden");
   armAnimations();
@@ -370,7 +389,6 @@ function play(opts) {
   phase = "hold";
 
   if (freezeMs != null) {
-    // A frame lets the CSS animations exist so they can be scrubbed.
     return new Promise((resolve) => {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -381,7 +399,7 @@ function play(opts) {
     });
   }
 
-  schedulePhases(t, 0);
+  schedulePhases(t);
   return Promise.resolve(fit);
 }
 
@@ -393,11 +411,13 @@ function seek(spec) {
   } else if (spec && typeof spec === "object") {
     const p = spec.t != null ? spec.t : (spec.progress != null ? spec.progress : 0);
     if (spec.phase === "hold") ms = 0;
-    else if (spec.phase === "burn") ms = t.hold + p * t.burnWave;
-    else if (spec.phase === "pause") ms = t.hold + t.burnWave + p * t.pause;
-    else if (spec.phase === "fade") ms = t.hold + t.burnWave + t.pause + p * t.fadeWave;
-    else if (spec.phase === "revealed") ms = t.total;
-    else if (spec.ms != null) ms = spec.ms;
+    else if (spec.phase === "sweep" || spec.phase === "burn" || spec.phase === "front") {
+      ms = t.hold + p * t.front;
+    } else if (spec.phase === "revealed") {
+      ms = t.total;
+    } else if (spec.ms != null) {
+      ms = spec.ms;
+    }
   }
   return play({ freezeAt: ms });
 }
@@ -453,12 +473,11 @@ function sequenceTable() {
       nL: t.nL,
       nE: t.nE,
       hold: Math.round(t.hold),
-      burnWave: Math.round(t.burnWave),
-      pause: Math.round(t.pause),
-      fadeWave: Math.round(t.fadeWave),
+      front: Math.round(t.front),
+      lag: Math.round(t.lag),
+      burnLetter: Math.round(t.burnLetter),
+      igniteLetter: Math.round(t.igniteLetter),
       total: Math.round(t.total),
-      burnStagger: Math.round(t.burnStagger * 100) / 100,
-      fadeStagger: Math.round(t.fadeStagger * 100) / 100,
     };
   });
 }
