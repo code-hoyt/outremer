@@ -63,7 +63,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Villains (locked 2026-11-09)
 - **The Lord:** a charming, well-liked baron in the real world, secretly working for the cult. Lucien looks up to him.
 - **The Prophet:** already in the other world. A false miracle-worker whose 'miracles' are demonic, a dark mirror of Aveline's saints. Theme: true faith against counterfeit faith.
-- **Bound souls (unique to these two, not a rule of the world):** their souls are connected. The reveal is that they've been working together all along. Through the Lord, the Prophet knows the real world and the war, and he is trying to break through the veil and take it over. The cult's tear in the opening is step one of his invasion.
+- **Bound souls (unique to these two, not a rule of the world):** their souls are connected. The reveal is that they've been working together all along. Through the Lord, the Prophet knows the real world and the war, and he is trying to break through the veil and take it over. The cult's tear in the opening is step one of his invasion. Killing Simeon kills Guérin, because of this bond; Guérin is not fought as a boss.
 
 ## Villain names (locked 2026-11-09)
 - **Guérin de Montclair:** the Lord ('clair', bright, is ironic).
@@ -73,8 +73,8 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Act structure (DRAFT 2026-11-09, not locked)
 1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a Fiend, joins Dismas's hunters, and answers Aveline's call at the holy stronghold, where the first true Demon is attacking. Ends there, with the map game (consecrating nodes) beginning.
 2. **The Lamp:** Aveline tells Tristan that she, Godric and Lucien saw him fall into the tear and followed. Lucien was taken in a later battle; Godric went after him and she has heard from neither since. Simeon is the opponent from the first (never an ally). The party takes jobs from the Order of the Eighth Day (called Eighth Day), which Aveline already joined. Quests lead into Simeon's forces. Climax: they find Godric facing Vaskar and team up against him. Vaskar is defeated, but a shadowy figure pulls him out and he escapes. The figure is Lucien, though that is not confirmed until Act 3.
-3. **Two Faces:** the shadowy figure who saved Vaskar is revealed to be Lucien. A way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
-4. **Holy Ground:** Lucien returns (the prodigal son). Holy ground spreads. Guérin and Simeon are beaten on both sides of the veil at once. Sulthrane is defeated with saints and angels. They return home and the veil is sealed.
+3. **Two Faces:** the shadowy figure who saved Vaskar is revealed to be Lucien. A glimpse through a tear shows Guérin in the real world, in communion with Simeon. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: Dismas kills Vaskar, but the battle still goes badly and an Eighth Day stronghold falls; Tristan's faith holds on the retreat.
+4. **Holy Ground:** holy ground spreads. The party confronts Simeon. Lucien returns by betraying Simeon, which leads to Simeon's death. Because their souls are bound, Guérin dies with him (seen through the tear); Guérin is not fought as a boss. Sulthrane then appears as the final boss, and is defeated with saints and angels. They return home and the veil is sealed.
 
 ## Act 1 opening (LOCKED 2026-11-09)
 - **The mission:** the squad (Tristan, Aveline, Godric, Lucien) is part of a Templar detachment sent to Guérin de Montclair's castle after a call for help about Satanists.
@@ -113,12 +113,24 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Into Act 3:** they catch up to that figure and it is Lucien, so the betrayal lands here and sets up his return in Act 4.
 
 
-## Act 3 beats (DRAFT 2026-11-09, pitched, awaiting feedback)
+## Act 3 beats (LOCKED 2026-11-09)
 1. **The hunt:** Eighth Day puts the party on the trail of Vaskar and the shadowy figure. Missions close the distance, and the suspicion from the end of Act 2 gets harder to ignore.
 2. **The mask comes off:** they catch up at a rite where Simeon is opening or widening a tear. Lucien is there with Vaskar. The rescuer is confirmed. Aveline breaks, and Tristan steps up.
-3. **Two faces, one plan:** through the tear they glimpse Guérin in the real world, in communion with Simeon. The bound souls and the plan are revealed: the opening tear was only the first step, and they mean to take the real world for Sulthrane. Lucien hears it too. Recommendation: a glimpse, not a full return, so coming home in Act 4 still means something.
+3. **Two faces, one plan:** through the tear they glimpse Guérin in the real world, in communion with Simeon. The bound souls and the plan are revealed: the opening tear was only the first step, and they mean to take the real world for Sulthrane. Lucien hears it too. This is a glimpse, not a full return, so coming home in Act 4 still means something.
 4. **Lucien doubts:** he realises the war he joined is an invasion of his own home. He does not come back yet, but he also does not finish the party (a missed killing blow, or a path left open).
-5. **The low point:** the rite still succeeds enough to matter, the battle goes badly, and an Eighth Day stronghold falls. Tristan's faith is tested on the retreat and holds. Recommendation: do not kill a party member here unless that door is opened later; a trusted hunter or an Eighth Day captain can carry the cost.
+5. **The low point, and Vaskar's death:** Dismas kills Vaskar, finishing the beat that he cannot save his old friend, only end him. Lucien is there and fails to stop it. The rite still succeeds enough to matter, the battle still goes badly, and an Eighth Day stronghold falls, so the act does not end on a clean win. Tristan's faith is tested on the retreat and holds. A party member is not killed here; a trusted hunter or an Eighth Day captain can carry any extra cost.
+
+## How Guérin dies (LOCKED 2026-11-09)
+- Guérin is not fought as a boss. The party faces Simeon. When Simeon dies, Guérin dies with him, because their souls are bound. The player should see this through the tear, so both faces of the villain fall at once.
+
+## Act 4 beats (DRAFT 2026-11-09, from the locked decisions above, still to be fleshed out)
+1. Holy ground spreads as the party retakes land for Eighth Day.
+2. They confront Simeon.
+3. Lucien returns by betraying Simeon, which leads to Simeon's death.
+4. Guérin dies with Simeon, seen through the tear.
+5. Sulthrane appears as the final boss and is defeated with saints and angels at the heroes' side.
+6. They return home and the veil is sealed. Happy, triumphant ending.
+- The exact manner of Lucien's betrayal (a critical blow, a broken rite, an opened guard) is still open.
 
 
 ## Open questions
@@ -126,4 +138,4 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - Whether any party member dies for good.
 - Tristan's final faith moment.
 - The exact period.
-- The exact scene in Act 3 where the shadowy rescuer is confirmed to be Lucien.
+- The exact manner of Lucien's betrayal of Simeon in Act 4.
