@@ -1,22 +1,26 @@
 /* Outremer scripture burn feel-test.
-   All timings and visual knobs live in CONFIG. The speed slider
-   divides holdLatinMs and burnMs (and linger) by CONFIG.speed. */
+   Latin letters burn away one glyph at a time (CSS animation-delay),
+   then the KJV English fades in one letter at a time. All timings
+   live in CONFIG; the speed slider divides every duration and stagger. */
 
 const CONFIG = {
-  // Timing (milliseconds at speed 1)
-  holdLatinMs: 2400,
-  burnMs: 3200,
-  englishDelayMs: 2000,    // start the English fade late so mid-burn stays readable
-  englishFadeMs: 1000,
-  lingerEnglishMs: 4800,   // toast stays after the reveal, then auto-hides
+  // Timing at speed 1 (milliseconds)
+  holdLatinMs: 1700,       // Latin sits fully visible before the burn
+  burnLetterMs: 580,       // one glyph: flare → char → drift away
+  burnStaggerMs: 16,       // delay between letters; scaled to the wave window
+  pauseBetweenMs: 380,     // beat of ash after the last Latin letter
+  fadeLetterMs: 500,       // one English glyph: glow in and settle
+  fadeStaggerMs: 13,       // delay between English letters; also scaled
+  lingerEnglishMs: 4500,   // toast reading hold after the reveal, then auto-hide
   toastFadeOutMs: 900,
-  // Burn front, in character-counts
-  igniteWindow: 3,         // words alight at once
-  charRatio: 0.35,         // fraction of the window before a letter chars
-  goneRatio: 0.75,         // fraction of the window before a letter is gone
-  // Embers
-  maxParticles: 70,
-  sparksPerFrame: 1.15,
+  // Keep the burn/fade waves in these windows after scaling by text length,
+  // so short verses are not sluggish and Eph 6:12 stays around 6–9s total.
+  burnWaveMinMs: 2000,
+  burnWaveMaxMs: 3450,
+  fadeWaveMinMs: 1600,
+  fadeWaveMaxMs: 2700,
+  // Reduced-motion crossfade
+  reducedFadeMs: 700,
   // Typography (px). fitVerses() may shrink to minFontPx.
   titleFontPx: 20,
   toastFontPx: 15.5,
@@ -71,27 +75,72 @@ const VERSES = [
 
 const $ = (id) => document.getElementById(id);
 const els = {};
-const particles = [];
 let index = CONFIG.startIndex;
-let raf = 0;
 let hideTimer = 0;
-let running = false;
-let burnStart = 0;
-let phase = "idle"; // idle | hold | burn | revealed | hidden
-let lastTs = 0;
-let canvas, ctx;
+let phaseTimers = [];
+let phase = "idle"; // idle | hold | burn | pause | fade | revealed | hidden
+let startedAt = 0;
+let currentTimings = null;
 let reducedMotion = false;
+let wellHeight = 0;
 
-function effective() {
-  const s = Math.max(0.25, CONFIG.speed || 1);
+function speed() {
+  return Math.max(0.25, CONFIG.speed || 1);
+}
+
+function glyphCount(text) {
+  let n = 0;
+  for (const ch of text) if (!/\s/.test(ch)) n++;
+  return n;
+}
+
+function scaleStagger(base, count, letterMs, minWave, maxWave) {
+  if (count <= 1) return base;
+  const natural = (count - 1) * base + letterMs;
+  const wave = Math.min(maxWave, Math.max(minWave, natural));
+  return (wave - letterMs) / (count - 1);
+}
+
+function timingsFor(verse, spd) {
+  const s = spd == null ? speed() : spd;
+  const hold = CONFIG.holdLatinMs / s;
+  const burnLetter = CONFIG.burnLetterMs / s;
+  const fadeLetter = CONFIG.fadeLetterMs / s;
+  const pause = CONFIG.pauseBetweenMs / s;
+  const linger = CONFIG.lingerEnglishMs / s;
+  const toastFade = CONFIG.toastFadeOutMs / s;
+  const nL = glyphCount(verse.latin);
+  const nE = glyphCount(verse.english);
+  const burnStagger = scaleStagger(
+    CONFIG.burnStaggerMs / s, nL, burnLetter,
+    CONFIG.burnWaveMinMs / s, CONFIG.burnWaveMaxMs / s
+  );
+  const fadeStagger = scaleStagger(
+    CONFIG.fadeStaggerMs / s, nE, fadeLetter,
+    CONFIG.fadeWaveMinMs / s, CONFIG.fadeWaveMaxMs / s
+  );
+  const burnWave = nL <= 1 ? burnLetter : (nL - 1) * burnStagger + burnLetter;
+  const fadeWave = nE <= 1 ? fadeLetter : (nE - 1) * fadeStagger + fadeLetter;
+  if (reducedMotion) {
+    const fade = CONFIG.reducedFadeMs / s;
+    return {
+      reduced: true, hold, fade, linger, toastFade,
+      burnLetter: 0, burnStagger: 0, burnWave: 0, pause: 0,
+      fadeLetter: fade, fadeStagger: 0, fadeWave: fade,
+      total: hold + fade, nL, nE,
+    };
+  }
   return {
-    hold: CONFIG.holdLatinMs / s,
-    burn: CONFIG.burnMs / s,
-    engDelay: CONFIG.englishDelayMs / s,
-    engFade: CONFIG.englishFadeMs / s,
-    linger: CONFIG.lingerEnglishMs / s,
-    toastFade: CONFIG.toastFadeOutMs / s,
+    reduced: false,
+    hold, burnLetter, burnStagger, burnWave, pause,
+    fadeLetter, fadeStagger, fadeWave, linger, toastFade,
+    total: hold + burnWave + pause + fadeWave,
+    nL, nE,
   };
+}
+
+function timings() {
+  return timingsFor(currentVerse());
 }
 
 function escapeHtml(s) {
@@ -100,13 +149,17 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function wrapLatin(text) {
-  // Burn word-by-word so the fire front does not leave mid-word stumps.
-  return text.split(/(\s+)/).map((tok) => {
+function wrapLetters(text) {
+  let i = 0;
+  const html = text.split(/(\s+)/).map((tok) => {
     if (!tok) return "";
-    if (/^\s+$/.test(tok)) return tok.replace(/ /g, " ");
-    return `<span class="ch">${escapeHtml(tok)}</span>`;
+    if (/^\s+$/.test(tok)) return tok;
+    const letters = [...tok].map((ch) =>
+      `<span class="ch" style="--i:${i++}">${escapeHtml(ch)}</span>`
+    ).join("");
+    return `<span class="word">${letters}</span>`;
   }).join("");
+  return { html, count: i };
 }
 
 function currentVerse() {
@@ -123,19 +176,19 @@ function renderCopy() {
   } else {
     els.reference.textContent = v.reference;
   }
-  els.english.textContent = v.english;
-  els.latin.innerHTML = wrapLatin(v.latin);
-  els.english.classList.remove("is-in", "is-settled");
-  els.english.style.opacity = "";
-  els.english.style.filter = "";
-  els.english.style.transform = "";
+  const lat = wrapLetters(v.latin);
+  const eng = wrapLetters(v.english);
+  els.latin.innerHTML = lat.html;
+  els.english.innerHTML = eng.html;
+  els.latin.classList.remove("play", "rm-out");
+  els.english.classList.remove("play", "rm-in");
   els.frame.classList.remove("is-hidden");
+  return { nL: lat.count, nE: eng.count };
 }
 
 function availableVerseHeight() {
   const stage = els.stage.getBoundingClientRect();
   const toast = CONFIG.mode === "toast";
-  // Leave room for kicker, title, filigree, reference, padding.
   const chrome = toast ? 92 : 168;
   return Math.max(80, stage.height - chrome);
 }
@@ -146,10 +199,10 @@ function fitVerses() {
   const min = CONFIG.minFontPx;
   const cap = availableVerseHeight();
   const well = els.well;
-  const verses = [els.latin, els.english];
 
   const apply = (px) => {
-    verses.forEach((p) => { p.style.fontSize = px + "px"; });
+    els.latin.style.fontSize = px + "px";
+    els.english.style.fontSize = px + "px";
   };
 
   apply(size);
@@ -169,136 +222,30 @@ function fitVerses() {
 
   const h = Math.max(els.latin.scrollHeight, els.english.scrollHeight);
   well.style.height = h + "px";
+  wellHeight = h;
   return { fontPx: size, height: h, overflow: tooBig() };
 }
 
-function chars() {
-  return [...els.latin.querySelectorAll(".ch")];
+function applyCssTimings(t) {
+  currentTimings = t;
+  const st = els.stage;
+  st.style.setProperty("--hold-ms", t.hold + "ms");
+  st.style.setProperty("--burn-letter-ms", t.burnLetter + "ms");
+  st.style.setProperty("--burn-stagger-ms", t.burnStagger + "ms");
+  st.style.setProperty("--pause-ms", t.pause + "ms");
+  st.style.setProperty("--fade-letter-ms", t.fadeLetter + "ms");
+  st.style.setProperty("--fade-stagger-ms", t.fadeStagger + "ms");
+  st.style.setProperty("--burn-wave-ms", t.burnWave + "ms");
+  st.style.setProperty("--rm-fade-ms", (t.fade || CONFIG.reducedFadeMs) + "ms");
+  els.frame.style.setProperty("--toast-fade-ms", t.toastFade + "ms");
 }
 
-function setLetterProgress(p) {
-  const nodes = chars();
-  const n = nodes.length;
-  if (!n) return;
-  const windowN = Math.max(3, CONFIG.igniteWindow);
-  const front = p * (n + windowN);
-  for (let i = 0; i < n; i++) {
-    const d = front - i;
-    const el = nodes[i];
-    el.classList.remove("ignite", "char", "gone");
-    if (d <= 0) continue;
-    if (d < windowN * CONFIG.charRatio) el.classList.add("ignite");
-    else if (d < windowN * CONFIG.goneRatio) el.classList.add("char");
-    else el.classList.add("gone");
-  }
-}
-
-function englishProgress(p, t) {
-  const { engDelay, burn, engFade } = effective();
-  const start = engDelay / burn;
-  const span = Math.max(0.2, engFade / burn);
-  if (p < start) return 0;
-  return Math.min(1, (p - start) / span);
-}
-
-function applyEnglish(ep) {
-  const eng = els.english;
-  if (ep <= 0) {
-    eng.classList.remove("is-in", "is-settled");
-    eng.style.opacity = "0";
-    return;
-  }
-  eng.classList.add("is-in");
-  eng.style.setProperty("--eng-ms", "0ms");
-  eng.style.opacity = String(ep);
-  eng.style.filter = `blur(${(1 - ep) * 2}px)`;
-  eng.style.transform = `translateY(${(1 - ep) * 5}px)`;
-  if (ep >= 1) eng.classList.add("is-settled");
-  else eng.classList.remove("is-settled");
-}
-
-function resizeCanvas() {
-  if (!canvas) return;
-  const rect = els.well.getBoundingClientRect();
-  const dpr = Math.min(window.devicePixelRatio || 1, 3);
-  canvas.width = Math.max(1, Math.round(rect.width * dpr));
-  canvas.height = Math.max(1, Math.round(rect.height * dpr));
-  canvas.style.width = rect.width + "px";
-  canvas.style.height = rect.height + "px";
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-
-function spawnFromLetters() {
-  const burning = els.latin.querySelectorAll(".ch.ignite");
-  if (!burning.length) return;
-  const wellRect = els.well.getBoundingClientRect();
-  const pick = burning[(Math.random() * burning.length) | 0];
-  const r = pick.getBoundingClientRect();
-  const x = r.left - wellRect.left + r.width * Math.random();
-  const y = r.top - wellRect.top + r.height * 0.35;
-  const kind = Math.random() < 0.82 ? "spark" : "smoke";
-  if (kind === "spark") {
-    particles.push({
-      kind, x, y,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: -0.35 - Math.random() * 0.85,
-      life: 0,
-      max: 420 + Math.random() * 520,
-      size: 0.8 + Math.random() * 1.8,
-      hue: Math.random() < 0.3 ? "core" : "ember",
-    });
-  } else {
-    particles.push({
-      kind, x, y,
-      vx: (Math.random() - 0.5) * 0.15,
-      vy: -0.12 - Math.random() * 0.28,
-      life: 0,
-      max: 700 + Math.random() * 800,
-      size: 3 + Math.random() * 5,
-    });
-  }
-  if (particles.length > CONFIG.maxParticles) particles.splice(0, particles.length - CONFIG.maxParticles);
-}
-
-function drawParticles(dt) {
-  const w = canvas.width;
-  const h = canvas.height;
-  // css pixels via current transform
-  ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-  for (let i = particles.length - 1; i >= 0; i--) {
-    const p = particles[i];
-    p.life += dt;
-    if (p.life >= p.max) { particles.splice(i, 1); continue; }
-    const t = p.life / p.max;
-    p.x += p.vx * dt;
-    p.y += p.vy * dt;
-    if (p.kind === "spark") p.vy -= 0.0004 * dt;
-    else { p.vx *= 0.995; p.size += 0.004 * dt; }
-    const alpha = t < 0.2 ? t / 0.2 : 1 - (t - 0.2) / 0.8;
-    if (p.kind === "spark") {
-      ctx.beginPath();
-      ctx.fillStyle = p.hue === "core"
-        ? `rgba(255, 244, 200, ${0.95 * alpha})`
-        : `rgba(255, 140, 50, ${0.85 * alpha})`;
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(255, 80, 20, ${0.28 * alpha})`;
-      ctx.arc(p.x, p.y, p.size * 3.2, 0, Math.PI * 2);
-      ctx.fill();
-    } else {
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(90, 55, 30, ${0.12 * alpha})`;
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-  void w; void h;
-}
-
-function clearParticles() {
-  particles.length = 0;
-  if (ctx && canvas) ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+function updateSpeedLabel() {
+  const t = timings();
+  const s = speed();
+  els.speedVals.textContent =
+    `${s.toFixed(1)}×  ·  ${ (t.total / 1000).toFixed(1)}s  ·  hold ${(t.hold / 1000).toFixed(1)}s  ·  burn ${(t.burnWave / 1000).toFixed(1)}s  ·  fade ${(t.fadeWave / 1000).toFixed(1)}s`;
+  els.speed.setAttribute("aria-valuetext", `${s} times`);
 }
 
 function setMode(mode) {
@@ -310,128 +257,210 @@ function setMode(mode) {
   els.btnToast.setAttribute("aria-selected", String(CONFIG.mode === "toast"));
 }
 
-function updateSpeedLabel() {
-  const t = effective();
-  els.speedVals.textContent = `${CONFIG.speed.toFixed(1)}×  ·  hold ${(t.hold / 1000).toFixed(1)}s  ·  burn ${(t.burn / 1000).toFixed(1)}s`;
-  els.speed.setAttribute("aria-valuetext", `${CONFIG.speed} times`);
-}
-
-function stop() {
-  running = false;
-  if (raf) cancelAnimationFrame(raf);
-  raf = 0;
+function clearTimers() {
   if (hideTimer) clearTimeout(hideTimer);
   hideTimer = 0;
+  for (const id of phaseTimers) clearTimeout(id);
+  phaseTimers = [];
 }
 
-function applyProgress(p) {
-  const clamped = Math.max(0, Math.min(1, p));
-  setLetterProgress(clamped);
-  applyEnglish(englishProgress(clamped));
-  return clamped;
+function schedulePhases(t, fromMs) {
+  clearTimers();
+  const start = fromMs || 0;
+  const marks = reducedMotion
+    ? [
+        [t.hold, "fade"],
+        [t.total, "revealed"],
+      ]
+    : [
+        [t.hold, "burn"],
+        [t.hold + t.burnWave, "pause"],
+        [t.hold + t.burnWave + t.pause, "fade"],
+        [t.total, "revealed"],
+      ];
+  for (const [at, name] of marks) {
+    const delay = at - start;
+    if (delay <= 0) {
+      if (name === "revealed") afterReveal();
+      else phase = name;
+    } else {
+      phaseTimers.push(setTimeout(() => {
+        if (name === "revealed") afterReveal();
+        else phase = name;
+      }, delay));
+    }
+  }
 }
 
 function afterReveal() {
   phase = "revealed";
-  applyProgress(1);
-  applyEnglish(1);
   if (CONFIG.mode !== "toast") return;
-  const t = effective();
+  const t = currentTimings || timings();
   hideTimer = setTimeout(() => {
     phase = "hidden";
     els.frame.classList.add("is-hidden");
   }, t.linger);
 }
 
-function tick(ts) {
-  if (!running) return;
-  raf = requestAnimationFrame(tick);
-  const dt = lastTs ? Math.min(64, ts - lastTs) : 16;
-  lastTs = ts;
-  const t = effective();
-
-  if (phase === "hold") {
-    if (ts - burnStart >= t.hold) {
-      phase = "burn";
-      burnStart = ts;
-    }
-    drawParticles(dt);
-    return;
-  }
-
-  if (phase === "burn") {
-    const p = (ts - burnStart) / t.burn;
-    applyProgress(p);
-    const budget = CONFIG.sparksPerFrame * (dt / 16.67);
-    let n = budget + (Math.random() < (budget % 1) ? 1 : 0);
-    n = Math.floor(n);
-    for (let i = 0; i < n; i++) spawnFromLetters();
-    drawParticles(dt);
-    if (p >= 1) {
-      applyProgress(1);
-      afterReveal();
-    }
-    return;
-  }
-
-  // revealed: let remaining embers die out
-  drawParticles(dt);
+function letterAnimations() {
+  return [
+    ...els.latin.getAnimations({ subtree: true }),
+    ...els.english.getAnimations({ subtree: true }),
+  ];
 }
 
-function play() {
-  stop();
-  clearParticles();
-  renderCopy();
-  const fit = fitVerses();
-  resizeCanvas();
-  applyProgress(0);
-  applyEnglish(0);
-  els.frame.classList.remove("is-hidden");
-  lastTs = 0;
-
+function phaseAt(ms, t) {
   if (reducedMotion) {
-    applyProgress(1);
-    applyEnglish(1);
-    phase = "revealed";
-    if (CONFIG.mode === "toast") afterReveal();
-    return fit;
+    if (ms < t.hold) return "hold";
+    if (ms < t.total) return "fade";
+    return "revealed";
   }
-
-  running = true;
-  phase = "hold";
-  burnStart = performance.now();
-  raf = requestAnimationFrame(tick);
-  return fit;
+  if (ms < t.hold) return "hold";
+  if (ms < t.hold + t.burnWave) return "burn";
+  if (ms < t.hold + t.burnWave + t.pause) return "pause";
+  if (ms < t.total) return "fade";
+  return "revealed";
 }
 
-/**
- * Jump to a 0–1 burn progress (1 = fully revealed). Used by the Playwright
- * capture and for anyone tuning the feel. Holds/auto-hide are skipped.
- */
-function seek(progress) {
-  stop();
+function freezeAt(ms) {
+  const t = currentTimings || timings();
+  const clamped = Math.max(0, ms);
+  const anims = letterAnimations();
+  for (const a of anims) {
+    a.currentTime = clamped;
+    a.pause();
+  }
+  phase = phaseAt(clamped, t);
+  clearTimers();
+  if (phase === "revealed" && CONFIG.mode === "toast") {
+    // Screenshots and seeks should keep the toast visible.
+  } else {
+    els.frame.classList.remove("is-hidden");
+  }
+}
+
+function armAnimations() {
+  els.latin.classList.remove("play", "rm-out");
+  els.english.classList.remove("play", "rm-in");
+  void els.latin.offsetWidth;
+  els.latin.style.transitionDelay = "";
+  els.english.style.transitionDelay = "";
+  if (reducedMotion) {
+    els.latin.style.transitionDelay = currentTimings.hold + "ms";
+    els.english.style.transitionDelay = currentTimings.hold + "ms";
+    els.latin.classList.add("rm-out");
+    els.english.classList.add("rm-in");
+  } else {
+    els.latin.classList.add("play");
+    els.english.classList.add("play");
+  }
+}
+
+function play(opts) {
+  const freezeMs = opts && opts.freezeAt;
+  clearTimers();
   renderCopy();
   const fit = fitVerses();
-  resizeCanvas();
+  const t = timings();
+  applyCssTimings(t);
+  updateSpeedLabel();
   els.frame.classList.remove("is-hidden");
-  const p = applyProgress(progress);
-  applyEnglish(englishProgress(p));
-  phase = p <= 0 ? "hold" : p < 1 ? "burn" : "revealed";
-  // Seed a few embers so mid-burn screenshots show the fire.
-  if (p > 0 && p < 1) {
-    for (let i = 0; i < 36; i++) spawnFromLetters();
-    if (ctx) {
-      for (let k = 0; k < 8; k++) drawParticles(20);
-    }
-  } else {
-    clearParticles();
+  armAnimations();
+  startedAt = performance.now();
+  phase = "hold";
+
+  if (freezeMs != null) {
+    // A frame lets the CSS animations exist so they can be scrubbed.
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          freezeAt(freezeMs);
+          resolve(fit);
+        });
+      });
+    });
   }
-  return fit;
+
+  schedulePhases(t, 0);
+  return Promise.resolve(fit);
+}
+
+function seek(spec) {
+  const t = timingsFor(currentVerse());
+  let ms = 0;
+  if (typeof spec === "number") {
+    ms = spec;
+  } else if (spec && typeof spec === "object") {
+    const p = spec.t != null ? spec.t : (spec.progress != null ? spec.progress : 0);
+    if (spec.phase === "hold") ms = 0;
+    else if (spec.phase === "burn") ms = t.hold + p * t.burnWave;
+    else if (spec.phase === "pause") ms = t.hold + t.burnWave + p * t.pause;
+    else if (spec.phase === "fade") ms = t.hold + t.burnWave + t.pause + p * t.fadeWave;
+    else if (spec.phase === "revealed") ms = t.total;
+    else if (spec.ms != null) ms = spec.ms;
+  }
+  return play({ freezeAt: ms });
 }
 
 function go(delta) {
   index = (index + delta + VERSES.length) % VERSES.length;
-  play();
+  return play();
+}
+
+function overflowState() {
+  const latin = els.latin;
+  const english = els.english;
+  const well = els.well.getBoundingClientRect();
+  const frame = els.frame.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const clipped = (r) => r.left < -1 || r.top < -1 || r.right > vw + 1 || r.bottom > vh + 1;
+  return {
+    well,
+    wellHeight,
+    frame,
+    latinOverflow: latin.scrollHeight > els.well.clientHeight + 1
+      || latin.scrollWidth > els.well.clientWidth + 1,
+    englishOverflow: english.scrollHeight > els.well.clientHeight + 1
+      || english.scrollWidth > els.well.clientWidth + 1,
+    frameClipped: clipped(frame),
+    wellClipped: clipped(well),
+  };
+}
+
+function getState() {
+  const t = currentTimings || timings();
+  return {
+    index,
+    id: currentVerse().id,
+    mode: CONFIG.mode,
+    phase,
+    speed: speed(),
+    fontPx: parseFloat(els.latin.style.fontSize) || null,
+    timings: t,
+    elapsed: startedAt ? Math.max(0, performance.now() - startedAt) : 0,
+    frameHidden: els.frame.classList.contains("is-hidden"),
+    reducedMotion,
+    ...overflowState(),
+  };
+}
+
+function sequenceTable() {
+  return VERSES.map((v) => {
+    const t = timingsFor(v, 1);
+    return {
+      id: v.id,
+      nL: t.nL,
+      nE: t.nE,
+      hold: Math.round(t.hold),
+      burnWave: Math.round(t.burnWave),
+      pause: Math.round(t.pause),
+      fadeWave: Math.round(t.fadeWave),
+      total: Math.round(t.total),
+      burnStagger: Math.round(t.burnStagger * 100) / 100,
+      fadeStagger: Math.round(t.fadeStagger * 100) / 100,
+    };
+  });
 }
 
 function bind() {
@@ -448,8 +477,6 @@ function bind() {
   els.btnToast = $("btn-toast");
   els.speed = $("speed");
   els.speedVals = $("speed-vals");
-  canvas = $("embers");
-  ctx = canvas.getContext("2d");
 
   $("btn-title").addEventListener("click", () => { setMode("title"); play(); });
   $("btn-toast").addEventListener("click", () => { setMode("toast"); play(); });
@@ -463,10 +490,14 @@ function bind() {
 
   window.addEventListener("resize", () => {
     fitVerses();
-    resizeCanvas();
   });
 
   reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const onRm = (e) => { reducedMotion = e.matches; };
+  if (mq.addEventListener) mq.addEventListener("change", onRm);
+  else if (mq.addListener) mq.addListener(onRm);
+
   setMode(CONFIG.mode);
   updateSpeedLabel();
 }
@@ -487,22 +518,13 @@ window.__verseTest = {
   play,
   seek,
   go,
-  setMode: (m) => { setMode(m); play(); },
-  setIndex: (i) => { index = (i + VERSES.length) % VERSES.length; play(); },
-  getState: () => ({
-    index,
-    id: currentVerse().id,
-    mode: CONFIG.mode,
-    phase,
-    speed: CONFIG.speed,
-    fontPx: parseFloat(els.latin.style.fontSize) || null,
-    well: els.well.getBoundingClientRect(),
-    latinOverflow: els.latin.scrollHeight > els.well.clientHeight + 1
-      || els.latin.scrollWidth > els.well.clientWidth + 1,
-    englishOverflow: els.english.scrollHeight > els.well.clientHeight + 1
-      || els.english.scrollWidth > els.well.clientWidth + 1,
-    frameHidden: els.frame.classList.contains("is-hidden"),
-  }),
+  timings,
+  timingsFor,
+  sequenceTable,
+  setMode: (m) => { setMode(m); return play(); },
+  setIndex: (i) => { index = (i + VERSES.length) % VERSES.length; return play(); },
+  getState,
+  freezeAt,
 };
 
 if (document.readyState === "loading") {

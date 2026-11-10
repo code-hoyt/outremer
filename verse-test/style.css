@@ -133,7 +133,7 @@ body {
   pointer-events: none;
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transition: opacity var(--toast-fade-ms, 900ms) ease, transform var(--toast-fade-ms, 900ms) ease;
 }
 #app[data-mode="toast"] #frame.is-hidden {
   opacity: 0;
@@ -231,15 +231,13 @@ body {
   font-family: var(--serif);
   font-weight: 500;
   font-size: 20px;
-  line-height: 1.4;
+  line-height: 1.45;
   text-align: center;
-  text-wrap: pretty;
-  hyphens: auto;
-  -webkit-hyphens: auto;
   grid-area: 1 / 1;
   align-self: center;
   width: 100%;
   margin: 0;
+  /* Both verses share this cell so the card does not resize mid-sequence. */
 }
 #latin {
   position: relative;
@@ -247,64 +245,98 @@ body {
   font-style: italic;
   font-weight: 500;
   color: #f0e0c0;
+  --letter-ink: #f0e0c0;
 }
 #english {
   z-index: 1;
   font-style: normal;
   font-weight: 600;
   color: #f6edd4;
-  opacity: 0;
-  filter: blur(2px);
-  transform: translateY(5px);
+  --letter-ink: #f6edd4;
 }
-#app[data-mode="title"] #latin { color: #f0e0c0; }
-#app[data-mode="title"] #english { color: #f6edd4; }
+#app[data-mode="title"] #latin { color: #f0e0c0; --letter-ink: #f0e0c0; }
+#app[data-mode="title"] #english { color: #f6edd4; --letter-ink: #f6edd4; }
+#app[data-mode="toast"] #latin { color: var(--ink-latin); --letter-ink: var(--ink-latin); }
+#app[data-mode="toast"] #english { color: var(--ink-english); --letter-ink: var(--ink-english); }
 
-#english.is-in {
-  opacity: 1;
-  filter: blur(0);
-  transform: none;
-  text-shadow: 0 0 18px rgba(255, 200, 120, 0.28);
-  transition:
-    opacity var(--eng-ms, 900ms) ease,
-    filter var(--eng-ms, 900ms) ease,
-    transform var(--eng-ms, 900ms) ease,
-    text-shadow 1.6s ease;
+/* Keep wrapping at word boundaries; letters inside a word never split. */
+.word {
+  display: inline-block;
+  white-space: nowrap;
 }
-#english.is-settled { text-shadow: none; }
-
-/* Letter burn states */
-#latin .ch {
-  display: inline;
+.ch {
+  display: inline-block;
   color: inherit;
-  transition: none;
-}
-#latin .ch.ignite {
-  color: var(--ember-core);
-  text-shadow:
-    0 0 4px var(--ember),
-    0 0 10px var(--ember-hot),
-    0 0 16px rgba(255, 80, 0, 0.8);
-}
-#latin .ch.char {
-  color: #1a0a00;
-  text-shadow: 0 0 3px #4a1808, 0 1px 1px rgba(0, 0, 0, 0.6);
-  opacity: 0.4;
-  filter: blur(0.35px);
-}
-#latin .ch.gone {
-  opacity: 0;
-  filter: blur(1.4px);
-  text-shadow: none;
 }
 
-#embers {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 3;
+/* Latin: default fully visible. After --hold-ms, each glyph burns in reading order. */
+#latin.play .ch {
+  animation: letter-burn var(--burn-letter-ms, 580ms) linear forwards;
+  animation-delay: calc(var(--hold-ms, 0ms) + var(--i) * var(--burn-stagger-ms, 16ms));
+}
+@keyframes letter-burn {
+  0% {
+    opacity: 1;
+    color: var(--letter-ink);
+    text-shadow: none;
+    transform: translateY(0);
+  }
+  14% {
+    opacity: 1;
+    color: var(--ember-core);
+    text-shadow:
+      0 0 4px var(--ember),
+      0 0 10px var(--ember-hot),
+      0 0 16px rgba(255, 80, 0, 0.85);
+    transform: translateY(0);
+  }
+  36% {
+    opacity: 0.85;
+    color: #2a0c00;
+    text-shadow: 0 0 4px #4a1808;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0;
+    color: #1a0a00;
+    text-shadow: none;
+    transform: translateY(-8px);
+  }
+}
+
+/* English: letters occupy space from the start (opacity 0) so layout is reserved.
+   Fade begins only after the Latin wave and the pause. */
+#english .ch {
+  opacity: 0;
+}
+#english.play .ch {
+  animation: letter-fade var(--fade-letter-ms, 500ms) ease-out forwards;
+  animation-delay: calc(
+    var(--hold-ms, 0ms)
+    + var(--burn-wave-ms, 0ms)
+    + var(--pause-ms, 0ms)
+    + var(--i) * var(--fade-stagger-ms, 13ms)
+  );
+}
+@keyframes letter-fade {
+  0% {
+    opacity: 0;
+    color: #ffd89a;
+    text-shadow: 0 0 8px rgba(255, 180, 80, 0.65);
+    transform: translateY(4px);
+  }
+  50% {
+    opacity: 1;
+    color: #ffe7c0;
+    text-shadow: 0 0 8px rgba(255, 200, 120, 0.4);
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    color: var(--letter-ink);
+    text-shadow: none;
+    transform: translateY(0);
+  }
 }
 
 #app[data-mode="toast"] .verse { font-size: 15.5px; line-height: 1.35; }
@@ -379,6 +411,16 @@ body {
   font-size: 12px;
 }
 
+/* Reduced motion: a simple paragraph crossfade, no per-letter waves. */
 @media (prefers-reduced-motion: reduce) {
-  #english, #frame, .node.consecrated { transition: none !important; animation: none !important; }
+  .node.consecrated { animation: none !important; }
+  #latin.play .ch,
+  #english.play .ch { animation: none !important; }
+  #english .ch { opacity: 1; }
+  #latin, #english {
+    transition: opacity var(--rm-fade-ms, 700ms) ease;
+  }
+  #english { opacity: 0; }
+  #latin.rm-out { opacity: 0; }
+  #english.rm-in { opacity: 1; }
 }
