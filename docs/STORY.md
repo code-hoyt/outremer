@@ -148,12 +148,18 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Deaths (LOCKED 2026-11-10)
 - None of the good guys die for good.
 
-## Lucien encounters (DRAFT 2026-11-10, pitched, awaiting feedback)
-Each encounter pulls him a little closer, and a different hero reaches him each time.
-1. **The smuggling run (Cletus's idea):** Simeon's people are secretly smuggling weapons. The party learns of it and sabotages the shipment, runs into Lucien and fights him. Aveline tries to convince him to come back, but he leaves, defiant but rattled. (Act 3, after the reveal.)
-2. **The spared village:** sent to burn an Eighth Day village, he holds back from the civilians or lets a family escape. Tristan sees it and confronts him: "That wasn't you." (Act 3.)
-3. **Dismas:** a night ambush. Lucien corners Dismas, the man who killed Vaskar. Dismas does not fight back and tells him what Vaskar once told him, "they'll never value you," and admits he believed it too. Lucien cannot kill him. (Act 4.)
-4. **The last refusal:** just before the final battle, Lucien guards the way to Simeon. Aveline no longer pleads; she says she'll be waiting either way. He lets them pass, setting up his killing Simeon. (Act 4.)
+## The Hooded Figure and Lucien's encounters (WORKING DRAFT 2026-11-10, a good start, not loved yet; revisit)
+Goal: the player gets to know the Hooded Figure well before the unmasking, so the reveal lands as "I knew it!" or "No way!"
+1. **Mid Act 2, first sighting:** the Hooded Figure is seen at Vaskar's side, clearly a bad guy.
+2. **Act 2, the smuggling run:** the party learns Simeon's people are secretly smuggling weapons and sabotages the shipment. The Hooded Figure leads it; they fight him and he escapes. Clues begin, such as a fighting style Godric half-recognises, a bow or twin blades, a habit.
+3. **Act 2, the false miracle:** he guards one of Simeon's "miracles" (a Fiend wearing a saint's light). The party exposes it, and he hesitates.
+4. **End of Act 2, the rescue (locked):** he pulls the beaten Vaskar out.
+5. **Act 3, the unmasking:** the hood comes off at Simeon's rite.
+6. **After the reveal, as Lucien:** the wounded brother (he's left behind, Aveline heals him, and he slips away in the night leaving something of theirs from home), then the last stand before the final battle, where he guards the way to Simeon and lets them pass.
+- **Clues:** these should echo things the player saw Lucien do in the prologue at Guérin's castle (a phrase, a move, a token), so they are easy to miss at first and obvious in hindsight.
+- **Aveline never gives up on him (LOCKED):** she is always open to him and always asking him to come home, every time, right to the end. Her pleas start after the reveal.
+- **Set aside for now:** the spared village, the Dismas night ambush, the prisoner exchange, and fighting side by side against a Demon. Any of them could be swapped in.
 
 ## Open questions
+- Refine the Hooded Figure and Lucien encounter run (Cletus is not in love with it yet).
 - The exact period.
