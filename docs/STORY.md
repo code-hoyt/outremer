@@ -83,8 +83,10 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Pushing through:** a servant slips the squad a warning, and they inspect anyway.
 - **Lucien's seed:** he admires Guérin and argues that they should respect the baron's word. Tristan overrules him. This foreshadows Lucien's turn.
 - **The fight:** the descent into the cellars is the tutorial battle against human cultists, and it looks like an ordinary war fight. Then the ritual completes, the veil tears, and everyone is pulled through and scattered.
+- **After the tear (FFTA2-style, LOCKED 2026-11-09):** Tristan lands with a Satanist, a demon kills the Satanist, and then a hunting party from this world rescues Tristan. Its leader is a hero character (identity TBD), and Tristan joins his group, which becomes the first team. Aveline, Godric and Lucien are found later as planned.
 
 ## Open questions
+- Who the hunt leader is (options: a native warrior, a crusader lost through an earlier tear, a converted former cultist, a warrior monk).
 - How they cross back to the real world.
 - Whether any party member dies for good.
 - Tristan's final faith moment.

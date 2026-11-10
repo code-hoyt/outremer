@@ -522,3 +522,6 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 - Controls: keep the FFTA2 menu structure as abilities arrive (Action → class set / borrowed secondary set, Stage 3 #3)? Is the end-of-turn facing step worth its press (see pillar-1 tension above)?
 - Add L/R-style "next/previous unit" buttons, or are turn-order chips enough?
 - Terrain beyond movement (cover, high ground for defense, water/marsh)?
+
+## Party size (2026-11-09)
+- The game is moving from a 3-unit squad to FFTA2-style clans: about 6 units deploy per battle, chosen from a larger roster. The deploy cap should be a value in `src/config.js` once this is coded.
