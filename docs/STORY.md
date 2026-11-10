@@ -145,7 +145,15 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Presentation (to prototype):** a verse first shows in Latin (Vulgate), then burns away into the KJV English. It has to read well on a phone and must never stop play to make the player read.
 - Candidate closing verses: John 1:5 or Revelation 21:5.
 
+## Deaths (LOCKED 2026-11-10)
+- None of the good guys die for good.
+
+## Lucien encounters (DRAFT 2026-11-10, pitched, awaiting feedback)
+Each encounter pulls him a little closer, and a different hero reaches him each time.
+1. **The smuggling run (Cletus's idea):** Simeon's people are secretly smuggling weapons. The party learns of it and sabotages the shipment, runs into Lucien and fights him. Aveline tries to convince him to come back, but he leaves, defiant but rattled. (Act 3, after the reveal.)
+2. **The spared village:** sent to burn an Eighth Day village, he holds back from the civilians or lets a family escape. Tristan sees it and confronts him: "That wasn't you." (Act 3.)
+3. **Dismas:** a night ambush. Lucien corners Dismas, the man who killed Vaskar. Dismas does not fight back and tells him what Vaskar once told him, "they'll never value you," and admits he believed it too. Lucien cannot kill him. (Act 4.)
+4. **The last refusal:** just before the final battle, Lucien guards the way to Simeon. Aveline no longer pleads; she says she'll be waiting either way. He lets them pass, setting up his killing Simeon. (Act 4.)
+
 ## Open questions
-- Whether any party member dies for good.
 - The exact period.
-- The exact scenes for the Act 4 encounters that pull Lucien back from the edge.
