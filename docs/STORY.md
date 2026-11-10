@@ -87,13 +87,13 @@ The working doc for story decisions, written with Cletus. Earlier test character
 
 - **Who is from the real world:** only the four heroes (Tristan, Aveline, Godric, Lucien) and Guérin and his cult come from our world (confirmed). Dismas, his hunting party and everyone else native to the other world come from there.
 
-## Act 1 beats after the rescue (DRAFT 2026-11-09, pitched, awaiting feedback)
-1. The hunters' camp: Tristan wakes among strangers to whom demons and saints are everyday. Dismas explains the minimum, and Tristan disbelieves.
-2. Proving himself: a first battle with the hunters against small profane creatures.
-3. Finding Aveline: a "foreign healer" in a besieged village. In the rescue battle she calls a saint for the first time, the first miracle Tristan can't explain away.
-4. A glimpse of Vaskar (optional): a raid led by a figure Dismas recognises, and Dismas goes quiet.
-5. The road to the stronghold: a march across profane ground that teaches the holy and profane mechanic.
-6. The holy stronghold: the first node is consecrated, the world map opens, and the clan is established.
+## Act 1 beats after the tear (LOCKED 2026-11-09)
+1. **First fight and rescue:** the demon that killed the Satanist turns on Tristan and summons little minions. Dismas's hunting party arrives, and Tristan fights alongside them. This is the first battle with the hunters, and he proves he's no pushover even though he's never seen such creatures. Dismas gives him a crash course and is himself a little puzzled by how confused Tristan is.
+2. **Joining the hunters:** after the demon falls, Tristan joins the party for a few minor quests that teach how this world works. Along the way Tristan explains where he's from, and Dismas ponders it.
+3. **Act 1 finale, the quest "Saint-Caller Calling for Aid":** Aveline is at the holy stronghold calling for help, and the party answers. Meeting her is the final encounter of Act 1. The act ends at the stronghold, where the map game begins.
+- **Vaskar:** saved for Act 2, with no Act 1 glimpse.
+- **Saints in this world:** blessed help that certain individuals (Saint-Callers) can call on.
+- **Terminology:** "demon" is reserved for stronger and named enemies, and common creatures need a lesser word (TBD). Still open: whether the creature that kills the Satanist is a true demon or a lesser one.
 
 ## Open questions
 - How they cross back to the real world.
