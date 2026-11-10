@@ -113,6 +113,14 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Into Act 3:** they catch up to that figure and it is Lucien, so the betrayal lands here and sets up his return in Act 4.
 
 
+## Act 3 beats (DRAFT 2026-11-09, pitched, awaiting feedback)
+1. **The hunt:** Eighth Day puts the party on the trail of Vaskar and the shadowy figure. Missions close the distance, and the suspicion from the end of Act 2 gets harder to ignore.
+2. **The mask comes off:** they catch up at a rite where Simeon is opening or widening a tear. Lucien is there with Vaskar. The rescuer is confirmed. Aveline breaks, and Tristan steps up.
+3. **Two faces, one plan:** through the tear they glimpse Guérin in the real world, in communion with Simeon. The bound souls and the plan are revealed: the opening tear was only the first step, and they mean to take the real world for Sulthrane. Lucien hears it too. Recommendation: a glimpse, not a full return, so coming home in Act 4 still means something.
+4. **Lucien doubts:** he realises the war he joined is an invasion of his own home. He does not come back yet, but he also does not finish the party (a missed killing blow, or a path left open).
+5. **The low point:** the rite still succeeds enough to matter, the battle goes badly, and an Eighth Day stronghold falls. Tristan's faith is tested on the retreat and holds. Recommendation: do not kill a party member here unless that door is opened later; a trusted hunter or an Eighth Day captain can carry the cost.
+
+
 ## Open questions
 - How they cross back to the real world.
 - Whether any party member dies for good.
