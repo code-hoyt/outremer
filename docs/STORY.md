@@ -70,8 +70,16 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Simeon the Lamp:** the Prophet, a false light.
 - **Sulthrane:** the demon (an invented name) who gave Simeon his powers, motivations and goals. Simeon is his servant. Sulthrane is the final boss.
 
+## Act structure (DRAFT 2026-11-09, not locked)
+1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a demon, finds Aveline first and she begins calling saints. Ends at a holy stronghold where the map game (consecrating nodes) begins.
+2. **The Lamp:** Godric is found mid-battle. Simeon draws crowds with false miracles and seems like an ally. Midpoint: Lucien at Simeon's side, Aveline breaks, Tristan steps up. Ends with Simeon exposed and open war.
+3. **Two Faces:** a way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
+4. **Holy Ground:** Lucien returns (the prodigal son). Holy ground spreads. Guérin and Simeon are beaten on both sides of the veil at once. Sulthrane is defeated with saints and angels. They return home and the veil is sealed.
+
 ## Open questions
-- The act structure.
+- How they cross back to the real world.
+- Whether any party member dies for good.
+- Tristan's final faith moment.
 - The act structure.
 - The exact period.
 - The protagonist and their arc.
