@@ -130,12 +130,13 @@ The working doc for story decisions, written with Cletus. Earlier test character
 4. **Lucien returns:** he comes back to the party by killing Simeon. It is too late: the gate is already open, and Sulthrane is summoned anyway. The kill still matters, because it stops Simeon from finishing the rite as its master.
 5. **Guérin dies** with Simeon in that same instant, seen through the tear.
 6. **Finale:** Sulthrane is the final boss and is defeated with saints and angels at the heroes' side.
-7. **Ending:** they return home and the veil is sealed. Happy, triumphant ending.
+7. **The way home (LOCKED 2026-11-10):** after Sulthrane falls, the tear starts collapsing. Tristan, the former sceptic, walks into it and prays. His prayer consecrates the battlefield, the last profane ground, and the whole map turns holy. The dying profane gate becomes a gate of light, and that is their road home. This is Tristan's final faith moment, and it pays off the holy and profane mechanic.
+8. **Epilogue:** no waking in the cellar. At most, an epilogue tells where each character ended up.
+- **Faith arc (LOCKED):** Aveline is the steadily faithful one throughout the game. The ending shows how much Tristan's faith has grown by comparison.
 
 
 ## Open questions
-- How they cross back to the real world.
+- Where and how Bible verses appear throughout the game.
 - Whether any party member dies for good.
-- Tristan's final faith moment.
 - The exact period.
 - The exact scenes for the Act 4 encounters that pull Lucien back from the edge.
