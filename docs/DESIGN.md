@@ -539,3 +539,4 @@ Exact stats and which kinds appear when are still to be designed.
 
 ## Scripture presentation (2026-11-10)
 - Verses appear on act title cards, on node consecration, and in dialogue. Each shows in Latin first, then burns away into the KJV English. Timings go in `src/config.js` when built. The effect needs testing on a phone, and it must not block input.
+- Feel-test prototype (title card vs consecration toast; Latin burns away into KJV English): https://code-hoyt.github.io/outremer/verse-test/
