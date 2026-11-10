@@ -536,3 +536,6 @@ These words name different kinds of enemy, not competing labels for the same cre
 - **Demons:** stronger and named enemies. The first true Demon is the Act 1 finale at the holy stronghold ("Saint-Caller Calling for Aid"). Facing one is a bigger moment after the opening Fiend.
 - **Sulthrane** is above them.
 Exact stats and which kinds appear when are still to be designed.
+
+## Scripture presentation (2026-11-10)
+- Verses appear on act title cards, on node consecration, and in dialogue. Each shows in Latin first, then burns away into the KJV English. Timings go in `src/config.js` when built. The effect needs testing on a phone, and it must not block input.

@@ -135,8 +135,17 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Faith arc (LOCKED):** Aveline is the steadily faithful one throughout the game. The ending shows how much Tristan's faith has grown by comparison.
 
 
+## Scripture in the game (LOCKED 2026-11-10)
+- **Where verses appear:**
+  1. Act and chapter openers, one verse on each act's title card (e.g. Ephesians 6:12 for Act 1).
+  2. Consecrating a node: a short verse appears as the ground turns holy.
+  3. In the characters' mouths: Aveline quotes scripture naturally all game, and Tristan doesn't, until he speaks it in the final prayer.
+  4. Simeon twists scripture, quoting it out of context the way the devil quotes Psalm 91 in Matthew 4 (true faith against counterfeit faith).
+- **Translation:** KJV for now.
+- **Presentation (to prototype):** a verse first shows in Latin (Vulgate), then burns away into the KJV English. It has to read well on a phone and must never stop play to make the player read.
+- Candidate closing verses: John 1:5 or Revelation 21:5.
+
 ## Open questions
-- Where and how Bible verses appear throughout the game.
 - Whether any party member dies for good.
 - The exact period.
 - The exact scenes for the Act 4 encounters that pull Lucien back from the edge.
