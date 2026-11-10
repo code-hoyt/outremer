@@ -525,3 +525,6 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 
 ## Party size (2026-11-09)
 - The game is moving from a 3-unit squad to FFTA2-style clans: about 6 units deploy per battle, chosen from a larger roster. The deploy cap should be a value in `src/config.js` once this is coded.
+
+## Classes (2026-11-09)
+- FFTA2-style: basic classes that unlock more advanced and unique options. This needs its own design discussion; it has not been designed yet.

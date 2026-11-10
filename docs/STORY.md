@@ -87,6 +87,14 @@ The working doc for story decisions, written with Cletus. Earlier test character
 
 - **Who is from the real world:** only the four heroes (Tristan, Aveline, Godric, Lucien) and Guérin and his cult come from our world (confirmed). Dismas, his hunting party and everyone else native to the other world come from there.
 
+## Act 1 beats after the rescue (DRAFT 2026-11-09, pitched, awaiting feedback)
+1. The hunters' camp: Tristan wakes among strangers to whom demons and saints are everyday. Dismas explains the minimum, and Tristan disbelieves.
+2. Proving himself: a first battle with the hunters against small profane creatures.
+3. Finding Aveline: a "foreign healer" in a besieged village. In the rescue battle she calls a saint for the first time, the first miracle Tristan can't explain away.
+4. A glimpse of Vaskar (optional): a raid led by a figure Dismas recognises, and Dismas goes quiet.
+5. The road to the stronghold: a march across profane ground that teaches the holy and profane mechanic.
+6. The holy stronghold: the first node is consecrated, the world map opens, and the clan is established.
+
 ## Open questions
 - How they cross back to the real world.
 - Whether any party member dies for good.
