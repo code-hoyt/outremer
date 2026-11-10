@@ -21,7 +21,7 @@ const CONFIG = {
   toastFontPx: 15.5,
   minFontPx: 13,
   // Defaults
-  speed: 1,
+  speed: 0.5,             // Cletus picked the slowest setting
   mode: "title",           // "title" | "toast"
   startIndex: 0,
 };

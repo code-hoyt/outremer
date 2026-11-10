@@ -9,6 +9,22 @@ export const CONFIG = {
   // or the map picker on the start and Victory/Defeat screens.
   defaultMap: 'ridge',
 
+  // ---------------------------------------------------------------- scripture
+  // Verse presentation (Cletus, 2026-11-10): title-card style, Latin burns away INTO the KJV
+  // in one fire-front sweep. Picked at the prototype's slowest speed (0.5x), baked in below.
+  // Prototype: verse-test/ (its own CONFIG at 1x; these are those values doubled).
+  scripture: {
+    style: 'titleCard',
+    holdLatinMs: 3000,     // Latin fully visible before the fire starts
+    frontMs: 8000,         // front travel time for the longest verse; scaled by glyph count
+    frontMinMs: 5200,
+    frontMaxMs: 9000,
+    frontRefGlyphs: 165,   // Ephesians 6:12 Latin
+    burnLetterMs: 1080,    // one Latin glyph: flare, char, drift away
+    igniteLetterMs: 1160,  // one English glyph: ember-hot, cooling to ink
+    englishLagMs: 180,     // English is born from the embers just behind the front
+  },
+
   // ---------------------------------------------------------------- terrain
   // Base move cost per terrain key. Roles may override via `terrainCost`.
   terrain: {
