@@ -65,9 +65,13 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **The Prophet:** already in the other world. A false miracle-worker whose 'miracles' are demonic, a dark mirror of Aveline's saints. Theme: true faith against counterfeit faith.
 - **Bound souls (unique to these two, not a rule of the world):** their souls are connected. The reveal is that they've been working together all along. Through the Lord, the Prophet knows the real world and the war, and he is trying to break through the veil and take it over. The cult's tear in the opening is step one of his invasion.
 
+## Villain names (locked 2026-11-09)
+- **Guérin de Montclair:** the Lord ('clair', bright, is ironic).
+- **Simeon the Lamp:** the Prophet, a false light.
+- **Sulthrane:** the demon (an invented name) who gave Simeon his powers, motivations and goals. Simeon is his servant. Sulthrane is the final boss.
+
 ## Open questions
-- The names of the Lord and the Prophet.
-- What the Prophet ultimately serves (a demon prince?).
+- The act structure.
 - The act structure.
 - The exact period.
 - The protagonist and their arc.
