@@ -32,7 +32,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 
 ## Opening and the scattered squad (locked 2026-11-09)
 - **The squad is scattered** when the veil tears. Finding each other is an early goal.
-- **Opening scene:** the protagonist is pulled through alongside one of the Satanists. Both arrive confused. A demon finds them, the Satanist worships it or panics, and it kills him. That's the hero's crash course in the new world.
+- **Opening scene:** the protagonist is pulled through alongside one of the Satanists. Both arrive confused. A Fiend finds them, the Satanist worships it or panics, and it kills him. That's the hero's crash course in the new world.
 - **His squad (about 3, found later in different places):**
   - a loyal friend;
   - a love interest;
@@ -71,7 +71,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Sulthrane:** the demon (an invented name) who gave Simeon his powers, motivations and goals. Simeon is his servant. Sulthrane is the final boss.
 
 ## Act structure (DRAFT 2026-11-09, not locked)
-1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a Fiend, finds Aveline first and she begins calling saints. Ends at a holy stronghold where the map game (consecrating nodes) begins.
+1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a Fiend, joins Dismas's hunters, and answers Aveline's call at the holy stronghold, where the first true Demon is attacking. Ends there, with the map game (consecrating nodes) beginning.
 2. **The Lamp:** Godric is found mid-battle. Simeon draws crowds with false miracles and seems like an ally. Midpoint: Lucien at Simeon's side, Aveline breaks, Tristan steps up. Ends with Simeon exposed and open war.
 3. **Two Faces:** a way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
 4. **Holy Ground:** Lucien returns (the prodigal son). Holy ground spreads. Guérin and Simeon are beaten on both sides of the veil at once. Sulthrane is defeated with saints and angels. They return home and the veil is sealed.
@@ -83,20 +83,20 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Pushing through:** a servant slips the squad a warning, and they inspect anyway.
 - **Lucien's seed:** he admires Guérin and argues that they should respect the baron's word. Tristan overrules him. This foreshadows Lucien's turn.
 - **The fight:** the descent into the cellars is the tutorial battle against human cultists, and it looks like an ordinary war fight. Then the ritual completes, the veil tears, and everyone is pulled through and scattered.
-- **After the tear (FFTA2-style, LOCKED 2026-11-09):** Tristan lands with a Satanist, a demon kills the Satanist, and then a hunting party from this world rescues Tristan. Its leader is a hero character, a converted former cultist who once served the profane side and now hunts it. He's living proof that someone can come back, which mirrors and foreshadows Lucien's return (name: **Dismas**, after the penitent thief). Backstory: he is a native of the other world who once served the profane side alongside his closest friend, a sworn brother in spirit but not by blood. When Dismas turned to the light he had to "betray" that friend. The friend stayed in the dark and rose to become Simeon's lieutenant. He is the one who recruits Lucien, using the same "they'll never value you" pitch he once used on Dismas, and he is so far gone into Sulthrane's power that he is barely a man any more. Dismas can't save him, only end him. His name is **Vaskar**. This mirrors Lucien in reverse: Lucien is the brother who comes back, and Dismas's friend is the one who doesn't, and Tristan joins his group, which becomes the first team. Aveline, Godric and Lucien are found later as planned.
+- **After the tear (FFTA2-style, LOCKED 2026-11-09):** Tristan lands with a Satanist, a Fiend kills the Satanist, and then a hunting party from this world rescues Tristan. Its leader is a hero character, a converted former cultist who once served the profane side and now hunts it. He's living proof that someone can come back, which mirrors and foreshadows Lucien's return (name: **Dismas**, after the penitent thief). Backstory: he is a native of the other world who once served the profane side alongside his closest friend, a sworn brother in spirit but not by blood. When Dismas turned to the light he had to "betray" that friend. The friend stayed in the dark and rose to become Simeon's lieutenant. He is the one who recruits Lucien, using the same "they'll never value you" pitch he once used on Dismas, and he is so far gone into Sulthrane's power that he is barely a man any more. Dismas can't save him, only end him. His name is **Vaskar**. This mirrors Lucien in reverse: Lucien is the brother who comes back, and Dismas's friend is the one who doesn't. Tristan joins Dismas's hunting party, which becomes the first team. Aveline, Godric and Lucien are found later as planned.
 
 - **Who is from the real world:** only the four heroes (Tristan, Aveline, Godric, Lucien) and Guérin and his cult come from our world (confirmed). Dismas, his hunting party and everyone else native to the other world come from there.
 
 ## Act 1 beats after the tear (LOCKED 2026-11-09)
 1. **First fight and rescue:** the Fiend that killed the Satanist turns on Tristan and summons little minions (Imps or Wretches). Dismas's hunting party arrives, and Tristan fights alongside them. This is the first battle with the hunters, and he proves he's no pushover even though he's never seen such creatures. Dismas gives him a crash course and is himself a little puzzled by how confused Tristan is.
 2. **Joining the hunters:** after the Fiend falls, Tristan joins the party for a few minor quests that teach how this world works. Along the way Tristan explains where he's from, and Dismas ponders it.
-3. **Act 1 finale, the quest "Saint-Caller Calling for Aid":** Aveline is at the holy stronghold calling for help, and the party answers. Meeting her is the final encounter of Act 1. The act ends at the stronghold, where the map game begins.
+3. **Act 1 finale, the quest "Saint-Caller Calling for Aid":** Aveline is at the holy stronghold calling for help because a true Demon is attacking the place. The party answers, and meeting her is the final encounter of Act 1. This is the first true Demon the player faces, a step up from the opening Fiend, and in the fight she calls on blessed help as a Saint-Caller. The act ends at the stronghold, where the map game begins. (The Demon's name is still TBD.)
 - **Vaskar:** saved for Act 2, with no Act 1 glimpse.
 - **Saints in this world:** blessed help that certain individuals (Saint-Callers) can call on.
 - **Bestiary words (LOCKED 2026-11-09):** these are used as kinds (and names) of enemies, not as competing labels for the same thing:
   - **Imps, Wretches, Blights, Hollows (or the Hollowed), Gheists, the Fallen:** distinct lesser kinds the player will face.
   - **Fiends:** mid-tier. The creature that kills the Satanist in the Act 1 opening is a Fiend (with lesser spawn), so Tristan's first fight is against a Fiend, not a true Demon.
-  - **Demons:** reserved for stronger and named enemies. Meeting a true Demon later is a big deal.
+  - **Demons:** reserved for stronger and named enemies. The first true Demon appears in the Act 1 finale, attacking the holy stronghold where Aveline is calling for aid. Facing one is a big deal after the opening Fiend.
   - **Sulthrane** sits above them all.
 
 ## Open questions

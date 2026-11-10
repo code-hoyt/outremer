@@ -533,6 +533,6 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 These words name different kinds of enemy, not competing labels for the same creature:
 - **Imps, Wretches, Blights, Hollows (the Hollowed), Gheists, the Fallen:** distinct lesser kinds.
 - **Fiends:** mid-tier. The Act 1 opening encounter is a Fiend plus lesser spawn.
-- **Demons:** stronger and named enemies. Facing a true Demon is a later, bigger moment.
+- **Demons:** stronger and named enemies. The first true Demon is the Act 1 finale at the holy stronghold ("Saint-Caller Calling for Aid"). Facing one is a bigger moment after the opening Fiend.
 - **Sulthrane** is above them.
 Exact stats and which kinds appear when are still to be designed.
