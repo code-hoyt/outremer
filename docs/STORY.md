@@ -99,6 +99,14 @@ The working doc for story decisions, written with Cletus. Earlier test character
   - **Demons:** reserved for stronger and named enemies. The first true Demon appears in the Act 1 finale, attacking the holy stronghold where Aveline is calling for aid. Facing one is a big deal after the opening Fiend.
   - **Sulthrane** sits above them all.
 
+## Act 2 beats (DRAFT 2026-11-09, pitched, awaiting feedback)
+1. The map opens: after the stronghold, the clan starts taking and consecrating nodes, with short hunts that teach choosing a team from the roster.
+2. Finding Godric early, mid-battle: he has been fighting alone since the tear. Reuniting Tristan, Aveline and Godric first means Lucien's later turn hits a real squad.
+3. Simeon appears as an ally in the aftermath of the Act 1 Demon attack, offering aid and claiming he also stands against Demons. His "miracles" feel like a darker cousin of Aveline's calling, which makes her uneasy even while the stronghold welcomes him.
+4. Vaskar arrives as Simeon's captain (perhaps on a joint hunt). Dismas recognises him and goes quiet; Vaskar treats him as a traitor, but the history is not fully told yet.
+5. Midpoint: Lucien is revealed fighting at Simeon's side, recruited by Vaskar. Aveline breaks, and Tristan steps up (faith turn and romance). Recommendation: hint at Lucien beforehand (a foreign scout, or a token Aveline recognises) so the reveal feels earned.
+6. End of Act 2: Simeon's miracles are exposed as demonic, the alliance collapses, and it is open war.
+
 ## Open questions
 - How they cross back to the real world.
 - Whether any party member dies for good.
