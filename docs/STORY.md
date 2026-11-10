@@ -71,7 +71,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Sulthrane:** the demon (an invented name) who gave Simeon his powers, motivations and goals. Simeon is his servant. Sulthrane is the final boss.
 
 ## Act structure (DRAFT 2026-11-09, not locked)
-1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a demon, finds Aveline first and she begins calling saints. Ends at a holy stronghold where the map game (consecrating nodes) begins.
+1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a Fiend, finds Aveline first and she begins calling saints. Ends at a holy stronghold where the map game (consecrating nodes) begins.
 2. **The Lamp:** Godric is found mid-battle. Simeon draws crowds with false miracles and seems like an ally. Midpoint: Lucien at Simeon's side, Aveline breaks, Tristan steps up. Ends with Simeon exposed and open war.
 3. **Two Faces:** a way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
 4. **Holy Ground:** Lucien returns (the prodigal son). Holy ground spreads. Guérin and Simeon are beaten on both sides of the veil at once. Sulthrane is defeated with saints and angels. They return home and the veil is sealed.
@@ -88,12 +88,16 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - **Who is from the real world:** only the four heroes (Tristan, Aveline, Godric, Lucien) and Guérin and his cult come from our world (confirmed). Dismas, his hunting party and everyone else native to the other world come from there.
 
 ## Act 1 beats after the tear (LOCKED 2026-11-09)
-1. **First fight and rescue:** the demon that killed the Satanist turns on Tristan and summons little minions. Dismas's hunting party arrives, and Tristan fights alongside them. This is the first battle with the hunters, and he proves he's no pushover even though he's never seen such creatures. Dismas gives him a crash course and is himself a little puzzled by how confused Tristan is.
-2. **Joining the hunters:** after the demon falls, Tristan joins the party for a few minor quests that teach how this world works. Along the way Tristan explains where he's from, and Dismas ponders it.
+1. **First fight and rescue:** the Fiend that killed the Satanist turns on Tristan and summons little minions (Imps or Wretches). Dismas's hunting party arrives, and Tristan fights alongside them. This is the first battle with the hunters, and he proves he's no pushover even though he's never seen such creatures. Dismas gives him a crash course and is himself a little puzzled by how confused Tristan is.
+2. **Joining the hunters:** after the Fiend falls, Tristan joins the party for a few minor quests that teach how this world works. Along the way Tristan explains where he's from, and Dismas ponders it.
 3. **Act 1 finale, the quest "Saint-Caller Calling for Aid":** Aveline is at the holy stronghold calling for help, and the party answers. Meeting her is the final encounter of Act 1. The act ends at the stronghold, where the map game begins.
 - **Vaskar:** saved for Act 2, with no Act 1 glimpse.
 - **Saints in this world:** blessed help that certain individuals (Saint-Callers) can call on.
-- **Terminology:** "demon" is reserved for stronger and named enemies, and common creatures need a lesser word (TBD). Still open: whether the creature that kills the Satanist is a true demon or a lesser one.
+- **Bestiary words (LOCKED 2026-11-09):** these are used as kinds (and names) of enemies, not as competing labels for the same thing:
+  - **Imps, Wretches, Blights, Hollows (or the Hollowed), Gheists, the Fallen:** distinct lesser kinds the player will face.
+  - **Fiends:** mid-tier. The creature that kills the Satanist in the Act 1 opening is a Fiend (with lesser spawn), so Tristan's first fight is against a Fiend, not a true Demon.
+  - **Demons:** reserved for stronger and named enemies. Meeting a true Demon later is a big deal.
+  - **Sulthrane** sits above them all.
 
 ## Open questions
 - How they cross back to the real world.

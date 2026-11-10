@@ -528,3 +528,11 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 
 ## Classes (2026-11-09)
 - FFTA2-style: basic classes that unlock more advanced and unique options. This needs its own design discussion; it has not been designed yet.
+
+## Bestiary terms (LOCKED 2026-11-09)
+These words name different kinds of enemy, not competing labels for the same creature:
+- **Imps, Wretches, Blights, Hollows (the Hollowed), Gheists, the Fallen:** distinct lesser kinds.
+- **Fiends:** mid-tier. The Act 1 opening encounter is a Fiend plus lesser spawn.
+- **Demons:** stronger and named enemies. Facing a true Demon is a later, bigger moment.
+- **Sulthrane** is above them.
+Exact stats and which kinds appear when are still to be designed.
