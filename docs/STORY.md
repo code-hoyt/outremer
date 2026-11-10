@@ -72,7 +72,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 
 ## Act structure (DRAFT 2026-11-09, not locked)
 1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a Fiend, joins Dismas's hunters, and answers Aveline's call at the holy stronghold, where the first true Demon is attacking. Ends there, with the map game (consecrating nodes) beginning.
-2. **The Lamp:** Godric is found mid-battle. Simeon draws crowds with false miracles and seems like an ally. Midpoint: Lucien at Simeon's side, Aveline breaks, Tristan steps up. Ends with Simeon exposed and open war.
+2. **The Lamp:** Aveline tells Tristan that she, Godric and Lucien saw him fall into the tear and followed. Lucien was taken in a later battle; Godric went after him and she has heard from neither since. Simeon is the opponent from the first (never an ally). The party takes jobs from a good-guy force Aveline already joined (identity TBD). Quests lead into Simeon's forces. Climax: they find Godric facing Vaskar and team up against him. (Whether Vaskar is defeated or escapes, and whether Lucien is present or only reported, is still open.)
 3. **Two Faces:** a way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
 4. **Holy Ground:** Lucien returns (the prodigal son). Holy ground spreads. Guérin and Simeon are beaten on both sides of the veil at once. Sulthrane is defeated with saints and angels. They return home and the veil is sealed.
 
@@ -99,16 +99,20 @@ The working doc for story decisions, written with Cletus. Earlier test character
   - **Demons:** reserved for stronger and named enemies. The first true Demon appears in the Act 1 finale, attacking the holy stronghold where Aveline is calling for aid. Facing one is a big deal after the opening Fiend.
   - **Sulthrane** sits above them all.
 
-## Act 2 beats (DRAFT 2026-11-09, pitched, awaiting feedback)
-1. The map opens: after the stronghold, the clan starts taking and consecrating nodes, with short hunts that teach choosing a team from the roster.
-2. Finding Godric early, mid-battle: he has been fighting alone since the tear. Reuniting Tristan, Aveline and Godric first means Lucien's later turn hits a real squad.
-3. Simeon appears as an ally in the aftermath of the Act 1 Demon attack, offering aid and claiming he also stands against Demons. His "miracles" feel like a darker cousin of Aveline's calling, which makes her uneasy even while the stronghold welcomes him.
-4. Vaskar arrives as Simeon's captain (perhaps on a joint hunt). Dismas recognises him and goes quiet; Vaskar treats him as a traitor, but the history is not fully told yet.
-5. Midpoint: Lucien is revealed fighting at Simeon's side, recruited by Vaskar. Aveline breaks, and Tristan steps up (faith turn and romance). Recommendation: hint at Lucien beforehand (a foreign scout, or a token Aveline recognises) so the reveal feels earned.
-6. End of Act 2: Simeon's miracles are exposed as demonic, the alliance collapses, and it is open war.
+## Act 2 beats (DRAFT 2026-11-09, revised from Cletus's notes, awaiting a few calls)
+- **Bridge from Act 1:** after finding Aveline, Act 2 begins with her explaining that she, Godric and Lucien saw Tristan fall into the tear and all three followed. This is how Tristan learns the other two are in this world as well.
+- **What happened to them:** they fought in a battle, and Lucien was taken. Godric went after him. Aveline has not heard from either since.
+- **Simeon:** always seen as the opponent, never as a false ally. His following is still a counterfeit faith the world must contend with, but the heroes do not trust him.
+- **The good-guy force (identity TBD):** a force in this world already opposing Simeon. Aveline (and the others, before they were separated) joined it. Tristan's clan then becomes part of it, or at least takes jobs and quests from it. Options pitched: a native holy order that posts jobs (recommended); a loose coalition of stronghold, hunters and free towns; or the Wardens, an army sworn to consecrate ground. Name ideas: the Vigil, the Wardens, the Order of the Sepulchre, the Hallowed Host.
+- **The act:** more quests and missions, which eventually lead to facing more of Simeon's forces.
+- **Climax:** the party runs into Godric facing Vaskar and teams up with him against Vaskar. Open: whether Vaskar falls or escapes (recommendation: he escapes, wounded), and whether Lucien is at the fight or Godric only brings news that Lucien has joined the enemy (recommendation: Godric saw Lucien at Vaskar's side and Lucien would not come, so Aveline's break can happen here).
+
 
 ## Open questions
 - How they cross back to the real world.
 - Whether any party member dies for good.
 - Tristan's final faith moment.
 - The exact period.
+- The good-guy force opposing Simeon (name and shape).
+- Whether Vaskar is defeated or escapes at the Act 2 climax.
+- Whether Lucien is present at that fight, or only reported by Godric.
