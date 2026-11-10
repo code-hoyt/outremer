@@ -74,7 +74,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 1. **The Tear:** an ordinary war at a frontier castle; the cult's rite tears the veil. Tristan sees the Satanist killed by a Fiend, joins Dismas's hunters, and answers Aveline's call at the holy stronghold, where the first true Demon is attacking. Ends there, with the map game (consecrating nodes) beginning.
 2. **The Lamp:** Aveline tells Tristan that she, Godric and Lucien saw him fall into the tear and followed. Lucien was taken in a later battle; Godric went after him and she has heard from neither since. Simeon is the opponent from the first (never an ally). The party takes jobs from the Order of the Eighth Day (called Eighth Day), which Aveline already joined. Quests lead into Simeon's forces. Climax: they find Godric facing Vaskar and team up against him. Vaskar is defeated, but a shadowy figure pulls him out and he escapes. The figure is Lucien, though that is not confirmed until Act 3.
 3. **Two Faces:** the shadowy figure who saved Vaskar is revealed to be Lucien. A glimpse through a tear shows Guérin in the real world, in communion with Simeon. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: Dismas kills Vaskar, but the battle still goes badly and an Eighth Day stronghold falls; Tristan's faith holds on the retreat.
-4. **Holy Ground:** holy ground spreads. The party confronts Simeon. Lucien returns by betraying Simeon, which leads to Simeon's death. Because their souls are bound, Guérin dies with him (seen through the tear); Guérin is not fought as a boss. Sulthrane then appears as the final boss, and is defeated with saints and angels. They return home and the veil is sealed.
+4. **Holy Ground:** holy ground spreads. The party has a few encounters with Lucien that pull him back from the edge. In the final battle they fight and defeat Simeon, but he tries to summon Sulthrane. Lucien returns by killing Simeon; it is too late, and Sulthrane is summoned anyway. Guérin dies with Simeon, seen through the tear. Sulthrane is then defeated with saints and angels. They return home and the veil is sealed.
 
 ## Act 1 opening (LOCKED 2026-11-09)
 - **The mission:** the squad (Tristan, Aveline, Godric, Lucien) is part of a Templar detachment sent to Guérin de Montclair's castle after a call for help about Satanists.
@@ -123,14 +123,14 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## How Guérin dies (LOCKED 2026-11-09)
 - Guérin is not fought as a boss. The party faces Simeon. When Simeon dies, Guérin dies with him, because their souls are bound. The player should see this through the tear, so both faces of the villain fall at once.
 
-## Act 4 beats (DRAFT 2026-11-09, from the locked decisions above, still to be fleshed out)
-1. Holy ground spreads as the party retakes land for Eighth Day.
-2. They confront Simeon.
-3. Lucien returns by betraying Simeon, which leads to Simeon's death.
-4. Guérin dies with Simeon, seen through the tear.
-5. Sulthrane appears as the final boss and is defeated with saints and angels at the heroes' side.
-6. They return home and the veil is sealed. Happy, triumphant ending.
-- The exact manner of Lucien's betrayal (a critical blow, a broken rite, an opened guard) is still open.
+## Act 4 beats (LOCKED 2026-11-10)
+1. **Holy ground spreads** as the party retakes land for Eighth Day.
+2. **Encounters with Lucien:** a few meetings during the campaign pull him back from the edge, so his return feels earned. Recommendation: one with Aveline, one with Tristan or Dismas, each a little closer; the first can come right after Vaskar's death, when Lucien is already shaken. The exact scenes are still to be written.
+3. **The final battle:** the party fights and defeats Simeon, but he is not yet dead. He tries to summon Sulthrane.
+4. **Lucien returns:** he comes back to the party by killing Simeon. It is too late: the gate is already open, and Sulthrane is summoned anyway. The kill still matters, because it stops Simeon from finishing the rite as its master.
+5. **Guérin dies** with Simeon in that same instant, seen through the tear.
+6. **Finale:** Sulthrane is the final boss and is defeated with saints and angels at the heroes' side.
+7. **Ending:** they return home and the veil is sealed. Happy, triumphant ending.
 
 
 ## Open questions
@@ -138,4 +138,4 @@ The working doc for story decisions, written with Cletus. Earlier test character
 - Whether any party member dies for good.
 - Tristan's final faith moment.
 - The exact period.
-- The exact manner of Lucien's betrayal of Simeon in Act 4.
+- The exact scenes for the Act 4 encounters that pull Lucien back from the edge.
