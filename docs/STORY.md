@@ -76,12 +76,16 @@ The working doc for story decisions, written with Cletus. Earlier test character
 3. **Two Faces:** a way into or a glimpse of the real world shows Guérin opening more tears. Reveal: bound souls, working together to break through for Sulthrane. Lucien doubts. Low point: a costly defeat; Tristan's faith holds.
 4. **Holy Ground:** Lucien returns (the prodigal son). Holy ground spreads. Guérin and Simeon are beaten on both sides of the veil at once. Sulthrane is defeated with saints and angels. They return home and the veil is sealed.
 
+## Act 1 opening (LOCKED 2026-11-09)
+- **The mission:** the squad (Tristan, Aveline, Godric, Lucien) is part of a Templar detachment sent to Guérin de Montclair's castle after a call for help about Satanists.
+- **The call for help:** a frightened castle chaplain wrote to the Templars behind Guérin's back. When the squad arrives, the chaplain has "gone to visit his sister." His body is later found in the cellars.
+- **Guérin as gracious host:** he is warm, charming and dismissive ("Rumours, brothers. Peasants see devils in every shadow. But you're welcome to look, after supper."), and he quietly steers them away from the lower keep. Players should read it as pride or negligence, not villainy, so the Act 3 reveal still lands.
+- **Pushing through:** a servant slips the squad a warning, and they inspect anyway.
+- **Lucien's seed:** he admires Guérin and argues that they should respect the baron's word. Tristan overrules him. This foreshadows Lucien's turn.
+- **The fight:** the descent into the cellars is the tutorial battle against human cultists, and it looks like an ordinary war fight. Then the ritual completes, the veil tears, and everyone is pulled through and scattered.
+
 ## Open questions
 - How they cross back to the real world.
 - Whether any party member dies for good.
 - Tristan's final faith moment.
-- The act structure.
 - The exact period.
-- The protagonist and their arc.
-- The cast.
-- The act structure.
