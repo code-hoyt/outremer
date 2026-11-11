@@ -1,8 +1,8 @@
 // Core rules: state, CT turn order, movement, combat math. No rendering here.
-import { CONFIG } from './config.js';
-import { MAPS, resolveMap } from './maps.js';
-import { applyHero } from './hero.js';
-import { companionDef, applyCompanion } from './party.js';
+import { CONFIG } from './config.js?v=0.14.0';
+import { MAPS, resolveMap } from './maps.js?v=0.14.0';
+import { applyHero } from './hero.js?v=0.14.0';
+import { companionDef, applyCompanion } from './party.js?v=0.14.0';
 
 export const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]]; // N E S W
 

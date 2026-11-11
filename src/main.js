@@ -1,16 +1,16 @@
 // Outremer prototype — rendering, input, and turn flow.
-import { CONFIG } from './config.js';
-import * as G from './game.js';
-import { planTurn, intents } from './ai.js';
-import { MAPS, resolveMap, skirmishMaps } from './maps.js';
-import { MISSIONS, missionById } from './missions.js';
+import { CONFIG } from './config.js?v=0.14.0';
+import * as G from './game.js?v=0.14.0';
+import { planTurn, intents } from './ai.js?v=0.14.0';
+import { MAPS, resolveMap, skirmishMaps } from './maps.js?v=0.14.0';
+import { MISSIONS, missionById } from './missions.js?v=0.14.0';
 import { loadParty, saveParty, clearParty, emptyParty, activeCompanions, joined, recruit, toggleActive, companionDef, traitDef,
-  recruitWins, finaleUnlocked, startFinale, notJoined, recordWin, recordLoss, loadChronicle, addChronicle, openRecruits } from './party.js';
-import { loadHero, saveHero, portraitSvg } from './hero.js';
-import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js';
-import { onTap } from './tap.js';
+  recruitWins, finaleUnlocked, startFinale, notJoined, recordWin, recordLoss, loadChronicle, addChronicle, openRecruits } from './party.js?v=0.14.0';
+import { loadHero, saveHero, portraitSvg } from './hero.js?v=0.14.0';
+import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js?v=0.14.0';
+import { onTap } from './tap.js?v=0.14.0';
 
-const V = CONFIG.view, P = CONFIG.palette;
+const V = CONFIG.view, P = CONFIG.palette, ART = CONFIG.art;
 const $ = (id) => document.getElementById(id);
 const cv = $('cv'), ctx = cv.getContext('2d');
 
@@ -20,6 +20,7 @@ function mulberry32(a) {
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
 const params = new URLSearchParams(location.search);
+const debugAnchor = params.get('debug') === 'anchor';
 const seedParam = params.get('seed');
 const makeRng = () => (seedParam ? mulberry32(Number(seedParam)) : Math.random);
 // ?map=<id|number> starts that map directly; otherwise the title screen offers a map picker
@@ -241,21 +242,29 @@ function resize() {
   const maxH = Math.max(...S.heights.flat());
   const pad = V.mapPaddingPx;
   const n = S.w + S.h;
-  // width in tile-width units: n/2 ; height: n/4 + maxH*hz/64 + unit headroom
-  const head = 62; // unit headroom above the highest tile, in base px
-  const fitH = (r.height - pad * 2) / (n / 4 + ((maxH + 1) * V.tileHeightPx + head) / V.baseTileWidth);
-  // zoom past fit-to-width on narrow screens (drag to pan), but never taller than the stage
-  const zoom = r.width < V.zoomBelowWidthPx ? V.zoom : 1;
-  const tw = Math.min(((r.width - pad * 2) / (n / 2)) * zoom, fitH);
-  const k = tw / V.baseTileWidth;
-  const hz = V.tileHeightPx * k;
+  const T = ART.tile[0], STEP = ART.step, head = ART.headroom;
+  // Board AABB in art px. Width n/2 * T; height is the space above and below the origin
+  // (highest tile's top vertex + headroom, plus the front of the board and one height step).
+  const boardW = (n / 2) * T;
+  const boardH = (n / 4) * T + (maxH + 1) * STEP + head;
+  const availW = Math.max(1, r.width - pad * 2);
+  const availH = Math.max(1, r.height - pad * 2);
+  const fitS = Math.max(1, Math.min(Math.floor((availW * dpr) / boardW), Math.floor((availH * dpr) / boardH)));
+  // Phones: locked integer scale (pan if needed). Wider stages: the largest s that fits.
+  const s = r.width < ART.phoneBelowWidthPx ? ART.phoneScale : fitS;
+  const tw = (T * s) / dpr;          // CSS px; tw * dpr === T * s, a whole number
+  const k = tw / T;                  // CSS px per art px === s / dpr
+  const hz = (STEP * s) / dpr;
   const top = maxH * hz + tw / 4 + head * k;        // above oy
   const bottom = (n - 2) * tw / 4 + tw / 4 + hz;    // below oy
-  layout = { w: r.width, h: r.height, tw, k, hz,
-    bx: r.width / 2 - (S.w - S.h) * tw / 4,
-    by: (r.height - top - bottom) / 2 + top,
+  // Snap the origin so tile centres (and so sprite pixels) sit on the device-pixel grid.
+  const bx = Math.round((r.width / 2 - (S.w - S.h) * tw / 4) * dpr) / dpr;
+  const by = Math.round(((r.height - top - bottom) / 2 + top) * dpr) / dpr;
+  layout = { w: r.width, h: r.height, tw, k, hz, s, dpr,
+    bx, by,
     panX: Math.max(0, ((n / 2) * tw - r.width) / 2 + pad * 4),
-    panY: Math.max(0, (top + bottom - r.height) / 2 + pad * 4) };
+    panY: Math.max(0, (top + bottom - r.height) / 2 + pad * 4),
+    boardW, boardH, debugAnchor };
   applyCam();
 }
 // ---------------------------------------------------------------- camera (drag to pan, follows active unit)
@@ -311,6 +320,10 @@ function drawTile(x, y, hl) {
   const light = 0.92 + h * 0.05 + ((x + y) % 2) * 0.04;
   ctx.fillStyle = shade(t.top, light); ctx.fill();
   ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.stroke();
+  if (layout.debugAnchor) {
+    ctx.fillStyle = '#ffe14a';
+    ctx.fillRect(c.x - 0.5, c.y - 0.5, 1, 1);
+  }
   if (hl) { diamond(c.x, c.y, tw * 0.92); ctx.fillStyle = hl; ctx.fill(); }
   if (S.reliquary && S.reliquary.x === x && S.reliquary.y === y) { // Wren's amulet hums: the reliquary lies here
     const pulse = 0.55 + 0.35 * Math.sin(performance.now() * 0.004);
@@ -377,6 +390,53 @@ function drawArtWeapon(f, back, id, sc, ox, oy) {
   ctx.drawImage(w.img, -w.grip[0], -w.grip[1]);
   ctx.restore();
 }
+// ---------------------------------------------------------------- Tristan (the player hero, 60 px art scale)
+// Standing 8-dir strip + 4-diagonal walk. Left diagonals are already flipped in the files; never mirror.
+const TRI = (() => {
+  const v = '?v=' + CONFIG.version;
+  const stand = new Image(); stand.src = ART.tristan.stand + v;
+  const walk = new Image(); walk.src = ART.tristan.walk + v;
+  return { stand, walk, force: new Map() };
+})();
+const tristanReady = () => !!(TRI.stand.complete && TRI.stand.naturalWidth && TRI.walk.complete && TRI.walk.naturalWidth);
+function isTristanUnit(u) {
+  if (!u || u.team !== 'player') return false;
+  if (u.hero) return true;
+  if (S.units.some((x) => x.hero)) return false;
+  const lead = S.units.find((x) => x.team === 'player' && !x.companion);
+  return !!(lead && u.id === lead.id);
+}
+function tristanPose(u, a, now) {
+  if (TRI.force.has(u.id)) return TRI.force.get(u.id);
+  const walkRow = ART.facingWalk[u.facing];
+  const standCol = ART.facingStand[u.facing];
+  if (a && a.type === 'lunge') return { sheet: 'stand', col: standCol, row: 0 };
+  if (a && a.type === 'move') return { sheet: 'walk', row: walkRow, col: Math.floor(now / ART.moveFrameMs) % 2 };
+  return { sheet: 'walk', row: walkRow, col: Math.floor(now / ART.idleFrameMs) % 2 };
+}
+function drawTristan(u, now, x, y, a) {
+  const [cw, ch] = ART.cell;
+  const pose = tristanPose(u, a, now);
+  const img = pose.sheet === 'walk' ? TRI.walk : TRI.stand;
+  const facingName = ART.walkFacings[ART.facingWalk[u.facing]];
+  const ax = ART.anchor[0] + ((ART.anchorNudgeX && ART.anchorNudgeX[facingName]) || 0);
+  const ay = ART.anchor[1];
+  const m0 = ctx.getTransform();
+  const s = layout.s;
+  const X = Math.round(m0.a * x + m0.e);
+  const Y = Math.round(m0.d * y + m0.f);
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, X, Y);
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(img, pose.col * cw, pose.row * ch, cw, ch, -ax * s, -ay * s, cw * s, ch * s);
+  if (layout.debugAnchor) {
+    // Device-pixel space: (0,0) is the snapped plant point, 1 unit = 1 device px.
+    ctx.strokeStyle = '#ff2a7a'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(-10 * s, 0); ctx.lineTo(10 * s, 0); ctx.moveTo(0, -10 * s); ctx.lineTo(0, 10 * s); ctx.stroke();
+    ctx.strokeStyle = '#ffe14a'; ctx.strokeRect(-s / 2, -s / 2, s, s);
+  }
+  ctx.restore();
+}
 function drawUnit(u, now) {
   const { k } = layout;
   const pos = unitScreenPos(u, now);
@@ -386,7 +446,7 @@ function drawUnit(u, now) {
   const alpha = dying ? Math.max(0, 1 - (now - a.t0) / 600) : 1;
   if (u.hp <= 0 && !dying) return;
   const isActive = S.active === u && !S.over;
-  const bob = isActive ? Math.sin(now * V.bobSpeed) * V.bobAmplitudePx * k : 0;
+  const bob = isActive && !isTristanUnit(u) ? Math.sin(now * V.bobSpeed) * V.bobAmplitudePx * k : 0;
   const dir = FACE_VEC[u.facing];
   const flip = dir[0] < 0 ? -1 : 1;
   const back = dir[1] < 0; // facing away from camera
@@ -406,15 +466,25 @@ function drawUnit(u, now) {
   ctx.globalAlpha = alpha;
 
   const m0 = ctx.getTransform(); // CSS px -> device px (dpr), before the unit's own transform
+  const useTristan = isTristanUnit(u) && tristanReady();
+  if (useTristan) {
+    // Art carries its own 1 px head bob; do not add the engine bob, and never mirror.
+    drawTristan(u, now, x, y, a);
+    if (a && a.type === 'flash' && now - a.t0 < V.hitFlashMs) {
+      ctx.fillStyle = 'rgba(255,255,255,.45)';
+      ctx.beginPath(); ctx.ellipse(x, y - 28 * k, 16 * k, 34 * k, 0, 0, Math.PI * 2); ctx.fill();
+    }
+  } else {
   ctx.translate(x, y - 2 * k + bob);
-  ctx.scale(k * flip, k);
+  const pk = layout.tw / 64; // placeholder / ?art=test sheet coords were authored for a 64-wide tile
+  ctx.scale(pk * flip, pk);
   const artOn = ART_TEST && u.companion === 'renaud' && ART_TEST.img.complete && ART_TEST.img.naturalWidth;
   const artF = artOn ? artFrame(u, a, now, isActive) : -1;
   const N = AT.native, natCol = artOn && N && ART_TEST.nat && ART_TEST.nat.complete && ART_TEST.nat.naturalWidth ? N.cols.indexOf(AT.cols[artF]) : -1;
   if (natCol >= 0) { // ?art=test native pixel sprite: whole device px per art px, snapped to the device grid, no smoothing
-    const s = Math.max(1, Math.round(AT.pixelScale * k * m0.a));
+    const s = Math.max(1, Math.round(AT.pixelScale * (layout.tw / 64) * m0.a));
     const [cw, ch] = N.cell, [ax, ay] = N.anchor;
-    const fy = y + N.footOffsetPx * k;
+    const fy = y + N.footOffsetPx * (layout.tw / 64);
     const X = Math.round(m0.a * x + m0.c * fy + m0.e);
     const Y = Math.round(m0.b * x + m0.d * fy + m0.f) + Math.round(bob * m0.d / s) * s; // bob in whole art px
     ctx.save(); ctx.setTransform(1, 0, 0, 1, X, Y); ctx.imageSmoothingEnabled = false;
@@ -499,9 +569,11 @@ function drawUnit(u, now) {
   if (a && a.type === 'flash' && now - a.t0 < V.hitFlashMs) {
     ctx.globalCompositeOperation = 'source-atop'; ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.fillRect(-25, -75, 50, 80);
   }
+  } // end placeholder / ?art=test branch
   ctx.restore();
-  // hp bar (unflipped)
-  const bw = 30 * k, bh = 4 * k, bx = x - bw / 2, by = y - 64 * k + bob;
+  // hp bar (unflipped). Tristan: just above the cell. Placeholders: the old 64-base height, scaled to the tile.
+  const barTop = useTristan ? (ART.anchor[1] + 5) * k : 64 * (layout.tw / 64);
+  const bw = 30 * k, bh = 4 * k, bx = x - bw / 2, by = y - barTop + (useTristan ? 0 : bob);
   ctx.globalAlpha = alpha;
   ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(bx - 1, by - 1, bw + 2, bh + 2);
   const f = u.hp / u.maxHp;
@@ -580,7 +652,7 @@ function render(now) {
   order.sort((a, b) => a[0] + a[1] - (b[0] + b[1]) || a[0] - b[0]);
   const units = S.units.map((u) => ({ u, d: unitScreenPos(u, now).depth }));
   let ui2 = 0;
-  units.sort((a, b) => a.d - b.d);
+  units.sort((a, b) => a.d - b.d || a.u.id - b.u.id);
   for (const [x, y] of order) {
     // draw units whose depth is strictly behind this tile's row first
     while (ui2 < units.length && units[ui2].d < x + y - 0.01) drawUnit(units[ui2++].u, now);
@@ -613,7 +685,7 @@ function drawCursor(now) {
   ctx.lineWidth = 3 * Math.max(0.8, k); ctx.strokeStyle = `rgba(255,216,90,${pulse})`; ctx.stroke();
   // bouncing pointer above the tile (FFTA-style)
   const u = G.unitAt(S, x, y);
-  const top = c.y - (u ? 70 : 18) * k - Math.abs(Math.sin(now * 0.006)) * 6 * k;
+  const top = c.y - (u ? (isTristanUnit(u) ? (ART.anchor[1] + 8) * k : 70 * (layout.tw / 64)) : 18 * k) - Math.abs(Math.sin(now * 0.006)) * 6 * k;
   ctx.beginPath(); ctx.moveTo(c.x, top + 10 * k); ctx.lineTo(c.x - 7 * k, top); ctx.lineTo(c.x + 7 * k, top); ctx.closePath();
   ctx.fillStyle = '#ffd85a'; ctx.fill(); ctx.strokeStyle = '#3a2a00'; ctx.lineWidth = 1.5; ctx.stroke();
 }
@@ -660,7 +732,10 @@ function pick(px, py) {
   const now = performance.now();
   const k = layout.k;
   const hits = G.alive(S).map((u) => ({ u, p: unitScreenPos(u, now) }))
-    .filter(({ p }) => px > p.x - 16 * k && px < p.x + 16 * k && py > p.y - 58 * k && py < p.y + 6 * k)
+    .filter(({ p, u }) => {
+      const tall = (isTristanUnit(u) ? ART.anchor[1] : 58) * k, half = (isTristanUnit(u) ? 18 : 16) * k;
+      return px > p.x - half && px < p.x + half && py > p.y - tall && py < p.y + 6 * k;
+    })
     .map((h) => ({ ...h, d: Math.hypot(px - h.p.x, py - (h.p.y - 25 * k)) }));
   const targeting = (ui.mode === 'target' || ui.mode === 'confirm') && S.active;
   hits.sort((a, b) => (targeting ? (validTargetAt(b.u.x, b.u.y) ? 1 : 0) - (validTargetAt(a.u.x, a.u.y) ? 1 : 0) : 0) || a.d - b.d);
@@ -1285,5 +1360,16 @@ window.__outremer = {
   // ... and a defeat: your whole squad falls (Retry / Back to board)
   forceLose() { if (S.over) return false; for (const u of S.units) if (u.team === 'player' && !u.npc) u.hp = 0; G.checkOver(S); finish(); return S.over; },
   artForce(id, f) { if (ART_TEST) { if (f == null) ART_TEST.force.delete(id); else ART_TEST.force.set(id, f); } }, // ?art=test: hold a sheet frame (tests)
+  // Play a move animation along `path` ([{x,y},...]) without changing game state (tests / shots).
+  animateMove(id, path) { const u = S.units[id]; if (u && path && path.length) anims.set(u.id, { type: 'move', t0: performance.now(), path }); },
+  // Tristan: hold a pose { sheet: 'stand'|'walk', col, row } or null to release. Optional facing 0-3.
+  tristanForce(id, pose) {
+    if (pose == null) { TRI.force.delete(id); return; }
+    const u = S.units[id];
+    if (u && pose.facing != null) u.facing = pose.facing;
+    TRI.force.set(id, { sheet: pose.sheet || 'stand', col: pose.col || 0, row: pose.row || 0 });
+  },
+  get layout() { return layout ? { ...layout } : null; },
+  set debugAnchor(v) { if (layout) layout.debugAnchor = !!v; },
   G, CONFIG,
 };

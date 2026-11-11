@@ -464,7 +464,7 @@ Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-fa
 
 **Looking around:** **B** on the command menu (when there's no move to undo) enters **free cursor**. The info panel shows whatever unit is under the cursor. **B** on another unit highlights its movement range (purple). **A** or a second **B** returns the cursor to the active unit and reopens the menu. **Tapping a turn-order chip** jumps the cursor to that unit; this stands in for FFTA2's L/R unit cycling.
 
-**Touch shortcuts (the stylus equivalents):** tap a menu item to choose it. Tap a tile once to put the cursor there; tap it again (or press A) to confirm. **Tapping a valid target goes straight to the confirm step**, and tapping it again executes. In the facing step, tap an arrow to turn and tap the same arrow again to confirm. Drag the field to pan (phones zoom 1.3× past fit-width); otherwise the camera follows the cursor.
+**Touch shortcuts (the stylus equivalents):** tap a menu item to choose it. Tap a tile once to put the cursor there; tap it again (or press A) to confirm. **Tapping a valid target goes straight to the confirm step**, and tapping it again executes. In the facing step, tap an arrow to turn and tap the same arrow again to confirm. Drag the field to pan (on phones the board uses a locked integer art scale and is a little wider than the stage); otherwise the camera follows the cursor.
 
 **Starting a battle: tap vs scroll, and "Begin mission?" (v0.12).** *Cletus, playtesting v0.11: "Accidentally started some random mission when I was trying just to scroll… Perhaps a button for accepting a mission rather than just having it on touch? Only problem with that is it's very phone specific. That button wouldn't make sense if we were using a controller… also an are you sure prompt would be good on mission selects."*
 - **A tap is a tap, a drag is a scroll.** List items (title, board, briefs, join offer, end card, the board's squad portraits) used to act on *pointerdown*, so touching a mission to scroll the board picked it. Now an item acts only on release, and only if the finger moved no more than `controls.tapSlopPx` (10 px), the card didn't scroll, and the finger lifted on the same item. When the browser takes the touch as a scroll it fires `pointercancel`, which drops the tap too. Shared helper: `src/tap.js`.
@@ -541,3 +541,13 @@ Exact stats and which kinds appear when are still to be designed.
 - Verses appear on act title cards, on node consecration, and in dialogue. Each shows in Latin first, then burns away into the KJV English. Timings go in `src/config.js` when built. The effect needs testing on a phone, and it must not block input.
 - Feel-test prototype (title card vs consecration toast; Latin burns away into KJV English): https://code-hoyt.github.io/outremer/verse-test/
 - **Picked (2026-11-10):** title-card style, with Latin burning away into the English in one sweep and no gap, at the prototype's slowest speed (0.5x). Ephesians 6:12 runs about 12s. The values are in `CONFIG.scripture` in `src/config.js`. Node-consecration banners can reuse the same effect later if wanted.
+
+## Art scale (LOCKED 2026-11-11)
+Cletus locked a 60 px unit cap so sprites use raw Retro Diffusion output with no shrink. The numbers below are in art pixels and live in `CONFIG.art` in `src/config.js`.
+
+- **Sprite cell** 64×68, feet anchor `[31, 63]`.
+- **Iso tiles** 60×30, height step 15. Same 2:1 diamond as the previous 64/16 base, so map layout, pathing and depth sort are unchanged.
+- **Integer scale.** Tiles and sprites share one whole-number `s` (device pixels per art pixel), with image smoothing off for sprites. Tile width in device pixels is exactly `60 × s`.
+- **Phones** (stage narrower than 520 CSS px) use `s = 3`. At DPR 3 an 8×8 board is 480 CSS px wide and pans a little on a 390-wide iPhone. Wider screens use the largest `s` that fits. This replaces the old 1.3× zoom-past-fit.
+- **Tristan** is the player hero's battle sprite (standing 8-dir plus a 4-diagonal walk). Other units keep the placeholder drawing until their sheets arrive. Left-facing diagonals are already flipped in the files; the engine never mirrors them. Idle is a 2-frame walk-in-place at 410 ms; a move uses the same frames at 170 ms (340 ms per tile). Attacks use the standing cell plus the existing lunge.
+- Headroom above the highest tile is derived from the cell (`CONFIG.art.headroom`), not a hardcoded `62`.

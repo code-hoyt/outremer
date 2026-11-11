@@ -1,8 +1,8 @@
 // Outremer — party: recruited companions, mission progress, and fielding a squad.
 // No DOM at import time except localStorage access inside functions (tools/sim.mjs imports this).
-import { CONFIG } from './config.js';
-import { applyHero } from './hero.js';
-import { MISSIONS } from './missions.js';
+import { CONFIG } from './config.js?v=0.14.0';
+import { applyHero } from './hero.js?v=0.14.0';
+import { MISSIONS } from './missions.js?v=0.14.0';
 
 const P = () => CONFIG.party;
 export const companionDef = (id) => P().companions[id] || null;

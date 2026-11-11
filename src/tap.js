@@ -1,7 +1,7 @@
 // v0.12: tap vs scroll. Lists on a phone scroll by dragging, and a drag must never pick anything
 // (Cletus started a random mission while scrolling the board). A tap is press + release on the same element,
 // without moving more than CONFIG.controls.tapSlopPx and without the scroll container moving.
-import { CONFIG } from './config.js';
+import { CONFIG } from './config.js?v=0.14.0';
 
 export function onTap(root, sel, fn, scroller = () => root.closest('.card') || root) {
   let t = null;

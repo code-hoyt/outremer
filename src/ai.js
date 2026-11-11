@@ -1,10 +1,10 @@
 // Simple scoring AI: evaluate every reachable tile × (attack | each usable ability) × target, pick the best.
 // v0.13: no cooldowns, so only an ability's own drawback limits it (Pin: only from the tile you start on).
-import { CONFIG } from './config.js';
+import { CONFIG } from './config.js?v=0.14.0';
 import {
   reachable, targetsFrom, preview, heightAt, alive, canAttackFrom, faceNearestFoe, effMove, hitSide, facingTo,
   abilitiesOf, abilityReady, moveCost, abilityTargets, abilityPreview, braceIntercept, braceZone, unitAt, canAct, skittishAt,
-} from './game.js';
+} from './game.js?v=0.14.0';
 
 const manhattan = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 

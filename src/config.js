@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.13.0',
+  version: '0.14.0',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -469,13 +469,48 @@ export const CONFIG = {
     },
   },
 
+  // ---------------------------------------------------------------- art scale (locked 2026-11-11, Cletus)
+  // Raw Retro Diffusion output, no shrink. Tiles and sprites share one integer device-pixel scale s
+  // (device px per art px). Tile width in CSS px is (60 * s) / DPR, so tile width in device px is
+  // exactly 60 * s. Phones use art.phoneScale (3); an 8×8 board is 480 CSS px at DPR 3 and pans a
+  // little on a 390-wide stage. Wider screens use the largest s that fits the stage. Never shrink
+  // a sprite to fit; never use a fractional s.
+  art: {
+    tile: [60, 30],            // iso diamond, art px
+    step: 15,                  // height step, art px
+    cell: [64, 68],            // sprite cell, art px
+    anchor: [31, 63],          // feet point in the cell; planted on the tile centre
+    unitCap: 60,               // max figure height, art px
+    // 8-dir standing strip, left to right on stand.png
+    standFacings: ['down-right', 'front', 'down-left', 'left', 'up-left', 'back', 'up-right', 'right'],
+    // engine facing 0=N up-right, 1=E down-right, 2=S down-left, 3=W up-left → stand column
+    facingStand: [6, 0, 2, 4],
+    // walk.png: 4 rows × 2 cols (contact, recover)
+    walkFacings: ['down-right', 'down-left', 'up-left', 'up-right'],
+    facingWalk: [3, 0, 1, 2],  // engine facing → walk row
+    idleFrameMs: 410,          // walk-in-place while standing, per frame
+    moveFrameMs: 170,          // walking along a path, per frame (2 frames = view.moveStepMs)
+    phoneScale: 3,             // device px per art px on narrow stages
+    phoneBelowWidthPx: 520,
+    // art px above the highest tile's top vertex, for the sprite plus HP bar and status pips:
+    // (anchor y − tile height / 2) + 18
+    headroom: 66,
+    // Per-facing drawn-anchor x nudges, art px, added to anchor[0]. Empty: the four iso diagonals
+    // we use have soles within 0.5 art px of x=31. Walk soles travel on purpose (stride).
+    anchorNudgeX: {},
+    tristan: {
+      stand: 'assets/units/tristan/stand.png',
+      walk: 'assets/units/tristan/walk.png',
+    },
+  },
+
   // ---------------------------------------------------------------- presentation
   view: {
-    tileHeightPx: 16,        // vertical px per height level (at scale 1, tile width 64)
-    baseTileWidth: 64,
+    // Tile geometry lives in CONFIG.art (60×30, step 15). These two are aliases so older readers
+    // still see the current numbers; resize() reads art, not these.
+    tileHeightPx: 15,
+    baseTileWidth: 60,
     mapPaddingPx: 4,
-    zoom: 1.3,               // >1 zooms past fit-to-width on phones; drag to pan
-    zoomBelowWidthPx: 520,   // only zoom/pan on narrow (phone) stages
     camFollow: 0.15,         // camera easing toward the cursor per frame
     dragThresholdPx: 12,     // movement before a touch counts as a pan instead of a tap
     moveStepMs: 340,         // per tile of movement (all units). FFTA2 footage: ~0.35-0.45 s per tile incl. stairs; see docs/art-test/ffta2-timing.md
