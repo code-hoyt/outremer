@@ -2,7 +2,7 @@
 // Nothing else in src/ should hard-code a gameplay or presentation number.
 
 export const CONFIG = {
-  version: '0.14.0',
+  version: '0.14.1',
 
   // ---------------------------------------------------------------- maps
   // Map layouts/heights/terrain/deployment live in src/maps.js. Pick with ?map=<id|number>
@@ -495,9 +495,24 @@ export const CONFIG = {
     // art px above the highest tile's top vertex, for the sprite plus HP bar and status pips:
     // (anchor y − tile height / 2) + 18
     headroom: 66,
-    // Per-facing drawn-anchor x nudges, art px, added to anchor[0]. Empty: the four iso diagonals
-    // we use have soles within 0.5 art px of x=31. Walk soles travel on purpose (stride).
+    // Per-facing drawn-anchor x nudges, art px, added to anchor[0] in 'feet' mode. Empty: the four
+    // iso diagonals we use have soles within 0.5 art px of x=31. Walk soles travel on purpose (stride).
     anchorNudgeX: {},
+    // How Tristan is planted on the tile (Cletus, 2026-11-11): 'body' puts the torso centre on the
+    // tile centre; 'feet' plants the locked feet anchor [31, 63] there (v0.14.0). Whole art px only.
+    centering: 'body',
+    // Horizontal body centre, art px, from the standing cell of each facing (shoulders-to-hips
+    // opaque COM, rounded). Walk frames of a facing share this so he does not jitter sideways.
+    bodyCenterX: {
+      'down-right': 35, // stand COM 34.87; offset from feet anchor +4
+      'front': 32,      // 32.09; +1
+      'down-left': 28,  // 28.13; -3
+      'left': 32,       // 31.95; +1
+      'up-left': 36,    // 36.30; +5
+      'back': 32,       // 32.00; +1
+      'up-right': 26,   // 25.70; -5
+      'right': 32,      // 32.05; +1
+    },
     tristan: {
       stand: 'assets/units/tristan/stand.png',
       walk: 'assets/units/tristan/walk.png',

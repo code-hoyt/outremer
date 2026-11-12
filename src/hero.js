@@ -1,6 +1,6 @@
 // Outremer — the created hero (BG1/BG2-style): stat rolls, point redistribution, derived combat stats,
 // storage, and PLACEHOLDER portrait art. No DOM access at import time (tools/sim.mjs imports this).
-import { CONFIG } from './config.js?v=0.14.0';
+import { CONFIG } from './config.js?v=0.14.1';
 
 const CR = () => CONFIG.creation;
 export const HERO_KEY = 'outremer.hero';

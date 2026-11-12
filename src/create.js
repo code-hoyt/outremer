@@ -1,9 +1,9 @@
 // Outremer — character-creation wizard (mockup B, picked by Cletus): Portrait → Class → Stats → Name.
 // Touch-first. The battle pad (d-pad + A/B) is hidden here; only the Stats step shows a 4-way cross,
 // because nudging six numbers up and down is where a held pad beats tapping. See DESIGN.md → d-pad states.
-import { CONFIG } from './config.js?v=0.14.0';
-import * as H from './hero.js?v=0.14.0';
-import { onTap } from './tap.js?v=0.14.0';
+import { CONFIG } from './config.js?v=0.14.1';
+import * as H from './hero.js?v=0.14.1';
+import { onTap } from './tap.js?v=0.14.1';
 
 const CR = CONFIG.creation;
 const $ = (id) => document.getElementById(id);

@@ -1,14 +1,14 @@
 // Outremer prototype — rendering, input, and turn flow.
-import { CONFIG } from './config.js?v=0.14.0';
-import * as G from './game.js?v=0.14.0';
-import { planTurn, intents } from './ai.js?v=0.14.0';
-import { MAPS, resolveMap, skirmishMaps } from './maps.js?v=0.14.0';
-import { MISSIONS, missionById } from './missions.js?v=0.14.0';
+import { CONFIG } from './config.js?v=0.14.1';
+import * as G from './game.js?v=0.14.1';
+import { planTurn, intents } from './ai.js?v=0.14.1';
+import { MAPS, resolveMap, skirmishMaps } from './maps.js?v=0.14.1';
+import { MISSIONS, missionById } from './missions.js?v=0.14.1';
 import { loadParty, saveParty, clearParty, emptyParty, activeCompanions, joined, recruit, toggleActive, companionDef, traitDef,
-  recruitWins, finaleUnlocked, startFinale, notJoined, recordWin, recordLoss, loadChronicle, addChronicle, openRecruits } from './party.js?v=0.14.0';
-import { loadHero, saveHero, portraitSvg } from './hero.js?v=0.14.0';
-import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js?v=0.14.0';
-import { onTap } from './tap.js?v=0.14.0';
+  recruitWins, finaleUnlocked, startFinale, notJoined, recordWin, recordLoss, loadChronicle, addChronicle, openRecruits } from './party.js?v=0.14.1';
+import { loadHero, saveHero, portraitSvg } from './hero.js?v=0.14.1';
+import { openCreator, creatorOpen, creatorKey, creatorState } from './create.js?v=0.14.1';
+import { onTap } from './tap.js?v=0.14.1';
 
 const V = CONFIG.view, P = CONFIG.palette, ART = CONFIG.art;
 const $ = (id) => document.getElementById(id);
@@ -414,12 +414,17 @@ function tristanPose(u, a, now) {
   if (a && a.type === 'move') return { sheet: 'walk', row: walkRow, col: Math.floor(now / ART.moveFrameMs) % 2 };
   return { sheet: 'walk', row: walkRow, col: Math.floor(now / ART.idleFrameMs) % 2 };
 }
+function tristanAnchorX(facingName) {
+  const feetX = ART.anchor[0] + ((ART.anchorNudgeX && ART.anchorNudgeX[facingName]) || 0);
+  if ((ART.centering || 'body') === 'body' && ART.bodyCenterX && ART.bodyCenterX[facingName] != null) return ART.bodyCenterX[facingName];
+  return feetX;
+}
 function drawTristan(u, now, x, y, a) {
   const [cw, ch] = ART.cell;
   const pose = tristanPose(u, a, now);
   const img = pose.sheet === 'walk' ? TRI.walk : TRI.stand;
   const facingName = ART.walkFacings[ART.facingWalk[u.facing]];
-  const ax = ART.anchor[0] + ((ART.anchorNudgeX && ART.anchorNudgeX[facingName]) || 0);
+  const ax = tristanAnchorX(facingName);
   const ay = ART.anchor[1];
   const m0 = ctx.getTransform();
   const s = layout.s;
@@ -1362,6 +1367,8 @@ window.__outremer = {
   artForce(id, f) { if (ART_TEST) { if (f == null) ART_TEST.force.delete(id); else ART_TEST.force.set(id, f); } }, // ?art=test: hold a sheet frame (tests)
   // Play a move animation along `path` ([{x,y},...]) without changing game state (tests / shots).
   animateMove(id, path) { const u = S.units[id]; if (u && path && path.length) anims.set(u.id, { type: 'move', t0: performance.now(), path }); },
+  setCentering(mode) { ART.centering = mode === 'feet' ? 'feet' : 'body'; },
+  get centering() { return ART.centering; },
   // Tristan: hold a pose { sheet: 'stand'|'walk', col, row } or null to release. Optional facing 0-3.
   tristanForce(id, pose) {
     if (pose == null) { TRI.force.delete(id); return; }
