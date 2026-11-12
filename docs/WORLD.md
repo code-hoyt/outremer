@@ -76,3 +76,9 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Face (locked 2026-11-12):** baboon-muzzled, with a long, heavy muzzle and a deep brow sitting low in the mane. This nods to the medieval dog-headed-men legend, which probably came from accounts of baboons. NOT a dog head.
 - **Homeland (locked 2026-11-12):** highland crags. Clan-holds are cut into rocky hills and gorges, and each pack holds its own ridge. A few river clans may live in the lowlands.
 - **Faith (locked 2026-11-12):** the Christopher clans. Long ago, a giant Cynocephalus carried a holy child across a river and was changed by it (a nod to the dog-headed Saint Christopher of Orthodox icons). Whole packs converted with their leaders, so many clans hold the cross faith fiercely, while others keep the old ways. They convert pack by pack, which contrasts with the Peri, who convert alone.
+- **Toward Humans (locked 2026-11-12):** sworn shield-kin. The converted clans see the Order as a fellow pack in the faith and fight beside it, while the old-way clans are suspicious. As demons grow more present, all the races see value in standing together.
+- **Footprint (provisional):** uncommon, mostly in their holds, with some mercenaries and guards in the cities.
+
+## Race roster change (2026-11-12)
+- The Peri become the **rare fifth race**: hidden, unlocked through a side-quest tree.
+- A **new fourth main race** is needed: something small, filling the Moogle role, but distinctly our own. To be designed temperament-first.
