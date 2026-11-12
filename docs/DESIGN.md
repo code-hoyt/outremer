@@ -560,7 +560,7 @@ Research summary (sources in chat, 2026-11-11): big job systems run ~20–56 job
 Questions for Cletus, answered one at a time:
 1. ~~Can units change class?~~ **Locked 2026-11-11: free switching, FFT-style.** Changing class changes MOV/JUMP/terrain; learned abilities are kept.
 2. ~~How do classes unlock?~~ **Locked 2026-11-11: gear mastery (FFTA2-style: master N abilities from equipped gear in prerequisite classes) for most classes; quests for special classes.** Teaching gear must be obtainable (shops), not loot-gated.
-3. Do story heroes get unique classes, generic ones, or both?
+3. ~~Unique or generic hero classes?~~ **Locked 2026-11-11: both.** Each story hero has a unique class (a trade-off, not strictly better) unlocked through that hero's side quests, to pull players into the side-quest trees; heroes can also take generic classes.
 4. Do weapons stay tied to class?
 5. Respec: free, costed, or one-way?
 6. Where does replay variety come from: deploy mix, branches, gear, optional recruits?
