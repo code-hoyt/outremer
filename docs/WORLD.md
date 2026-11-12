@@ -31,6 +31,10 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Look direction (via Guilhem, on track not locked):** cute but fierce and pretty like FFTA2's Gria; humanoid with normal legs; slim, elegant, elf-like; wings (silk-moth wings and small crown is the leading pick, dragonfly second).
 - **In battle (locked):** quick and fragile; wings give a short hop over gaps, not flight. Nimble core classes plus race-only classes.
 - **Sex (locked 2026-11-12):** an all-female people. How new Peri come to be is open lore (idea: blossoms or cocoons, fitting the moth look).
+- **Hidden people (direction locked 2026-11-12, inspired by Legend of Dragoon's Winglies):** the Peri were once a great power and demon worshippers. Over the centuries the Humans drove them out. Today they are present but hidden, passing as Humans. Peri are trained from childhood in the magical art of making their wings vanish. Most people think of the Peri as history or legend.
+- **Story hook:** Dismas's companion is a hidden Peri. Dismas knows her secret and keeps it, because revealing it could get her killed. Some die-hard Peri-haters exist within the Eighth Day. (Identity and reveal timing are to be decided in the story pass. This echoes Dismas's own past on the profane side.)
+- **Unlocking the race:** the main story introduces the Peri as a side note or history note. A Peri side-quest tree reveals more and unlocks Peri as recruits. This overrides DESIGN.md Q12 for Peri: they are not recruitable from the start.
+- **Wings unlock through deeds:** a Peri unlocks her wings through what she does in play, as a battle-forged trait, not by default. The short hop is the first stage. Whether it later grows to a glide or true flight (FFTA2 Gria-style late power) is still open.
 
 ## Ifriti, Cynocephali
 To be fleshed out one at a time, after Peri.
