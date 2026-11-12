@@ -57,7 +57,8 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Role (leaning, 2026-11-12):** the most magical race.
 - **Homeland (locked for now, may change, 2026-11-12):** proud city-states built on lush green oases, like islands in the desert. Natural magic wells up there and keeps them green, and the Ifriti are drawn to those places. The open desert between them is like a sea. On the map, this means sand nodes with bright magical oasis cities.
 - **Faith (locked 2026-11-12):** an older covenant with the same God, kept long before Humans arrived, in a strange, ancient form. They see the cross faith as a younger cousin, which brings both respect and friction. City-states that broke the covenant for old pacts can still be enemies.
-- How they relate to Humans and the other races, and how common they are, are still to come.
+- **Toward Humans (locked 2026-11-12, lore only, not a mechanic):** elder teachers who see Humans as young in the faith and guide them, sometimes kindly and sometimes with condescension. Some Ifriti see Humans as oath-breakers because of a past betrayal (to be decided). Recruiting them works the normal way, with no pact mechanic.
+- How common they are, and how they relate to the other races, are still to come.
 
 ## Cynocephali
 To be fleshed out after the Ifriti. Same approach: temperament first, then physical tells, then visuals. Avoid "Human, but dog face".
