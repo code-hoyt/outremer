@@ -58,7 +58,16 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Homeland (locked for now, may change, 2026-11-12):** proud city-states built on lush green oases, like islands in the desert. Natural magic wells up there and keeps them green, and the Ifriti are drawn to those places. The open desert between them is like a sea. On the map, this means sand nodes with bright magical oasis cities.
 - **Faith (locked 2026-11-12):** an older covenant with the same God, kept long before Humans arrived, in a strange, ancient form. They see the cross faith as a younger cousin, which brings both respect and friction. City-states that broke the covenant for old pacts can still be enemies.
 - **Toward Humans (locked 2026-11-12, lore only, not a mechanic):** elder teachers who see Humans as young in the faith and guide them, sometimes kindly and sometimes with condescension. Some Ifriti see Humans as oath-breakers because of a past betrayal (to be decided). Recruiting them works the normal way, with no pact mechanic.
-- How common they are, and how they relate to the other races, are still to come.
+- **Footprint (locked 2026-11-12):** common. Ifriti scholars, teachers and merchants turn up in most Human cities, and their home is still the oases.
+- How they relate to the other races is open for later.
+
+### Ifriti art brief (for Guilhem)
+- **Do not draw "Human, but fire."** Let their temperament shape the body: they are bound by their word, never lie and bargain carefully, so they look still, upright, deliberate and watchful.
+- **Base look:** tall and lanky, with long limbs and long hands. Their skin is ashen, grey-toned pale, like cooled ash (dark pale). Their eyes are amber. Elegant, mysterious and dignified, like an old scholar or teacher.
+- **No signature add-on yet.** Get the base right first. Ideas kept for later: horns that gain a ring with each oath, a crown of living flame instead of hair, glowing oath-brands on the skin.
+- **Dress:** desert-oasis scholars and merchants. Layered, flowing robes suited to heat, with an air of learned authority. Their style is their own, not Arab or any other real culture.
+- **Lore context:** they live in city-states on green magical oases that sit like islands in the desert. They keep an older covenant with the same God and act as elder teachers to Humans, though some distrust Humans as oath-breakers. They are the most magical race.
+- **Deliverable:** a full-scale concept portrait like Tristan's, with no 60 px version.
 
 ## Cynocephali
 To be fleshed out after the Ifriti. Same approach: temperament first, then physical tells, then visuals. Avoid "Human, but dog face".
