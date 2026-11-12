@@ -49,5 +49,12 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Lore context:** once a great power, they were driven out by Humans over centuries. Most still follow an old demonic religion, and our recruits are converts, whom their people call "Fallen". Their old cities are ruins deep in the green forests. Hostile old-faith Peri are enemies too. They are the same people, so draw them with the same anatomy; the difference shows in dress and bearing, not a corrupted body.
 - Dismas's companion is a hidden Peri (her identity is to be decided).
 
-## Ifriti, Cynocephali
-To be fleshed out one at a time, after Peri.
+## Ifriti
+- **Design approach (2026-11-12):** no "Human, but fire". Start from temperament, follow it into physical tells, and then pick defining visuals (the FFTA2 approach: Bangaa, Viera, Moogles).
+- **Temperament (locked 2026-11-12):** bound by their word. They never lie, they bargain carefully, and their oaths truly bind them (from djinn folklore about wishes and pacts).
+- **Base look (locked 2026-11-12):** tall and lanky, with dark pale skin (read as ashen, grey-toned pale; to be confirmed) and amber eyes. Start simple; a signature feature can be added later if needed.
+- **Signature features considered, not chosen:** oath-brands, lamp-heart, smoke-veil, seal-collars, glass and ash skin, ringed horns, many hands, brazier crown, script-tongues, unfinished bodies. Kept as options for later.
+- Where they live, their faith and the rest are still to come.
+
+## Cynocephali
+To be fleshed out after the Ifriti. Same approach: temperament first, then physical tells, then visuals. Avoid "Human, but dog face".
