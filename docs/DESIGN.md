@@ -552,3 +552,23 @@ Cletus locked a 60 px unit cap so sprites use raw Retro Diffusion output with no
 - **Phones** (stage narrower than 520 CSS px) use `s = 3`. At DPR 3 an 8×8 board is 480 CSS px wide and pans a little on a 390-wide iPhone. Wider screens use the largest `s` that fits. This replaces the old 1.3× zoom-past-fit.
 - **Tristan** is the player hero's battle sprite (standing 8-dir plus a 4-diagonal walk). Other units keep the placeholder drawing until their sheets arrive. Left-facing diagonals are already flipped in the files; the engine never mirrors them. Idle is a 2-frame walk-in-place at 410 ms; a move uses the same frames at 170 ms (340 ms per tile). Attacks use the standing cell plus the existing lunge.
 - Headroom above the highest tile is derived from the cell (`CONFIG.art.headroom`), not a hardcoded `62`.
+
+## Classes and races — open questions (2026-11-11)
+
+Research summary (sources in chat, 2026-11-11): big job systems run ~20–56 jobs (FFT 20–22 + ~10 unique; FFTA ~34; FFTA2 56, but 4–13 per race). Recommended direction (not locked): mid-size tree of ~10–14 basic/advanced classes plus unique hero classes; class sets movement; abilities learned from buyable gear; one borrowed set; ~4 abilities carried into battle; every ability a trade-off. Phone is the smallest supported screen, not a design cap. The older "hero + 10 set companions, squad of 3" plan is superseded by the ~6-deployed clan.
+
+Questions for Cletus, answered one at a time:
+1. Can units change class (and so movement), FFT-style, or does each character stay on one class line?
+2. How do classes unlock: gear-mastered abilities, milestone branch picks, quests, or a mix?
+3. Do story heroes get unique classes, generic ones, or both?
+4. Do weapons stay tied to class?
+5. Respec: free, costed, or one-way?
+6. Where does replay variety come from: deploy mix, branches, gear, optional recruits?
+7. How do we avoid trap classes and a single dominant combo without adding chores?
+8. How many races: four or five?
+9. Which races, with names and looks (Humans; a winged/tall holy people; a stone/beast-blooded people; a small quick people; optional Redeemed)?
+10. Are the four real-world heroes plain Humans, or "Outlanders" with a unique trait?
+11. How strict are race locks: race-only classes plus shared ones (FFTA2), or fully separate lists?
+12. Can races other than Human join the clan freely, or only via story/recruit quests?
+13. Do races differ only by class list, or also by base stats/movement?
+14. Enemy races: are the profane kinds (Imps, Fiends, etc.) separate from playable races, or can some playable races also fall?
