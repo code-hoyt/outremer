@@ -563,7 +563,7 @@ Questions for Cletus, answered one at a time:
 3. ~~Unique or generic hero classes?~~ **Locked 2026-11-11: both.** Each story hero has a unique class (a trade-off, not strictly better) unlocked through that hero's side quests, to pull players into the side-quest trees; heroes can also take generic classes.
 4. ~~Weapons tied to class?~~ **Locked 2026-11-11: yes, class-gated weapon types, with an "Equip X"-style escape-hatch ability that costs one carried ability slot.**
 5. ~~Respec cost?~~ **Locked 2026-11-11: class switching is free between battles, never mid-fight.** The trade-off is time: battles spent learning one class are not spent on another.
-6. Where does replay variety come from: deploy mix, branches, gear, optional recruits?
+6. ~~Replay variety?~~ **Locked 2026-11-11: optional recruits (no run gets everyone), random recruit traits, and a few story choices.**
 7. How do we avoid trap classes and a single dominant combo without adding chores?
 8. How many races: four or five?
 9. Which races, with names and looks (Humans; a winged/tall holy people; a stone/beast-blooded people; a small quick people; optional Redeemed)?
@@ -572,3 +572,4 @@ Questions for Cletus, answered one at a time:
 12. Can races other than Human join the clan freely, or only via story/recruit quests?
 13. Do races differ only by class list, or also by base stats/movement?
 14. Enemy races: are the profane kinds (Imps, Fiends, etc.) separate from playable races, or can some playable races also fall?
+15. Recruit power curve (raised by Cletus 2026-11-11): in FFTA/FFTA2 late recruits join with better stats, which pushes players off long-built favourites. How do we keep favourites viable? (Options pitched in chat.)
