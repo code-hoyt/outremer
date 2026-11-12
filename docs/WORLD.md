@@ -36,7 +36,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Story hook:** Dismas's companion is a hidden Peri. Dismas knows her secret and keeps it, because revealing it could get her killed. Some die-hard Peri-haters exist within the Eighth Day. (Identity and reveal timing are to be decided in the story pass. This echoes Dismas's own past on the profane side.)
 - **Unlocking the race:** the main story introduces the Peri as a side note or history note. A Peri side-quest tree reveals more and unlocks Peri as recruits. This overrides DESIGN.md Q12 for Peri: they are not recruitable from the start.
 - **What the wings mean (locked 2026-11-12):** nothing spiritual; they are simply part of being Peri. They are hidden because of persecution, and they grow stronger with experience.
-- **Wings unlock through deeds:** a Peri unlocks her wings through what she does in play, as a battle-forged trait, not by default. Stages (locked 2026-11-12): short hop over gaps, then a glide (free descent from height and crossing a gap of a few tiles), then true flight (ignores height and terrain while moving, Gria-style late power). Flight trade-offs: a flying Peri can't hold ground or guard, and archers hit her harder.
+- **Wings unlock through deeds:** a Peri unlocks her wings through what she does in play, as a battle-forged trait, not by default. Stages (locked 2026-11-12): short hop over gaps, then a glide (free descent from height and crossing a gap of a few tiles), then true flight (ignores height and terrain while moving, Gria-style late power). No flight costs for now (Cletus 2026-11-12).
 
 ## Ifriti, Cynocephali
 To be fleshed out one at a time, after Peri.
