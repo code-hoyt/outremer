@@ -13,6 +13,14 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 
 - **Place among the races (locked 2026-11-12):** latecomers among older peoples. Peri, Ifriti and Cynocephali were here first, and Humans arrived through the crossings. The older races still see Humans as newcomers, and some resent how far they've spread.
 - **In battle (locked 2026-11-12):** balanced stats, no movement quirk. Their edge is the widest class list (an exception to DESIGN.md Q13 for Humans).
+- **Dress (locked 2026-11-12):** entirely their own look, a fresh fantasy style for this green world with no historical echoes (not medieval-European, not a patchwork of ancient cultures). The cross or X faith symbol can appear.
+
+### Art brief: native Humans (for Guilhem)
+- Native to a green, non-desert world; latecomers among older races, descended from ancient crossings (not shown visually).
+- Skin only very slightly more tan than the heroes; otherwise look human, a little different but not markedly.
+- Clothing entirely their own: a fresh fantasy style built for this world, no Roman/Persian/Byzantine/medieval-European echoes. Should read clearly apart from the heroes' Crusader kit.
+- Faith: a cross or X symbol (Eighth Day's faith), under another name.
+- In battle: balanced all-rounders, widest class list; no racial quirk to show.
 
 ## Race footprint (Cletus 2026-11-12, direction)
 - Some cities are mixed, but not every race is everywhere. Some races have a smaller footprint so they feel rare to the player.
