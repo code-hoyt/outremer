@@ -37,9 +37,17 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Where they live (locked 2026-11-12):** scattered and disguised among Humans in Human towns. The ruins of their great old cities lie deep in the forests, where the old worship still gathers in secret. These ruins are the destinations of the Peri side-quest tree and lairs for hostile Peri.
 - **Story hook:** Dismas's companion is a hidden Peri. Dismas knows her secret and keeps it, because revealing it could get her killed. Some die-hard Peri-haters exist within the Eighth Day. (Identity and reveal timing are to be decided in the story pass. This echoes Dismas's own past on the profane side.)
 - **Unlocking the race:** the main story introduces the Peri as a side note or history note. A Peri side-quest tree reveals more and unlocks Peri as recruits. This overrides DESIGN.md Q12 for Peri: they are not recruitable from the start.
-- **Hidden look (locked 2026-11-12):** a hidden Peri passes as Human but has a subtle tell, in the spirit of Legend of Dragoon's Winglies' blue hair: a distinctive hair or eye colour that looks like ordinary character design until the player meets more Peri who share it. The exact tell is still to be chosen.
+- **Hidden look (locked 2026-11-12):** a hidden Peri passes as Human but has a subtle tell, in the spirit of Legend of Dragoon's Winglies' blue hair: a distinctive hair or eye colour that looks like ordinary character design until the player meets more Peri who share it. The tell is **light blue hair** (locked 2026-11-12, a nod to Dragoon). No Human or other race ever has this hair colour.
 - **What the wings mean (locked 2026-11-12):** nothing spiritual; they are simply part of being Peri. They are hidden because of persecution, and they grow stronger with experience.
 - **Wings unlock through deeds:** a Peri unlocks her wings through what she does in play, as a battle-forged trait, not by default. Stages (locked 2026-11-12): short hop over gaps, then a glide (free descent from height and crossing a gap of a few tiles), then true flight (ignores height and terrain while moving, Gria-style late power). No flight costs for now (Cletus 2026-11-12).
+
+### Art brief: Peri (for Guilhem)
+- An all-female people. Cute but fierce and pretty, like FFTA2's Gria. Slim, elegant and elf-like, with normal humanoid legs (no digitigrade).
+- **Light blue hair** on every Peri. It's the race's tell, and no other race shares it.
+- **Two states to draw:** (1) hidden: passes as a Human, with the wings vanished by magic and only the light blue hair (plus maybe a faint elegance) giving her away; (2) unfurled: wings out. Silk-moth wings and a small crown were the leading look direction; dragonfly was second.
+- The wings are simply biological, not holy and not demonic. They grow with experience: hop, then glide, then true flight.
+- **Lore context:** once a great power, they were driven out by Humans over centuries. Most still follow an old demonic religion, and our recruits are converts, whom their people call "Fallen". Their old cities are ruins deep in the green forests. Hostile old-faith Peri are enemies too. They are the same people, so draw them with the same anatomy; the difference shows in dress and bearing, not a corrupted body.
+- Dismas's companion is a hidden Peri (her identity is to be decided).
 
 ## Ifriti, Cynocephali
 To be fleshed out one at a time, after Peri.
