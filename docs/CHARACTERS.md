@@ -83,7 +83,7 @@ Sword-and-shield Templar. A frontliner and solid all-rounder. Do not invent a jo
 - **Build and age:** lean-athletic, not bulky. Early to mid 20s.
 - **Palette:** cream tabard, red cross, mid-brown mail and leather. Identity colour is the Templar red on cream, kept clearly brighter than Godric's dark sergeant kit. Hair a dark brown.
 - **Gear and props:** mail with a coif or a simple nasal helm worn back or off in dialogue; a plain heater or late kite shield, unheralded (minor nobility, younger son). Sword is his weapon, shown in attacks and portraits, not at idle. A short, close-trimmed beard is the more period-plausible option (Templar brothers were expected to wear them); a clean-shaven face is the option if we want him younger on a phone. Either is Proposed.
-- **At 48 px:** (1) the cream tabard with a clear red cross on the chest; (2) a slighter, younger stance than Godric. The cross must still read on the 3/4 front view.
+- **At sprite size (60 px):** (1) the cream tabard with a clear red cross on the chest; (2) a slighter, younger stance than Godric. The cross must still read on the 3/4 front view.
 - **Open:** beard or no beard; exact shield shape; how (or whether) Eighth Day marks appear on him after Act 1.
 
 ---
@@ -124,7 +124,7 @@ Starts as a battlefield medic and grows into a Saint-Caller: a healer who can ca
 - **Build and age:** slight to average, mid 20s, clearly older than Lucien and of an age with Tristan.
 - **Palette:** dusty blue-grey as her identity colour, with cream linen and brown leather. A small white cross (Hospital, not the Templar red) may sit on a dark mantle if we want her Hospital service to read at a glance; that cross is optional and Proposed, because her exact standing with the Hospital is not spelled out.
 - **Gear and props:** medical satchel, linen headcloth or light wimple (open face, hair partly visible so she and Lucien can share a family colour in portraits). No heavy mail. Saint-Calling should be a light or a presence in the cast animation and in portraits, not a new battle outfit, unless a later costume pass is chosen.
-- **At 48 px:** (1) the headcloth plus the satchel, or the headcloth plus the dusty-blue gown; (2) a clearly unarmoured, narrower silhouette against Tristan and Godric.
+- **At sprite size (60 px):** (1) the headcloth plus the satchel, or the headcloth plus the dusty-blue gown; (2) a clearly unarmoured, narrower silhouette against Tristan and Godric.
 - **Open:** whether she wears a Hospital white cross; how much hair shows; whether Eighth Day gives her a later over-garment once that Order's look is designed. She and Lucien should share a hair colour in portraits (proposed: dark auburn) so the siblings read as family.
 
 ---
@@ -163,7 +163,7 @@ Heavy hitter: a big axe or a mace (which one is not decided). High damage, charg
 - **Build and age:** bulky, late 20s to early 30s, a head shorter or simply thicker than a tall knight, with the weight in the shoulders and chest.
 - **Palette:** black or dark brown mantle (the historical sergeant's colour, and a clear contrast with Tristan's cream), with a red cross on the dark ground. Identity colour is that dark russet-brown, not the same bright cream. Fair or sandy hair and a fuller beard, to mark the English or Saxon origin without a caption.
 - **Gear and props:** mail under the dark mantle; coif or kettle hat, face open. The axe or mace is his signature in attacks and portraits, not at idle, so the bulk and dark mantle have to carry the sprite. A thick belt and heavy boots help the weight read.
-- **At 48 px:** (1) dark mantle against Tristan's cream; (2) the broader, heavier body. Hair colour is the backup cue, not the main one.
+- **At sprite size (60 px):** (1) dark mantle against Tristan's cream; (2) the broader, heavier body. Hair colour is the backup cue, not the main one.
 - **Open:** English vs Saxon as a flavour note (it changes little on a sprite, more in voice and portrait); axe vs mace.
 
 ---
@@ -217,7 +217,7 @@ Lucien needs two readable looks that are clearly the same body: the young scout 
 
 - **Silhouette:** the same lean body under a deep hood and a longer concealing cloak. The hood is the identifier. It must hide hair and face enough that the player cannot be sure, without changing his height or way of moving.
 - **Palette:** charcoal or ash cloak, dark enough to read as "the enemy's scout," not so black that he vanishes on dark tiles. A hint of Lucien's amber at a lining, hem, or the hidden token is the missable tell.
-- **At 48 px:** as Lucien, (1) the russet short cloak and lean stance; as the Figure, (1) the deep hood. The second cue in both looks is the same lean outline, so a player who is paying attention can feel the rhyme. Weapons do not have to do this work at idle.
+- **At sprite size (60 px):** as Lucien, (1) the russet short cloak and lean stance; as the Figure, (1) the deep hood. The second cue in both looks is the same lean outline, so a player who is paying attention can feel the rhyme. Weapons do not have to do this work at idle.
 - **Open:** bow vs twin blades; his exact status in the Order; the hooded cloak's cut; whether the hood is worn down after the unmasking or only in the Figure scenes.
 
 ---
@@ -262,7 +262,7 @@ Not classed in the story bible. He is a hunter and the leader of a hunting party
 - **Build and age:** rangy rather than bulky, mid 30s to 40, older than the four heroes and visibly lived-in.
 - **Palette:** ash, bone, and a faded gold as his identity colour (penitent light, not Simeon's bright lamp-gold). No cream tabard, no Templar cross. Hair dark going grey.
 - **Gear and props:** open face, a short beard or heavy stubble, a simple other-world holy mark rather than a Crusader cross. A scar, brand, or old cult mark he does not bother to hide would tell the conversion story in a portrait. Any shared token with Vaskar (a clasp, a braided cord) will help their history read.
-- **At 48 px:** (1) the lantern, or the ash cloak with the faded-gold mark; (2) a leaner, more travel-worn outline than the real-world knights. He must not be mistakable for Godric or for an Eighth Day regular once that look exists.
+- **At sprite size (60 px):** (1) the lantern, or the ash cloak with the faded-gold mark; (2) a leaner, more travel-worn outline than the real-world knights. He must not be mistakable for Godric or for an Eighth Day regular once that look exists.
 - **Open:** exact weapon; whether he wears any Eighth Day sign; the form of the old cult mark.
 
 ---
@@ -301,7 +301,7 @@ Simeon's lieutenant. A mid-to-late game human-plus boss, faced in Act 2 and kill
 - **Build and age:** once the same generation as Dismas (mid 30s to 40s), now stretched or thinned, as if something is wearing him.
 - **Palette:** cold violet or sickly gold as the identity colour, against ashen skin and darkened metal. Avoid Simeon's clean ivory, and avoid making him look like Sulthrane in miniature; he is a man being spent, not the demon itself.
 - **Gear and props:** open, ruined face (named unit): too-hollow eyes, still human. A cracked version of the shared token with Dismas. Lieutenant's marks in Simeon's false-light style, worn wrong.
-- **At 48 px:** (1) the warped, taller lieutenant silhouette; (2) the sickly gold or violet against Dismas's faded gold. The human face has to read as a face, not a skull, or he will be mistaken for a generic Hollow or Fallen.
+- **At sprite size (60 px):** (1) the warped, taller lieutenant silhouette; (2) the sickly gold or violet against Dismas's faded gold. The human face has to read as a face, not a skull, or he will be mistaken for a generic Hollow or Fallen.
 - **Open:** how far the "barely a man" corruption goes in Act 2 vs Act 3 (a later, worse pass is an option); exact colours; weapon.
 
 ---
@@ -346,7 +346,7 @@ None as a boss. He may never need a full battle sprite if he appears only in the
 - **Build and age:** handsome, well-kept, 40s to early 50s, a little taller than Tristan, not a warrior-brute.
 - **Palette:** pale gold and cream as the ironic "bright" identity, with clean mid-blues or soft greys. No demonic marks on the Act 1 clothes. Do not put a lamp on his arms; that would telegraph the Simeon link too early. A plain white mountain or pale peak (a quiet nod to "Montclair") is enough, and even that is Proposed.
 - **Gear and props:** open face, neatly trimmed beard or a clean shave, a lord's clasp, no great helm, no Templar cross. The Act 3 glimpse can show the same man under stranger light, not a new costume, so the player recognises him at once.
-- **At 48 px (and in portraits, which may do more work than a sprite):** (1) the pale, too-clean mantle; (2) the baronial cut, clearly not a Templar tabard.
+- **At sprite size (60 px) (and in portraits, which may do more work than a sprite):** (1) the pale, too-clean mantle; (2) the baronial cut, clearly not a Templar tabard.
 - **Open:** the exact device; beard; whether he is ever seen in mail.
 
 ---
@@ -387,7 +387,7 @@ The last human (or once-human) boss, fought in the Act 4 finale before Sulthrane
 - **Build and age:** long and narrow, ageless or late middle age, taller than Guérin, not burly.
 - **Palette:** ivory and bright, almost-holy gold as the identity colour, with a sick or ashen undertone in the shadows of the robe. This gold should be cleaner and harsher than Dismas's faded gold, and not the same as Sulthrane's.
 - **Gear and props:** the lamp, always. Open, serene face (portraits carry the wrongness: a smile that does not reach the eyes, or eyes that hold the lamp-light). No Templar or Hospital cross. Scripture or false-sigils on the robe are optional and easy to overdo; the lamp is enough.
-- **At 48 px:** (1) the lamp; (2) the tall ivory robe. If the lamp is lost at that size, the character is lost.
+- **At sprite size (60 px):** (1) the lamp; (2) the tall ivory robe. If the lamp is lost at that size, the character is lost.
 - **Open:** lamp as staff vs hand-lamp; how human he still looks by Act 4; whether the rite and the boss fight use the same robe.
 
 ---
@@ -421,11 +421,11 @@ Final boss. A step above the Act 1 true Demon (whose name is still TBD). Fought 
 **Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** a broken crown, a torn veil, or a vast winged mass that still reads as one figure. Prefer a medieval sense of a fallen power (hybrid, kingly, wrong) over a modern red devil. He should not look like a larger Vaskar or a darker Simeon; those were masks and servants.
-- **Scale:** Proposed that he may break the 48 px unit height, as a boss, so long as the board can still read him on a phone. That scale exception is not locked and needs an art and engine pass.
+- **Scale:** Proposed that he may break the 60 px unit height, as a boss, so long as the board can still read him on a phone. That scale exception is not locked and needs an art and engine pass.
 - **Build and age:** not human-aged. If he has a body, it should feel borrowed or unveiled, not simply tall-and-muscled.
 - **Palette:** deep dark with a counterfeit gold that echoes Simeon's lamp and then outgoes it. The gold is a lie; the dark is the read. Avoid a generic fire-red unless Cletus chooses it.
 - **Gear and props:** a crown, a ruined halo, or the torn veil of the world, used as one mass, not as tiny ornaments. No need for many small symbols.
-- **At 48 px, or at boss scale on a phone:** (1) size plus the crown/veil/wing mass; (2) the dark-and-false-gold colour. If he is only "a big demon," he will not feel like the last reveal.
+- **At sprite size (60 px), or at boss scale on a phone:** (1) size plus the crown/veil/wing mass; (2) the dark-and-false-gold colour. If he is only "a big demon," he will not feel like the last reveal.
 - **Open:** almost everything. This is the least decided look in the cast, and should be explored as a set of options, not drawn once and assumed.
 
 ---
