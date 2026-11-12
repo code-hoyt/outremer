@@ -528,6 +528,7 @@ The explicit facing step is a "stop and press" moment, which pillar 1 argues aga
 
 ## Classes (2026-11-09)
 - FFTA2-style: basic classes that unlock more advanced and unique options. This needs its own design discussion; it has not been designed yet.
+- **First class list drafted (DRAFT, 2026-11-12):** see [CLASSES.md](CLASSES.md). 13 core classes with race availability, 2–3 race-only classes per race, hero unique-class sketches, and open questions. Not locked.
 
 ## Bestiary terms (LOCKED 2026-11-09)
 These words name different kinds of enemy, not competing labels for the same creature:
@@ -554,6 +555,8 @@ Cletus locked a 60 px unit cap so sprites use raw Retro Diffusion output with no
 - Headroom above the highest tile is derived from the cell (`CONFIG.art.headroom`), not a hardcoded `62`.
 
 ## Classes and races — open questions (2026-11-11)
+
+> **Draft class list built on these answers:** [CLASSES.md](CLASSES.md) (DRAFT, 2026-11-12).
 
 Research summary (sources in chat, 2026-11-11): big job systems run ~20–56 jobs (FFT 20–22 + ~10 unique; FFTA ~34; FFTA2 56, but 4–13 per race). Recommended direction (not locked): mid-size tree of ~10–14 basic/advanced classes plus unique hero classes; class sets movement; abilities learned from buyable gear; one borrowed set; ~4 abilities carried into battle; every ability a trade-off. Phone is the smallest supported screen, not a design cap. The older "hero + 10 set companions, squad of 3" plan is superseded by the ~6-deployed clan.
 
