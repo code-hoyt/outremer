@@ -35,6 +35,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Faith today (locked 2026-11-12):** most Peri still follow their old demonic religion. A Peri who turns to the light has to leave friends and family behind, echoing the Christian theme of leaving everything to follow Christ. Every Peri recruit is therefore a convert who chose that cost. Fallen Peri enemies are the norm, not the exception.
 - **Story hook:** Dismas's companion is a hidden Peri. Dismas knows her secret and keeps it, because revealing it could get her killed. Some die-hard Peri-haters exist within the Eighth Day. (Identity and reveal timing are to be decided in the story pass. This echoes Dismas's own past on the profane side.)
 - **Unlocking the race:** the main story introduces the Peri as a side note or history note. A Peri side-quest tree reveals more and unlocks Peri as recruits. This overrides DESIGN.md Q12 for Peri: they are not recruitable from the start.
+- **What the wings mean (locked 2026-11-12):** nothing spiritual; they are simply part of being Peri. They are hidden because of persecution, and they grow stronger with experience.
 - **Wings unlock through deeds:** a Peri unlocks her wings through what she does in play, as a battle-forged trait, not by default. The short hop is the first stage. Whether it later grows to a glide or true flight (FFTA2 Gria-style late power) is still open.
 
 ## Ifriti, Cynocephali
