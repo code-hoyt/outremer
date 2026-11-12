@@ -558,7 +558,7 @@ Cletus locked a 60 px unit cap so sprites use raw Retro Diffusion output with no
 Research summary (sources in chat, 2026-11-11): big job systems run ~20–56 jobs (FFT 20–22 + ~10 unique; FFTA ~34; FFTA2 56, but 4–13 per race). Recommended direction (not locked): mid-size tree of ~10–14 basic/advanced classes plus unique hero classes; class sets movement; abilities learned from buyable gear; one borrowed set; ~4 abilities carried into battle; every ability a trade-off. Phone is the smallest supported screen, not a design cap. The older "hero + 10 set companions, squad of 3" plan is superseded by the ~6-deployed clan.
 
 Questions for Cletus, answered one at a time:
-1. Can units change class (and so movement), FFT-style, or does each character stay on one class line?
+1. ~~Can units change class?~~ **Locked 2026-11-11: free switching, FFT-style.** Changing class changes MOV/JUMP/terrain; learned abilities are kept.
 2. How do classes unlock: gear-mastered abilities, milestone branch picks, quests, or a mix?
 3. Do story heroes get unique classes, generic ones, or both?
 4. Do weapons stay tied to class?
