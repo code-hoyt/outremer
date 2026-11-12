@@ -565,7 +565,7 @@ Questions for Cletus, answered one at a time:
 5. ~~Respec cost?~~ **Locked 2026-11-11: class switching is free between battles, never mid-fight.** The trade-off is time: battles spent learning one class are not spent on another.
 6. ~~Replay variety?~~ **Locked 2026-11-11: optional recruits (no run gets everyone), random recruit traits, and a few story choices.**
 7. ~~How do we avoid trap classes and a single dominant combo?~~ **Locked 2026-11-11: sideways class tree (later classes differ, not better; every class keeps a niche), every ability carries a cost, and battles/maps reward different builds. Effects that don't stack fully are a tuning safety net if needed.**
-8. How many races: four or five?
+8. ~~How many races?~~ **Locked 2026-11-11: four (Humans plus three), with the Redeemed (turned profane beings, unlocked through the story) as a possible fifth later.**
 9. Which races, with names and looks (Humans; a winged/tall holy people; a stone/beast-blooded people; a small quick people; optional Redeemed)?
 10. Are the four real-world heroes plain Humans, or "Outlanders" with a unique trait?
 11. How strict are race locks: race-only classes plus shared ones (FFTA2), or fully separate lists?
