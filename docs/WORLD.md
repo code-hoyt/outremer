@@ -54,7 +54,9 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Temperament (locked 2026-11-12):** bound by their word. They never lie, they bargain carefully, and their oaths truly bind them (from djinn folklore about wishes and pacts).
 - **Base look (locked 2026-11-12):** tall and lanky, with dark pale skin (read as ashen, grey-toned pale; to be confirmed) and amber eyes. Start simple; a signature feature can be added later if needed.
 - **Signature features considered, not chosen:** oath-brands, lamp-heart, smoke-veil, seal-collars, glass and ash skin, ringed horns, many hands, brazier crown, script-tongues, unfinished bodies. Kept as options for later.
-- Where they live, their faith and the rest are still to come.
+- **Role (leaning, 2026-11-12):** the most magical race.
+- **Homeland (locked for now, may change, 2026-11-12):** proud city-states built on lush green oases, like islands in the desert. Natural magic wells up there and keeps them green, and the Ifriti are drawn to those places. The open desert between them is like a sea. On the map, this means sand nodes with bright magical oasis cities.
+- Their faith, how they relate to Humans and the other races, and how common they are are still to come.
 
 ## Cynocephali
 To be fleshed out after the Ifriti. Same approach: temperament first, then physical tells, then visuals. Avoid "Human, but dog face".
