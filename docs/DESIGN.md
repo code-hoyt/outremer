@@ -546,7 +546,7 @@ Exact stats and which kinds appear when are still to be designed.
 Cletus locked a 60 px unit cap so sprites use raw Retro Diffusion output with no shrink. The numbers below are in art pixels and live in `CONFIG.art` in `src/config.js`.
 
 - **Sprite cell** 64×68, feet anchor `[31, 63]`.
-- **Centering (v0.14.1, Cletus):** Tristan is planted so his torso centre sits on the tile centre, not his feet. `CONFIG.art.centering` is `'body'` or `'feet'` (the v0.14.0 feet-anchor plant). `bodyCenterX` holds one whole-art-px x per facing, taken from the standing cell's shoulders-to-hips mass; walk frames of that facing share it so he does not jitter sideways.
+- **Centering (locked, Cletus 2026-11-11):** units are planted so the torso centre sits on the tile centre, not the feet. Body-centred won the side-by-side against feet-centred (v0.14.0), and the switch was removed in v0.14.2. `bodyCenterX` holds one whole-art-px x per facing, taken from the standing cell's shoulders-to-hips mass; walk frames of that facing share it so he does not jitter sideways.
 - **Iso tiles** 60×30, height step 15. Same 2:1 diamond as the previous 64/16 base, so map layout, pathing and depth sort are unchanged.
 - **Integer scale.** Tiles and sprites share one whole-number `s` (device pixels per art pixel), with image smoothing off for sprites. Tile width in device pixels is exactly `60 × s`.
 - **Phones** (stage narrower than 520 CSS px) use `s = 3`. At DPR 3 an 8×8 board is 480 CSS px wide and pans a little on a 390-wide iPhone. Wider screens use the largest `s` that fits. This replaces the old 1.3× zoom-past-fit.
