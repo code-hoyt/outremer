@@ -15,8 +15,8 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 
 ## Race footprint (Cletus 2026-11-12, direction)
 - Some cities are mixed, but not every race is everywhere. Some races have a smaller footprint so they feel rare to the player.
-- Mixed cities should feel like 2 or 3 races, not all of them.
-- Explore: a fifth race that is the rare one (ties to the quest-unlocked fifth race slot in DESIGN.md Q8/Q12). Which existing races are common vs rare is to be decided as each race is fleshed out.
+- Mixed cities should NOT feel like just 2 or 3 races; they should feel genuinely diverse (corrected by Cletus 2026-11-12).
+- Explore: a fifth race that is the rare one, so the four main races can all be common in mixed cities while one race still feels rare (ties to the quest-unlocked fifth race slot in DESIGN.md Q8/Q12).
 
 ## Peri, Ifriti, Cynocephali
 To be fleshed out one at a time, after Humans.
