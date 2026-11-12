@@ -27,5 +27,10 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - Mixed cities should NOT feel like just 2 or 3 races; they should feel genuinely diverse (corrected by Cletus 2026-11-12).
 - Explore: a fifth race that is the rare one, so the four main races can all be common in mixed cities while one race still feels rare (ties to the quest-unlocked fifth race slot in DESIGN.md Q8/Q12).
 
-## Peri, Ifriti, Cynocephali
-To be fleshed out one at a time, after Humans.
+## Peri (in progress 2026-11-12)
+- **Look direction (via Guilhem, on track not locked):** cute but fierce and pretty like FFTA2's Gria; humanoid with normal legs; slim, elegant, elf-like; wings (silk-moth wings and small crown is the leading pick, dragonfly second).
+- **In battle (locked):** quick and fragile; wings give a short hop over gaps, not flight. Nimble core classes plus race-only classes.
+- **Sex (locked 2026-11-12):** an all-female people. How new Peri come to be is open lore (idea: blossoms or cocoons, fitting the moth look).
+
+## Ifriti, Cynocephali
+To be fleshed out one at a time, after Peri.
