@@ -567,7 +567,7 @@ Questions for Cletus, answered one at a time:
 7. ~~How do we avoid trap classes and a single dominant combo?~~ **Locked 2026-11-11: sideways class tree (later classes differ, not better; every class keeps a niche), every ability carries a cost, and battles/maps reward different builds. Effects that don't stack fully are a tuning safety net if needed.**
 8. ~~How many races?~~ **Locked 2026-11-11: four (Humans plus three), with the Redeemed (turned profane beings, unlocked through the story) as a possible fifth later.**
 9. ~~Which races?~~ **Locked 2026-11-11: Humans, Peri (small, quick, short wing hop), Ifriti (smokeless-fire folk, magical, at home in heat and sand) and Cynocephali (dog-headed people of medieval travel tales, trackers). Names are working titles; see docs/research/RACES.md. Looks pending Guilhem's full-scale portraits.**
-10. Are the four real-world heroes plain Humans, or "Outlanders" with a unique trait?
+10. ~~Real-world heroes: Humans or Outlanders?~~ **Locked 2026-11-11: plain Humans; unique classes set them apart.**
 11. How strict are race locks: race-only classes plus shared ones (FFTA2), or fully separate lists?
 12. Can races other than Human join the clan freely, or only via story/recruit quests?
 13. Do races differ only by class list, or also by base stats/movement?
