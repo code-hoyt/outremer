@@ -568,7 +568,7 @@ Questions for Cletus, answered one at a time:
 8. ~~How many races?~~ **Locked 2026-11-11: four (Humans plus three), with the Redeemed (turned profane beings, unlocked through the story) as a possible fifth later.**
 9. ~~Which races?~~ **Locked 2026-11-11: Humans, Peri (small, quick, short wing hop), Ifriti (smokeless-fire folk, magical, at home in heat and sand) and Cynocephali (dog-headed people of medieval travel tales, trackers). Names are working titles; see docs/research/RACES.md. Looks pending Guilhem's full-scale portraits.**
 10. ~~Real-world heroes: Humans or Outlanders?~~ **Locked 2026-11-11: plain Humans; unique classes set them apart.**
-11. How strict are race locks: race-only classes plus shared ones (FFTA2), or fully separate lists?
+11. ~~How strict are race locks?~~ **Locked 2026-11-11: FFTA2-style. A shared core of classes, but not every race can take every core class: Humans get almost all of the core, Peri the nimble core classes, Ifriti the magical ones and Cynocephali the fighters. Each race also has a few race-only classes.**
 12. Can races other than Human join the clan freely, or only via story/recruit quests?
 13. Do races differ only by class list, or also by base stats/movement?
 14. Enemy races: are the profane kinds (Imps, Fiends, etc.) separate from playable races, or can some playable races also fall?
