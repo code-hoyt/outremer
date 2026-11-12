@@ -11,11 +11,25 @@ Working briefs for the story cast, written so Guilhem can start drawing the real
 
 Combat classes are noted only where the story bible already names a role. The full class system has not been designed yet (see DESIGN.md) and is not invented here.
 
+## Looks signed off (Cletus, 2026-11-11)
+
+Cletus approved the visual briefs below as written, with these picks on the open choices. They are now canon for art; details not named here are still Guilhem's to explore within the brief.
+
+- **Tristan:** clean-shaven.
+- **Aveline:** wears the small white Hospital cross on a dark mantle. It does not need to read on the battle sprite (portraits and dialogue art only).
+- **Godric:** mace.
+- **Lucien / Hooded Figure:** bow.
+- **Dismas:** two-handed sword.
+- **Vaskar:** cold violet identity colour, and the same look in every act (no worse Act 3 corruption pass).
+- **Guérin:** neatly trimmed beard.
+- **Simeon:** lamp on a staff.
+- **Sulthrane:** not locked; Guilhem pitches a set of options for Cletus to pick from.
+
 ## Sprite and period constraints (locked art rules, open looks)
 
 These constraints apply to every visual brief. They come from the art handoff and style guide, not from the story.
 
-- Battle units are about **48 art px tall** on 48x24 art-px tiles (48x56 cells). At that size, give each character **one or two strong identifiers** (a hood, a cross, a lamp, a bulk and a dark mantle). Anything smaller than about 2 px will read as noise.
+- Battle units are up to **60 art px tall** on 60x30 art-px tiles (64x68 cells, feet [31,63], body-centred on the tile; locked 2026-11-11). At that size, give each character **one or two strong identifiers** (a hood, a cross, a lamp, a bulk and a dark mantle). Anything smaller than about 2 px will read as noise.
 - Sprites: **eyes and brow only, no mouth**. Expression, age detail, and mouths belong in portraits.
 - Named units get **open faces** (coif, kettle hat, nasal helm). Full helms are for generics only.
 - **No weapon at idle.** Identity has to live on the body (silhouette, hair, clothes, a token). Weapons appear in attack frames and in portraits.
@@ -63,7 +77,7 @@ The verse he speaks at the end is not chosen yet. Candidates for the closing ton
 **Combat role (canon, class system still open)**
 Sword-and-shield Templar. A frontliner and solid all-rounder. Do not invent a job tree for him here.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** a young knight in a cream tabard, readable even in a cluster of Templars because he is slighter and cleaner-lined than the sergeants and generics around him. Shield-and-coif shape; no great helm.
 - **Build and age:** lean-athletic, not bulky. Early to mid 20s.
@@ -104,7 +118,7 @@ Example lines (not locked):
 **Combat role (canon, class system still open)**
 Starts as a battlefield medic and grows into a Saint-Caller: a healer who can call on saints in the other world. Do not design the summon list or a class tree here.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** an unarmoured field-hospital figure among knights: a mid-length gown or kirtle, a simple headcloth, and a satchel worn at the hip. She must not be mistaken for a Templar knight, and she should not be drawn as a modern fantasy mage.
 - **Build and age:** slight to average, mid 20s, clearly older than Lucien and of an age with Tristan.
@@ -143,7 +157,7 @@ Example lines (not locked):
 **Combat role (canon, class system still open)**
 Heavy hitter: a big axe or a mace (which one is not decided). High damage, charges over defence.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** the broadest of the four heroes. A dark sergeant's mantle and a heavy, planted stance. He should be readable as "the big one" even as a black shape.
 - **Build and age:** bulky, late 20s to early 30s, a head shorter or simply thicker than a tall knight, with the weight in the shoulders and chest.
@@ -188,7 +202,7 @@ Example lines (not locked):
 **Combat role (canon, class system still open)**
 Skirmisher and scout: fast and clever, with a bow or twin blades. Which weapon is not decided. Whatever is chosen should be the same weapon the Hooded Figure uses, so the prologue can rhyme with the Act 2 fights.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 Lucien needs two readable looks that are clearly the same body: the young scout of the prologue, and the Hooded Figure of Acts 2–3.
 
@@ -221,7 +235,7 @@ A native of the other world who once served the profane side with his closest fr
 
 - **Act 1:** His party arrives as the Fiend turns on Tristan. He fights beside him, is a little puzzled by how confused Tristan is, gives him a crash course, and takes him on for a few minor quests. The hunters work with Eighth Day as scouts.
 - **Act 2:** With the party through the Eighth Day jobs and the clash with Vaskar. He does not get to finish that fight.
-- **Act 3:** He kills Vaskar at the low point, which completes his beat. A trusted hunter or an Eighth Day captain may carry any extra cost of the lost battle; see the gap noted at the end of this file.
+- **Act 3:** He kills Vaskar at the low point, which completes his beat. The extra cost of the lost battle is a capture (a trusted hunter or an Eighth Day captain is taken), not a death (locked 2026-11-11).
 - **Act 4:** Still with the party for the campaign and the finale (one of the later Lucien encounters may be his; that is only a recommendation in STORY.md). He does not die. Epilogue whereabouts are unwritten.
 
 **Personality and voice**
@@ -242,7 +256,7 @@ Example lines (not locked):
 **Combat role**
 Not classed in the story bible. He is a hunter and the leader of a hunting party. Treat him as a skirmish or light-frontliner until the class system is designed. Do not invent a kit here.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** a holy hunter, not a Templar: a worn mid-length coat or cloak, a distinct un-Frankish cut, and (in attacks and portraits) a hunting spear, short blade, or lantern-staff. A small lantern at the belt is a strong identity prop even if weapons stay off the idle sprite.
 - **Build and age:** rangy rather than bulky, mid 30s to 40, older than the four heroes and visibly lived-in.
@@ -281,7 +295,7 @@ Example lines (not locked):
 **Combat role**
 Simeon's lieutenant. A mid-to-late game human-plus boss, faced in Act 2 and killed in Act 3. No class is named. He should feel tougher than a Fiend and less than a true Demon or Simeon, but that tuning is not designed yet.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** taller than Dismas, still the shape of a man, with armour or cloth that has started to fuse or warp. He must remain recognisable as a person, or the tragedy flattens into a monster fight. A remnant of the same hunter cut as Dismas, corrupted, would do that work.
 - **Build and age:** once the same generation as Dismas (mid 30s to 40s), now stretched or thinned, as if something is wearing him.
@@ -326,7 +340,7 @@ Further example lines (not locked):
 **Combat role**
 None as a boss. He may never need a full battle sprite if he appears only in the castle and in tear-glimpses, but a sprite and a portrait should still be designed, in case a glimpse or a flashback is staged on the board.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** a secular baron, not a knight of the Order: a longer tunic and a pale mantle, court-length, with a simple device. In the castle he should look richer and cleaner than the travel-worn Templars.
 - **Build and age:** handsome, well-kept, 40s to early 50s, a little taller than Tristan, not a warrior-brute.
@@ -367,7 +381,7 @@ Example lines (not locked):
 **Combat role**
 The last human (or once-human) boss, fought in the Act 4 finale before Sulthrane. No class is named. His kit should feel like false miracles: light that harms, blessings that are not blessings. Do not design the encounter here.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** tall and robed, with a lamp as the must-read prop (a staff-lamp, or a hanging lamp he carries). At a glance he should look sacred; on a second look, too still, too clean, a little wrong. He is a dark mirror of Aveline, so her asked-for light and his held lamp should read as cousins, not as the same effect.
 - **Build and age:** long and narrow, ageless or late middle age, taller than Guérin, not burly.
@@ -404,7 +418,7 @@ Example direction (not locked, not lines): a claim, a dismissal of the saints, o
 **Combat role**
 Final boss. A step above the Act 1 true Demon (whose name is still TBD). Fought with saints and angels present. Encounter design is not done.
 
-**Visual brief (Proposed — not canon)**
+**Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** a broken crown, a torn veil, or a vast winged mass that still reads as one figure. Prefer a medieval sense of a fallen power (hybrid, kingly, wrong) over a modern red devil. He should not look like a larger Vaskar or a darker Simeon; those were masks and servants.
 - **Scale:** Proposed that he may break the 48 px unit height, as a boss, so long as the board can still read him on a phone. That scale exception is not locked and needs an art and engine pass.
