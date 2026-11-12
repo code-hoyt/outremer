@@ -12,6 +12,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Faith:** a local religion parallels Christianity but has a different name and history. Its symbol is still a cross or an X. They don't know the events of the Bible; God has worked in this world in different ways. Certain things run in parallel (to be detailed later). The Order of the Eighth Day is an order within this faith (confirmed 2026-11-12). Its name comes from some past holy event that happened on an eighth day (event to be decided later).
 
 - **Place among the races (locked 2026-11-12):** latecomers among older peoples. Peri, Ifriti and Cynocephali were here first, and Humans arrived through the crossings. The older races still see Humans as newcomers, and some resent how far they've spread.
+- **In battle (locked 2026-11-12):** balanced stats, no movement quirk. Their edge is the widest class list (an exception to DESIGN.md Q13 for Humans).
 
 ## Race footprint (Cletus 2026-11-12, direction)
 - Some cities are mixed, but not every race is everywhere. Some races have a smaller footprint so they feel rare to the player.
