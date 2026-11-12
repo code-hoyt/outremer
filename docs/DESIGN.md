@@ -564,7 +564,7 @@ Questions for Cletus, answered one at a time:
 4. ~~Weapons tied to class?~~ **Locked 2026-11-11: yes, class-gated weapon types, with an "Equip X"-style escape-hatch ability that costs one carried ability slot.**
 5. ~~Respec cost?~~ **Locked 2026-11-11: class switching is free between battles, never mid-fight.** The trade-off is time: battles spent learning one class are not spent on another.
 6. ~~Replay variety?~~ **Locked 2026-11-11: optional recruits (no run gets everyone), random recruit traits, and a few story choices.**
-7. How do we avoid trap classes and a single dominant combo without adding chores?
+7. ~~How do we avoid trap classes and a single dominant combo?~~ **Locked 2026-11-11: sideways class tree (later classes differ, not better; every class keeps a niche), every ability carries a cost, and battles/maps reward different builds. Effects that don't stack fully are a tuning safety net if needed.**
 8. How many races: four or five?
 9. Which races, with names and looks (Humans; a winged/tall holy people; a stone/beast-blooded people; a small quick people; optional Redeemed)?
 10. Are the four real-world heroes plain Humans, or "Outlanders" with a unique trait?
