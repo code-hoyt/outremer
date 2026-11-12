@@ -18,8 +18,8 @@ The working doc for story decisions, written with Cletus. Earlier test character
 
 ## Setting (locked 2026-11-09)
 - **Lightly fictionalised Crusades:** our own characters and smaller towns and castles in the real Crusader states. Real kings and campaigns are heard about in the background, but the story is our own.
-- **Two layers:** the real world, and a spiritual side of the same world where the true (demonic) enemies are seen. The story starts in the real world and crosses over as it escalates.
-- **Gameplay idea:** a map's spiritual version could have different terrain, demons in place of soldiers, and saints you can call on.
+- **Two worlds (revised 2026-11-12):** the real world and another world, a separate world in its own right, not a spiritual side of ours. The story starts in the real world and crosses over. Details of the other world live in docs/WORLD.md.
+- ~~Spiritual-layer framing~~ dropped by Cletus 2026-11-12.
 
 ## Crossing over (locked 2026-11-09)
 - **The tear:** a Satanist cult tears the veil, and it pulls the heroes into the other world early in Act 1 (like the book in FFTA).
