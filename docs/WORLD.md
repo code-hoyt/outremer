@@ -82,3 +82,9 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 ## Race roster change (2026-11-12)
 - The Peri become the **rare fifth race**: hidden, unlocked through a side-quest tree.
 - A **new fourth main race** is needed: something small, filling the Moogle role, but distinctly our own. To be designed temperament-first.
+
+## Hoopoe-kin (fourth main race, picked 2026-11-12)
+- Small bird-folk with a big fan crest. Pitched as chatty, nosy, natural messengers and scouts. In legend, the hoopoe was Solomon's messenger to the Queen of Sheba.
+- The crest is the instantly readable silhouette (the Moogle pom-pom role), but they are distinctly ours.
+- Note: the hoopoe's "hoop-hoop" call is close to the Moogles' "kupo", so avoid a verbal catchphrase.
+- Temperament, body, home, faith and footprint are still to be settled.
