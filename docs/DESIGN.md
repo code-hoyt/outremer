@@ -569,7 +569,7 @@ Questions for Cletus, answered one at a time:
 9. ~~Which races?~~ **Locked 2026-11-11: Humans, Peri (small, quick, short wing hop), Ifriti (smokeless-fire folk, magical, at home in heat and sand) and Cynocephali (dog-headed people of medieval travel tales, trackers). Names are working titles; see docs/research/RACES.md. Looks pending Guilhem's full-scale portraits.**
 10. ~~Real-world heroes: Humans or Outlanders?~~ **Locked 2026-11-11: plain Humans; unique classes set them apart.**
 11. ~~How strict are race locks?~~ **Locked 2026-11-11: FFTA2-style. A shared core of classes, but not every race can take every core class: Humans get almost all of the core, Peri the nimble core classes, Ifriti the magical ones and Cynocephali the fighters. Each race also has a few race-only classes.**
-12. Can races other than Human join the clan freely, or only via story/recruit quests?
+12. ~~How do non-Humans join?~~ **Locked 2026-11-11: all four races are recruitable from the start. Race-specific quests unlock race classes. A later fifth race (e.g. the Redeemed) can unlock through quests.**
 13. Do races differ only by class list, or also by base stats/movement?
 14. Enemy races: are the profane kinds (Imps, Fiends, etc.) separate from playable races, or can some playable races also fall?
 15. ~~Recruit power curve: in FFTA/FFTA2 late recruits join with better stats, which pushes players off long-built favourites. How do we keep favourites viable?~~ **Locked, see below.**
