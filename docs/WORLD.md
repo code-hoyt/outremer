@@ -70,4 +70,5 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Deliverable:** a full-scale concept portrait like Tristan's, with no 60 px version.
 
 ## Cynocephali
-To be fleshed out after the Ifriti. Same approach: temperament first, then physical tells, then visuals. Avoid "Human, but dog face".
+- **Design approach:** temperament first, then physical tells, then visuals. Avoid "Human, but dog face".
+- **Temperament (locked 2026-11-12):** pack-loyal and fierce. Clan and kin come first, they are fiercely protective and blunt, and they keep a strict pecking order.
