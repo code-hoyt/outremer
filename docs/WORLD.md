@@ -88,4 +88,6 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - The crest is the instantly readable silhouette (the Moogle pom-pom role), but they are distinctly ours.
 - Note: the hoopoe's "hoop-hoop" call is close to the Moogles' "kupo", so avoid a verbal catchphrase.
 - **Temperament (locked 2026-11-12):** curious couriers. They are nosy and warm, know everyone's business, and carry letters, news and gossip between every city. Physical tells: a crest that flares with every emotion, quick head-tilts, and satchels crammed with scrolls.
-- Body, home, faith and footprint are still to be settled.
+- **Body (locked 2026-11-12):** wing-hands. The arms are wings with clawed, feathered fingers at the tips that can hold a quill or a dagger. They can flutter-hop up ledges but can't truly fly (the sky belongs to the Peri). About waist-high to a Human, with real hoopoe colours: a cinnamon body, black-and-white barred wings, and a crest with black tips.
+- **Art request:** show a round version and a skinny version side by side.
+- Home, faith and footprint are still to be settled.
