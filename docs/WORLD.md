@@ -87,4 +87,5 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - Small bird-folk with a big fan crest. Pitched as chatty, nosy, natural messengers and scouts. In legend, the hoopoe was Solomon's messenger to the Queen of Sheba.
 - The crest is the instantly readable silhouette (the Moogle pom-pom role), but they are distinctly ours.
 - Note: the hoopoe's "hoop-hoop" call is close to the Moogles' "kupo", so avoid a verbal catchphrase.
-- Temperament, body, home, faith and footprint are still to be settled.
+- **Temperament (locked 2026-11-12):** curious couriers. They are nosy and warm, know everyone's business, and carry letters, news and gossip between every city. Physical tells: a crest that flares with every emotion, quick head-tilts, and satchels crammed with scrolls.
+- Body, home, faith and footprint are still to be settled.
