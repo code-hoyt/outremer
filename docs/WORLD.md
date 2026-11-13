@@ -79,6 +79,13 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Toward Humans (locked 2026-11-12):** sworn shield-kin. The converted clans see the Order as a fellow pack in the faith and fight beside it, while the old-way clans are suspicious. As demons grow more present, all the races see value in standing together.
 - **Footprint (provisional):** uncommon, mostly in their holds, with some mercenaries and guards in the cities.
 
+### Cynocephali art brief (for Guilhem)
+- NOT a dog head on a Human body. Let their temperament (pack-loyal, fierce, blunt, with a strict pecking order) shape the body.
+- Body: hunch-ruff. Bulky with a forward lean, no neck, a mane fused into the shoulders, and heavy forearms.
+- Face: baboon-muzzled, with a long, heavy muzzle and a deep brow sitting low in the mane (a nod to the baboon origin of the dog-headed-men legend).
+- Highland clans, with each pack holding a ridge, so their gear is rugged, mountain-made kit. Many clans keep the cross faith fiercely (the Christopher clans), so some wear a cross. Clan rank could show on the body or gear.
+- **Deliverable:** a full-scale portrait like Tristan's, with no 60 px version.
+
 ## Race roster change (2026-11-12)
 - The Peri become the **rare fifth race**: hidden, unlocked through a side-quest tree.
 - A **new fourth main race** is needed: something small, filling the Moogle role, but distinctly our own. To be designed temperament-first.
@@ -91,4 +98,11 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Body (locked 2026-11-12):** wing-hands. The arms are wings with clawed, feathered fingers at the tips that can hold a quill or a dagger. They can flutter-hop up ledges but can't truly fly (the sky belongs to the Peri). About waist-high to a Human, with real hoopoe colours: a cinnamon body, black-and-white barred wings, and a crest with black tips.
 - **Art request:** show a round version and a skinny version side by side.
 - **Home and footprint (locked 2026-11-12):** they have no homeland. They nest in eaves, towers and dovecotes in every city, and their courier network is their nation, with relay roosts along every road. They're the most common non-Human race and are seen everywhere.
-- Faith is still to be settled.
+- **Faith (locked 2026-11-12):** a bit of everything. They're superstitious magpies who wear charms from every faith they've carried letters for. They're friendly to the cross faith but not committed to it.
+
+### Hoopoe-kin art brief (for Guilhem)
+- Do not draw a Moogle with feathers. Let their temperament (curious, nosy, warm couriers) shape the body: quick head-tilts, a crest that flares with mood, and forward-leaning eagerness.
+- About waist-high to a Human. Their arms are wing-hands, with clawed, feathered fingers at the wingtips that can hold a quill or a dagger. They flutter-hop but can't truly fly.
+- Real hoopoe colours: a cinnamon body, black-and-white barred wings, and a big fan crest with black tips, which is their signature silhouette.
+- Gear: courier satchels crammed with scrolls, plus jangling charms and trinkets from every faith.
+- **Deliverable:** a ROUND version and a SKINNY version side by side, full-scale like Tristan's portrait, with no 60 px version.
