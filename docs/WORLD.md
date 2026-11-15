@@ -107,3 +107,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - Real hoopoe colours: a cinnamon body, black-and-white barred wings, and a big fan crest with black tips, which is their signature silhouette.
 - Gear: courier satchels crammed with scrolls, plus jangling charms and trinkets from every faith.
 - **Deliverable:** a ROUND version and a SKINNY version side by side, full-scale like Tristan's portrait, with no 60 px version.
+
+## Racial callings (class groundwork, started 2026-11-15)
+Before classes, settle each race's natural calling or occupation, one race at a time. Classes follow from these.
+- **Humans (locked 2026-11-15):** holy orders and command. They provide the knights, priests and captains, and they organise the other races into armies. Their race classes lean toward leadership and faith (for example the Standard-Bearer). Being leaders gives them a reason to head a mixed army without being stronger.
