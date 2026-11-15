@@ -53,7 +53,8 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Design approach (2026-11-12):** no "Human, but fire". Start from temperament, follow it into physical tells, and then pick defining visuals (the FFTA2 approach: Bangaa, Viera, Moogles).
 - **Temperament (locked 2026-11-12):** bound by their word. They never lie, they bargain carefully, and their oaths truly bind them (from djinn folklore about wishes and pacts).
 - **Base look (locked 2026-11-12):** tall and lanky, with dark pale skin (read as ashen, grey-toned pale; to be confirmed) and amber eyes. Start simple; a signature feature can be added later if needed.
-- **Signature features considered, not chosen:** oath-brands, lamp-heart, smoke-veil, seal-collars, glass and ash skin, ringed horns, many hands, brazier crown, script-tongues, unfinished bodies. Kept as options for later.
+- **Signature feature (locked 2026-11-15):** oath-brands. Glowing lines are burned into the skin, one for every oath sworn, so an old Ifrit wears its whole history. They brighten when an oath is invoked, and a broken oath leaves a dark scar.
+- **Other ideas considered, not chosen:** lamp-heart, smoke-veil, seal-collars, glass and ash skin, ringed horns, many hands, brazier crown, script-tongues, unfinished bodies. Kept as options for later.
 - **Role (leaning, 2026-11-12):** the most magical race.
 - **Homeland (locked for now, may change, 2026-11-12):** proud city-states built on lush green oases, like islands in the desert. Natural magic wells up there and keeps them green, and the Ifriti are drawn to those places. The open desert between them is like a sea. On the map, this means sand nodes with bright magical oasis cities.
 - **Faith (locked 2026-11-12):** an older covenant with the same God, kept long before Humans arrived, in a strange, ancient form. They see the cross faith as a younger cousin, which brings both respect and friction. City-states that broke the covenant for old pacts can still be enemies.
@@ -64,7 +65,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 ### Ifriti art brief (for Guilhem)
 - **Do not draw "Human, but fire."** Let their temperament shape the body: they are bound by their word, never lie and bargain carefully, so they look still, upright, deliberate and watchful.
 - **Base look:** tall and lanky, with long limbs and long hands. Their skin is ashen, grey-toned pale, like cooled ash (dark pale). Their eyes are amber. Elegant, mysterious and dignified, like an old scholar or teacher.
-- **No signature add-on yet.** Get the base right first. Ideas kept for later: horns that gain a ring with each oath, a crown of living flame instead of hair, glowing oath-brands on the skin.
+- **Signature: oath-brands (added 2026-11-15).** Glowing lines burned into the skin, one per oath sworn, so elders are covered in them. A broken oath leaves a dark scar.
 - **Dress:** desert-oasis scholars and merchants. Layered, flowing robes suited to heat, with an air of learned authority. Their style is their own, not Arab or any other real culture.
 - **Lore context:** they live in city-states on green magical oases that sit like islands in the desert. They keep an older covenant with the same God and act as elder teachers to Humans, though some distrust Humans as oath-breakers. They are the most magical race.
 - **Deliverable:** a full-scale concept portrait like Tristan's, with no 60 px version.
