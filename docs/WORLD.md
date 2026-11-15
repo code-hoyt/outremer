@@ -111,3 +111,4 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 ## Racial callings (class groundwork, started 2026-11-15)
 Before classes, settle each race's natural calling or occupation, one race at a time. Classes follow from these.
 - **Humans (locked 2026-11-15):** holy orders and command. They provide the knights, priests and captains, and they organise the other races into armies. Their race classes lean toward leadership and faith (for example the Standard-Bearer). Being leaders gives them a reason to head a mixed army without being stronger.
+- **Ifriti (locked 2026-11-15):** oath-mages. Their magic is sworn: each vow adds a brand and grants power with a limit attached (for example "never retreat" or "never strike first"). These are trade-off upgrades built into the class, with no extra button press.
