@@ -16,7 +16,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 - Do FFTA2-style controls (cursor, command menu, A/B, context-aware d-pad) work well with thumbs?
 - Does it matter how each class (and later race) moves: move range, jump, terrain?
 - Do facing, flanking and height make *where you stand* the interesting decision?
-- Do the turn order and the cost of Wait create real choices without any extra button presses?
+- Do the turn order and the cost of Wait create real choices?
 
 **Scope**
 - *In:* a couple of hand-made maps, a small squad on each side, basic attack, the combat formula, enemy AI, the phone UI, tuning in config.
@@ -137,7 +137,7 @@ Ideas that come up outside the current stage. Add freely; review at each stage b
 - Terrain beyond movement: cover, defensive high ground, water/marsh *(Stage 1–2)*
 - A unit placement phase before battle (FFTA2-style)
 - L/R next/previous unit buttons
-- Whether the end-of-turn facing step is worth its button press (pillar 1 tension)
+- Whether the end-of-turn facing step is worth keeping
 - **How you win decides recruitment** (Cletus, v0.8): e.g. Renaud joins only if no Templar falls, Yusuf if you spare a fleeing raider, Wren if you reach her before the raiders loot the carts. For now, winning the mission is enough. *(Stage 2)*
 - Re-recruiting a declined companion later? (All 10 are gettable in one run per Stage 3 #4, so a decline shouldn't lock one out for good.)
 - Possible winged race (wind/flight) with effectively unlimited jump — discuss later. *(No race modifiers on movement for now.)*

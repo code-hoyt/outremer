@@ -28,7 +28,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Mechanic idea: holy and profane ground (leaning, 2026-11-09)
 - Territory you hold is holy, and enemy territory is profane.
 - Map nodes are worth taking for what they offer (shops, mercenaries, upgrades, saint summons). Winning a node consecrates it; profane nodes favour demons.
-- No extra button press; it comes out of which battles you choose. Different node priorities make each playthrough different.
+- It comes out of which battles you choose. Different node priorities make each playthrough different.
 
 ## Opening and the scattered squad (locked 2026-11-09)
 - **The squad is scattered** when the veil tears. Finding each other is an early goal.

@@ -6,7 +6,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the
 **Story is deliberately undecided.** Unit names are generic (Templar Knight, Sergeant, Turcopole Archer; Raider Swordsman / Skirmisher / Bowman) so nothing is locked in.
 
 ## Design pillars (from Cletus)
-1. **No stop-and-press chores.** Avoid mechanics where the player must stop, press a button, then get back to work. Prefer systems that *emerge from choices the player is already making* (where you move, who you hit, from where).
+1. ~~No stop-and-press chores.~~ **Retired 2026-11-15:** Cletus said this came from an old game concept and no longer applies.
 2. **Customization, and every playthrough feels different.** Squad building, class mixes, and (later) variable maps/encounters.
 3. **Trade-off upgrades over pure power.** An upgrade should change *how* a unit plays (e.g. heavier armor = tougher but shorter move / lower jump), not just make numbers bigger.
 4. ~~Story later, with room for mythology.~~ **Mythology central from the start** (Stage 3 #10): relics and the uncanny drive the plot. The premise is written in a dedicated story session; told in-engine, FFTA2-style.
@@ -372,7 +372,7 @@ Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../src/ma
 - Hits are classed by where the attacker stands relative to the target's facing: **Front / Side / Back**.
   - Damage: Front ×1.0, **Side ×1.25, Back ×1.5**
   - Hit chance: Front 80%, **Side 90%, Back 100%**
-- **Flanking (pincer):** +15% damage per *other* ally adjacent to the target (max 2). Emerges from positioning — no extra button.
+- **Flanking (pincer):** +15% damage per *other* ally adjacent to the target (max 2). Emerges from positioning.
 - **Height (softened v0.10):** per level of height advantage, **+5% damage for melee and abilities, +3% for ranged shots** (attacker more than 1 tile away). Per level of disadvantage, **−5%**. The total is clamped to **×0.85–×1.1**, and hit chance is **±2% per level**. Archers gain **+1 range per 3 levels** above the target (was per 2). Melee can't reach targets too far above/below (`maxHeightReach`). *Why:* Cletus, v0.9: on The Breach the raider archer "sits up there and murders everyone, doing wicked damage and unable to be countered." v0.9 had ±10%/level clamped 0.7–1.4, ±3% hit, +1 range per 2 levels. So an archer on the height-3 wall shot down at **×1.3 damage and +9% hit**; now it's **×1.09 and +6%**. From the height-4 tower: range +2 → +1. The wall is also reachable now (see Maps).
 - **Prediction before executing:** hovering a valid target shows, and the confirm step repeats, e.g. `Hit 90% · Dmg ~22 · HP 28→6 · Back +50% · Flank ×1 +15% · Height +10%`.
 - **Facing at end of turn is an explicit choice (FFTA2-style).** Auto-facing was removed after Cletus's playtest (v0.2): every player turn ends on a facing step with four arrows drawn on the ground around the unit. Attacking still turns the attacker toward the target (as in FFTA2), but the final facing is always yours.
