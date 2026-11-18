@@ -77,6 +77,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Actions kept (picked 2026-11-18):**
 - **Seal the Page**: write an enemy's name in the book so one of the team's laws binds them too; if they break it, they suffer the oath's penalty. Meant as one of the last, most powerful moves the class learns (Cletus: "sounds powerful").
+- **Oaths (picked 2026-11-18):** **Oath of Arms** (team Attack up), **Oath of Iron** (team Defence up), **Oath of the Wind** (team Speed up), **Oath of the Heights** (team Move and Jump up), **Oath of Flame** (team Magic up), and **Oath of Return** (single-target: that unit gets back up once if it falls). Each team oath adds a random law; buff sizes, durations and stacking are set per oath in `src/config.js`.
 
 **Reactions:** still to be designed.
 
