@@ -63,7 +63,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Role:** Its defining moves are oaths that are stat buffs, one per stat (for example Attack, Defense, Jump, Speed). Swearing an oath buffs that stat **for the whole team** (locked 2026-11-17), and a **random limitation is then placed on the Oath Mage's whole team**, like the laws in FFTA and FFTA2 (for example "no ranged attacks" or "no items"). If anyone on the team breaks that limit, the oath breaks, and **the penalty mirrors the oath**: an Attack oath breaks into damage to the whole team, a Speed oath breaks into the whole team being slowed, and so on. This replaces the earlier "backlash damage to the mage" idea.
 
-**Weapons:** TBD.
+**Weapons (locked 2026-11-18):** book of covenants only.
 
 **Armour:** TBD.
 
