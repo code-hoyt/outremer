@@ -591,3 +591,4 @@ The whole battlefield is always visible. Don't design abilities around vision or
 Research: [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md). Decided one question at a time:
 1. **Passive slots (locked 2026-11-18):** FFTA2 style, 1 reaction + 1 passive (support) per unit. An "Equip X" escape hatch therefore costs the unit its only passive slot, which makes it a real trade-off.
 2. **Signature moves (locked 2026-11-18):** learned from gear like any other ability, not built in. A new Templar Knight doesn't know Smite until it masters it from gear.
+3. **Borrowed set (locked 2026-11-18):** one secondary set, from any class the unit has learned at least one ability in. Signature moves can be borrowed too (a learned Smite works from a borrowed Templar set).
