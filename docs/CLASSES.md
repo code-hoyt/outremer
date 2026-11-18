@@ -83,13 +83,17 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 - **No attack skill (Cletus, 2026-11-18):** the Oath Mage needs no damage action; like every unit it can make a basic weapon attack (weak with a book). FFTA2 precedent: White Mage, Bard and Dancer had no damaging skills. **No escape move:** no way to end an oath safely early; making or breaking oaths is the player's choice (Release and Recitation rejected).
 - **Idea kept (2026-11-18):** some oaths aimed at enemies (timed like all oaths).
 
-**Reactions:** still to be designed.
+**Reactions (picked 2026-11-18):** chosen to be worth equipping on other classes too (Cletus: why would a unit that mastered it equip it elsewhere?).
+- **Sworn Witness**: when an enemy hits this unit, that enemy is marked for 1 turn and allies deal more damage to it. Turns any tank into a target-painter.
+- **Last Word**: when a hit drops this unit below 25% HP, it immediately gets one free item or ability use.
 
-**Passives:** still to be designed.
+**Passives:** still to be designed. Candidates: Word Kept, Witness Me (should also be useful off-class).
 
-**Kit status:** in progress. Signature and the rest of the kit (beyond the oath rules above) are still to be designed. Look notes (paper wards) live in [WORLD.md](WORLD.md#first-race-classes).
+**Kit status:** in progress. Signature, actions and reactions done; passives still to be designed. Look notes (paper wards) live in [WORLD.md](WORLD.md#first-race-classes).
 
 **Ideas kept for later:** Covenant-Keeper, Truthsayer, Ember-Sworn and Witness (other Ifriti class ideas).
+
+**Reaction ideas not picked (2026-11-18):** Ward Slip (chance to fully dodge magic), Debt Called (attacker of an adjacent ally loses MP), Steadfast Word (no knockback, move or interrupt when hit); earlier oath-dependent pitches Unbroken and Oathbound Retort.
 
 **Open questions:**
 - Still open: the list of limitations, and the numbers (which will go in `src/config.js`).
