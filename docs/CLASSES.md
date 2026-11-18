@@ -78,6 +78,9 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 **Actions kept (picked 2026-11-18):**
 - **Seal the Page**: write an enemy's name in the book so one of the team's laws binds them too; if they break it, they suffer the oath's penalty. Meant as one of the last, most powerful moves the class learns (Cletus: "sounds powerful").
 - **Oaths (picked 2026-11-18):** **Oath of Arms** (team Attack up), **Oath of Iron** (team Defence up), **Oath of the Wind** (team Speed up), **Oath of the Heights** (team Move and Jump up), **Oath of Flame** (team Magic up), and **Oath of Return** (single-target: that unit gets back up once if it falls). Each team oath adds a random law; buff sizes, durations and stacking are set per oath in `src/config.js`.
+- **Covenant (picked 2026-11-18):** strengthen one active oath, but its law is drawn from the harsher half of the pool.
+- **No attack skill (Cletus, 2026-11-18):** the Oath Mage needs no damage action; like every unit it can make a basic weapon attack (weak with a book). FFTA2 precedent: White Mage, Bard and Dancer had no damaging skills. **No escape move:** no way to end an oath safely early; making or breaking oaths is the player's choice (Release and Recitation rejected).
+- **Idea, open (2026-11-18):** some oaths aimed at enemies, with a time limit (e.g. 3 turns, then the oath is fulfilled). Cletus floated that maybe all oaths should end that way; this would revisit the 2026-11-17 duration rule, so not locked yet.
 
 **Reactions:** still to be designed.
 
