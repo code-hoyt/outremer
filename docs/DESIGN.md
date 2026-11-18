@@ -586,3 +586,7 @@ Questions for Cletus, answered one at a time:
 
 ## No fog of war (locked 2026-11-17)
 The whole battlefield is always visible. Don't design abilities around vision or revealing hidden units.
+
+## Unit kit template (in progress, 2026-11-18)
+Research: [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md). Decided one question at a time:
+1. **Passive slots (locked 2026-11-18):** FFTA2 style, 1 reaction + 1 passive (support) per unit. An "Equip X" escape hatch therefore costs the unit its only passive slot, which makes it a real trade-off.
