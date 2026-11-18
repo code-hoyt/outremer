@@ -1,25 +1,199 @@
-# Outremer — Class list (DRAFT v0.1, 2026-11-12)
+# Outremer — Classes
 
-> **DRAFT. Nothing in this file is locked.** Names are working titles. Numbers (MOV, JUMP, multipliers) are starting points for tuning in `src/config.js`. It is built on the locked answers in [DESIGN.md → Classes and races](DESIGN.md#classes-and-races--open-questions-2026-11-11) (Q1–Q15) and the races in [research/RACES.md](research/RACES.md).
+Home for every class: race lock, role, weapons, armour, signature, actions, reactions, passives, kit status, saved ideas and open questions. System rules live in [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18). Lore and look notes live in [WORLD.md](WORLD.md).
 
-## Ground rules this draft follows (all locked)
+Numbers (MOV, JUMP, multipliers, durations) go in `src/config.js` when built, unless a value is already locked here.
+
+---
+
+## The five first race classes
+
+Groundwork started 2026-11-15 as racial callings; the five first classes were picked 2026-11-17. Flavour and look notes stay in [WORLD.md → Racial callings](WORLD.md#racial-callings-class-groundwork-started-2026-11-15).
+
+### Racial callings — class direction and other class ideas
+
+Moved from WORLD.md. Cultural callings stay there; the class-direction sentences and idea lists are here.
+
+- **Humans (locked 2026-11-15):** Their race classes lean toward leadership and faith (for example the Standard-Bearer). Other Human race-class ideas from the pitch, kept for later: Standard-Bearer, Chaplain, Marshal and Turcopole, plus the Hospitaller (the healing-focused order, suggested by Cletus).
+- **Ifriti (locked 2026-11-15):** Their magic is sworn: each vow grants power with a limit attached (for example "never retreat" or "never strike first"). These are trade-off upgrades built into the class. **Superseded in part (2026-11-17):** the Oath Mage was reworked the same day (see below); this replaces the earlier "backlash damage to the mage" idea, and oaths are now team stat buffs with a random law on the whole team. Other Ifriti class ideas kept for later: Covenant-Keeper, Truthsayer, Ember-Sworn and Witness.
+- **Cynocephali (locked 2026-11-15):** their race classes start as protectors and bodyguards. Pack fighters (stronger beside allies) and mountain hunters (trackers, beast-handlers) are kept as future Cynocephali class ideas. **Howler** (a war-cry guardian that draws attention and shakes enemy morale) is kept as its own future Cynocephali class (from the Shieldbrother notes, 2026-11-17).
+- **Hoopoe-kin (locked 2026-11-15):** Charm-wrights (support casters whose charms from every faith really work, a little) and magpie thieves (pickpockets and snoops who steal items and dig up secrets) are kept as future Hoopoe-kin class ideas. Other Hoopoe-kin class ideas kept for later: Courier, Lookout, Herald, Gossip, Skirmisher, Pathfinder, Relay, Decoy and Solomon's Messenger.
+- **Peri (locked 2026-11-15):** Their class is built for demon-slaying out of an old grudge: deadly against demons. (The iron weakness was scratched by Cletus on 2026-11-17.) Light-bearers (healers and purifiers), penitents (power earned through redemptive deeds, after the legend of Peri atoning to re-enter paradise), perfumers (scent auras, since Peri live on the scent of flowers), songweavers (battle-singers) and star-readers (seers who manipulate turn order) are kept as future Peri class ideas. Other Peri class ideas kept for later: Cage-Breaker, Grudge-Bearer, Skyblade and Ward-Archer.
+
+### Templar Knight
+
+**Race lock:** Humans (picked 2026-11-17).
+
+**Role:** The heart of the Order, Outremer's take on the FFTA2 Paladin: an armoured holy warrior who leans fighter: a front-line sword-and-shield combatant first, with holy power as an edge rather than a caster kit. Its holy power is a holy striker's (locked 2026-11-17): weapon strikes carry holy damage that hits demons and the profane hardest. Healing belongs to a separate, future Hospitaller class, not the Templar.
+
+**Weapons (locked 2026-11-17):** exclusively one-handed swords and shields, with no two-handers, lances or maces.
+
+**Armour:** TBD.
+
+**Signature (locked 2026-11-17):** **Smite**, a simple strike with holy damage that does 1.5x against demons and the profane, with no downside.
+
+**Actions (picked 2026-11-18, rough pitches, numbers still open):** 6 in total, including Smite.
+- **Smite** (signature, above)
+- **Judgement:** a heavier holy strike that also scores the ground, strongest against demons on profane tiles
+- **Shield Bash of Faith:** shield blow that knocks back a tile and stuns if the target is profane
+- **Non Nobis:** battle-prayer giving adjacent allies a holy edge on their next attack
+- **Beauséant:** plant the banner on a tile; allies near it hold steady and resist fear
+- **Relic Blade:** press a relic to the sword so the next few strikes count as holy, but the knight can't defend meanwhile
+
+**Reactions (picked 2026-11-18):**
+- **Martyr's Resolve:** survive one fatal hit at 1 HP, once per battle; pairs with Last Stand
+- **Rebuke:** when a profane enemy hits the knight with magic, it takes holy damage back
+
+**Passives (picked 2026-11-18):**
+- **Last Stand** (picked 2026-11-17) is an equippable passive, not an action: the lower the knight's HP, the harder its holy strikes hit. Its scaling numbers are still to be tuned and will go in `src/config.js` when it's built.
+- **Holy Ground:** the tile the knight stands on counts as holy for him alone, buffing only the knight; no movement penalty
+
+**Kit status:** complete (2026-11-18). 6 actions, 2 reactions, 2 passives; numbers go in `src/config.js` when built.
+
+**Ideas kept for later:** Crusader's Charge; reactions Riposte of the Cross, Shield Wall and Bodyguard; passives Equip Shield, Vow of Poverty, Brother-in-Arms and Penitent.
+
+**Open questions:**
+- The Templar Knight's limitation is still open; leave it open until Cletus decides.
+- Whether it carries a built-in limit (such as a Rule it must keep) is still open, so don't lock one in yet. (This sentence was at the end of the packed first-race-classes paragraph in WORLD.md; TASKS.md treats it as the Templar Knight's limitation.)
+- Scaling numbers for Last Stand and the other moves are still to be tuned and will go in `src/config.js` when built.
+
+### Oath Mage
+
+**Race lock:** Ifriti (picked 2026-11-17, mechanic reworked same day).
+
+**Role:** Its defining moves are oaths that are stat buffs, one per stat (for example Attack, Defense, Jump, Speed). Swearing an oath buffs that stat **for the whole team** (locked 2026-11-17), and a **random limitation is then placed on the Oath Mage's whole team**, like the laws in FFTA and FFTA2 (for example "no ranged attacks" or "no items"). If anyone on the team breaks that limit, the oath breaks, and **the penalty mirrors the oath**: an Attack oath breaks into damage to the whole team, a Speed oath breaks into the whole team being slowed, and so on. This replaces the earlier "backlash damage to the mage" idea.
+
+**Weapons:** TBD.
+
+**Armour:** TBD.
+
+**Signature:** not yet picked as a named signature action. Oaths are the defining moves.
+
+**Actions — oath rules (picked / locked 2026-11-17):**
+- **Duration (locked 2026-11-17):** every oath always ends if the Oath Mage falls. On top of that, each oath has a balancing duration matched to the strength of its buff: stronger oaths last a set number of rounds, and milder ones last until the battle ends or the law breaks. Each oath's duration will go in `src/config.js`.
+- **Oath finishers stay open (2026-11-17):** besides rounds or battle end, an oath can also end on other conditions, such as a number of kills, a number of deaths or items used. Keep the possibilities open, and don't lock the list.
+- **Stacking (locked 2026-11-17):** oaths stack, and stacking oaths means stacking laws, so the player chooses how much risk to take. Each oath is either **once per battle** (only one copy can be active, even with several Oath Mages, and it can't be sworn again unless it breaks) or **stackable** (for example, maybe Attack: each Oath Mage can swear it, the team buff stacks, and every copy adds its own random law). Which oaths stack, and any caps, will be set per oath in `src/config.js`.
+- **Single-target oaths (2026-11-17):** some powerful oaths (for example auto-resurrection) affect only one unit instead of the team. Each mage can place one, so bringing several Oath Mages lets you cover several units, one each.
+
+**Reactions:** still to be designed.
+
+**Passives:** still to be designed.
+
+**Kit status:** in progress. Signature and the rest of the kit (beyond the oath rules above) are still to be designed. Look notes (paper wards) live in [WORLD.md](WORLD.md#first-race-classes).
+
+**Ideas kept for later:** Covenant-Keeper, Truthsayer, Ember-Sworn and Witness (other Ifriti class ideas).
+
+**Open questions:**
+- Still open: the list of limitations, and the numbers (which will go in `src/config.js`).
+- ~~Whether oaths stack~~ **superseded (2026-11-17):** the same day's notes also lock stacking (oaths stack; which oaths stack, and any caps, are set per oath in `src/config.js`). The earlier "still open: … and whether oaths stack" line is kept here only so that wording is not lost.
+- Oath finishers stay open (2026-11-17), as above.
+
+### Shieldbrother
+
+**Race lock:** Cynocephali (picked 2026-11-17).
+
+**Role:** The basic shield-wall guardian. It takes hits for adjacent allies and gets tougher standing shoulder to shoulder with another Shieldbrother, so formations pay off.
+
+**Weapons (locked 2026-11-17):** shield and mace. For now the game has a single standard shield type. Tower shields might come later as separate equipment, but that isn't decided.
+
+**Armour:** TBD.
+
+**Signature (locked 2026-11-17):** **Guard**, which picks one ally in range so that every attack on that ally hits the Shieldbrother instead until its next turn.
+
+**Actions:** still to be designed, besides Guard. Kit ideas so far: **Ridge-Warden** is an action ability (plant on a tile and become nearly immovable, holding high ground and chokepoints, but slow to move once dug in).
+
+**Reactions:** still to be designed.
+
+**Passives:** still to be designed. Kit ideas so far: **Christopher** (carry a wounded or stranded ally to safety, across water or up a ledge) and **Pack-Bulwark** (stronger the more Cynocephali are on the team) are equippable passives.
+
+**Kit status:** in progress. Weapons and signature are locked; the rest of the kit is still to be designed.
+
+**Ideas kept for later:** Lock Shields, Bonebreaker and Shield Shove. **Howler** (a war-cry guardian that draws attention and shakes enemy morale) is kept as its own future Cynocephali class.
+
+**Open questions:**
+- Tower shields might come later as separate equipment, but that isn't decided.
+- The numbers are still open and will go in `src/config.js` when built.
+
+### Roost-Keeper
+
+**Race lock:** Hoopoe-kin (picked 2026-11-17).
+
+**Role:** Sets up roosts on tiles, drawn from their relay-roost courier network, and allies can teleport between them. Reworked 2026-11-17 into a **bird whisperer**: the "teleport" is a flock of birds that swoops up a unit and carries it between roosts. **Roosts can be used by enemies too.** The flock is the class's toolkit: it can also be sent at enemies, and it can take a hit for an ally.
+
+**Weapons:** TBD.
+
+**Armour:** TBD.
+
+**Signature:** not yet picked as a named signature action.
+
+**Actions (moves picked 2026-11-17):**
+- **Pecking Swarm:** the flock blankets a few tiles, lightly damaging and blinding enemies so they miss more
+- **Murmuration:** a swirl of birds hides one ally, so attacks on them are likelier to miss until their next turn
+
+**Reactions:** still to be designed. The flock taking a hit for an ally is part of the toolkit, not yet slotted as a reaction.
+
+**Passives:** still to be designed.
+
+**Kit status:** in progress. Two moves are picked; the rest of the kit is still to be designed.
+
+**Ideas kept for later:** Snatch, Carrion Call, Messenger Bird, and Flock Size as a resource. Other Hoopoe-kin class ideas are listed under Racial callings above.
+
+**Open questions:**
+- The numbers are still open.
+- Whether it carries a built-in limit (such as a Rule it must keep) is still open, so don't lock one in yet. (Same sentence as under Templar Knight: it sat at the end of the packed WORLD.md paragraph, after the Roost-Keeper notes and the leftover idea lists, so it may apply here, to the Templar Knight, or to the first race classes in general.)
+
+### Div-Hunter
+
+**Race lock:** Peri (picked 2026-11-17).
+
+**Role:** The basic slayer: a fast striker with a light blade, deadly against demons, using wing hop, glide and dive to reach targets. No iron weakness. Flowers and lingering scent are the theme of all her attacks. (The iron weakness was scratched by Cletus on 2026-11-17.)
+
+**Weapons:** a light blade (described with the class, not separately locked).
+
+**Armour:** TBD.
+
+**Signature (picked 2026-11-18):** **Scent of Paradise**, a strike that leaves a holy fragrance on the target, burning demons each turn and stopping them from healing (Peri live on the scent of flowers).
+
+**Actions:** still to be designed, besides Scent of Paradise.
+
+**Reactions:** still to be designed.
+
+**Passives:** still to be designed.
+
+**Kit status:** in progress. Signature is picked; the rest of the kit is still to be designed.
+
+**Ideas kept for later:** Stooping Dive, Glide-Cut, Iron Cage Turned, Old Grudge, Featherfall Ward, Banish, Hunter's Mark, Unmask and Flurry. Other Peri class ideas: Cage-Breaker, Grudge-Bearer, Skyblade and Ward-Archer (plus the earlier list under Racial callings).
+
+**Open questions:**
+- The rest of the kit is still to be designed.
+- The numbers are still open and will go in `src/config.js` when built.
+
+---
+
+## Older draft (v0.1, 2026-11-12)
+
+The 2026-11-12 class-list draft is kept below because parts of it are still valid. **It is not the live kit source.** Where it conflicts with a later locked decision, the item is marked **superseded** (newer date wins). The original banner ("DRAFT. Nothing in this file is locked.") is itself **superseded (2026-11-18):** the [unit kit template](DESIGN.md#unit-kit-template-locked-2026-11-18) is locked, and the Templar Knight kit is complete.
+
+It was built on the locked answers in [DESIGN.md → Classes and races](DESIGN.md#classes-and-races--open-questions-2026-11-11) (Q1–Q15) and the races in [research/RACES.md](research/RACES.md). Names in this draft are working titles. Numbers (MOV, JUMP, multipliers) are starting points for tuning in `src/config.js`.
+
+### Ground rules this draft follows (all locked)
 - **Free class switching** between battles, never mid-fight. Class sets **MOV / JUMP / terrain**; learned abilities are kept.
-- **Abilities are learned from gear** (FFTA2 mastery). Teaching gear is **sold in shops**, never loot-only. Most classes unlock by **mastering N abilities in prerequisite classes**; special classes unlock through **quests**.
-- **Weapons are tied to class.** An **Equip X** ability lets a unit carry another class's weapon at the cost of one carried slot.
-- **Loadout (recommendation kept):** the class's own set + **one borrowed set** from another class + about **4 carried abilities** (passives, Equip X, and so on). Borrowing a set never borrows its movement.
+- **Abilities are learned from gear** (FFTA2 mastery). Teaching gear is **sold in shops**, never loot-only. Most classes unlock by **mastering N abilities in prerequisite classes**; special classes unlock through **quests**. **Superseded in part (2026-11-18):** shops are still the main source and stock plenty, but rare or unique items that teach rare skills have to be found (for example as a quest-line reward). Ordinary loot gives variants. See [DESIGN.md kit template item 7](DESIGN.md#unit-kit-template-locked-2026-11-18).
+- **Weapons are tied to class.** An **Equip X** ability lets a unit carry another class's weapon at the cost of one carried slot. **Superseded in part (2026-11-18):** Equip X uses the unit's single passive slot, not a separate "carried" slot. See kit template items 1 and 13.
+- **Loadout (recommendation kept):** the class's own set + **one borrowed set** from another class + about **4 carried abilities** (passives, Equip X, and so on). Borrowing a set never borrows its movement. **Superseded (2026-11-18):** loadout is 1 reaction + 1 passive per unit, plus the class set and one borrowed set (from any class the unit has learned at least one ability in; signatures can be borrowed). Item uses the borrowed-set slot. See kit template items 1, 3, 13 and 14.
 - **Sideways tree:** later classes are different, not better. Every class keeps a niche no other class covers (listed per class as **Niche**).
-- **Every ability has a cost** built into what it does (no cooldowns): weak damage, rooted, Exposed, Slowed, self-damage, friendly fire, a visible tell, a lost facing choice. No interrupts or button prompts in the enemy turn.
+- **Every ability has a cost** built into what it does (no cooldowns): weak damage, rooted, Exposed, Slowed, self-damage, friendly fire, a visible tell, a lost facing choice. ~~No interrupts or button prompts in the enemy turn.~~ **Superseded (2026-11-15):** that clause came from a retired design pillar and no longer applies.
 - **Stat growth comes from the class you level in** (FFT-style), so each class has a **growth lean**.
 - **Races:** small stat lean + one movement quirk, on top of class movement (Peri: short wing hop over gaps; Ifriti: cheap sand and heat; Cynocephali: cheap rough ground).
 - **Holy / profane ground** is a map condition, set by the node you fight on. Some abilities are stronger or weaker on it, so battles ask for different builds.
 
-### Stat key
+#### Stat key
 Stats from DESIGN: **MGT** (attack), **END** (HP), **FOR** (defence), **AGI** (turn speed), **AIM** (hit, crit), **RES** (resist status and shoves). This draft adds a proposed **SPR, Spirit** (spell power and MP once magic arrives); see open question 1.
 Growth lean: **▲▲** strong, **▲** good, **–** average, **▼** weak.
 
 ---
 
-## 1. Core classes and who can take them
+### 1. Core classes and who can take them
 
 13 core classes in 4 families. **✓** = can take it. **S** = a starting class (no prerequisites).
 
@@ -42,6 +216,8 @@ Growth lean: **▲▲** strong, **▲** good, **–** average, **▼** weak.
 | | **+ race-only** | 2 | 3 | 3 | 3 |
 | | **Classes per race** | **13** | **8** | **7** | **10** |
 
+**Note (2026-11-12 / 2026-11-17):** this roster has no Hoopoe-kin column (Hoopoe-kin were added as a playable race after this draft). Race-only counts and the first race classes were later replaced; see [The five first race classes](#the-five-first-race-classes).
+
 Why this split:
 - **Humans get almost everything** except Harrier and Geomancer, which belong to the other peoples. **Chaplain** is the one Human-only core class (crusader clergy).
 - **Peri** = nimble core + Physician (the research had them as scouts, healers and archers) + Geomancer (light and quick, reading the land).
@@ -51,13 +227,13 @@ Why this split:
 
 ---
 
-## 2. Core classes
+### 2. Core classes
 
 Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the niche and 3–4 signature abilities, each with its cost. Abilities marked *(v0.13)* already exist in the prototype.
 
-### Fighters
+#### Fighters
 
-#### Sergeant (starting)
+##### Sergeant (starting)
 - **Spear / pike · 4/2 (standard) · MGT ▲ END ▲ FOR – AGI – AIM – RES ▲ · Starting**
 - **Niche:** zone control and reach. The only class that punishes enemies for walking.
 
@@ -68,7 +244,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Run Through | Hits two foes in a line at ×0.8 each | Spear stuck: you can't move after |
 | Hold the Line *(passive)* | +1 RES against shoves for each adjacent ally | Lose it if you end your turn alone |
 
-#### Knight
+##### Knight
 - **Sword + shield · 3/1 (heavy: sand 2, rock 3) · END ▲▲ FOR ▲▲ MGT ▲ AGI ▼ AIM – RES – · Sergeant: 2 mastered**
 - **Niche:** the anchor. Turns flanks into fronts and protects others.
 
@@ -79,7 +255,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Stand Guard | Pick an adjacent ally: hits on them land on you until your next turn | You take them as side hits, and you can't act next turn if you guarded twice in a row |
 | Charge | Move 3+ tiles in a straight line, hit at ×1.3 | You face the way you charged, with no facing choice |
 
-#### Man-at-Arms
+##### Man-at-Arms
 - **Mace / axe (two-handed) · 4/1 (standard, rubble 2) · MGT ▲▲ END ▲ FOR – AGI ▼ AIM ▼ RES – · Sergeant: 3 mastered**
 - **Niche:** breaks armour and terrain. Raw single-target damage.
 
@@ -90,7 +266,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Ground Slam | Every adjacent tile takes ×0.6, allies included | Stuck: you can't move on your next turn |
 | Wade In *(passive)* | Rubble and shallows cost 1 | −1 JUMP |
 
-#### Crossbowman
+##### Crossbowman
 - **Crossbow · 3/1 (standard) · AIM ▲▲ MGT ▲ FOR ▲ AGI ▼ END – RES – · Archer: 2 + Sergeant: 1**
 - **Niche:** armour-piercing ranged fire that doesn't need height. The answer to Knights and Shield Walls.
 
@@ -101,9 +277,9 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Bolt Through | Pierces two foes in a line | No height bonus; friendly fire on allies in the line |
 | Flat Trajectory *(passive)* | No penalty for shooting uphill | Height advantage never adds range |
 
-### Nimble
+#### Nimble
 
-#### Skirmisher (starting)
+##### Skirmisher (starting)
 - **Daggers / short blades · 5/3 (nimble: sand 1, rock 1) · AGI ▲▲ AIM ▲ MGT – END ▼ FOR ▼ RES – · Starting**
 - **Niche:** facing manipulation and getting behind the line.
 
@@ -114,7 +290,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Hamstring | ×0.5; the target has MOV −2 next turn | You end adjacent and can't move after |
 | Slip Away | After attacking, move up to 2 tiles | You end facing away from the foe, with no facing choice |
 
-#### Archer (starting)
+##### Archer (starting)
 - **Bow · 4/3 (light: rock 1) · AIM ▲▲ AGI ▲ MGT – END ▼ FOR ▼ RES – · Starting**
 - **Niche:** height. The only class that gets more from high ground the higher it goes.
 
@@ -125,7 +301,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Volley | 3-tile area at ×0.5 | Hits allies in the area too |
 | Mark the Range *(passive)* | +1 range when you start your turn on your highest tile so far | Lose it as soon as you step down |
 
-#### Harrier (Peri, Cynocephali)
+##### Harrier (Peri, Cynocephali)
 - **Javelins + sling · 5/3 (nimble) · AGI ▲ MGT ▲ AIM ▲ END – FOR ▼ RES – · Archer: 3**
 - **Niche:** hit-and-run at short range. The only ranged class that can move after it shoots.
 
@@ -136,10 +312,10 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Stunning Stone | Sling, ×0.4; target AGI −20% (acts later) | Very weak damage |
 | Light Pack *(passive)* | +1 MOV | −15% max HP |
 
-### Magic
+#### Magic
 *Magic and MP are parked in DESIGN. Until then the spells below cost only their drawback; see open question 2.*
 
-#### Physician (starting)
+##### Physician (starting)
 - **Staff + satchel · 4/2 (standard) · RES ▲ END ▲ SPR ▲ AIM – MGT ▼ AGI – · Starting**
 - **Niche:** healing and curing without faith or magic. The only heals that work the same on holy and profane ground.
 
@@ -150,7 +326,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Bleed the Humours | Cure an ally's statuses | You both lose 10% HP |
 | Triage | Huge heal on an ally under 25% HP | The ally has MOV −2 next turn (stitched up) |
 
-#### Alchemist (starting)
+##### Alchemist (starting)
 - **Rod + flasks · 4/2 (standard) · SPR ▲▲ AIM ▲ AGI – END ▼ FOR ▼ MGT ▼ · Starting**
 - **Niche:** area damage and tile effects. Naft (Greek fire), quicklime, salts.
 
@@ -161,7 +337,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Salt Ward | One tile: profane units can't enter it this round | Uses your action; tiny area |
 | Volatile Mix | Next flask ×1.5 | You take 10% max HP; the flask must be thrown next turn |
 
-#### Astrologer
+##### Astrologer
 - **Book / astrolabe · 4/2 (standard) · SPR ▲ RES ▲ AGI ▲ AIM – MGT ▼ END ▼ · Alchemist: 2 + Physician: 1**
 - **Niche:** turn order (CT). The only class that bends who acts when.
 
@@ -172,7 +348,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Conjunction | Swap the CT of two units in a line | Both must be in a straight line from you, friend or foe |
 | Read the Heavens *(passive)* | The turn strip shows 4 more turns | −10% max HP |
 
-#### Geomancer (Peri, Ifriti)
+##### Geomancer (Peri, Ifriti)
 - **Staff · 4/3 (standard; ignores 1 height when climbing slopes) · SPR ▲ RES ▲ AGI ▲ FOR – END – MGT ▼ · Physician: 3**
 - **Niche:** reshaping the map. Effects change with the tile you stand on.
 
@@ -183,9 +359,11 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Sink | A tile drops 1 level (ledges, falls) | You can't move next turn |
 | Quake | Adjacent units shoved 1 tile outward | Allies are shoved too |
 
-### Holy
+#### Holy
 
-#### Chaplain (Human only)
+##### Chaplain (Human only)
+
+**Note (2026-11-17):** Chaplain is also listed among later Human race-class ideas, and healing was given to a future Hospitaller class rather than the Templar Knight. This core-class sketch is kept; whether Chaplain is a core class, a race class, or both is not yet re-decided.
 - **Staff / censer · 4/2 (standard) · RES ▲▲ SPR ▲ FOR ▲ END – AGI ▼ MGT ▼ · Physician: 2 + Sergeant: 1**
 - **Niche:** blessings, and fighting on profane ground. Strongest when the ground is holy.
 
@@ -196,7 +374,9 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 | Rebuke | Profane units within 2 tiles are shoved 1 tile | Weaker on profane ground; doesn't affect non-profane foes |
 | Last Rites | A fallen ally rises with 1 HP | You take their Wound instead (Wounded next battle) |
 
-#### Hunter (Human, Cynocephali)
+Name clash with the Templar Knight reaction **Rebuke** (picked 2026-11-18, different effect).
+
+##### Hunter (Human, Cynocephali)
 - **Hunting spear / short blade + lantern · 4/3 (light: rock 1) · AIM ▲ AGI ▲ MGT ▲ RES ▲ END – FOR ▼ · Archer: 2 + Sergeant: 1**
 - **Niche:** hunting the profane (Dismas's trade). Single-target focus and tracking.
 
@@ -209,31 +389,31 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 
 ---
 
-## 3. Race-only classes (unlocked by race quests)
+### 3. Race-only classes (unlocked by race quests)
 
-All units of any race can be recruited from the start; these unlock through that race's quest line.
+All units of any race can be recruited from the start; these unlock through that race's quest line. **Superseded in part (2026-11-12):** Peri are hidden and unlock as recruits through a Peri side-quest tree (DESIGN.md Q12). **Superseded as the first race-class roster (2026-11-17):** the first race classes are now Templar Knight, Oath Mage, Shieldbrother, Roost-Keeper and Div-Hunter, and Hoopoe-kin is a playable race not listed in this draft. The classes in the tables below are kept as ideas, not deleted.
 
-### Humans (2)
+#### Humans (2)
 | Class | Weapon · MOV/JUMP · lean | Niche | Signature abilities (cost) |
 |---|---|---|---|
 | **Turcopole** | Short bow · 5/2 · AGI ▲▲ AIM ▲ | The only class that shoots while moving | **Shoot on the Move:** move, shoot, move again (×0.7) · **Parthian Shot:** shoot behind you as you retreat (you end facing away) · **Outride:** +2 MOV this turn (can't act) |
 | **Standard-Bearer** | Banner (polearm) · 3/1 · RES ▲▲ END ▲ | An aura from where you stand | **Raise the Standard:** allies within 2 get +RES and +10% damage (only while you stay put; moving drops it) · **Rally:** a Slowed or Pinned ally is freed (you're Exposed) · **Banner as a target:** foes prefer to target you |
 
-### Peri (3)
+#### Peri (3)
 | Class | Weapon · MOV/JUMP · lean | Niche | Signature abilities (cost) |
 |---|---|---|---|
 | **Kestrel** | Glaive · 5/4 · AGI ▲ MGT ▲ | Dive attacks from height, using the wing hop | **Stoop:** drop from height onto a foe, ×1.2 + 10% per level dropped (you land Exposed) · **Updraft:** hop up 2 levels (no attack this turn) · **Harry:** strike and hop back 1 tile (×0.6) |
 | **Lightweaver** | Wand · 4/3 · SPR ▲▲ RES ▲ | Healing and decoys with light | **Mend Light:** heal in a line (also heals foes in the line) · **Glamour:** a decoy that draws the next attack (costs you 15% HP) · **Dazzle:** foes in an area −hit (also allies) |
 | **Divbane** | Twin blades · 5/3 · AGI ▲ AIM ▲ | Peri warriors of the old div wars: fast duels against the profane | **Div-Cut:** ×1.4 against profane units, ×0.7 otherwise · **Wingguard:** dodge the next melee hit (Slowed next turn) · **Swift Pair:** two ×0.6 hits (can't move after) |
 
-### Ifriti (3)
+#### Ifriti (3)
 | Class | Weapon · MOV/JUMP · lean | Niche | Signature abilities (cost) |
 |---|---|---|---|
 | **Emberblade** | Scimitar · 4/2 · MGT ▲ AGI ▲ SPR ▲ | The fire duellist: melee that hurts more the hotter it gets | **Kindle:** each hit you land this battle +5% damage, stacking (you take +5% damage per stack too) · **Flame Lunge:** dash 2 and hit (leave a burning trail) · **Searing Parry** *(passive)*: melee attackers take fire damage (you take +10% from ranged) |
 | **Smokecaller** | Censer-chain · 4/2 · SPR ▲ RES ▲ | Smoke and cover: blocks sight lines | **Smokebank:** a 3-tile cloud that blocks ranged shots, yours too · **Choke:** foes in the smoke −AGI · **Vanish:** you can't be targeted until your next turn (you can't act on it) |
 | **Dune Warden** | Spear + buckler · 4/2 (sand 1, heat 1) · FOR ▲ END ▲ | The Ifriti front line, only at home on sand | **Dust Devil:** pull a foe across sand 2 tiles (weak on other ground) · **Sand Wall:** raise a 1-level wall on a sand tile (only on sand) · **Heat Shimmer** *(passive)*: ranged hits on you −20% on sand and heat tiles (+20% on water) |
 
-### Cynocephali (3)
+#### Cynocephali (3)
 | Class | Weapon · MOV/JUMP · lean | Niche | Signature abilities (cost) |
 |---|---|---|---|
 | **Houndknight** | Sword + shield · 4/2 · FOR ▲ END ▲ AGI ▲ | A fast knight: guard on the move | **Bodyguard:** move to an ally and take their next hit (you can't attack this turn) · **Bark Down:** an adjacent foe can't use abilities next turn (×0.3) · **Stalwart** *(passive)*: can't be shoved (−1 MOV) |
@@ -242,13 +422,13 @@ All units of any race can be recruited from the start; these unlock through that
 
 ---
 
-## 4. Hero unique classes (sketch only; story not locked)
+### 4. Hero unique classes (sketch only; story not locked)
 
 The four heroes are **plain Humans**. Each can take every Human class, plus one unique class unlocked through **that hero's side quests**. Unique classes are sideways, not stronger.
 
 | Hero | Class (working) | Weapon · MOV/JUMP | Fantasy and niche | Sketch abilities (cost) | Unlock |
 |---|---|---|---|---|---|
-| **Tristan** | **Templar** | Sword + shield · 3/1 | Holds the line and lifts the squad. | **Rule of the Order** *(passive)*: +20% DEF and RES, but he can't end his turn farther from the nearest foe (the Templars' no-retreat rule) · **Beauséant:** allies within 2 +15% damage while he stays put · **Non Nobis:** take half the damage dealt to adjacent allies this round | Tristan's side quests (his faith arc) |
+| **Tristan** | **Templar** **superseded in part (2026-11-17 / 2026-11-18):** the working name Templar, and the abilities Beauséant and Non Nobis, now belong to the Human race class Templar Knight (kit complete 2026-11-18), with different effects. Whether Tristan still gets a separate unique class is still per DESIGN.md Q3. | Sword + shield · 3/1 | Holds the line and lifts the squad. | **Rule of the Order** *(passive)*: +20% DEF and RES, but he can't end his turn farther from the nearest foe (the Templars' no-retreat rule) · **Beauséant:** allies within 2 +15% damage while he stays put · **Non Nobis:** take half the damage dealt to adjacent allies this round | Tristan's side quests (his faith arc) |
 | **Aveline** | **Saint-Caller** (Hospitaller) | Staff · 4/2 | Healer who calls blessed help. Strongest on holy ground. | **Intercession:** call blessed help (list not designed; see CHARACTERS) and channel: no move next turn · **Hospital:** heal all adjacent allies (she takes 10% HP) · **Hold Everything Together** *(passive)*: allies near her resist fear-type statuses; she's weaker alone | Aveline's side quests (Act 2+) |
 | **Godric** | **Vanguard** | Mace · 4/2 | Charges over defence. | **Headlong:** charge through a foe's tile, hitting them (you end Exposed) · **Hot Blood** *(passive)*: +damage as his HP drops, −DEF as well · **Stand By Me:** a charge that ends next to Tristan heals Godric 10% (he must reach him) | Godric's side quests (after he's found) |
 | **Lucien** | **Shadow Archer** | Bow · 5/3 | The Hooded Figure's style: shoots from cover. | **Hooded Shot:** ×1.3 if no foe can see you (only from behind an obstacle; you can't move after) · **Smuggler's Step:** move through foes' tiles · **Second Thoughts** *(passive)*: crits on foes at full HP, −damage on wounded ones | Lucien's side quests after his return (Act 4) |
@@ -258,7 +438,7 @@ The four heroes are **plain Humans**. Each can take every Human class, plus one 
 
 ---
 
-## 5. Supporting notes
+### 5. Supporting notes
 
 **Unlock tree (core)**
 ```
@@ -272,7 +452,7 @@ Alchemist 2 + Physician 1 ──► Astrologer
 ```
 "N" = abilities mastered in that class. Every race can reach every core class it's allowed, using only its own classes.
 
-**Equip X (escape hatch, one carried slot each)**
+**Equip X (escape hatch, one carried slot each)** **Superseded in part (2026-11-18):** Equip X uses the single passive slot, not one of several carried slots. The learn-in / weapon table below is otherwise kept as a draft idea.
 | Ability | Learned in | Lets you carry |
 |---|---|---|
 | Equip Shields | Knight | A shield on any class (keeps class MOV) |
@@ -281,15 +461,15 @@ Alchemist 2 + Physician 1 ──► Astrologer
 | Equip Heavy | Man-at-Arms | Maces and axes |
 | Equip Crossbows | Crossbowman | Crossbows |
 
-**Enemies:** Fallen enemies (Fallen Human, Peri, Ifriti, Cynocephali) use these same kits with a profane twist, so the player learns enemy classes by playing them. Pure profane monsters (Imps, Fiends and so on) have their own kits.
+**Enemies:** Fallen enemies (Fallen Human, Peri, Ifriti, Cynocephali) use these same kits with a profane twist, so the player learns enemy classes by playing them. Pure profane monsters (Imps, Fiends and so on) have their own kits. **Note (2026-11-12):** for Peri, hostile followers of the old faith are just "Peri"; Peri call their converts "Fallen" (DESIGN.md Q14, WORLD.md).
 
 ---
 
-## 6. Open questions for Cletus
+### 6. Open questions for Cletus
 1. **A magic stat?** The six stats have no magic stat. Add **SPR (Spirit)** for spell power, or let magic run off RES?
 2. **MP or drawbacks only for spells?** DESIGN parks "MP later". Should spells cost MP *and* a drawback, or a drawback only, like physical abilities?
 3. **Ifriti have the shortest list (7).** Give them a fourth race class, or open Skirmisher to them (fire duellists)?
 4. **Chaplain Human-only?** Or open it to Cynocephali (the dog-headed saint tradition)?
 5. **Dismas:** should he get a unique class too, like the four heroes?
-6. **Ability count:** 3–4 signature abilities per class (about 75 total). FFTA2 had more per class. Is that enough to learn, or too few?
-7. **Hero class names:** Templar, Saint-Caller, Vanguard and Shadow Archer are placeholders. Any you'd like changed?
+6. **Ability count:** 3–4 signature abilities per class (about 75 total). FFTA2 had more per class. Is that enough to learn, or too few? **Superseded (2026-11-18):** class sets are FFTA2-sized: signature plus 6–10 actions in total, and a few reactions and passives (roughly 2–4 of each). See kit template item 10.
+7. **Hero class names:** Templar, Saint-Caller, Vanguard and Shadow Archer are placeholders. Any you'd like changed? **Note (2026-11-17):** Templar is now the name of the Human race class (Templar Knight), so this unique-class placeholder name conflicts.

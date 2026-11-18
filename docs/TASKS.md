@@ -9,11 +9,10 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 - Build work (slice milestones, engine, deploys) lives on the GitHub board, not here. Each build issue is a [SLICE-PLAN.md](SLICE-PLAN.md) milestone. The Stage 4 plan is in [ROADMAP.md](ROADMAP.md).
 
 ## Now
-- Kit template is locked (see [DESIGN.md](DESIGN.md) "Unit kit template"). Finish the kits for the five first race classes: Templar Knight, Oath Mage, Shieldbrother, Roost-Keeper, and Div-Hunter. Signature moves are picked; the rest of each kit is still to be designed. See [WORLD.md](WORLD.md).
+- Kit template is locked (see [DESIGN.md](DESIGN.md) "Unit kit template"). The Templar Knight kit is complete. Finish the remaining four first race-class kits: Oath Mage, Shieldbrother, Roost-Keeper, and Div-Hunter. Signature moves are picked; the rest of each of those kits is still to be designed. Kits live in [CLASSES.md](CLASSES.md).
 
 ## Next
-- Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [WORLD.md](WORLD.md).
-- Rework [CLASSES.md](CLASSES.md) for the five-race roster and the new race classes. It is still an old draft (2026-11-12) and says nothing in it is locked.
+- Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [CLASSES.md](CLASSES.md#oath-mage).
 - Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4.
 
 ## Waiting on Cletus
@@ -21,7 +20,7 @@ Decisions only he can make.
 - Pick Guilhem's concept plates: Ifriti (`ifriti-concept-v6`; Guilhem recommends plate 3, high-mantle), Cynocephali (`cynocephali-concept-v5`; he recommends plate 2, ridge-guard), and Hoopoe-kin (`hoopoe-kin-concept-v1`; a round, a skinny, and a mid scribe). Deliveries are in `/workspace/art-handoff/deliveries/`. Later Ifriti folders (through v26 as of 2026-11-18) are also there. Looks notes are in [WORLD.md](WORLD.md).
 - The Kojima hooded look versus locked light-blue Peri hair: the costume can be used, but blonde hair would need sign-off, or the light blue can flow out of the hood. Not assigned to a class yet. See [WORLD.md](WORLD.md).
 - Confirm the Cynocephali footprint (provisionally uncommon). See [WORLD.md](WORLD.md).
-- The Templar Knight's limitation is still open; leave it open until Cletus decides. See [WORLD.md](WORLD.md).
+- The Templar Knight's limitation is still open; leave it open until Cletus decides. See [CLASSES.md](CLASSES.md#templar-knight).
 
 ## Parking lot
 - Kit extras parked 2026-11-18: meters/gauges, combo attacks, summons. Also: more places to hide rare teaching items, and other ways to earn AP besides battle. See [DESIGN.md](DESIGN.md) "Unit kit template".

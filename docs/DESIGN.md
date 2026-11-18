@@ -530,7 +530,7 @@ What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from
 
 ## Classes (2026-11-09)
 - FFTA2-style: basic classes that unlock more advanced and unique options. This needs its own design discussion; it has not been designed yet.
-- **First class list drafted (DRAFT, 2026-11-12):** see [CLASSES.md](CLASSES.md). 13 core classes with race availability, 2–3 race-only classes per race, hero unique-class sketches, and open questions. Not locked.
+- **Class kits live in [CLASSES.md](CLASSES.md).** The five first race classes (Templar Knight kit complete 2026-11-18; Oath Mage, Shieldbrother, Roost-Keeper and Div-Hunter in progress) are at the top. The 2026-11-12 draft (13 core classes, older race-only sketches, hero unique-class sketches) is kept in the same file and marked where later locked decisions supersede it.
 
 ## Bestiary terms (LOCKED 2026-11-09)
 These words name different kinds of enemy, not competing labels for the same creature:
@@ -558,7 +558,7 @@ Cletus locked a 60 px unit cap so sprites use raw Retro Diffusion output with no
 
 ## Classes and races — open questions (2026-11-11)
 
-> **Draft class list built on these answers:** [CLASSES.md](CLASSES.md) (DRAFT, 2026-11-12).
+> **Class kits:** [CLASSES.md](CLASSES.md). The 2026-11-12 draft built on these answers is kept there and marked where later locked decisions supersede it.
 
 Research summary (sources in chat, 2026-11-11): big job systems run ~20–56 jobs (FFT 20–22 + ~10 unique; FFTA ~34; FFTA2 56, but 4–13 per race). Recommended direction (not locked): mid-size tree of ~10–14 basic/advanced classes plus unique hero classes; class sets movement; abilities learned from buyable gear; one borrowed set; ~4 abilities carried into battle; every ability a trade-off. Phone is the smallest supported screen, not a design cap. The older "hero + 10 set companions, squad of 3" plan is superseded by the ~6-deployed clan.
 
