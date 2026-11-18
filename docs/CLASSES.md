@@ -70,7 +70,8 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 **Signature (locked 2026-11-18):** **Seal the Page**, learned late (see Actions).
 
 **Actions — oath rules (picked / locked 2026-11-17):**
-- **Duration (locked 2026-11-17):** every oath always ends if the Oath Mage falls. On top of that, each oath has a balancing duration matched to the strength of its buff: stronger oaths last a set number of rounds, and milder ones last until the battle ends or the law breaks. Each oath's duration will go in `src/config.js`.
+- **Duration (changed 2026-11-18):** every oath lasts 3 turns and is then fulfilled; still always ends if the Oath Mage falls. 3 is a starting value in `src/config.js`, open to balancing. Replaces the 2026-11-17 rule below.
+- ~~Duration (locked 2026-11-17):~~ superseded 2026-11-18: every oath always ends if the Oath Mage falls. On top of that, each oath has a balancing duration matched to the strength of its buff: stronger oaths last a set number of rounds, and milder ones last until the battle ends or the law breaks. Each oath's duration will go in `src/config.js`.
 - **Oath finishers stay open (2026-11-17):** besides rounds or battle end, an oath can also end on other conditions, such as a number of kills, a number of deaths or items used. Keep the possibilities open, and don't lock the list.
 - **Stacking (locked 2026-11-17):** oaths stack, and stacking oaths means stacking laws, so the player chooses how much risk to take. Each oath is either **once per battle** (only one copy can be active, even with several Oath Mages, and it can't be sworn again unless it breaks) or **stackable** (for example, maybe Attack: each Oath Mage can swear it, the team buff stacks, and every copy adds its own random law). Which oaths stack, and any caps, will be set per oath in `src/config.js`.
 - **Single-target oaths (2026-11-17):** some powerful oaths (for example auto-resurrection) affect only one unit instead of the team. Each mage can place one, so bringing several Oath Mages lets you cover several units, one each.
@@ -80,7 +81,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 - **Oaths (picked 2026-11-18):** **Oath of Arms** (team Attack up), **Oath of Iron** (team Defence up), **Oath of the Wind** (team Speed up), **Oath of the Heights** (team Move and Jump up), **Oath of Flame** (team Magic up), and **Oath of Return** (single-target: that unit gets back up once if it falls). Each team oath adds a random law; buff sizes, durations and stacking are set per oath in `src/config.js`.
 - **Covenant (picked 2026-11-18):** strengthen one active oath, but its law is drawn from the harsher half of the pool.
 - **No attack skill (Cletus, 2026-11-18):** the Oath Mage needs no damage action; like every unit it can make a basic weapon attack (weak with a book). FFTA2 precedent: White Mage, Bard and Dancer had no damaging skills. **No escape move:** no way to end an oath safely early; making or breaking oaths is the player's choice (Release and Recitation rejected).
-- **Idea, open (2026-11-18):** some oaths aimed at enemies, with a time limit (e.g. 3 turns, then the oath is fulfilled). Cletus floated that maybe all oaths should end that way; this would revisit the 2026-11-17 duration rule, so not locked yet.
+- **Idea kept (2026-11-18):** some oaths aimed at enemies (timed like all oaths).
 
 **Reactions:** still to be designed.
 
