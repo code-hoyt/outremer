@@ -6,7 +6,7 @@ Outremer should one day be a **full, commercial-quality game that Cletus release
 Today's builds are **prototypes**. Each one exists to answer design questions, not to become the shipped game, so prototype code can be rough. The questions matter more than the code, and the code may be rewritten later (see Stage 3).
 
 Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
-Open design decisions live in [TASKS.md](TASKS.md). Build work lives on the [GitHub issues](https://github.com/code-hoyt/outremer/issues?q=is%3Aissue+label%3Abuild) (a Project board named "Outremer" will hold them once the `gh` token has the `project` scope).
+Open design decisions live in [TASKS.md](TASKS.md). Build work lives on the [GitHub issues](https://github.com/code-hoyt/outremer/issues?q=is%3Aissue+label%3Abuild), tracked on the [Outremer Project board](https://github.com/users/code-hoyt/projects/1).
 
 ---
 

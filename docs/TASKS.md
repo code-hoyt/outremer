@@ -1,6 +1,6 @@
 # Design tasks
 
-Living list of open **design decisions**. Build work lives on the [GitHub issues](https://github.com/code-hoyt/outremer/issues?q=is%3Aissue+label%3Abuild) (a Project board named "Outremer" will hold them once the `gh` token has the `project` scope).
+Living list of open **design decisions**. Build work lives on the [GitHub issues](https://github.com/code-hoyt/outremer/issues?q=is%3Aissue+label%3Abuild), tracked on the [Outremer Project board](https://github.com/users/code-hoyt/projects/1).
 
 ## How this works
 - **Now** holds at most one to three items: the current design thread.
