@@ -54,7 +54,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Open questions:**
 - The Templar Knight's limitation is still open; leave it open until Cletus decides.
-- Whether it carries a built-in limit (such as a Rule it must keep) is still open, so don't lock one in yet. (This sentence was at the end of the packed first-race-classes paragraph in WORLD.md; TASKS.md treats it as the Templar Knight's limitation.)
+- Whether it carries a built-in limit (such as a Rule it must keep) is still open, so don't lock one in yet.
 - Scaling numbers for Last Stand and the other moves are still to be tuned and will go in `src/config.js` when built.
 
 ### Oath Mage
@@ -140,7 +140,6 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Open questions:**
 - The numbers are still open.
-- Whether it carries a built-in limit (such as a Rule it must keep) is still open, so don't lock one in yet. (Same sentence as under Templar Knight: it sat at the end of the packed WORLD.md paragraph, after the Roost-Keeper notes and the leftover idea lists, so it may apply here, to the Templar Knight, or to the first race classes in general.)
 
 ### Div-Hunter
 
