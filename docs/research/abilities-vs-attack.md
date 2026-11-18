@@ -1,5 +1,8 @@
 # Outremer — Why players just attack (and how to fix it)
 
+
+> **Research only.** Stage 1 research (31 Oct 2026). Nothing here is locked. Stage 3 picked research fix 1 (forecast + tally) and fix 4 (deadly edges / non-kill goals), and rejected fixes 2, 3 and 5; see [DESIGN.md](../DESIGN.md) and [archive/stage3-decisions.md](../archive/stage3-decisions.md) #6.
+
 *Research for Stage 1, written Oct 31, 2026. No gameplay was changed. Everything here is a proposal for Cletus to confirm.*
 
 ## Summary

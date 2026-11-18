@@ -2,7 +2,7 @@
 
 > **Archived 2026-11-18.** Kept to look back on. All 12 decisions were made by Cletus on 2026-11-02. The living one-page brief is [GAME-BRIEF.md](../GAME-BRIEF.md) (stamped as of Stage 3, with later locks noted there). Later locks that override some of these answers live in [DESIGN.md](../DESIGN.md). Open leftovers were copied into [TASKS.md](../TASKS.md) before this file was archived.
 
-> **Status: all 12 decisions made by Cletus (2026-11-02). Stage 3 is done.** Each topic below shows ✅ **his choice**, then a short note on the options he rejected and why. The agreed one-page brief is [GAME-BRIEF.md](../GAME-BRIEF.md), and the Stage 4 plan built on it is [SLICE-PLAN.md](../SLICE-PLAN.md). Sources: [ROADMAP](../ROADMAP.md#stage-3--decide-the-real-game), [DESIGN](../DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](../research/abilities-vs-attack.md), and Cletus's playtest notes.
+> **Status: all 12 decisions made by Cletus (2026-11-02). Stage 3 is done.** Each topic below shows ✅ **his choice**, then a short note on the options he rejected and why. The agreed one-page brief is [GAME-BRIEF.md](../GAME-BRIEF.md), and the Stage 4 plan built on it is [SLICE-PLAN.md](../SLICE-PLAN.md). Sources: [ROADMAP](../ROADMAP.md#stage-3--decide-the-real-game--done), [DESIGN](../DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](../research/abilities-vs-attack.md), and Cletus's playtest notes.
 > **Stage 3 done-when:** a short game brief (scope, platform, tech, story premise) is agreed and the vertical slice is planned against it. ✅ The brief and slice plan are written. The story premise is deliberately left to a dedicated story session (#10).
 
 **Decided before Stage 3, carried forward**

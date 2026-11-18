@@ -1,6 +1,9 @@
 # Outremer: Unit kit systems research (FFTA and FFTA2)
 
-*Research for the unit-kit template, written 2026-11-18. **Nothing here is locked.** DESIGN.md is unchanged. Section 6 is a proposal for Cletus to answer one question at a time.*
+
+> **Research only.** Nothing in this file is locked. The unit kit template was locked on 2026-11-18 in [DESIGN.md](../DESIGN.md#unit-kit-template-locked-2026-11-18). **Section 6 is out of date** (it was a proposal for Cletus to answer); use DESIGN.md, not this file, for the template.
+
+*Research for the unit-kit template, written 2026-11-18. **Nothing here is locked.** When this was written, DESIGN.md had not yet been updated; the template is now locked there, and section 6 is kept only as the proposal history.*
 
 **What "kit" means here:** everything a unit takes into battle. That's its **equipment** (what it wears and holds) and its **abilities** (what it can do).
 

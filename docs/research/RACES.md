@@ -1,5 +1,8 @@
 # Outremer — Playable races research
 
+
+> **Research only.** Written for DESIGN.md Q9. Nothing in this file is locked except what [DESIGN.md](../DESIGN.md) and [WORLD.md](../WORLD.md) already record. Locked race decisions (including Hoopoe-kin, looks, and movement quirks) live there.
+
 *Research for Q9, written 2026-11-11. Nothing here is locked except what DESIGN.md already records. Names are working titles.*
 
 **Already locked:** four playable races (Humans plus three), with the Redeemed (turned profane beings, story-unlocked) as a possible fifth later. **Peri** is one of the three: small, quick, faint wings that give a short hop; Persian legend; scouts, healers, archers. Cletus does not want strictly Biblical races (so Nephilim and Anakim are out). Some classes will be race-locked, FFTA2-style; how strict that is (Q11), whether non-Humans join freely (Q12), and whether races also change stats or movement (Q13) are still open. Q14 (can playable races fall, vs the profane enemy kinds) is also open.

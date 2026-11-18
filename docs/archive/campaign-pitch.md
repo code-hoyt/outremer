@@ -3,7 +3,7 @@
 > **Archived 2026-11-18.** Kept to look back on. This was the Stage 2 pitch; Cletus picked Option B, and it was built in v0.11. The as-built campaign (v0.11) is documented in [DESIGN-prototype.md → Campaign](DESIGN-prototype.md#campaign-v011-open-board-finale-after-2). Later campaign rules for the real game are in [GAME-BRIEF.md](../GAME-BRIEF.md) and [DESIGN.md](../DESIGN.md). This file is not the source of truth for current decisions.
 
 > **Status (v0.11):** Cletus picked **Option B**. It is built with the recommended defaults for the other open decisions; what was built and which choices were defaults is in [DESIGN-prototype.md → Campaign](DESIGN-prototype.md#campaign-v011-open-board-finale-after-2). Below is the original pitch, kept for reference. Nothing here locks the story. Names, places and the finale are placeholders.
-> **Purpose:** link the battles we already have into a short campaign, so the Stage 2 **Done when** can be tested end to end: create a hero → recruit companions from an FFTA2-style mission board → finale → *"do I want to roll a new hero?"* ([ROADMAP → Stage 2](../ROADMAP.md#stage-2--core-loop-prototype)).
+> **Purpose:** link the battles we already have into a short campaign, so the Stage 2 **Done when** can be tested end to end: create a hero → recruit companions from an FFTA2-style mission board → finale → *"do I want to roll a new hero?"* ([ROADMAP → Stage 2](../ROADMAP.md#stage-2--core-loop-prototype--done)).
 > Mockup: [`mockups/campaign-board.png`](../mockups/campaign-board.png) (phone size; source `mockups/campaign-board.html`).
 
 **Ground rules**

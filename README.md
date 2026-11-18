@@ -1,6 +1,6 @@
 # Outremer (working title)
 
-An isometric tactics prototype in the spirit of *Final Fantasy Tactics A2*, themed on the Knights Templar during the Crusades. Story is intentionally **not** decided yet.
+An isometric tactics prototype in the spirit of *Final Fantasy Tactics A2*, themed on the Knights Templar. The story starts in the Crusader states and crosses into another world; story decisions live in [`docs/STORY.md`](docs/STORY.md).
 
 **Play:** https://code-hoyt.github.io/outremer/ (phone portrait or desktop)
 
@@ -8,8 +8,7 @@ An isometric tactics prototype in the spirit of *Final Fantasy Tactics A2*, them
 
 - Plain JS + Canvas, ES modules, no build step, no engine. GitHub Pages serves the repo root.
 - All tuning lives in [`src/config.js`](src/config.js).
-- **Roadmap (stages, current goal, done-when criteria): [`docs/ROADMAP.md`](docs/ROADMAP.md)**. Now: Stage 1 combat prototype, with Stage 2 **playtest-ready** (v0.11): hero → open mission board → recruits → *The Chapel Ford* finale → Chronicle → roll a new hero.
-- Design decisions and open questions: [`docs/DESIGN.md`](docs/DESIGN.md).
+- **Docs index:** [`docs/README.md`](docs/README.md). Roadmap: [`docs/ROADMAP.md`](docs/ROADMAP.md) (Stages 1–3 done; **now Stage 4**, the vertical slice). Locked rules: [`docs/DESIGN.md`](docs/DESIGN.md). Open design questions: [`docs/TASKS.md`](docs/TASKS.md). The live GitHub Pages build is still the Stage 2 prototype (hero → open mission board → recruits → *The Chapel Ford* finale → Chronicle); the as-built write-up is in [`docs/archive/DESIGN-prototype.md`](docs/archive/DESIGN-prototype.md).
 
 Run locally: `python3 -m http.server` in the repo root, open http://localhost:8000. Add `?seed=7` for a deterministic run.
 
