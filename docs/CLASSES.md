@@ -67,7 +67,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Armour (locked 2026-11-18):** robes only.
 
-**Signature:** not yet picked as a named signature action. Oaths are the defining moves.
+**Signature (locked 2026-11-18):** **Seal the Page**, learned late (see Actions).
 
 **Actions — oath rules (picked / locked 2026-11-17):**
 - **Duration (locked 2026-11-17):** every oath always ends if the Oath Mage falls. On top of that, each oath has a balancing duration matched to the strength of its buff: stronger oaths last a set number of rounds, and milder ones last until the battle ends or the law breaks. Each oath's duration will go in `src/config.js`.
