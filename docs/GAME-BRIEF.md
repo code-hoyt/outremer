@@ -1,6 +1,6 @@
 # Outremer: game brief
 
-*One page. Agreed with Cletus at the end of Stage 3 (2026-11-02). Details: [stage3-decisions.md](stage3-decisions.md). Next: [SLICE-PLAN.md](SLICE-PLAN.md).*
+*One page. Agreed with Cletus at the end of Stage 3 (2026-11-02). Details: [stage3-decisions.md](archive/stage3-decisions.md). Next: [SLICE-PLAN.md](SLICE-PLAN.md).*
 
 **What it is.** An isometric tactics RPG in the Final Fantasy Tactics Advance 2 tradition, set in the Crusader states (Outremer). It has a Baldur's Gate shape: you create one hero, and named companions with their own stories join you. Relics, legends and the uncanny are part of the world from the start.
 

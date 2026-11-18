@@ -1,6 +1,8 @@
 # Stage 3: decide the real game: DECIDED
 
-> **Status: all 12 decisions made by Cletus (2026-11-02). Stage 3 is done.** Each topic below shows ✅ **his choice**, then a short note on the options he rejected and why. The agreed one-page brief is [GAME-BRIEF.md](GAME-BRIEF.md), and the Stage 4 plan built on it is [SLICE-PLAN.md](SLICE-PLAN.md). Sources: [ROADMAP](ROADMAP.md#stage-3--decide-the-real-game), [DESIGN](DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](research/abilities-vs-attack.md), and Cletus's playtest notes.
+> **Archived 2026-11-18.** Kept to look back on. All 12 decisions were made by Cletus on 2026-11-02. The living one-page brief is [GAME-BRIEF.md](../GAME-BRIEF.md) (stamped as of Stage 3, with later locks noted there). Later locks that override some of these answers live in [DESIGN.md](../DESIGN.md). Open leftovers were copied into [TASKS.md](../TASKS.md) before this file was archived.
+
+> **Status: all 12 decisions made by Cletus (2026-11-02). Stage 3 is done.** Each topic below shows ✅ **his choice**, then a short note on the options he rejected and why. The agreed one-page brief is [GAME-BRIEF.md](../GAME-BRIEF.md), and the Stage 4 plan built on it is [SLICE-PLAN.md](../SLICE-PLAN.md). Sources: [ROADMAP](../ROADMAP.md#stage-3--decide-the-real-game), [DESIGN](../DESIGN.md), the [companions pitch](companions-pitch.md), the [abilities research](../research/abilities-vs-attack.md), and Cletus's playtest notes.
 > **Stage 3 done-when:** a short game brief (scope, platform, tech, story premise) is agreed and the vertical slice is planned against it. ✅ The brief and slice plan are written. The story premise is deliberately left to a dedicated story session (#10).
 
 **Decided before Stage 3, carried forward**
@@ -52,7 +54,7 @@ Stage 2 was done when two heroes play noticeably differently, companions are rem
 - **One borrowed secondary skill set** from another class. Your movement stays your own.
 - **New classes:** +1–2 later: **Physician** (Ishaq), and a magic class when magic arrives (#6).
 - **Leveling (FFTA2-style):** XP from fights. **Level-ups only raise stats** (no picks; choices come from branches, gear and the secondary set). Gains vary by class. **Stat max 100, level cap 50.**
-  - ⚠️ The current 3d6 stats (3–18) and the creation rolls must be **rebalanced to the 1–100 range** (see [SLICE-PLAN](SLICE-PLAN.md#big-unknowns)).
+  - ⚠️ The current 3d6 stats (3–18) and the creation rolls must be **rebalanced to the 1–100 range** (see [SLICE-PLAN](../SLICE-PLAN.md#big-unknowns)).
 - *Rejected / changed from the recommendation:* fixed class with only trade-off gear (too little customization); a full FFTA job system (blurs movement identity; too much content). The draft's "milestone levels only unlock branches" became full FFTA2-style XP leveling.
 
 ### 4. Companions ✅
@@ -72,7 +74,7 @@ Stage 2 was done when two heroes play noticeably differently, companions are rem
 
 ### 6. Abilities ✅
 - **No cooldowns, no generic cost** (done in **v0.13.0**): an ability's only cost is a built-in drawback (Pin plants you, Vault can't move after, Wall slows, Plunge exposes; Bash, Hook, Brace, Feint have none).
-- **Build from the research** ([abilities-vs-attack](research/abilities-vs-attack.md)):
+- **Build from the research** ([abilities-vs-attack](../research/abilities-vs-attack.md)):
   - **Fix 4:** deadly edges (falls, water, fire) and goals other than kill-all.
   - **Fix 1:** an Action-menu forecast + an end-of-battle tally.
 - **Magic & MP later** (parked): MP is for spells; physical abilities keep their drawbacks.
@@ -97,7 +99,7 @@ Stage 2 was done when two heroes play noticeably differently, companions are rem
 - *Rejected / changed:* the recommendation "premise now, mythology door ajar"; historical-first.
 
 ### 11. Vertical slice (Stage 4) ✅
-**A polished Chapter 1, about 2 hours.** Full plan: [SLICE-PLAN.md](SLICE-PLAN.md).
+**A polished Chapter 1, about 2 hours.** Full plan: [SLICE-PLAN.md](../SLICE-PLAN.md).
 - Hero creation (final UI, portraits); a small world map with a town and travel.
 - A Ch.1 mission tree: **2 recruits**, branching side missions, **one multi-part mission**, a finale.
 - Leveling; stat gear plus **one rare ability-teaching piece**; one class-branch pick; a borrowed skill set if it fits; wounds.
@@ -114,4 +116,4 @@ Stage 2 was done when two heroes play noticeably differently, companions are rem
 
 ---
 
-**Next:** Stage 4, the vertical slice. See [SLICE-PLAN.md](SLICE-PLAN.md).
+**Next:** Stage 4, the vertical slice. See [SLICE-PLAN.md](../SLICE-PLAN.md).

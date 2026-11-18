@@ -1,6 +1,6 @@
 # Outremer — Design Notes (v0.13, slice + FFTA2 controls + context-aware cross pad + class abilities + 4 maps + hero creation + missions & recruitment + easier difficulty + ally personalities, softer height, reachable maps + Option B mini-campaign: open board, Chapel Ford finale, Chronicle + tap-vs-scroll and "Begin mission?" confirm + no ability cooldowns: built-in drawbacks only)
 
-> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (Stages 1–3 done; **now: Stage 4, the vertical slice**, see [SLICE-PLAN.md](SLICE-PLAN.md)). The agreed game is in [GAME-BRIEF.md](GAME-BRIEF.md) and [stage3-decisions.md](stage3-decisions.md). This file describes the **prototype as built (v0.13)**; the [Stage 3 decisions](#stage-3-decisions-what-changes-for-the-real-game) section below lists what changes.
+> **Roadmap / current stage:** see [ROADMAP.md](ROADMAP.md) (Stages 1–3 done; **now: Stage 4, the vertical slice**, see [SLICE-PLAN.md](SLICE-PLAN.md)). The agreed game is in [GAME-BRIEF.md](GAME-BRIEF.md) and [stage3-decisions.md](archive/stage3-decisions.md). This file describes the **prototype as built (v0.13)**; the [Stage 3 decisions](#stage-3-decisions-what-changes-for-the-real-game) section below lists what changes.
 
 Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the Crusades.
 **Story is deliberately undecided.** Unit names are generic (Templar Knight, Sergeant, Turcopole Archer; Raider Swordsman / Skirmisher / Bowman) so nothing is locked in.
@@ -14,7 +14,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the
 6. **Flanking and positioning are central** to combat.
 
 ## Stage 3 decisions: what changes for the real game
-*Cletus, 2026-11-02. Full list: [stage3-decisions.md](stage3-decisions.md); brief: [GAME-BRIEF.md](GAME-BRIEF.md); build plan: [SLICE-PLAN.md](SLICE-PLAN.md).* The rest of this file still describes the v0.13 prototype; these override it where they differ.
+*Cletus, 2026-11-02. Full list: [stage3-decisions.md](archive/stage3-decisions.md); brief: [GAME-BRIEF.md](GAME-BRIEF.md); build plan: [SLICE-PLAN.md](SLICE-PLAN.md).* The rest of this file still describes the v0.13 prototype; these override it where they differ.
 - **Campaign:** ~5 chapters; each is a **mission tree** (chain, branch, companion-only and ability-unlock missions, multi-part missions across locations), mostly side missions, few recruit missions, a story finale. Replaces the v0.11 flat board where "beginning the finale closes the third mission".
 - **Party:** squad of 3 all game, plus a few solo/duo story missions.
 - **Companions:** **10**, about 2 per chapter, **all gettable in one run** (v0.11's "missed companion" is no longer the replay driver). Recruiting by how you win stays parked.
@@ -123,7 +123,7 @@ An average hero leaves balance where it was. A great roll is a big swing on The 
 - **Saved** in `localStorage['outremer.party']`: companions (joined/declined, fielded) and mission progress. **New hero = new company**: creating a new hero clears the party and mission progress. Cancelling the wizard keeps everything.
 - Companions use the **same six stats as the hero**, hand-set (`CONFIG.party.companions`), through the same formula (`deriveHero`). Their portraits are the pitch images, resized into `assets/companions/`. In battle they show their portrait and trait line in the unit info panel and their portrait in the turn strip (the hero's chip now shows the hero's bust too). Yusuf and Wren aren't Templars, so their sprites wear a plain sash instead of the red cross.
 
-**Companion stats & traits** (simple trade-off versions of the [pitch doc](companions-pitch.md); every number in `CONFIG.party`):
+**Companion stats & traits** (simple trade-off versions of the [pitch doc](archive/companions-pitch.md); every number in `CONFIG.party`):
 | | Stats (MGT/END/FOR/AGI/AIM/RES) | Battle numbers | Trait: pro | Trait: con |
 |---|---|---|---|---|
 | **Brother Renaud**, Knight | 12/13/14/7/10/14 | HP 54, ATK 15, DEF 13, SPD 5, MOV 3, Res 20% | **Under the Rule:** +2 DEF while orthogonally next to another Templar (the hero, generic Templars, Renaud's fellow brothers), applied in every damage preview and roll | **Holds ground:** if he starts a move next to a foe, he may only end it on a tile that is still next to a foe (in `reachable`, so it applies to the AI too) |
@@ -163,7 +163,7 @@ Losing because the ally fell stays rare: at most 7.4% of battles (Smoke at the W
 - Should the stranger take orders (FFTA2 guests are AI-only, as here)?
 
 ## Campaign (v0.11): open board, finale after 2
-*Cletus picked **Option B** of the [campaign pitch](campaign-pitch.md) ("Let's go with b").* Everything else in the pitch's open-decisions list was left to the dev. Those decisions are marked **(default)**: the dev chose the pitch's recommended answer, and Cletus should revisit them after a playtest. All numbers are in `CONFIG.campaign`.
+*Cletus picked **Option B** of the [campaign pitch](archive/campaign-pitch.md) ("Let's go with b").* Everything else in the pitch's open-decisions list was left to the dev. Those decisions are marked **(default)**: the dev chose the pitch's recommended answer, and Cletus should revisit them after a playtest. All numbers are in `CONFIG.campaign`.
 
 **Decisions**
 | # | Question | Decision | Who |

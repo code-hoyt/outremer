@@ -1,6 +1,6 @@
 # Stage 4: vertical slice plan
 
-*Built against the [game brief](GAME-BRIEF.md) and the [Stage 3 decisions](stage3-decisions.md) (#11 is the slice scope). Drafted 2026-11-02, so every milestone can still be re-cut.*
+*Built against the [game brief](GAME-BRIEF.md) and the [Stage 3 decisions](archive/stage3-decisions.md) (#11 is the slice scope). Drafted 2026-11-02, so every milestone can still be re-cut.*
 
 **The slice:** a polished **Chapter 1, about 2 hours**, on phone + Steam, built the way the full game will be built.
 **Stage 4 is done when** the chapter is good enough to show people (playtesters, potential partners or publishers) as "this is the game", and building more of it is mostly content work.

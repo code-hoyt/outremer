@@ -13,7 +13,8 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 
 ## Next
 - Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [CLASSES.md](CLASSES.md#oath-mage).
-- Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4.
+- Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4. Locked story decisions already live in [STORY.md](STORY.md).
+- Settle remaining Stage 3 campaign-tree details for the slice: side missions per chapter, whether a finale closes unfinished branches, and which branches carry into later chapters. Copied from [archive/stage3-decisions.md](archive/stage3-decisions.md) #1 before that file was archived. See [SLICE-PLAN.md](SLICE-PLAN.md).
 
 ## Waiting on Cletus
 Decisions only he can make.
@@ -24,6 +25,16 @@ Decisions only he can make.
 
 ## Parking lot
 - Kit extras parked 2026-11-18: meters/gauges, combo attacks, summons. Also: more places to hide rare teaching items, and other ways to earn AP besides battle. See [DESIGN.md](DESIGN.md) "Unit kit template".
+- Stage 3 planned 10 companions, all gettable in one run, with 4 still to be written beyond the old pitch list. The story cast later started in [STORY.md](STORY.md) / [CHARACTERS.md](CHARACTERS.md), and the Stage 2 pitch names were set aside. How that maps to the 10-companion lock is still open. Copied from [archive/stage3-decisions.md](archive/stage3-decisions.md) #4.
+- Recruiting by *how* you win (spare, protect, reach in time) stays parked; winning the mission is enough for now. Moved from the [ROADMAP.md](ROADMAP.md) parking lot.
+- Re-recruiting a declined companion later? (A decline shouldn't lock one out for good if all companions are gettable in one run.) Moved from the [ROADMAP.md](ROADMAP.md) parking lot. In the v0.11 prototype, Decline is final for that run.
+- Magic and MP, parked for later: MP is for spells; physical abilities keep built-in drawbacks. See [DESIGN.md](DESIGN.md) Stage 3 #6 and [SLICE-PLAN.md](SLICE-PLAN.md).
+- Is the six-stat set (MGT, END, FOR, AGI, AIM, RES) right, and does Aim make facing's fixed hit chance too swingy? How creation rolls and class minimums map to the planned 1–100 / level-50 scale is open ([SLICE-PLAN.md](SLICE-PLAN.md) M5).
+- Does the hero's class limit which companions want to join?
+- Should the recruit-mission stranger (FFTA2-style guest) take orders, or stay AI-only?
+- Should Shield Wall also cancel flank bonuses (it doesn't now)? Should shoves or pulls into a brace zone trigger Brace (they don't now)?
+- Should waiting (CT −60) be more visible as a tactic?
+- Keep the FFTA2 menu structure as ability sets arrive (Action → class set / borrowed secondary set)?
 - Ifriti lore: some see Humans as oath-breakers because of a past betrayal, still to be decided. See [WORLD.md](WORLD.md).
 - Tidy [STORY.md](STORY.md): the top-level act structure is still marked draft while the act beats are locked, and [CHARACTERS.md](CHARACTERS.md) lists other gaps and tensions to clean up.
 - Holy and profane ground is still marked "leaning" in [STORY.md](STORY.md), but the locked Act 4 ending depends on it.

@@ -1,6 +1,8 @@
 # Companion concepts: PITCH, not decided
 
-> **Status:** a pitch for Cletus to pick **2–3** from (Stage 2, see [ROADMAP](ROADMAP.md)). Nothing here is in the game, and nothing here locks the story.
+> **Archived 2026-11-18.** Kept to look back on. These Stage 2 companion concepts (Renaud, Yusuf, Wren, and others) were set aside when the story was started from scratch; see [STORY.md](../STORY.md). Portraits remain in [../companions/](../companions/). This file is not the source of truth for the current cast.
+
+> **Status:** a pitch for Cletus to pick **2–3** from (Stage 2, see [ROADMAP](../ROADMAP.md)). Nothing here is in the game, and nothing here locks the story.
 > Names, backstories and hooks are deliberately loose. The portraits are generated concept art for mood only; the art style is still open.
 > Contact sheet: `docs/companions/*.jpg` (full-size originals stay outside the repo).
 
@@ -23,7 +25,7 @@
 ---
 
 ## 1. Brother Renaud of Troyes, Knight
-![Renaud](companions/renaud.jpg)
+![Renaud](../companions/renaud.jpg)
 
 **Who:** a Templar brother near sixty, one of the oldest men still in the saddle. He keeps the Rule to the letter: silence at meals, no retreat unless outnumbered three to one, and confession every week whether he needs it or not. He is kind in private and terrible in public.
 
@@ -38,7 +40,7 @@
 ---
 
 ## 2. Yusuf ibn Qasim, Scout
-![Yusuf](companions/yusuf.jpg)
+![Yusuf](../companions/yusuf.jpg)
 
 **Who:** a light-cavalry raider from the Jazira who has ridden for three different emirs and outlived all of them. Funny, watchful, homesick for a river he won't name. He fights for whoever is paying, and he's started to hate that about himself.
 
@@ -53,7 +55,7 @@
 ---
 
 ## 3. Mariam of Edessa, Archer
-![Mariam](companions/mariam.jpg)
+![Mariam](../companions/mariam.jpg)
 
 **Who:** an Armenian whose family lost everything when Edessa fell. Now she hires out her bow to whichever lord is losing least. She's sharp-tongued and practical, and only pretends not to care. She keeps a ledger of what every side owes Armenians.
 
@@ -68,7 +70,7 @@
 ---
 
 ## 4. Ingvar Halfdansson, Sergeant
-![Ingvar](companions/ingvar.jpg)
+![Ingvar](../companions/ingvar.jpg)
 
 **Who:** a Varangian Guardsman of the Byzantine emperor, posted "to observe" the Latins. He is polite, unreadable, and carries **sealed orders** he won't discuss. He has been in the East long enough to pray in Greek and swear in Norse.
 
@@ -83,7 +85,7 @@
 ---
 
 ## 5. Wren, Scout
-![Wren](companions/wren.jpg)
+![Wren](../companions/wren.jpg)
 
 **Who:** a Levant-born Frankish orphan, about fifteen, who has lived off armies' leftovers her whole life. Cheerful, quick, and a liar on principle. She swears the ruined places talk at night, and sometimes she's right.
 
@@ -98,7 +100,7 @@
 ---
 
 ## 6. Ishaq of Acre, Physician (**NEW CLASS: flagged, needs Cletus's OK**)
-![Ishaq](companions/ishaq.jpg)
+![Ishaq](../companions/ishaq.jpg)
 
 **Who:** a Jewish physician from Acre who has stitched up Franks, Saracens and Greeks without asking whose side they were on. He's warm, stubborn and tired. He travels with the company because the company keeps making wounded people.
 
