@@ -20,7 +20,6 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 Decisions only he can make.
 - Pick Guilhem's concept plates: Ifriti (`ifriti-concept-v6`; Guilhem recommends plate 3, high-mantle), Cynocephali (`cynocephali-concept-v5`; he recommends plate 2, ridge-guard), and Hoopoe-kin (`hoopoe-kin-concept-v1`; a round, a skinny, and a mid scribe). Deliveries are in `/workspace/art-handoff/deliveries/`. Later Ifriti folders (through v26 as of 2026-11-18) are also there. Looks notes are in [WORLD.md](WORLD.md).
 - The Kojima hooded look versus locked light-blue Peri hair: the costume can be used, but blonde hair would need sign-off, or the light blue can flow out of the hood. Not assigned to a class yet. See [WORLD.md](WORLD.md).
-- Ifriti oath visuals: are the Oath Mage's paper wards only that class's look, or do they replace oath-brands as the race signature? See [WORLD.md](WORLD.md).
 - Confirm the Cynocephali footprint (provisionally uncommon). See [WORLD.md](WORLD.md).
 - The Templar Knight's limitation is still open; leave it open until Cletus decides. See [WORLD.md](WORLD.md).
 
