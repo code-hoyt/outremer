@@ -75,6 +75,9 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 - **Stacking (locked 2026-11-17):** oaths stack, and stacking oaths means stacking laws, so the player chooses how much risk to take. Each oath is either **once per battle** (only one copy can be active, even with several Oath Mages, and it can't be sworn again unless it breaks) or **stackable** (for example, maybe Attack: each Oath Mage can swear it, the team buff stacks, and every copy adds its own random law). Which oaths stack, and any caps, will be set per oath in `src/config.js`.
 - **Single-target oaths (2026-11-17):** some powerful oaths (for example auto-resurrection) affect only one unit instead of the team. Each mage can place one, so bringing several Oath Mages lets you cover several units, one each.
 
+**Actions kept (picked 2026-11-18):**
+- **Seal the Page**: write an enemy's name in the book so one of the team's laws binds them too; if they break it, they suffer the oath's penalty. Meant as one of the last, most powerful moves the class learns (Cletus: "sounds powerful").
+
 **Reactions:** still to be designed.
 
 **Passives:** still to be designed.
