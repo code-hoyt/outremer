@@ -21,7 +21,7 @@ The big unknowns come first (M1–M4), so we learn early if one of them changes 
 |---|---|---|---|
 | **M1** | **TypeScript foundation** | Port the rules modules (game, ai, hero, party, missions, config) and `tools/sim.mjs` to TypeScript with a build step. Keep them engine-agnostic. | Typecheck is clean; sim results match v0.13 within noise (±1.5 points per cell); all Playwright tests pass on the TS build; Pages still deploys. |
 | **M2** | **Renderer + input layer** | A PixiJS (or chosen) iso renderer to replace the hand-drawn canvas: camera, tiles, units, cursor, menus. One input layer for touch, controller (Gamepad API) and keyboard. | All current maps play at v0.13 feature parity; 60 fps on a mid-range phone; a whole battle can be played with only a controller, only touch, and only a keyboard. |
-| **M3** | **Art pipeline test** | Tancred makes one test set: an FFTA2-style portrait, one unit sprite sheet (idle, walk, attack, hit, fall; 4 facings), and a tile set. Then a repeatable path from source to atlas to the game. | Cletus approves the bar ("this is the look") and the pipeline produces in-engine assets with one command. If not, iterate or rescope before M11. |
+| **M3** | **Art pipeline test** | Guilhem · Illuminator makes one test set: an FFTA2-style portrait, one unit sprite sheet (idle, walk, attack, hit, fall; 4 facings), and a tile set. Then a repeatable path from source to atlas to the game. | Cletus approves the bar ("this is the look") and the pipeline produces in-engine assets with one command. If not, iterate or rescope before M11. |
 | **M4** | **Audio trial** | Tancred makes one battle track, one town or map track, and a basic set of sound effects (cursor, confirm, hit, miss, fall). Plus a mixer and settings. | Cletus calls it **go** (Tancred keeps doing audio) or **no-go** (Cletus does it himself). Either way the audio hooks are in the engine. |
 | **M5** | **Stats 1–100 + leveling** | Rescale stats to 1–100 with a level cap of 50: class growth tables, XP from fights, level-ups that only raise stats, and new creation rolls and class minimums. Rework the combat formula and enemy scaling to match. | Sim cells are back at 65–75%; a level-1 hero and a level-5 hero (the end of Ch.1) both feel right in a playtest; creation still makes heroes noticeably different. |
 | **M6** | **Data formats + saves** | Data formats for the mission tree (missions, unlocks: chain / branch / companion-only / ability-unlock, multi-part legs), the world map (nodes, edges, towns) and story scenes. Save/continue with versioning. | Chapter 1 is described as data only; a validator checks unlocks and that every map passes `reach`; saves survive a reload and a version bump. |
@@ -47,7 +47,7 @@ These are flagged because each one could change the plan, the schedule or the sc
    Ch.1 only reaches about level 5, but the curve has to make sense up to 50.
 2. **The world map (M7).** It's a new screen and a new flow with no prototype yet. Open questions:
    - Is it a scrolling map or a node list on phones?
-   - How do encounters on the way trigger without being a stop-and-press chore (pillar 1)?
+   - How do encounters on the way trigger?
    - How does the multi-part lock read to the player?
 3. **The mission tree data format (M6).** It has to express chain, branch, companion-only and ability-unlock missions, plus multi-part legs, and it should scale to about 5 chapters and 10 companions. Open questions:
    - Does a finale close open branches?
@@ -60,7 +60,7 @@ These are flagged because each one could change the plan, the schedule or the sc
    - Does the iso depth sorting and camera hold 60 fps on a mid-range phone?
    - Electron or Tauri for Steam?
    - How do Capacitor and the Steam wrappers handle saves, controllers and Steam features later?
-5. **The art pipeline (M3).** Tancred makes all the art. Open questions:
+5. **The art pipeline (M3).** Guilhem · Illuminator makes all the art. Open questions:
    - Can AI-made sprites stay consistent across facings, animation frames and characters?
    - How many sprite sheets and portraits does Ch.1 need (about 3 hero classes × facings, 2 companions, raiders, the boss, NPCs)?
    - How is the style kept consistent across chapters?

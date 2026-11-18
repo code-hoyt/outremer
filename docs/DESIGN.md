@@ -23,7 +23,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar during the
 - **Wounds:** a fallen companion is Wounded for the next battle; the hero falling loses the battle.
 - **Abilities:** no cooldowns (v0.13); build research fix 1 (forecast + tally) and fix 4 (deadly edges, non-kill goals). Rejected: attack-plus retune, frontal riposte, intent for everyone. Magic + MP later.
 - **Story:** mythology central; premise still to be written (dedicated story session); scenes in-engine with sprites and portrait text boxes, no pre-rendered cutscenes.
-- **Art / platform / tech:** 2D sprites on iso tiles, FFTA2-style portraits (by Tancred); battle sprites follow FFTA2: idle = walk-in-place (2 frames: left step, right step; made with Retro Diffusion from our stand frame), a separate stand frame for the unit's turn, and **weapons as their own sprite layer** drawn at a per-frame hand anchor during attacks, so body frames are always empty-handed (art test round 7, `CONFIG.artTest`, `docs/art-test/ffta2-sprite-anim-notes.md`); phone first + Steam with controller (Switch a stretch); TypeScript + a renderer (e.g. PixiJS), Capacitor, Tauri/Electron, keep the sim.
+- **Art / platform / tech:** 2D sprites on iso tiles, FFTA2-style portraits (by Guilhem · Illuminator); battle sprites follow FFTA2: idle = walk-in-place (2 frames: left step, right step; made with Retro Diffusion from our stand frame), a separate stand frame for the unit's turn, and **weapons as their own sprite layer** drawn at a per-frame hand anchor during attacks, so body frames are always empty-handed (art test round 7, `CONFIG.artTest`, `docs/art-test/ffta2-sprite-anim-notes.md`); phone first + Steam with controller (Switch a stretch); TypeScript + a renderer (e.g. PixiJS), Capacitor, Tauri/Electron, keep the sim.
 
 ## Core loop (slice)
 Battle only: 3 Templars vs 3 Raiders on an 8×8 height-mapped iso map. On your unit's turn: **Move** (optional) and **Act** (optional) in either order, then the turn ends. Win by defeating all raiders; lose if all Templars fall. Victory/Defeat screen → Play again.
@@ -61,7 +61,7 @@ Class base stats from `CONFIG.roles` stay the backbone; rolled stats nudge them 
 - ~~Do companions use the same six stats?~~ Yes, hand-set (v0.8). Does the hero's class limit which companions want to join?
 - ~~How are companions recruited?~~ v0.8: win their mission, then Accept/Decline; squad 3 (hero + 2), extras rest in camp (see Missions & recruitment). Still open: a bigger party cap later?
 - ~~Can the main character die?~~ → **Wounds, not permadeath** (Stage 3 #5): a fallen companion is Wounded for the next battle; the hero falling = the battle is lost.
-- ~~Portrait art style~~ → **FFTA2-style portraits, Final Fantasy-based art** (Cletus, v0.9), done at the art stage. → **a pre-made set of 8–12 hero portraits**, no builder (Stage 3 #7); Tancred makes the art.
+- ~~Portrait art style~~ → **FFTA2-style portraits, Final Fantasy-based art** (Cletus, v0.9), done at the art stage. → **a pre-made set of 8–12 hero portraits**, no builder (Stage 3 #7); Guilhem · Illuminator makes the art.
 
 ### Hero creation as built (v0.6)
 Mockup **B** (wizard) was picked. After the title screen: **Create your hero** (first visit; preselected) or **New hero** (later). The map list stays on the title screen as before.
@@ -499,7 +499,9 @@ What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from
 - **No unit placement phase** (FFTA2 places units and picks their facing before battle); deployment is fixed in config.
 
 ### Tension with pillar 1
-The explicit facing step is a "stop and press" moment, which pillar 1 argues against. We're keeping it because Cletus asked for FFTA2 controls first. It's one d-pad press + A, or two taps. **Open question:** revisit later. Options include defaulting the facing arrow to the most dangerous foe while still requiring A, or a setting.
+~~The explicit facing step is a "stop and press" moment, which pillar 1 argues against. We're keeping it because Cletus asked for FFTA2 controls first. It's one d-pad press + A, or two taps. **Open question:** revisit later. Options include defaulting the facing arrow to the most dangerous foe while still requiring A, or a setting.~~
+
+**Retired 2026-11-18:** pillar 1 (no stop-and-press chores) was retired on 2026-11-15 and no longer applies, so this tension is moot. The end-of-turn facing step stays as an FFTA2 control. Whether to keep it is a separate open question in the [ROADMAP.md parking lot](ROADMAP.md#parking-lot).
 
 ## What's placeholder
 - Hero portraits: 8 simple SVG busts marked PLACEHOLDER. Companion portraits (`assets/companions/`) are placeholders too.

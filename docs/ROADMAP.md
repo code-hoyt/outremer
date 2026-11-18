@@ -6,6 +6,7 @@ Outremer should one day be a **full, commercial-quality game that Cletus release
 Today's builds are **prototypes**. Each one exists to answer design questions, not to become the shipped game, so prototype code can be rough. The questions matter more than the code, and the code may be rewritten later (see Stage 3).
 
 Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
+Open design decisions live in [TASKS.md](TASKS.md). Build work lives on the [GitHub issues](https://github.com/code-hoyt/outremer/issues?q=is%3Aissue+label%3Abuild) (a Project board named "Outremer" will hold them once the `gh` token has the `project` scope).
 
 ---
 
@@ -99,7 +100,7 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 **Plan:** [SLICE-PLAN.md](SLICE-PLAN.md): 12 milestones in build order, each with a done-when, plus the big unknowns (stat rescale to 1–100 / level 50, the world map, the mission tree format, the TypeScript + renderer migration, the art pipeline, the audio trial).
 
 **Scope**
-- *In:* a polished **Chapter 1 (~2 hours)**: hero creation (final UI, 8–12 portraits), a small world map with a town and travel, a Ch.1 mission tree (2 recruits, branching side missions, one multi-part mission, a finale), leveling, stat gear + one rare ability-teaching piece, one class-branch pick, a borrowed skill set if it fits, wounds, forecast + tally, one deadly-edge or non-kill map, a real mythology hook, in-engine story scenes, final art (2D sprites on iso tiles, FF-based, FFTA2-style portraits; by Tancred), sound and music (Tancred trial), saves, touch + controller + keyboard, onboarding without tutorial popups. Built in TypeScript + a renderer, for phone (Capacitor) and Steam (Tauri/Electron).
+- *In:* a polished **Chapter 1 (~2 hours)**: hero creation (final UI, 8–12 portraits), a small world map with a town and travel, a Ch.1 mission tree (2 recruits, branching side missions, one multi-part mission, a finale), leveling, stat gear + one rare ability-teaching piece, one class-branch pick, a borrowed skill set if it fits, wounds, forecast + tally, one deadly-edge or non-kill map, a real mythology hook, in-engine story scenes, final art (2D sprites on iso tiles, FF-based, FFTA2-style portraits; by Guilhem · Illuminator), sound and music (Tancred trial), saves, touch + controller + keyboard, onboarding without tutorial popups. Built in TypeScript + a renderer, for phone (Capacitor) and Steam (Tauri/Electron).
 - *Out:* the remaining content.
 
 **Done when:** the chapter is good enough to show people (playtesters, potential partners or publishers) as "this is the game," and building more of it is mostly content work.
@@ -116,7 +117,6 @@ Design pillars and the current rules live in [DESIGN.md](DESIGN.md).
 ## Working rules
 - **Every feature serves the current stage's "Done when."** Anything else goes to the Parking lot.
 - **Design pillars** (full text in [DESIGN.md](DESIGN.md#design-pillars-from-cletus)):
-  - Systems come from choices the player is already making (where to move, whom to hit, from where), not from stop-and-press mechanics.
   - Customization, and every playthrough feels different.
   - Trade-off upgrades over pure power.
 - **Phone-first playtesting** through GitHub Pages: every change goes live at https://code-hoyt.github.io/outremer/ so Cletus can play it on his phone.
