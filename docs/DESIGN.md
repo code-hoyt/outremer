@@ -602,4 +602,4 @@ Research: [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md). Decided one questi
 11. **Race-themed passives (locked 2026-11-18):** the ability system has no race rule of its own; any learned ability can be equipped. But race-themed abilities are taught by classes that are locked to a race (e.g. Div-Hunter for the Peri, Oath Mage for the Ifriti), so in practice only that race can learn them. Which classes are race-locked is decided per class.
 12. **Extra systems (parked 2026-11-18):** meters/gauges, combo attacks and summons are parked for later; the core kit is proven first. Listed in TASKS.md Parking lot.
 13. **Equip abilities (locked 2026-11-18):** "Equip X" abilities (e.g. Equip Heavy Armour) use the single passive slot, so breaking a class's gear limits costs the unit its passive. No separate slot.
-14. **Still open:** whether Item takes the borrowed-set slot; decide when items are designed.
+14. **Item command (locked 2026-11-18):** Item is a set like any other and uses the borrowed (secondary) slot, so using items costs a unit its borrowed class set.
