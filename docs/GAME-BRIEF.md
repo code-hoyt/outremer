@@ -10,7 +10,7 @@
   - leveling from fights (stats only, up to level 50);
   - learning abilities from gear and keeping them;
   - borrowing one skill set from another class.
-  - Stage 3 also had "picking 1 of 2 branches at milestones"; that has not been re-asked since class switching was locked.
+  - Stage 3 also had "picking 1 of 2 branches at milestones"; cut 2026-11-18 (free class switching replaces it).
 - **Companions:** 10 in all, about 2 per chapter, and you can get every one of them in a single run. Each has a trait with a real downside and missions of their own that can teach them new abilities. (How this maps to the later story cast is still open; see [TASKS.md](TASKS.md).)
 - **Between battles:** you travel a world map of nodes. You can change your party and gear anywhere, but you take missions and shop in towns. Shops are the main source of teaching gear and stock plenty; ordinary loot gives variants; rare or unique items that teach rare skills have to be found ([DESIGN.md](DESIGN.md) kit template, 2026-11-18). A fallen companion is wounded for the next battle; if your hero falls, the battle is lost.
 

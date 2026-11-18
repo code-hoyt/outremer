@@ -19,7 +19,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar. The story
 - **Campaign:** ~5 chapters; each is a **mission tree** (chain, branch, companion-only and ability-unlock missions, multi-part missions across locations), mostly side missions, few recruit missions, a story finale. Replaces the v0.11 flat board where "beginning the finale closes the third mission".
 - **Party:** squad of 3 all game, plus a few solo/duo story missions.
 - **Companions:** **10**, about 2 per chapter, **all gettable in one run** (v0.11's "missed companion" is no longer the replay driver). Recruiting by how you win stays parked.
-- **Hero growth:** fixed class (movement identity) + pick 1 of 2 branches at milestones + gear that teaches abilities you keep + one borrowed secondary skill set (movement stays yours). FFTA2-style XP leveling: level-ups only raise stats, gains vary by class, **stats 1–100, level cap 50**. New classes later: Physician, and a magic class with magic.
+- **Hero growth:** fixed class (movement identity) + gear that teaches abilities you keep + one borrowed secondary skill set (movement stays yours). FFTA2-style XP leveling: level-ups only raise stats, gains vary by class, **stats 1–100, level cap 50**. New classes later: Physician, and a magic class with magic.
 - **Between battles:** an FFTA2-style **world map** of nodes; party/equipment at any node; shops and missions only in towns; take a mission in town and travel to it; side jobs on the way; multi-part jobs can't return to town between parts. Replaces "full HP, no loot, no wounds" carry-over.
 - **Wounds:** a fallen companion is Wounded for the next battle; the hero falling loses the battle.
 - **Abilities:** no cooldowns (v0.13); build research fix 1 (forecast + tally) and fix 4 (deadly edges, non-kill goals). Rejected: attack-plus retune, frontal riposte, intent for everyone. Magic + MP later.
@@ -28,7 +28,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar. The story
 
 ### Later locks that override Stage 3
 - **Party:** about 6 units deploy per battle, chosen from a larger roster ([Party size](#party-size-2026-11-09), 2026-11-09), not a squad of 3 all game. A few story missions may still be solo or duo.
-- **Class:** free switching between battles ([Q1](#classes-and-races--open-questions-2026-11-11), 2026-11-11), not class-for-life. Class still sets MOV / JUMP / terrain; learned abilities are kept. Stage 3's "pick 1 of 2 branches at milestones" has not been re-asked since class switching was locked.
+- **Class:** free switching between battles ([Q1](#classes-and-races--open-questions-2026-11-11), 2026-11-11), not class-for-life. Class still sets MOV / JUMP / terrain; learned abilities are kept. Stage 3's "pick 1 of 2 branches at milestones" is cut (Cletus, 2026-11-18); free class switching replaces it.
 - **Race movement:** races have a small stat lean plus one movement quirk ([Q13](#classes-and-races--open-questions-2026-11-11), 2026-11-11). This supersedes "no race movement modifiers; winged race parked." Peri (wing hop), Ifriti (cheap sand and heat), Cynocephali (cheap rough ground) and Hoopoe-kin (flutter-hop) are in [WORLD.md](WORLD.md).
 - **Story:** locked decisions live in [STORY.md](STORY.md). A remaining story-premise pass before Chapter 1 content is in [TASKS.md](TASKS.md).
 - **Art:** Guilhem · Illuminator makes the art.
