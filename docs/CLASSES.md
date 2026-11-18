@@ -65,7 +65,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons (locked 2026-11-18):** book of covenants only.
 
-**Armour:** TBD.
+**Armour (locked 2026-11-18):** robes only.
 
 **Signature:** not yet picked as a named signature action. Oaths are the defining moves.
 
