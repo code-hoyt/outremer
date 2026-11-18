@@ -35,6 +35,8 @@ Decisions only he can make.
 - Should Shield Wall also cancel flank bonuses (it doesn't now)? Should shoves or pulls into a brace zone trigger Brace (they don't now)?
 - Should waiting (CT −60) be more visible as a tactic?
 - Keep the FFTA2 menu structure as ability sets arrive (Action → class set / borrowed secondary set)?
+- Should facing protect more (for example shields blocking some front damage) to make flanking even more decisive? Also listed as a later build idea in [ROADMAP.md](ROADMAP.md).
+- Zones of control beyond the prototype's Brace (set on your own turn, resolved automatically): still open.
 - Ifriti lore: some see Humans as oath-breakers because of a past betrayal, still to be decided. See [WORLD.md](WORLD.md).
 - Tidy [STORY.md](STORY.md): the top-level act structure is still marked draft while the act beats are locked, and [CHARACTERS.md](CHARACTERS.md) lists other gaps and tensions to clean up.
 - Holy and profane ground is still marked "leaning" in [STORY.md](STORY.md), but the locked Act 4 ending depends on it.
