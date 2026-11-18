@@ -587,12 +587,12 @@ Questions for Cletus, answered one at a time:
 ## No fog of war (locked 2026-11-17)
 The whole battlefield is always visible. Don't design abilities around vision or revealing hidden units.
 
-## Unit kit template (in progress, 2026-11-18)
+## Unit kit template (locked 2026-11-18)
 Research: [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md). Decided one question at a time:
 1. **Passive slots (locked 2026-11-18):** FFTA2 style, 1 reaction + 1 passive (support) per unit. An "Equip X" escape hatch therefore costs the unit its only passive slot, which makes it a real trade-off.
 2. **Signature moves (locked 2026-11-18):** learned from gear like any other ability, not built in. A new Templar Knight doesn't know Smite until it masters it from gear.
 3. **Borrowed set (locked 2026-11-18):** one secondary set, from any class the unit has learned at least one ability in. Signature moves can be borrowed too (a learned Smite works from a borrowed Templar set).
-4. **Equipment slots (locked 2026-11-18):** FFTA2-style flexible 5. The gear screen is 5 open slots that take items in any order. Hand items (weapons, shields) are limited by hands: a two-hander uses both, and a sword plus a shield fills both. Head and body pieces are one each. Trinkets/charms have no cap, so a unit can spend 3 slots on trinkets if the player wants. Exact limits go in `src/config.js` when built.
+4. **Equipment slots (locked 2026-11-18):** FFTA2-style flexible 5. The gear screen is 5 open slots that take items in any order. Hand items (weapons, shields) are limited by hands: a two-hander uses both, and a sword plus a shield fills both. Head, body and feet (shoes) are one piece each (confirmed by Cletus 2026-11-18). Trinkets/charms have no cap, so a unit can spend 3 slots on trinkets if the player wants. Exact limits go in `src/config.js` when built.
 5. **Armour gating (locked 2026-11-18):** by class, like FFTA2. Each class has an armour list (e.g. heavy, light, robes); no weight-based move/jump penalty.
 6. **Teaching gear (locked 2026-11-18):** any gear can teach abilities, like FFTA2: weapons, armour and trinkets. Which item teaches which ability (and of what type) is set per item.
 7. **Where teaching gear comes from (locked 2026-11-18):** shops are the main source and stock plenty, so finding your next skill is a shopping trip, with no FFTA2-style loot-trading bazaar. Ordinary loot gives variants and trade-off versions. Rare or unique items that teach rare skills have to be found, e.g. as the reward for the final battle of a quest line. Other places to hide rares (secret maps, bosses, events) are open to design.
@@ -602,3 +602,4 @@ Research: [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md). Decided one questi
 11. **Race-themed passives (locked 2026-11-18):** the ability system has no race rule of its own; any learned ability can be equipped. But race-themed abilities are taught by classes that are locked to a race (e.g. Div-Hunter for the Peri, Oath Mage for the Ifriti), so in practice only that race can learn them. Which classes are race-locked is decided per class.
 12. **Extra systems (parked 2026-11-18):** meters/gauges, combo attacks and summons are parked for later; the core kit is proven first. Listed in TASKS.md Parking lot.
 13. **Equip abilities (locked 2026-11-18):** "Equip X" abilities (e.g. Equip Heavy Armour) use the single passive slot, so breaking a class's gear limits costs the unit its passive. No separate slot.
+14. **Still open:** whether Item takes the borrowed-set slot; decide when items are designed.

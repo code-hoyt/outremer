@@ -9,7 +9,7 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 - Build work (slice milestones, engine, deploys) lives on the GitHub board, not here. Each build issue is a [SLICE-PLAN.md](SLICE-PLAN.md) milestone. The Stage 4 plan is in [ROADMAP.md](ROADMAP.md).
 
 ## Now
-- Finish the kits for the five first race classes: Templar Knight, Oath Mage, Shieldbrother, Roost-Keeper, and Div-Hunter. Signature moves are picked; the rest of each kit is still to be designed. See [WORLD.md](WORLD.md).
+- Kit template is locked (see [DESIGN.md](DESIGN.md) "Unit kit template"). Finish the kits for the five first race classes: Templar Knight, Oath Mage, Shieldbrother, Roost-Keeper, and Div-Hunter. Signature moves are picked; the rest of each kit is still to be designed. See [WORLD.md](WORLD.md).
 
 ## Next
 - Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [WORLD.md](WORLD.md).
