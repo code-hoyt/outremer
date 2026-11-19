@@ -150,7 +150,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Role:** Sets up roosts on tiles, drawn from their relay-roost courier network, and allies can teleport between them. Reworked 2026-11-17 into a **bird whisperer**: the "teleport" is a flock of birds that swoops up a unit and carries it between roosts. **Roosts can be used by enemies too.** The flock is the class's toolkit: it can also be sent at enemies, and it can take a hit for an ally.
 
-**Weapons:** TBD.
+**Weapons (locked 2026-11-19):** perch staff only (a crook-topped staff the flock lands on).
 
 **Armor:** TBD.
 
