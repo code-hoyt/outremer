@@ -168,7 +168,7 @@
   - **Templar Knight:** one-handed sword + shield, signature **Smite**, **Last Stand** is an equippable passive.
   - **Oath Mage:** team oaths with laws.
   - **Shieldbrother:** shield + mace, signature **Guard**, the **Ridge-Warden** action, and **Christopher** and **Pack-Bulwark** as equippable passives.
-  - **Roost-Keeper:** flock, Pecking Swarm, Murmuration.
+  - **Rooster:** flock, Pecking Swarm, Murmuration.
   - **Div-Hunter:** light blade, signature **Scent of Paradise**.
 
 ### 6.1 The recommended template
@@ -244,7 +244,7 @@ On a phone that's one unit screen with about 10 rows (5 gear, 2 sets, 3 passives
 - That's smaller than FFTA2's roughly 10, so mastering a class takes a reasonable number of battles, and every ability can carry a real drawback. (CLASSES.md open question 6 asks the same thing.)
 
 **J. Meters, combos and summons**
-- **Recommended: park them.** The Oath Mage already brings the law and team-buff layer, and Roost-Keeper roosts bring positional tricks.
+- **Recommended: park them.** The Oath Mage already brings the law and team-buff layer, and Rooster roosts bring positional tricks.
 - Opportunity-style positional bonuses are worth a look later, since they fit "abilities are about position".
 
 ### 6.3 How the five first classes fit (sanity check)
@@ -254,7 +254,7 @@ On a phone that's one unit screen with about 10 rows (5 gear, 2 sets, 3 passives
 | Templar Knight | **Smite**, then learnables (from the kept ideas: Judgment, Crusader's Charge, Shield Bash of Faith…) | **Last Stand** | 1-handed sword + shield only. Teaches Equip Shields? (TBD) |
 | Oath Mage | Oaths (Attack, Defense, Jump, Speed…). ⚠ A signature oath? | (TBD) | Weapon TBD |
 | Shieldbrother | **Guard**, **Ridge-Warden**, + learnables (Lock Shields, Bonebreaker, Shield Shove) | **Christopher**, **Pack-Bulwark** ⚠ (a race-themed passive: can a non-Cyno carry it?) | Mace + shield |
-| Roost-Keeper | Roosts + flock carry, **Pecking Swarm**, **Murmuration** ⚠ (no signature named yet) | (TBD) | Weapon TBD |
+| Rooster | Roosts + flock carry, **Pecking Swarm**, **Murmuration** ⚠ (no signature named yet) | (TBD) | Weapon TBD |
 | Div-Hunter | **Scent of Paradise**, + learnables (Stooping Dive, Glide-Cut…) | (TBD, maybe Featherfall Ward) | Light blade |
 
 ---

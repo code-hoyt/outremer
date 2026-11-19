@@ -144,7 +144,9 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 - Tower shields might come later as separate equipment, but that isn't decided.
 - The numbers are still open and will go in `src/config.js` when built.
 
-### Roost-Keeper
+### Rooster
+
+**Name (changed 2026-11-19):** Rooster, renamed from Roost-Keeper.
 
 **Race lock:** Hoopoe-kin (picked 2026-11-17).
 
@@ -420,7 +422,7 @@ Name clash with the Templar Knight reaction **Rebuke** (picked 2026-11-18, diffe
 
 ### 3. Race-only classes (unlocked by race quests)
 
-All units of any race can be recruited from the start; these unlock through that race's quest line. **Superseded in part (2026-11-12):** Peri are hidden and unlock as recruits through a Peri side-quest tree (DESIGN.md Q12). **Superseded as the first race-class roster (2026-11-17):** the first race classes are now Templar Knight, Oath Mage, Shieldbrother, Roost-Keeper and Div-Hunter, and Hoopoe-kin is a playable race not listed in this draft. The classes in the tables below are kept as ideas, not deleted.
+All units of any race can be recruited from the start; these unlock through that race's quest line. **Superseded in part (2026-11-12):** Peri are hidden and unlock as recruits through a Peri side-quest tree (DESIGN.md Q12). **Superseded as the first race-class roster (2026-11-17):** the first race classes are now Templar Knight, Oath Mage, Shieldbrother, Rooster and Div-Hunter, and Hoopoe-kin is a playable race not listed in this draft. The classes in the tables below are kept as ideas, not deleted.
 
 #### Humans (2)
 | Class | Weapon · MOV/JUMP · lean | Niche | Signature abilities (cost) |
