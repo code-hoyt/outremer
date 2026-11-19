@@ -38,7 +38,7 @@ Stage 2 was done when two heroes play noticeably differently, companions are rem
   - **Chain:** a mission only appears after you beat a specific earlier one.
   - **Branch:** a side mission opens one or more follow-ups (its own short storyline).
   - **Companion-only:** a mission only appears if that companion was recruited; beating it can **unlock a new ability for that companion**.
-- **Multi-part missions** span several locations, travelled in sequence (see #5: no return to town between parts).
+- **Multi-part missions** span several locations, traveled in sequence (see #5: no return to town between parts).
 - Still to settle in the slice: side missions per chapter, whether a finale closes unfinished branches, and which branches carry into later chapters.
 - *Rejected:* linear chapters (weakest on "every playthrough differs"); run-based roguelite (fights the named-companion story).
 

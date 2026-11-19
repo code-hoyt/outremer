@@ -1,6 +1,6 @@
 # Outremer — Classes
 
-Home for every class: race lock, role, weapons, armour, signature, actions, reactions, passives, kit status, saved ideas and open questions. System rules live in [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18). Lore and look notes live in [WORLD.md](WORLD.md).
+Home for every class: race lock, role, weapons, armor, signature, actions, reactions, passives, kit status, saved ideas and open questions. System rules live in [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18). Lore and look notes live in [WORLD.md](WORLD.md).
 
 Numbers (MOV, JUMP, multipliers, durations) go in `src/config.js` when built, unless a value is already locked here.
 
@@ -24,17 +24,17 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Race lock:** Humans (picked 2026-11-17).
 
-**Role:** The heart of the Order, Outremer's take on the FFTA2 Paladin: an armoured holy warrior who leans fighter: a front-line sword-and-shield combatant first, with holy power as an edge rather than a caster kit. Its holy power is a holy striker's (locked 2026-11-17): weapon strikes carry holy damage that hits demons and the profane hardest. Healing belongs to a separate, future Hospitaller class, not the Templar.
+**Role:** The heart of the Order, Outremer's take on the FFTA2 Paladin: an armored holy warrior who leans fighter: a front-line sword-and-shield combatant first, with holy power as an edge rather than a caster kit. Its holy power is a holy striker's (locked 2026-11-17): weapon strikes carry holy damage that hits demons and the profane hardest. Healing belongs to a separate, future Hospitaller class, not the Templar.
 
 **Weapons (locked 2026-11-17):** exclusively one-handed swords and shields, with no two-handers, lances or maces.
 
-**Armour:** TBD.
+**Armor:** TBD.
 
 **Signature (locked 2026-11-17):** **Smite**, a simple strike with holy damage that does 1.5x against demons and the profane, with no downside.
 
 **Actions (picked 2026-11-18, rough pitches, numbers still open):** 6 in total, including Smite.
 - **Smite** (signature, above)
-- **Judgement:** a heavier holy strike that also scores the ground, strongest against demons on profane tiles
+- **Judgment:** a heavier holy strike that also scores the ground, strongest against demons on profane tiles
 - **Shield Bash of Faith:** shield blow that knocks back a tile and stuns if the target is profane
 - **Non Nobis:** battle-prayer giving adjacent allies a holy edge on their next attack
 - **Beauséant:** plant the banner on a tile; allies near it hold steady and resist fear
@@ -65,7 +65,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons (locked 2026-11-18):** book of covenants only.
 
-**Armour (locked 2026-11-18):** robes only.
+**Armor (locked 2026-11-18):** robes only.
 
 **Signature (locked 2026-11-18):** **Seal the Page**, learned late (see Actions).
 
@@ -78,7 +78,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Actions kept (picked 2026-11-18):**
 - **Seal the Page**: write an enemy's name in the book so one of the team's laws binds them too; if they break it, they suffer the oath's penalty. Meant as one of the last, most powerful moves the class learns (Cletus: "sounds powerful").
-- **Oaths (picked 2026-11-18):** **Oath of Arms** (team Attack up), **Oath of Iron** (team Defence up), **Oath of the Wind** (team Speed up), **Oath of the Heights** (team Move and Jump up), **Oath of Flame** (team Magic up), and **Oath of Return** (single-target: that unit gets back up once if it falls). Each team oath adds a random law; buff sizes, durations and stacking are set per oath in `src/config.js`.
+- **Oaths (picked 2026-11-18):** **Oath of Arms** (team Attack up), **Oath of Iron** (team Defense up), **Oath of the Wind** (team Speed up), **Oath of the Heights** (team Move and Jump up), **Oath of Flame** (team Magic up), and **Oath of Return** (single-target: that unit gets back up once if it falls). Each team oath adds a random law; buff sizes, durations and stacking are set per oath in `src/config.js`.
 - **Covenant (picked 2026-11-18):** strengthen one active oath, but its law is drawn from the harsher half of the pool.
 - **No attack skill (Cletus, 2026-11-18):** the Oath Mage needs no damage action; like every unit it can make a basic weapon attack (weak with a book). FFTA2 precedent: White Mage, Bard and Dancer had no damaging skills. **No escape move:** no way to end an oath safely early; making or breaking oaths is the player's choice (Release and Recitation rejected).
 - **Idea kept (2026-11-18):** some oaths aimed at enemies (timed like all oaths).
@@ -112,7 +112,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons (locked 2026-11-17):** shield and mace. For now the game has a single standard shield type. Tower shields might come later as separate equipment, but that isn't decided.
 
-**Armour:** TBD.
+**Armor (locked 2026-11-18):** heavy armor only.
 
 **Signature (locked 2026-11-17):** **Guard**, which picks one ally in range so that every attack on that ally hits the Shieldbrother instead until its next turn.
 
@@ -122,7 +122,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Passives:** still to be designed. Kit ideas so far: **Christopher** (carry a wounded or stranded ally to safety, across water or up a ledge) and **Pack-Bulwark** (stronger the more Cynocephali are on the team) are equippable passives.
 
-**Kit status:** in progress. Weapons and signature are locked; the rest of the kit is still to be designed.
+**Kit status:** in progress. Weapons, armor and signature are locked; the rest of the kit is still to be designed.
 
 **Ideas kept for later:** Lock Shields, Bonebreaker and Shield Shove. **Howler** (a war-cry guardian that draws attention and shakes enemy morale) is kept as its own future Cynocephali class.
 
@@ -138,7 +138,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons:** TBD.
 
-**Armour:** TBD.
+**Armor:** TBD.
 
 **Signature:** not yet picked as a named signature action.
 
@@ -165,7 +165,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons:** a light blade (described with the class, not separately locked).
 
-**Armour:** TBD.
+**Armor:** TBD.
 
 **Signature (picked 2026-11-18):** **Scent of Paradise**, a strike that leaves a holy fragrance on the target, burning demons each turn and stopping them from healing (Peri live on the scent of flowers).
 
@@ -203,7 +203,7 @@ It was built on the locked answers in [DESIGN.md → Classes and races](DESIGN.m
 - **Holy / profane ground** is a map condition, set by the node you fight on. Some abilities are stronger or weaker on it, so battles ask for different builds.
 
 #### Stat key
-Stats from DESIGN: **MGT** (attack), **END** (HP), **FOR** (defence), **AGI** (turn speed), **AIM** (hit, crit), **RES** (resist status and shoves). This draft adds a proposed **SPR, Spirit** (spell power and MP once magic arrives); see open question 1.
+Stats from DESIGN: **MGT** (attack), **END** (HP), **FOR** (defense), **AGI** (turn speed), **AIM** (hit, crit), **RES** (resist status and shoves). This draft adds a proposed **SPR, Spirit** (spell power and MP once magic arrives); see open question 1.
 Growth lean: **▲▲** strong, **▲** good, **–** average, **▼** weak.
 
 ---
@@ -272,7 +272,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 
 ##### Man-at-Arms
 - **Mace / axe (two-handed) · 4/1 (standard, rubble 2) · MGT ▲▲ END ▲ FOR – AGI ▼ AIM ▼ RES – · Sergeant: 3 mastered**
-- **Niche:** breaks armour and terrain. Raw single-target damage.
+- **Niche:** breaks armor and terrain. Raw single-target damage.
 
 | Ability | Effect | Cost |
 |---|---|---|
@@ -283,7 +283,7 @@ Format: **Weapon · MOV/JUMP (terrain) · growth lean · unlock**, then the nich
 
 ##### Crossbowman
 - **Crossbow · 3/1 (standard) · AIM ▲▲ MGT ▲ FOR ▲ AGI ▼ END – RES – · Archer: 2 + Sergeant: 1**
-- **Niche:** armour-piercing ranged fire that doesn't need height. The answer to Knights and Shield Walls.
+- **Niche:** armor-piercing ranged fire that doesn't need height. The answer to Knights and Shield Walls.
 
 | Ability | Effect | Cost |
 |---|---|---|
@@ -432,7 +432,7 @@ All units of any race can be recruited from the start; these unlock through that
 | Class | Weapon · MOV/JUMP · lean | Niche | Signature abilities (cost) |
 |---|---|---|---|
 | **Houndknight** | Sword + shield · 4/2 · FOR ▲ END ▲ AGI ▲ | A fast knight: guard on the move | **Bodyguard:** move to an ally and take their next hit (you can't attack this turn) · **Bark Down:** an adjacent foe can't use abilities next turn (×0.3) · **Stalwart** *(passive)*: can't be shoved (−1 MOV) |
-| **Riverwarden** | Staff · 4/2 (shallows 1) · END ▲▲ RES ▲ | Carries allies across water and rough ground (a nod to the legend of the dog-headed giant who ferried travellers) | **Ferry:** carry an adjacent ally with you as you move (both act later: −30 CT) · **Breakwater:** allies behind you take no ranged damage (you take double) · **Steady Footing** *(passive)*: no fall damage |
+| **Riverwarden** | Staff · 4/2 (shallows 1) · END ▲▲ RES ▲ | Carries allies across water and rough ground (a nod to the legend of the dog-headed giant who ferried travelers) | **Ferry:** carry an adjacent ally with you as you move (both act later: −30 CT) · **Breakwater:** allies behind you take no ranged damage (you take double) · **Steady Footing** *(passive)*: no fall damage |
 | **Bayer** | Horn + hand-axe · 5/3 · AGI ▲ MGT ▲ | The pack howl: flanking specialist | **Bay:** foes within 3 face you (it gives away your spot: you're targeted first) · **Run Down:** +2 MOV this turn toward a marked or wounded foe · **Pack Tactics** *(passive)*: flank bonus +10% (−10% damage when no ally is adjacent to your target) |
 
 ---
@@ -445,7 +445,7 @@ The four heroes are **plain Humans**. Each can take every Human class, plus one 
 |---|---|---|---|---|---|
 | **Tristan** | **Templar** **superseded in part (2026-11-17 / 2026-11-18):** the working name Templar, and the abilities Beauséant and Non Nobis, now belong to the Human race class Templar Knight (kit complete 2026-11-18), with different effects. Whether Tristan still gets a separate unique class is still per DESIGN.md Q3. | Sword + shield · 3/1 | Holds the line and lifts the squad. | **Rule of the Order** *(passive)*: +20% DEF and RES, but he can't end his turn farther from the nearest foe (the Templars' no-retreat rule) · **Beauséant:** allies within 2 +15% damage while he stays put · **Non Nobis:** take half the damage dealt to adjacent allies this round | Tristan's side quests (his faith arc) |
 | **Aveline** | **Saint-Caller** (Hospitaller) | Staff · 4/2 | Healer who calls blessed help. Strongest on holy ground. | **Intercession:** call blessed help (list not designed; see CHARACTERS) and channel: no move next turn · **Hospital:** heal all adjacent allies (she takes 10% HP) · **Hold Everything Together** *(passive)*: allies near her resist fear-type statuses; she's weaker alone | Aveline's side quests (Act 2+) |
-| **Godric** | **Vanguard** | Mace · 4/2 | Charges over defence. | **Headlong:** charge through a foe's tile, hitting them (you end Exposed) · **Hot Blood** *(passive)*: +damage as his HP drops, −DEF as well · **Stand By Me:** a charge that ends next to Tristan heals Godric 10% (he must reach him) | Godric's side quests (after he's found) |
+| **Godric** | **Vanguard** | Mace · 4/2 | Charges over defense. | **Headlong:** charge through a foe's tile, hitting them (you end Exposed) · **Hot Blood** *(passive)*: +damage as his HP drops, −DEF as well · **Stand By Me:** a charge that ends next to Tristan heals Godric 10% (he must reach him) | Godric's side quests (after he's found) |
 | **Lucien** | **Shadow Archer** | Bow · 5/3 | The Hooded Figure's style: shoots from cover. | **Hooded Shot:** ×1.3 if no foe can see you (only from behind an obstacle; you can't move after) · **Smuggler's Step:** move through foes' tiles · **Second Thoughts** *(passive)*: crits on foes at full HP, −damage on wounded ones | Lucien's side quests after his return (Act 4) |
 
 **Dismas** (two-handed sword) is a hero character but not a real-worlder; he could have a unique **Penitent** class (Hunter + Man-at-Arms). See open question 5.

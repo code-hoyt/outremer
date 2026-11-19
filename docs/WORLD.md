@@ -37,7 +37,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - **Where they live (locked 2026-11-12):** scattered and disguised among Humans in Human towns. The ruins of their great old cities lie deep in the forests, where the old worship still gathers in secret. These ruins are the destinations of the Peri side-quest tree and lairs for hostile Peri.
 - **Story hook:** Dismas's companion is a hidden Peri. Dismas knows her secret and keeps it, because revealing it could get her killed. Some die-hard Peri-haters exist within the Eighth Day. (Identity and reveal timing are to be decided in the story pass. This echoes Dismas's own past on the profane side.)
 - **Unlocking the race:** the main story introduces the Peri as a side note or history note. A Peri side-quest tree reveals more and unlocks Peri as recruits. This overrides DESIGN.md Q12 for Peri: they are not recruitable from the start.
-- **Hidden look (locked 2026-11-12):** a hidden Peri passes as Human but has a subtle tell, in the spirit of Legend of Dragoon's Winglies' blue hair: a distinctive hair or eye colour that looks like ordinary character design until the player meets more Peri who share it. The tell is **light blue hair** (locked 2026-11-12, a nod to Dragoon). No Human or other race ever has this hair colour.
+- **Hidden look (locked 2026-11-12):** a hidden Peri passes as Human but has a subtle tell, in the spirit of Legend of Dragoon's Winglies' blue hair: a distinctive hair or eye color that looks like ordinary character design until the player meets more Peri who share it. The tell is **light blue hair** (locked 2026-11-12, a nod to Dragoon). No Human or other race ever has this hair color.
 - **What the wings mean (locked 2026-11-12):** nothing spiritual; they are simply part of being Peri. They are hidden because of persecution, and they grow stronger with experience.
 - **Wings unlock through deeds:** a Peri unlocks her wings through what she does in play, as a battle-forged trait, not by default. Stages (locked 2026-11-12): short hop over gaps, then a glide (free descent from height and crossing a gap of a few tiles), then true flight (ignores height and terrain while moving, Gria-style late power). No flight costs for now (Cletus 2026-11-12).
 
@@ -52,7 +52,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 ## Ifriti
 - **Design approach (2026-11-12):** no "Human, but fire". Start from temperament, follow it into physical tells, and then pick defining visuals (the FFTA2 approach: Bangaa, Viera, Moogles).
 - **Temperament (locked 2026-11-12):** bound by their word. They never lie, they bargain carefully, and they keep every oath they swear (inspired by djinn folklore about wishes and pacts). This is the defining trait they are known for and live by, but it is culture and character, not magic: nothing supernatural binds them (clarified 2026-11-18).
-- **Base look (locked 2026-11-12):** tall and lanky, with amber eyes. **Skin (changed 2026-11-18, Cletus via Guilhem's locked Oath Mage plate):** dark, leathery skin (a Dunmer-like look), replacing the earlier ashen grey-pale. Wrinkled, worn and ancient-looking is a race trait, but they stay dignified, never undead.
+- **Base look (locked 2026-11-12):** tall and lanky, with amber eyes. **Skin (changed 2026-11-18, Cletus via Guilhem's locked Oath Mage plate):** dark, leathery skin (a Dunmer-like look), replacing the earlier ashen gray-pale. Wrinkled, worn and ancient-looking is a race trait, but they stay dignified, never undead.
 - **Signature feature (changed 2026-11-18):** the ancient look itself: dark, leathery, wrinkled skin that reads as old and dignified at sprite size. The earlier oath-brands (glowing lines burned into the skin, one per oath) were dropped as a race trait; the oath concept now lives only in the Oath Mage class.
 - **Other ideas considered, not chosen:** lamp-heart, smoke-veil, seal-collars, glass and ash skin, ringed horns, many hands, brazier crown, script-tongues, unfinished bodies. Kept as options for later.
 - **Role (leaning, 2026-11-12):** the most magical race.
@@ -64,7 +64,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 
 ### Ifriti art brief (for Guilhem)
 - **Do not draw "Human, but fire."** Let their temperament shape the body: they are bound by their word, never lie and bargain carefully, so they look still, upright, deliberate and watchful.
-- **Base look:** tall and lanky, with long limbs and long hands. Their skin is dark and leathery (changed 2026-11-18 from ashen grey-pale), wrinkled and worn so they look ancient, but dignified, never undead. Their eyes are amber. Elegant, mysterious and dignified, like an old scholar or teacher.
+- **Base look:** tall and lanky, with long limbs and long hands. Their skin is dark and leathery (changed 2026-11-18 from ashen gray-pale), wrinkled and worn so they look ancient, but dignified, never undead. Their eyes are amber. Elegant, mysterious and dignified, like an old scholar or teacher.
 - **Signature (changed 2026-11-18):** the ancient, dark, leathery look. No oath-brands or race-wide oath marks. The Oath Mage's paper wards are that class's look only.
 - **Dress:** desert-oasis scholars and merchants. Layered, flowing robes suited to heat, with an air of learned authority. Their style is their own, not Arab or any other real culture.
 - **Lore context:** they live in city-states on green magical oases that sit like islands in the desert. They keep an older covenant with the same God and act as elder teachers to Humans, though some distrust Humans as oath-breakers. They are the most magical race.
@@ -96,7 +96,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - The crest is the instantly readable silhouette (the Moogle pom-pom role), but they are distinctly ours.
 - Note: the hoopoe's "hoop-hoop" call is close to the Moogles' "kupo", so avoid a verbal catchphrase.
 - **Temperament (locked 2026-11-12):** curious couriers. They are nosy and warm, know everyone's business, and carry letters, news and gossip between every city. Physical tells: a crest that flares with every emotion, quick head-tilts, and satchels crammed with scrolls.
-- **Body (locked 2026-11-12):** wing-hands. The arms are wings with clawed, feathered fingers at the tips that can hold a quill or a dagger. They can flutter-hop up ledges but can't truly fly (the sky belongs to the Peri). About waist-high to a Human, with real hoopoe colours: a cinnamon body, black-and-white barred wings, and a crest with black tips.
+- **Body (locked 2026-11-12):** wing-hands. The arms are wings with clawed, feathered fingers at the tips that can hold a quill or a dagger. They can flutter-hop up ledges but can't truly fly (the sky belongs to the Peri). About waist-high to a Human, with real hoopoe colors: a cinnamon body, black-and-white barred wings, and a crest with black tips.
 - **Art request:** show a round version and a skinny version side by side.
 - **Home and footprint (locked 2026-11-12):** they have no homeland. They nest in eaves, towers and dovecotes in every city, and their courier network is their nation, with relay roosts along every road. They're the most common non-Human race and are seen everywhere.
 - **Faith (locked 2026-11-12):** a bit of everything. They're superstitious magpies who wear charms from every faith they've carried letters for. They're friendly to the cross faith but not committed to it.
@@ -104,7 +104,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 ### Hoopoe-kin art brief (for Guilhem)
 - Do not draw a Moogle with feathers. Let their temperament (curious, nosy, warm couriers) shape the body: quick head-tilts, a crest that flares with mood, and forward-leaning eagerness.
 - About waist-high to a Human. Their arms are wing-hands, with clawed, feathered fingers at the wingtips that can hold a quill or a dagger. They flutter-hop but can't truly fly.
-- Real hoopoe colours: a cinnamon body, black-and-white barred wings, and a big fan crest with black tips, which is their signature silhouette.
+- Real hoopoe colors: a cinnamon body, black-and-white barred wings, and a big fan crest with black tips, which is their signature silhouette.
 - Gear: courier satchels crammed with scrolls, plus jangling charms and trinkets from every faith.
 - **Deliverable:** a ROUND version and a SKINNY version side by side, full-scale like Tristan's portrait, with no 60 px version.
 
@@ -112,7 +112,7 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 
 Before classes, settle each race's natural calling or occupation, one race at a time. Classes follow from these. Class kits, other class ideas, and kit mechanics live in [CLASSES.md](CLASSES.md).
 
-- **Humans (locked 2026-11-15):** holy orders and command. They provide the knights, priests and captains, and they organise the other races into armies. Being leaders gives them a reason to head a mixed army without being stronger.
+- **Humans (locked 2026-11-15):** holy orders and command. They provide the knights, priests and captains, and they organize the other races into armies. Being leaders gives them a reason to head a mixed army without being stronger.
 - **Ifriti (locked 2026-11-15):** oath-mages. Their magic is sworn.
 - **Cynocephali (locked 2026-11-15):** shield-wall guardians. They are living walls who stand in front of others and take the hits.
 - **Hoopoe-kin (locked 2026-11-15):** scouts and messengers. They are quick, sharp-eyed runners who spot enemies early, carry orders and flutter-hop to high ground, which grows out of their courier network.
@@ -123,7 +123,7 @@ Before classes, settle each race's natural calling or occupation, one race at a 
 
 Kits live in [CLASSES.md](CLASSES.md). The notes below are lore and look only.
 
-- **Humans: Templar Knight (picked 2026-11-17).** The heart of the Order, Outremer's take on the FFTA2 Paladin: an armoured holy warrior who leans fighter: a front-line sword-and-shield combatant first, with holy power as an edge rather than a caster kit. Kit: [CLASSES.md → Templar Knight](CLASSES.md#templar-knight).
+- **Humans: Templar Knight (picked 2026-11-17).** The heart of the Order, Outremer's take on the FFTA2 Paladin: an armored holy warrior who leans fighter: a front-line sword-and-shield combatant first, with holy power as an edge rather than a caster kit. Kit: [CLASSES.md → Templar Knight](CLASSES.md#templar-knight).
 - **Ifriti: Oath Mage (picked 2026-11-17, mechanic reworked same day).** **Oath visuals (locked plate 2026-11-18, `/workspace/art-handoff/deliveries/ifriti-concept-v28/`):** the Oath Mage shows its oaths as small vertical paper wards (like ofuda): a gold-cord lattice of wards down one leg, a hip pouch of flat slips, and two small vermilion wards on a gold collar pin. The wards are this class's look only (Cletus, 2026-11-18); the race has no oath marks. Kit: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage).
 - **Cynocephali: Shieldbrother (picked 2026-11-17).** The basic shield-wall guardian. It takes hits for adjacent allies and gets tougher standing shoulder to shoulder with another Shieldbrother, so formations pay off. Kit: [CLASSES.md → Shieldbrother](CLASSES.md#shieldbrother).
 - **Hoopoe-kin: Roost-Keeper (picked 2026-11-17).** Sets up roosts on tiles, drawn from their relay-roost courier network. Reworked 2026-11-17 into a **bird whisperer**: the "teleport" is a flock of birds that swoops up a unit and carries it between roosts. Kit: [CLASSES.md → Roost-Keeper](CLASSES.md#roost-keeper).

@@ -5,7 +5,7 @@ Working briefs for the story cast, written so Guilhem can start drawing the real
 ## How to use this
 
 - **Story facts** follow [STORY.md](STORY.md). Anything marked LOCKED there is canon. Anything marked DRAFT or still listed under open questions is tentative; this file will say so.
-- **Visual notes are proposals**, not decisions. Appearance has not been locked by Cletus. Every look, colour, age range, and piece of gear in a Visual brief is **Proposed**, for Guilhem to explore and for Cletus to pick from. Do not treat a proposed detail as canon in art, code, or later story writing.
+- **Visual notes are proposals**, not decisions. Appearance has not been locked by Cletus. Every look, color, age range, and piece of gear in a Visual brief is **Proposed**, for Guilhem to explore and for Cletus to pick from. Do not treat a proposed detail as canon in art, code, or later story writing.
 - **This file gets updated as decisions lock.** When a look or a fact is chosen, move it out of Proposed and point back to the date and source.
 - Sample lines are **examples of voice**, not locked dialogue, unless a line is already quoted as canon in STORY.md.
 
@@ -20,7 +20,7 @@ Cletus approved the visual briefs below as written, with these picks on the open
 - **Godric:** mace.
 - **Lucien / Hooded Figure:** bow.
 - **Dismas:** two-handed sword.
-- **Vaskar:** cold violet identity colour, and the same look in every act (no worse Act 3 corruption pass).
+- **Vaskar:** cold violet identity color, and the same look in every act (no worse Act 3 corruption pass).
 - **Guérin:** neatly trimmed beard.
 - **Simeon:** lamp on a staff.
 - **Sulthrane:** not locked; Guilhem pitches a set of options for Cletus to pick from.
@@ -29,11 +29,11 @@ Cletus approved the visual briefs below as written, with these picks on the open
 
 These constraints apply to every visual brief. They come from the art handoff and style guide, not from the story.
 
-- Battle units are up to **60 art px tall** on 60x30 art-px tiles (64x68 cells, feet [31,63], body-centred on the tile; locked 2026-11-11). At that size, give each character **one or two strong identifiers** (a hood, a cross, a lamp, a bulk and a dark mantle). Anything smaller than about 2 px will read as noise.
+- Battle units are up to **60 art px tall** on 60x30 art-px tiles (64x68 cells, feet [31,63], body-centered on the tile; locked 2026-11-11). At that size, give each character **one or two strong identifiers** (a hood, a cross, a lamp, a bulk and a dark mantle). Anything smaller than about 2 px will read as noise.
 - Sprites: **eyes and brow only, no mouth**. Expression, age detail, and mouths belong in portraits.
 - Named units get **open faces** (coif, kettle hat, nasal helm). Full helms are for generics only.
 - **No weapon at idle.** Identity has to live on the body (silhouette, hair, clothes, a token). Weapons appear in attack frames and in portraits.
-- One saturated **identity colour** per unit; the rest muted and earthy. Templar white should be cream, not pure white. A Templar's red cross sits on the **tabard front only**.
+- One saturated **identity color** per unit; the rest muted and earthy. Templar white should be cream, not pure white. A Templar's red cross sits on the **tabard front only**.
 - Current sprite pipeline (for later drawing, not a look lock): a shared face-and-body base, distinguished by hair and clothes, in the squire-ref4 style direction. Avoid inventing a different proportion system per hero.
 - **Period:** keep the real-world people plausible for the late 12th to 13th-century Crusader states. The exact year is still an open story question. The other world may be more mythic, but it should still feel medieval rather than modern-fantasy.
 - Real-world heroes should look as if they belong in our world. Natives of the other world should look as if they belong there.
@@ -81,7 +81,7 @@ Sword-and-shield Templar. A frontliner and solid all-rounder. Do not invent a jo
 
 - **Silhouette:** a young knight in a cream tabard, readable even in a cluster of Templars because he is slighter and cleaner-lined than the sergeants and generics around him. Shield-and-coif shape; no great helm.
 - **Build and age:** lean-athletic, not bulky. Early to mid 20s.
-- **Palette:** cream tabard, red cross, mid-brown mail and leather. Identity colour is the Templar red on cream, kept clearly brighter than Godric's dark sergeant kit. Hair a dark brown.
+- **Palette:** cream tabard, red cross, mid-brown mail and leather. Identity color is the Templar red on cream, kept clearly brighter than Godric's dark sergeant kit. Hair a dark brown.
 - **Gear and props:** mail with a coif or a simple nasal helm worn back or off in dialogue; a plain heater or late kite shield, unheralded (minor nobility, younger son). Sword is his weapon, shown in attacks and portraits, not at idle. A short, close-trimmed beard is the more period-plausible option (Templar brothers were expected to wear them); a clean-shaven face is the option if we want him younger on a phone. Either is Proposed.
 - **At sprite size (60 px):** (1) the cream tabard with a clear red cross on the chest; (2) a slighter, younger stance than Godric. The cross must still read on the 3/4 front view.
 - **Open:** beard or no beard; exact shield shape; how (or whether) Eighth Day marks appear on him after Act 1.
@@ -120,12 +120,12 @@ Starts as a battlefield medic and grows into a Saint-Caller: a healer who can ca
 
 **Visual brief (approved 2026-11-11; see picks above)**
 
-- **Silhouette:** an unarmoured field-hospital figure among knights: a mid-length gown or kirtle, a simple headcloth, and a satchel worn at the hip. She must not be mistaken for a Templar knight, and she should not be drawn as a modern fantasy mage.
+- **Silhouette:** an unarmored field-hospital figure among knights: a mid-length gown or kirtle, a simple headcloth, and a satchel worn at the hip. She must not be mistaken for a Templar knight, and she should not be drawn as a modern fantasy mage.
 - **Build and age:** slight to average, mid 20s, clearly older than Lucien and of an age with Tristan.
-- **Palette:** dusty blue-grey as her identity colour, with cream linen and brown leather. A small white cross (Hospital, not the Templar red) may sit on a dark mantle if we want her Hospital service to read at a glance; that cross is optional and Proposed, because her exact standing with the Hospital is not spelled out.
-- **Gear and props:** medical satchel, linen headcloth or light wimple (open face, hair partly visible so she and Lucien can share a family colour in portraits). No heavy mail. Saint-Calling should be a light or a presence in the cast animation and in portraits, not a new battle outfit, unless a later costume pass is chosen.
-- **At sprite size (60 px):** (1) the headcloth plus the satchel, or the headcloth plus the dusty-blue gown; (2) a clearly unarmoured, narrower silhouette against Tristan and Godric.
-- **Open:** whether she wears a Hospital white cross; how much hair shows; whether Eighth Day gives her a later over-garment once that Order's look is designed. She and Lucien should share a hair colour in portraits (proposed: dark auburn) so the siblings read as family.
+- **Palette:** dusty blue-gray as her identity color, with cream linen and brown leather. A small white cross (Hospital, not the Templar red) may sit on a dark mantle if we want her Hospital service to read at a glance; that cross is optional and Proposed, because her exact standing with the Hospital is not spelled out.
+- **Gear and props:** medical satchel, linen headcloth or light wimple (open face, hair partly visible so she and Lucien can share a family color in portraits). No heavy mail. Saint-Calling should be a light or a presence in the cast animation and in portraits, not a new battle outfit, unless a later costume pass is chosen.
+- **At sprite size (60 px):** (1) the headcloth plus the satchel, or the headcloth plus the dusty-blue gown; (2) a clearly unarmored, narrower silhouette against Tristan and Godric.
+- **Open:** whether she wears a Hospital white cross; how much hair shows; whether Eighth Day gives her a later over-garment once that Order's look is designed. She and Lucien should share a hair color in portraits (proposed: dark auburn) so the siblings read as family.
 
 ---
 
@@ -137,7 +137,7 @@ Hot-headed loyal friend. Common sergeant.
 An English or Saxon-born common sergeant, quick to anger and fiercely loyal to Tristan, who once stood up for him. He holds strong when it counts.
 
 - **Act 1:** He is with the squad at Guérin's castle, sees Tristan fall, and follows with Aveline and Lucien. After a later battle, Lucien is taken and Godric goes after him. He is not seen again until the end of Act 2.
-- **Act 2:** The party runs into him already facing Vaskar and teams up with him. Vaskar is beaten, then pulled away by the shadowy figure. Godric might almost recognise the way the figure moves, but he does not get a clear look.
+- **Act 2:** The party runs into him already facing Vaskar and teams up with him. Vaskar is beaten, then pulled away by the shadowy figure. Godric might almost recognize the way the figure moves, but he does not get a clear look.
 - **Acts 3–4:** He is with the party for the unmasking, the low point, the campaign, and the finale. He does not die. Epilogue whereabouts are unwritten.
 
 **Personality and voice**
@@ -155,15 +155,15 @@ Example lines (not locked):
 - **Vaskar:** the man he is found fighting; they have no older history unless one is written later.
 
 **Combat role (canon, class system still open)**
-Heavy hitter: a big axe or a mace (which one is not decided). High damage, charges over defence.
+Heavy hitter: a big axe or a mace (which one is not decided). High damage, charges over defense.
 
 **Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** the broadest of the four heroes. A dark sergeant's mantle and a heavy, planted stance. He should be readable as "the big one" even as a black shape.
 - **Build and age:** bulky, late 20s to early 30s, a head shorter or simply thicker than a tall knight, with the weight in the shoulders and chest.
-- **Palette:** black or dark brown mantle (the historical sergeant's colour, and a clear contrast with Tristan's cream), with a red cross on the dark ground. Identity colour is that dark russet-brown, not the same bright cream. Fair or sandy hair and a fuller beard, to mark the English or Saxon origin without a caption.
+- **Palette:** black or dark brown mantle (the historical sergeant's color, and a clear contrast with Tristan's cream), with a red cross on the dark ground. Identity color is that dark russet-brown, not the same bright cream. Fair or sandy hair and a fuller beard, to mark the English or Saxon origin without a caption.
 - **Gear and props:** mail under the dark mantle; coif or kettle hat, face open. The axe or mace is his signature in attacks and portraits, not at idle, so the bulk and dark mantle have to carry the sprite. A thick belt and heavy boots help the weight read.
-- **At sprite size (60 px):** (1) dark mantle against Tristan's cream; (2) the broader, heavier body. Hair colour is the backup cue, not the main one.
+- **At sprite size (60 px):** (1) dark mantle against Tristan's cream; (2) the broader, heavier body. Hair color is the backup cue, not the main one.
 - **Open:** English vs Saxon as a flavour note (it changes little on a sprite, more in voice and portrait); axe vs mace.
 
 ---
@@ -176,7 +176,7 @@ Aveline's younger brother. The prodigal son. Skirmisher and scout.
 Bright, ambitious, and resentful of being overlooked. The cult uses that resentment. He looks up to Guérin, and at the castle he argues that the squad should respect the baron's word. Tristan overrules him. That is the seed of his turn.
 
 - **Act 1:** He crosses with Aveline and Godric, is later taken in a battle, and is recruited by Vaskar with the same "they'll never value you" pitch Vaskar once used on Dismas.
-- **Act 2 (working draft, not loved yet; the rescue itself is locked):** mid-act, a Hooded Figure is seen at Vaskar's side; the figure leads a weapons-smuggling run, fights the party, and escapes; the figure then guards one of Simeon's false miracles and hesitates when it is exposed; at the climax, the figure pulls the beaten Vaskar out. Clues should echo things the player already saw Lucien do in the prologue (a phrase, a fighting move, a token). Godric may half-recognise the movement; Aveline may see something familiar and refuse to believe it. The betrayal is not confirmed in this act.
+- **Act 2 (working draft, not loved yet; the rescue itself is locked):** mid-act, a Hooded Figure is seen at Vaskar's side; the figure leads a weapons-smuggling run, fights the party, and escapes; the figure then guards one of Simeon's false miracles and hesitates when it is exposed; at the climax, the figure pulls the beaten Vaskar out. Clues should echo things the player already saw Lucien do in the prologue (a phrase, a fighting move, a token). Godric may half-recognize the movement; Aveline may see something familiar and refuse to believe it. The betrayal is not confirmed in this act.
 - **Act 3:** The hood comes off at Simeon's rite. Lucien is there with Vaskar. Aveline breaks. He also hears, through the tear, that the war is an invasion of his own home. He does not come back yet, but he does not finish the party (a missed killing blow, or a path left open). He is present when Dismas kills Vaskar and fails to stop it.
 - **Act 4:** A few encounters pull him back from the edge so the return feels earned. In the working draft those include the wounded-brother scene (Aveline heals him; he slips away and leaves something from home) and a last stand where he guards the way to Simeon and lets the party pass, while she is still asking him to come home. Exact scenes are still to be written, and the run is marked for revisit. In the final battle he returns by killing Simeon, too late to stop Sulthrane being summoned. The kill still matters: it stops Simeon finishing the rite as its master. Lucien does not die. Epilogue whereabouts are unwritten.
 
@@ -194,10 +194,10 @@ Example lines (not locked):
 **Relationships**
 - **Aveline:** his older sister, who never stops asking him home.
 - **Tristan:** fellow knight in the detachment, and the man who overrules him in front of Guérin.
-- **Guérin:** the lord he admires, whose charm makes the cult's side look honourable at first.
+- **Guérin:** the lord he admires, whose charm makes the cult's side look honorable at first.
 - **Vaskar:** recruiter and, for a time, the person who seems to value him. Vaskar's death shakes him.
 - **Simeon / Sulthrane:** the false faith he serves until he turns on Simeon.
-- **Dismas:** a mirror he may not recognise at first: a man who already came back, and who could not save his own friend.
+- **Dismas:** a mirror he may not recognize at first: a man who already came back, and who could not save his own friend.
 
 **Combat role (canon, class system still open)**
 Skirmisher and scout: fast and clever, with a bow or twin blades. Which weapon is not decided. Whatever is chosen should be the same weapon the Hooded Figure uses, so the prologue can rhyme with the Act 2 fights.
@@ -210,7 +210,7 @@ Lucien needs two readable looks that are clearly the same body: the young scout 
 
 - **Silhouette:** lean and light-footed, shorter or narrower than Tristan, in scout leather and a short cloak rather than a knight's tabard. (Whether he is a vowed Templar, a sergeant, or an attached scout is not stated; he is part of the Templar detachment. Do not put him in a full white knight's mantle unless that is chosen later.)
 - **Build and age:** slim, late teens to early 20s, clearly younger than Aveline.
-- **Palette:** dull amber or russet short cloak as his identity colour, with brown leather and muted greens. Dark auburn hair, shared with Aveline.
+- **Palette:** dull amber or russet short cloak as his identity color, with brown leather and muted greens. Dark auburn hair, shared with Aveline.
 - **Gear and props:** light kit, open face, maybe a short coif or no helm. A small personal token from the prologue (a belt ring, a wrist wrap, a clasp) that can return as a missable clue on the Hooded Figure and as the thing he leaves behind after Aveline heals him. The token is Proposed; the idea that some token or habit should echo the prologue is from the story draft.
 
 *The Hooded Figure*
@@ -260,7 +260,7 @@ Not classed in the story bible. He is a hunter and the leader of a hunting party
 
 - **Silhouette:** a holy hunter, not a Templar: a worn mid-length coat or cloak, a distinct un-Frankish cut, and (in attacks and portraits) a hunting spear, short blade, or lantern-staff. A small lantern at the belt is a strong identity prop even if weapons stay off the idle sprite.
 - **Build and age:** rangy rather than bulky, mid 30s to 40, older than the four heroes and visibly lived-in.
-- **Palette:** ash, bone, and a faded gold as his identity colour (penitent light, not Simeon's bright lamp-gold). No cream tabard, no Templar cross. Hair dark going grey.
+- **Palette:** ash, bone, and a faded gold as his identity color (penitent light, not Simeon's bright lamp-gold). No cream tabard, no Templar cross. Hair dark going gray.
 - **Gear and props:** open face, a short beard or heavy stubble, a simple other-world holy mark rather than a Crusader cross. A scar, brand, or old cult mark he does not bother to hide would tell the conversion story in a portrait. Any shared token with Vaskar (a clasp, a braided cord) will help their history read.
 - **At sprite size (60 px):** (1) the lantern, or the ash cloak with the faded-gold mark; (2) a leaner, more travel-worn outline than the real-world knights. He must not be mistakable for Godric or for an Eighth Day regular once that look exists.
 - **Open:** exact weapon; whether he wears any Eighth Day sign; the form of the old cult mark.
@@ -297,12 +297,12 @@ Simeon's lieutenant. A mid-to-late game human-plus boss, faced in Act 2 and kill
 
 **Visual brief (approved 2026-11-11; see picks above)**
 
-- **Silhouette:** taller than Dismas, still the shape of a man, with armour or cloth that has started to fuse or warp. He must remain recognisable as a person, or the tragedy flattens into a monster fight. A remnant of the same hunter cut as Dismas, corrupted, would do that work.
+- **Silhouette:** taller than Dismas, still the shape of a man, with armor or cloth that has started to fuse or warp. He must remain recognizable as a person, or the tragedy flattens into a monster fight. A remnant of the same hunter cut as Dismas, corrupted, would do that work.
 - **Build and age:** once the same generation as Dismas (mid 30s to 40s), now stretched or thinned, as if something is wearing him.
-- **Palette:** cold violet or sickly gold as the identity colour, against ashen skin and darkened metal. Avoid Simeon's clean ivory, and avoid making him look like Sulthrane in miniature; he is a man being spent, not the demon itself.
+- **Palette:** cold violet or sickly gold as the identity color, against ashen skin and darkened metal. Avoid Simeon's clean ivory, and avoid making him look like Sulthrane in miniature; he is a man being spent, not the demon itself.
 - **Gear and props:** open, ruined face (named unit): too-hollow eyes, still human. A cracked version of the shared token with Dismas. Lieutenant's marks in Simeon's false-light style, worn wrong.
 - **At sprite size (60 px):** (1) the warped, taller lieutenant silhouette; (2) the sickly gold or violet against Dismas's faded gold. The human face has to read as a face, not a skull, or he will be mistaken for a generic Hollow or Fallen.
-- **Open:** how far the "barely a man" corruption goes in Act 2 vs Act 3 (a later, worse pass is an option); exact colours; weapon.
+- **Open:** how far the "barely a man" corruption goes in Act 2 vs Act 3 (a later, worse pass is an option); exact colors; weapon.
 
 ---
 
@@ -321,7 +321,7 @@ Lucien looks up to him. He is not fought as a boss. His soul is bound to Simeon'
 
 Canon line, already in STORY.md:
 
-- "Rumours, brothers. Peasants see devils in every shadow. But you're welcome to look, after supper."
+- "Rumors, brothers. Peasants see devils in every shadow. But you're welcome to look, after supper."
 
 **Personality and voice**
 Gracious, unhurried, and hard to dislike. He flatters without obvious oily-ness. He sounds like a man who has always been obeyed and has learned to make it feel like hospitality. He should still seem plausible as a generous host on a first meeting.
@@ -344,8 +344,8 @@ None as a boss. He may never need a full battle sprite if he appears only in the
 
 - **Silhouette:** a secular baron, not a knight of the Order: a longer tunic and a pale mantle, court-length, with a simple device. In the castle he should look richer and cleaner than the travel-worn Templars.
 - **Build and age:** handsome, well-kept, 40s to early 50s, a little taller than Tristan, not a warrior-brute.
-- **Palette:** pale gold and cream as the ironic "bright" identity, with clean mid-blues or soft greys. No demonic marks on the Act 1 clothes. Do not put a lamp on his arms; that would telegraph the Simeon link too early. A plain white mountain or pale peak (a quiet nod to "Montclair") is enough, and even that is Proposed.
-- **Gear and props:** open face, neatly trimmed beard or a clean shave, a lord's clasp, no great helm, no Templar cross. The Act 3 glimpse can show the same man under stranger light, not a new costume, so the player recognises him at once.
+- **Palette:** pale gold and cream as the ironic "bright" identity, with clean mid-blues or soft grays. No demonic marks on the Act 1 clothes. Do not put a lamp on his arms; that would telegraph the Simeon link too early. A plain white mountain or pale peak (a quiet nod to "Montclair") is enough, and even that is Proposed.
+- **Gear and props:** open face, neatly trimmed beard or a clean shave, a lord's clasp, no great helm, no Templar cross. The Act 3 glimpse can show the same man under stranger light, not a new costume, so the player recognizes him at once.
 - **At sprite size (60 px) (and in portraits, which may do more work than a sprite):** (1) the pale, too-clean mantle; (2) the baronial cut, clearly not a Templar tabard.
 - **Open:** the exact device; beard; whether he is ever seen in mail.
 
@@ -385,7 +385,7 @@ The last human (or once-human) boss, fought in the Act 4 finale before Sulthrane
 
 - **Silhouette:** tall and robed, with a lamp as the must-read prop (a staff-lamp, or a hanging lamp he carries). At a glance he should look sacred; on a second look, too still, too clean, a little wrong. He is a dark mirror of Aveline, so her asked-for light and his held lamp should read as cousins, not as the same effect.
 - **Build and age:** long and narrow, ageless or late middle age, taller than Guérin, not burly.
-- **Palette:** ivory and bright, almost-holy gold as the identity colour, with a sick or ashen undertone in the shadows of the robe. This gold should be cleaner and harsher than Dismas's faded gold, and not the same as Sulthrane's.
+- **Palette:** ivory and bright, almost-holy gold as the identity color, with a sick or ashen undertone in the shadows of the robe. This gold should be cleaner and harsher than Dismas's faded gold, and not the same as Sulthrane's.
 - **Gear and props:** the lamp, always. Open, serene face (portraits carry the wrongness: a smile that does not reach the eyes, or eyes that hold the lamp-light). No Templar or Hospital cross. Scripture or false-sigils on the robe are optional and easy to overdo; the lamp is enough.
 - **At sprite size (60 px):** (1) the lamp; (2) the tall ivory robe. If the lamp is lost at that size, the character is lost.
 - **Open:** lamp as staff vs hand-lamp; how human he still looks by Act 4; whether the rite and the boss fight use the same robe.
@@ -425,7 +425,7 @@ Final boss. A step above the Act 1 true Demon (whose name is still TBD). Fought 
 - **Build and age:** not human-aged. If he has a body, it should feel borrowed or unveiled, not simply tall-and-muscled.
 - **Palette:** deep dark with a counterfeit gold that echoes Simeon's lamp and then outgoes it. The gold is a lie; the dark is the read. Avoid a generic fire-red unless Cletus chooses it.
 - **Gear and props:** a crown, a ruined halo, or the torn veil of the world, used as one mass, not as tiny ornaments. No need for many small symbols.
-- **At sprite size (60 px), or at boss scale on a phone:** (1) size plus the crown/veil/wing mass; (2) the dark-and-false-gold colour. If he is only "a big demon," he will not feel like the last reveal.
+- **At sprite size (60 px), or at boss scale on a phone:** (1) size plus the crown/veil/wing mass; (2) the dark-and-false-gold color. If he is only "a big demon," he will not feel like the last reveal.
 - **Open:** almost everything. This is the least decided look in the cast, and should be explored as a set of options, not drawn once and assumed.
 
 ---

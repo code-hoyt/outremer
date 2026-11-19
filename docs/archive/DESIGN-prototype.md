@@ -130,7 +130,7 @@ An average hero leaves balance where it was. A great roll is a big swing on The 
 |---|---|---|---|---|
 | **Brother Renaud**, Knight | 12/13/14/7/10/14 | HP 54, ATK 15, DEF 13, SPD 5, MOV 3, Res 20% | **Under the Rule:** +2 DEF while orthogonally next to another Templar (the hero, generic Templars, Renaud's fellow brothers), applied in every damage preview and roll | **Holds ground:** if he starts a move next to a foe, he may only end it on a tile that is still next to a foe (in `reachable`, so it applies to the AI too) |
 | **Yusuf ibn Qasim**, Scout | 12/10/9/14/13/10 | HP 34, ATK 13, DEF 6, SPD 13, MOV 5, Hit +6% | **Turncoat's Eye:** during your turns, every raider within 4 tiles of him shows a dashed orange arrow to the unit it would strike if it acted now (the raider's real AI plan) | **Mercy:** he can't Attack or use an ability on a foe below 25% HP (filtered out of targets) |
-| **Wren**, Scout | 9/6/6/16/12/8 | HP 28, ATK 12, DEF 4, SPD 14, MOV 6, Hit +4% | **Light Feet:** +1 MOV | **Frail** (low END/FOR: the lowest HP/DEF of any player unit) and **Skittish:** if she starts her turn next to 2+ foes she can't act that turn (Action greyed, "skittish"); she can still move |
+| **Wren**, Scout | 9/6/6/16/12/8 | HP 28, ATK 12, DEF 4, SPD 14, MOV 6, Hit +4% | **Light Feet:** +1 MOV | **Frail** (low END/FOR: the lowest HP/DEF of any player unit) and **Skittish:** if she starts her turn next to 2+ foes she can't act that turn (Action grayed, "skittish"); she can still move |
 
 **Simplified from the pitch (deviations):** Renaud's Shield Wall covering a 2nd ally, "never Waits with a foe in reach" and refusing camp with Yusuf are not in. Yusuf's intent display is a line to the target, not the exact move/ability. Wren's swap-with-an-ally, post-battle loot and the 2-tile auto-bolt are not in: Scouts already ignore rough terrain, so her terrain pro became +1 MOV, and her bolt became "can't act". The amulet is only flavour text.
 
@@ -349,7 +349,7 @@ Base terrain: Grass 1, Road 1, Sand 2, Rock 2; on The Breach also Flagstone 1, W
 **Phone camera:** on narrow screens the map is zoomed 1.3× past fit-width; drag to pan, and the camera eases to follow the cursor (`CONFIG.view.zoom`, `zoomBelowWidthPx`, `camFollow`).
 
 ## Maps (v0.5)
-Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../../src/maps.js); terrain costs and colours stay in `src/config.js` (`CONFIG.terrain`, `palette.terrain`, `defaultMap`). Objective on both: defeat every enemy. No race modifiers on movement for now (a possible winged race with near-unlimited jump is in the ROADMAP parking lot).
+Map data (size, heights, terrain, deployment) lives in [`src/maps.js`](../../src/maps.js); terrain costs and colors stay in `src/config.js` (`CONFIG.terrain`, `palette.terrain`, `defaultMap`). Objective on both: defeat every enemy. No race modifiers on movement for now (a possible winged race with near-unlimited jump is in the ROADMAP parking lot).
 
 | # | Map | Shape | What it tests |
 |---|---|---|---|
@@ -420,7 +420,7 @@ Statuses show as letter pips above the HP bar (W/B/P/E/S) and as a line in unit 
 - Cover from Shield Wall changes the hit *side* only. Flank bonuses and height still apply.
 - The vault landing must be in bounds, empty, and within the skirmisher's JUMP of its start height.
 
-**UI flow (FFTA2):** Action → submenu lists **Attack** plus the class's two abilities (▲▼ on the pad; greyed with "no target", or "moved" for Pinning Shot after a move). The confirm box lists the drawback as "Trade-off: …". After an ability that roots you (Pin, Vault), the turn goes straight to the facing step. Targeting uses the map pad. The red tiles show the ability's reach, and orange tiles show where things will end up: the shove/pull destination, the vault landing, covered allies, the brace zone. The confirm box shows hit %, damage + extra (fall/slam), HP before→after, and plain-language effects. Stances target yourself. Brace sends you to the facing step so you can aim the zone.
+**UI flow (FFTA2):** Action → submenu lists **Attack** plus the class's two abilities (▲▼ on the pad; grayed with "no target", or "moved" for Pinning Shot after a move). The confirm box lists the drawback as "Trade-off: …". After an ability that roots you (Pin, Vault), the turn goes straight to the facing step. Targeting uses the map pad. The red tiles show the ability's reach, and orange tiles show where things will end up: the shove/pull destination, the vault landing, covered allies, the brace zone. The confirm box shows hit %, damage + extra (fall/slam), HP before→after, and plain-language effects. Stances target yourself. Brace sends you to the facing step so you can aim the zone.
 
 **AI:** the planner considers every (tile × ability × target) next to plain attacks (Pinning Shot only from the tile it starts on). **v0.13, no cooldowns:** `ai.wRepeatAbility` (6) docks the score of the ability the unit used on its own previous turn, so the AI doesn't turtle in Shield Wall or Bash the same foe every turn (AI taste, not a rule; players can repeat freely). Full-AI sim, mean uses per battle over 6 battles: Shield Wall 1.83 → 2.27 (Templars), 1.28 → 1.42 (raiders); Pinning Shot 0.82 → 0.44 (planted); back-to-back repeats ≤ 0.41 per battle for any ability. Abilities are scored by what they set up: fall/slam damage, a shove or pull that ends next to one of its own units, pins on fast units, back/side exposure after a feint, landing danger after a vault, Exposed danger after a plunge. A damaging ability has to beat the best plain attack by `abilityMinGain`. Stances (Wall, Brace) compete with *repositioning*, not with attacks, so a knight doesn't stand still walling when it should advance. Paths that run into a visible brace zone are penalised (`wAvoidBrace`). If a brace stops the AI anyway, it re-plans from where it stands.
 
@@ -457,9 +457,9 @@ Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-fa
 - **Keyboard (desktop):** arrows/WASD = the cross, from the same `padCross` (↑ = north/up-right, → = east/down-right, ↓ = south/down-left, ← = west/up-left). In menus only ↑/↓ (W/S) move the highlight and ←/→ do nothing, matching the ▲▼ pad. Z/Enter/Space = A; X/Esc/Backspace = B.
 
 **Turn flow (player unit):**
-1. **Turn starts:** the camera and cursor go to the active unit, and the **command menu** opens (bottom-right of the field) with **Move / Action / Wait**. Move gets the default highlight, but nothing is auto-entered. ▲▼ move through the list; used commands are greyed and skipped.
+1. **Turn starts:** the camera and cursor go to the active unit, and the **command menu** opens (bottom-right of the field) with **Move / Action / Wait**. Move gets the default highlight, but nothing is auto-entered. ▲▼ move through the list; used commands are grayed and skipped.
    Menus use the ▲▼ pad.
-2. **Move:** blue tiles show the range. Move the cursor (the cursor can roam anywhere, but only blue tiles accept A), then press **A** to walk there. **B** goes back to the menu. After moving, the menu returns with Move greyed and **Action** highlighted. **B on the menu after moving, before acting, undoes the move** (unit and facing go back), as in FFTA2.
+2. **Move:** blue tiles show the range. Move the cursor (the cursor can roam anywhere, but only blue tiles accept A), then press **A** to walk there. **B** goes back to the menu. After moving, the menu returns with Move grayed and **Action** highlighted. **B on the menu after moving, before acting, undoes the move** (unit and facing go back), as in FFTA2.
 3. **Action → Attack:** the Action submenu currently holds only **Attack**; ability sets come later. Red tiles show the attack range and the cursor starts on the acting unit. Hovering a valid foe shows the **prediction box** (hit %, damage, HP after, Front/Side/Back, flank, height). **A** selects the target and opens the confirm step (prediction plus "A Execute · B Back"); **A** executes and **B** returns to targeting.
 4. **Facing:** reached after moving and acting, or by choosing **Wait**. Four arrows appear around the unit, and the d-pad turns the unit immediately. **A** confirms and ends the turn; **B** returns to the command menu.
 5. You can move and act in either order. Act first, and the menu comes back with Move still available.
@@ -477,7 +477,7 @@ Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-fa
 ## Controls: FFTA2 reference
 What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from the manual and guides:
 
-| Topic | FFTA2 behaviour | Source |
+| Topic | FFTA2 behavior | Source |
 |---|---|---|
 | Input | "You can control the game using both the stylus and the buttons." On the world map, you touch the cursor, drag it, then **touch again to confirm**. | [US manual](https://gamegear.net/media/canonical/console/nds/manual/final-fantasy-tactics-a2-grimoire-of-the-rift-usa-enfres__63001.pdf) pp.2–3, 17; [StrategyWiki Controls](https://strategywiki.org/wiki/Final_Fantasy_Tactics_A2:_Grimoire_of_the_Rift/Controls) |
 | Buttons in battle | D-pad: move cursor / make selections. A: confirm, move cursor to the active unit, show commands. B: cancel, move cursor to current location, show allies/foes, **hold over a unit to show its move range**. X: system menu. Y: help / unit info. L/R: cycle units (in battle order). | [GameFAQs (Major_Adama)](https://gamefaqs.gamespot.com/ds/937330-final-fantasy-tactics-a2-grimoire-of-the-rift/faqs/53319); [GameFAQs (GrayFox2510)](https://gamefaqs.gamespot.com/ds/937330-final-fantasy-tactics-a2-grimoire-of-the-rift/faqs/53267); [GameFAQs (Dev)](https://gamefaqs.gamespot.com/ds/937330-final-fantasy-tactics-a2-grimoire-of-the-rift/faqs/53627); Manual p.43 ("Select a unit and press the B Button to highlight the tiles to which the unit can move") |
@@ -488,7 +488,7 @@ What *Final Fantasy Tactics A2: Grimoire of the Rift* (DS, 2007/2008) does, from
 | Prediction | After choosing the attack/ability target, the hit chance and estimated damage (and the target's reaction ability) appear in the middle of the screen before you commit. | Manual p.47 |
 | Wait / facing | Wait ends the turn (the unit's next turn comes sooner). "After ordering a unit to move and take an action, or ordering it to wait, **you must choose a facing** for the unit before its turn will end." Facing uses the d-pad; A confirms (same as placement). | Manual pp.45, 48 |
 | Info & turn order | The battle screen shows turn order, tile height, the Smash gauge, and unit HP/MP. Y opens Unit Info; L/R cycles units. | Manual pp.42–44 |
-| Camera | Fixed isometric view, no rotation; the view follows the cursor. | Series behaviour (not spelled out in the manual) |
+| Camera | Fixed isometric view, no rotation; the view follows the cursor. | Series behavior (not spelled out in the manual) |
 
 ### Where we deliberately differ (for now)
 - **Context-aware pad.** A DS has one physical d-pad that never changes. Ours is drawn on screen, so it changes shape to show what you can steer: ▲▼ in menus, the ▲▶▼◀ cross on the map and at turn end (the facing cross is gold, with the current facing lit), dimmed when there's nothing to steer. Cletus asked for this.

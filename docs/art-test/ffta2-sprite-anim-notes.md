@@ -9,7 +9,7 @@
 - **Size:** DS sprite cells are about 32–36 px, and the figure is about 28–32 px tall (2.5–3 heads) on a tile diamond about 32 px wide. The unit is about 1 tile wide and 2 tile-heights tall.
 
 ## Our spec (round 7)
-Cell: **176×128 px** at master size, feet on the bottom row (outline at y = 127), head centred at x = 88. Drawn in game at `CONFIG.artTest.drawHeightPx` (58) base px tall (tile width is 64 base px). Rows: 0 = front (down-left), 1 = back (up-left). Down-right and up-right are mirrors. Everything below is in `CONFIG.artTest`.
+Cell: **176×128 px** at master size, feet on the bottom row (outline at y = 127), head centered at x = 88. Drawn in game at `CONFIG.artTest.drawHeightPx` (58) base px tall (tile width is 64 base px). Rows: 0 = front (down-left), 1 = back (up-left). Down-right and up-right are mirrors. Everything below is in `CONFIG.artTest`.
 
 | Col | Frame | Use |
 |---|---|---|
@@ -24,4 +24,4 @@ Cell: **176×128 px** at master size, feet on the bottom row (outline at y = 127
 - **Weapon layer (decision, round 7):** body frames never contain a weapon. Each attack frame records a **hand anchor** `hand[facing][frame] = [x, y, angleDeg]` (cell px, unmirrored art space, angle 0 = weapon pointing up, + = clockwise). A weapon sprite has a **grip point**; in game it is drawn with the grip on the anchor, rotated by the angle, inside the body's mirror transform. One body animation therefore works with any weapon sprite (FFT-style). Today there is one placeholder, `weapons.sword`. Later: per-weapon-type sprites (sword, spear, bow…) and possibly per-frame weapon poses; anchors for guard/cast frames when those exist.
 - Shields are stowed (not drawn) when idle or walking, and could appear in a future guard frame as another layer.
 - Planned single frames: hurt, guard, KO, cast (hit flash and fade for now).
-- Each frame: shared ~20-colour palette and a 1 px #341E14 outline.
+- Each frame: shared ~20-color palette and a 1 px #341E14 outline.

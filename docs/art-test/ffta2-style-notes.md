@@ -25,9 +25,9 @@ Reference images are kept on the box only (`/workspace/art-ref/ffta2/`, contact 
 ## How this differs from our round 3 art
 - Round 3 is **muted, desaturated, earthy, with watercolor wash** (closer to the Dojen and Yoshida reference). FFTA2 is **brighter, cleaner cel shading** with more saturated primaries.
 - Round 3 lines are sketchy and variable. FFTA2 lines are **thin, even and clean**.
-- Round 3 faces are semi-realistic (Renaud especially). FFTA2 faces are **smaller-nosed, bigger-eyed and slimmer-jawed**.
+- Round 3 faces are semi-realiztic (Renaud especially). FFTA2 faces are **smaller-nosed, bigger-eyed and slimmer-jawed**.
 - Round 3 has grounded soft shadows. FFTA2 art has **little to no shadow**.
-- Round 3 battle figures were about 2× too big and realistically proportioned. FFTA2 sprites are **about 30 px chibis at 2.5–3 heads, 1 tile wide**.
+- Round 3 battle figures were about 2× too big and realiztically proportioned. FFTA2 sprites are **about 30 px chibis at 2.5–3 heads, 1 tile wide**.
 - Decision point: Dojen's look fits the full-body illustrations, while FFTA2 fits the **portraits and sprites**. One option is Dojen-ish character art with FFTA2-rule portraits and sprites.
 
 ## GenerateImage prompt blocks
@@ -35,7 +35,7 @@ Reference images are kept on the box only (`/workspace/art-ref/ffta2/`, contact 
 > Official-style character illustration for a handheld tactics RPG, full body, standing three-quarter pose, plain pure white background, no cast shadow. Thin clean even sepia-brown ink linework with detailed straps, buckles and fabric folds. Flat cel colors with light soft airbrush shading, bright saturated storybook palette (clear reds, blues, greens on warm earth tones). Slender youthful anime proportions about 7 heads tall, long legs, oversized chunky boots, layered asymmetric costume. Large almond eyes, tiny nose, small mouth, narrow pointed jaw. Character: [DESCRIPTION].
 
 **Dialogue portrait:**
-> Pixel-art dialogue portrait, 64×96 px native, head-and-shoulders bust facing three-quarter right, top of head slightly cropped, transparent background. 1 px dark-brown outline, no anti-aliasing, 3–4 tone cel shading, glossy hair highlights, big bright anime eyes, slim jaw, tiny nose. Bright saturated palette. Character: [DESCRIPTION]. Render at 4× nearest-neighbour.
+> Pixel-art dialogue portrait, 64×96 px native, head-and-shoulders bust facing three-quarter right, top of head slightly cropped, transparent background. 1 px dark-brown outline, no anti-aliasing, 3–4 tone cel shading, glossy hair highlights, big bright anime eyes, slim jaw, tiny nose. Bright saturated palette. Character: [DESCRIPTION]. Render at 4× nearest-neighbor.
 
 **Battle sprite:**
-> Pixel-art isometric battle sprite, about 30 px tall in a 32×32 cell, chibi 2.5–3 heads tall, facing down-left, 1 px dark outline, 3-colour ramps per material, bold hair or hat colour for readability, transparent background, standing on a 32×16 px iso grass tile. Character: [DESCRIPTION]. Render at 4× nearest-neighbour.
+> Pixel-art isometric battle sprite, about 30 px tall in a 32×32 cell, chibi 2.5–3 heads tall, facing down-left, 1 px dark outline, 3-color ramps per material, bold hair or hat color for readability, transparent background, standing on a 32×16 px iso grass tile. Character: [DESCRIPTION]. Render at 4× nearest-neighbor.

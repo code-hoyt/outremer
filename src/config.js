@@ -253,7 +253,7 @@ export const CONFIG = {
     classes: ['knight', 'sergeant', 'archer', 'skirmisher'],
     classLabel: { knight: 'Knight', sergeant: 'Sergeant', archer: 'Archer', skirmisher: 'Scout' },
     classBlurb: {
-      knight: 'Heavy armour and a shield. Tough anchor, slow over rough ground.',
+      knight: 'Heavy armor and a shield. Tough anchor, slow over rough ground.',
       sergeant: 'Spear. Solid all-rounder that holds a line at reach 2.',
       archer: 'Bow. Fragile, sure-footed, deadly from high ground.',
       skirmisher: 'Light and quick. Climbs anything, lives for an exposed back.',
@@ -327,7 +327,7 @@ export const CONFIG = {
         skittishAdj: 2,
       },
     },
-    // allied NPC in a recruit mission (AI-driven, must survive): turn-strip / info colour
+    // allied NPC in a recruit mission (AI-driven, must survive): turn-strip / info color
     npcLabel: 'Ally',
   },
 
@@ -479,7 +479,7 @@ export const CONFIG = {
     tile: [60, 30],            // iso diamond, art px
     step: 15,                  // height step, art px
     cell: [64, 68],            // sprite cell, art px
-    anchor: [31, 63],          // feet point in the cell; planted on the tile centre
+    anchor: [31, 63],          // feet point in the cell; planted on the tile center
     unitCap: 60,               // max figure height, art px
     // 8-dir standing strip, left to right on stand.png
     standFacings: ['down-right', 'front', 'down-left', 'left', 'up-left', 'back', 'up-right', 'right'],
@@ -495,8 +495,8 @@ export const CONFIG = {
     // art px above the highest tile's top vertex, for the sprite plus HP bar and status pips:
     // (anchor y − tile height / 2) + 18
     headroom: 66,
-    // Planting (locked, Cletus 2026-11-11): units are centred on the tile by their body, not their feet.
-    // Horizontal body centre, art px, from the standing cell of each facing (shoulders-to-hips
+    // Planting (locked, Cletus 2026-11-11): units are centered on the tile by their body, not their feet.
+    // Horizontal body center, art px, from the standing cell of each facing (shoulders-to-hips
     // opaque COM, rounded). Walk frames of a facing share this so he does not jitter sideways.
     bodyCenterX: {
       'down-right': 35, // stand COM 34.87; offset from feet anchor +4

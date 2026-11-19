@@ -17,7 +17,7 @@
 |---|---|---|
 | Equipment slots | 5 general slots ✓✓ | 5 general slots ✓✓ |
 | Ability slots | Job command set + 1 secondary set + 1 Reaction + 1 Support (+ Combo) ✓✓ | Job command set + 1 secondary set + 1 Reaction + 1 Passive ✓✓ |
-| How abilities are learned | From equipment, by earning AP after battles ✓✓. **Action abilities come only from weapons** ✓ | From equipment, by earning AP ✓✓. Action abilities can be taught by weapons, armour or accessories ✓ |
+| How abilities are learned | From equipment, by earning AP after battles ✓✓. **Action abilities come only from weapons** ✓ | From equipment, by earning AP ✓✓. Action abilities can be taught by weapons, armor or accessories ✓ |
 | Do learned abilities carry over? | Yes, to any job ✓✓ | Yes, to any job ✓✓ |
 | How gear is bought | Shops, mission rewards, a few trade or loot-only items (the Mythril combo weapons) ✓ | **Bazaar**: trade in loot to unlock items for sale ✓✓ |
 | Job unlocks | Master 1–5 action abilities in prerequisite jobs ✓✓ | Master 1–4 action abilities in prerequisite jobs ✓✓, plus about 22 quest-locked jobs ✓ |
@@ -34,8 +34,8 @@
 
 | | FFTA | FFTA2 |
 |---|---|---|
-| Layout | 5 slots: a weapon, then 4 slots for armour, a shield or accessories. Most units wear 1 weapon, 1 body armour and 1 head piece, and the other 2 slots take accessories, a shield, or a two-handed weapon ✓✓ [S3][S9] | Same 5-slot shape ✓✓ [S5][S10] |
-| Limits per type | At most 1 shield, 1 head piece and 1 body armour. At most 1 pair of boots and 1 pair of gloves. "Other" accessories (rings and the like) stack, up to 5 on a unit wearing nothing else ✓ [S9] | Same limits ✓ [S10]. One difference: in FFTA2 a unit with no weapon could wear two shields, and in FFTA it couldn't ✓ [S9] |
+| Layout | 5 slots: a weapon, then 4 slots for armor, a shield or accessories. Most units wear 1 weapon, 1 body armor and 1 head piece, and the other 2 slots take accessories, a shield, or a two-handed weapon ✓✓ [S3][S9] | Same 5-slot shape ✓✓ [S5][S10] |
+| Limits per type | At most 1 shield, 1 head piece and 1 body armor. At most 1 pair of boots and 1 pair of gloves. "Other" accessories (rings and the like) stack, up to 5 on a unit wearing nothing else ✓ [S9] | Same limits ✓ [S10]. One difference: in FFTA2 a unit with no weapon could wear two shields, and in FFTA it couldn't ✓ [S9] |
 | Accessories | Any job can wear them. Shoes give MOV, JUMP or Evade (Sprint Shoes MOV+1, Spiked Boots JUMP+1) ✓✓ [F9][S9]. In FFTA, shoes teach no abilities ✓ [F9] | Any job can wear them ✓ [S10]. Some teach abilities (Spiked Boots teach Avoid Traps to Rangers) ✓ [F10]. **Scion accessories** are needed to summon ✓✓ [S5][F14] |
 
 **One-handed, two-handed and dual wield** (the same in both games except where noted):
@@ -46,19 +46,19 @@
 | **Monkey Grip** (support) | Hold a two-handed weapon in one hand, so you can carry a shield too. It only matters for the few jobs that can already use shields: 3 jobs in FFTA, 6 in FFTA2. For everyone else it's a dead pick. | ✓✓ [F6][S9][S10] |
 | **Doublehand** (support) | Hold a one-handed weapon in both hands for more damage | ✓✓ [F6][S8] |
 | **Dual Wield / "Double Sword"** (support, Ninja) | A weapon in each hand, so you attack twice. Only one-handed Hume-type weapons qualify, not rapiers, spears, maces, guns and so on. In FFTA it costs 999 AP. | ✓✓ [F6][S8][S10] |
-| **Shieldbearer** (support) | Any job can use shields. FFTA2 also has **Ribbon-bearer** (ribbons) and **Tank** (heavy armour). There is **no Equip Sword or Equip Axe** in either game: weapons stay locked to the job, and only shields and armour have escape hatches. | ✓ [F12] (FFT had Equip-weapon abilities; FFTA/A2 dropped them) |
+| **Shieldbearer** (support) | Any job can use shields. FFTA2 also has **Ribbon-bearer** (ribbons) and **Tank** (heavy armor). There is **no Equip Sword or Equip Axe** in either game: weapons stay locked to the job, and only shields and armor have escape hatches. | ✓ [F12] (FFT had Equip-weapon abilities; FFTA/A2 dropped them) |
 
 ### 2.2 How each job limits gear
 
 - **Weapons:** each weapon type is owned by a few jobs. For example, Paladins use knightswords and greatswords, and FFTA2 Soldiers use swords and greatswords ✓✓ [F11][F16][F17]. A weapon you can't equip can't teach you anything.
-- **Armour:** each job has a list of armour types (helms, hats, ribbons, heavy armour, light armour, robes, shields). For example, the FFTA Paladin wears helms, robes, heavy armour and shields, and the FFTA2 Soldier wears hats, helms, heavy, light and shields ✓✓ [F11][F16].
+- **Armor:** each job has a list of armor types (helms, hats, ribbons, heavy armor, light armor, robes, shields). For example, the FFTA Paladin wears helms, robes, heavy armor and shields, and the FFTA2 Soldier wears hats, helms, heavy, light and shields ✓✓ [F11][F16].
 - **Race limits come first:** a job only exists for certain races, so gear access follows race too ✓✓ [F2][S6].
 
 ### 2.3 What equipment gives you
 
-1. **Stats.** Weapons give Attack, and armour gives Defense and Resistance. FFTA2 armour also lists Evade and Speed ✓✓ [F7][F8].
+1. **Stats.** Weapons give Attack, and armor gives Defense and Resistance. FFTA2 armor also lists Evade and Speed ✓✓ [F7][F8].
 2. **Abilities to learn.** Each item lists abilities, *each tied to specific jobs*: for example, "Shieldbearer (Soldier)". While the item is equipped and the unit is in a job that can learn the ability, the ability can be used and it collects AP. Once mastered, the item isn't needed anymore ✓✓ [F1][S5][S6].
-3. **Built-in effects.** Elements, status immunity, and MOV, JUMP or Speed bonuses. Some items have odd perks: the FFTA2 Knightsword, Sequencer and Peytral get stronger with Opportunity Commands ✓ [F15]. ⚠ The Japanese wiki says **FFTA armour elements did nothing**, and FFTA2 made them work ✓ [S9].
+3. **Built-in effects.** Elements, status immunity, and MOV, JUMP or Speed bonuses. Some items have odd perks: the FFTA2 Knightsword, Sequencer and Peytral get stronger with Opportunity Commands ✓ [F15]. ⚠ The Japanese wiki says **FFTA armor elements did nothing**, and FFTA2 made them work ✓ [S9].
 4. **Scions** (FFTA2): one accessory per Scion, each usable once per battle ✓✓ [S5][F14].
 
 ### 2.4 Shops, loot and the FFTA2 bazaar
@@ -68,9 +68,9 @@
 
 ### 2.5 FFTA vs FFTA2: equipment differences
 
-- FFTA2 lets armour and accessories teach more of the ability list. In FFTA, action abilities come from weapons only ✓ [F1][F2].
+- FFTA2 lets armor and accessories teach more of the ability list. In FFTA, action abilities come from weapons only ✓ [F1][F2].
 - FFTA2's bazaar makes gear depend on random loot drops. FFTA's shops were straightforward. Players' biggest complaint is in section 5.
-- FFTA2 armour elements work, two shields are possible, and it adds the Tank and Ribbon-bearer escape hatches.
+- FFTA2 armor elements work, two shields are possible, and it adds the Tank and Ribbon-bearer escape hatches.
 
 ---
 
@@ -216,15 +216,15 @@ On a phone that's one unit screen with about 10 rows (5 gear, 2 sets, 3 passives
 | Option | Slots |
 |---|---|
 | **D1. Fixed 5 (recommended)** | Weapon · Off-hand (shield, or empty if two-handed) · Head · Body · Charm. Fixed slots are easier on a phone than FFTA's flexible ones. |
-| D2. FFTA2 flexible 5 | 1 weapon plus 4 general slots that take armour, a shield or stackable accessories. More room to tinker, but harder to read and easier to break. |
-| D3. Slim 3 | Weapon · Armour · Charm. Fastest, but fewer gear decisions and fewer things to teach from. |
+| D2. FFTA2 flexible 5 | 1 weapon plus 4 general slots that take armor, a shield or stackable accessories. More room to tinker, but harder to read and easier to break. |
+| D3. Slim 3 | Weapon · Armor · Charm. Fastest, but fewer gear decisions and fewer things to teach from. |
 
-**E. How armour is gated**
+**E. How armor is gated**
 
 | Option | What it is |
 |---|---|
 | **E1. By weight, not class (recommended)** | Light, Medium and Heavy. Heavier means more DEF but **−MOV and/or −JUMP**. This is pillar 3 word for word. Any class can wear any weight and pays in movement. Shields stay class-gated, with Equip Shields as the escape hatch. Weapons stay class-gated (locked). |
-| E2. By class (FFTA) | Each class has an armour list. Clear identity, less freedom. |
+| E2. By class (FFTA) | Each class has an armor list. Clear identity, less freedom. |
 | E3. By class, with a "Tank"-style escape passive | FFTA2's way. |
 
 **F. What a piece of gear gives**
@@ -251,7 +251,7 @@ On a phone that's one unit screen with about 10 rows (5 gear, 2 sets, 3 passives
 
 | Class | Class set (signature first) | Passives it teaches (anyone can carry them) | Gear notes |
 |---|---|---|---|
-| Templar Knight | **Smite**, then learnables (from the kept ideas: Judgement, Crusader's Charge, Shield Bash of Faith…) | **Last Stand** | 1-handed sword + shield only. Teaches Equip Shields? (TBD) |
+| Templar Knight | **Smite**, then learnables (from the kept ideas: Judgment, Crusader's Charge, Shield Bash of Faith…) | **Last Stand** | 1-handed sword + shield only. Teaches Equip Shields? (TBD) |
 | Oath Mage | Oaths (Attack, Defense, Jump, Speed…). ⚠ A signature oath? | (TBD) | Weapon TBD |
 | Shieldbrother | **Guard**, **Ridge-Warden**, + learnables (Lock Shields, Bonebreaker, Shield Shove) | **Christopher**, **Pack-Bulwark** ⚠ (a race-themed passive: can a non-Cyno carry it?) | Mace + shield |
 | Roost-Keeper | Roosts + flock carry, **Pecking Swarm**, **Murmuration** ⚠ (no signature named yet) | (TBD) | Weapon TBD |
@@ -266,7 +266,7 @@ On a phone that's one unit screen with about 10 rows (5 gear, 2 sets, 3 passives
 3. **Borrowed set:** any class with 1+ mastered ability, no signature, borrowed weapon abilities still need the weapon (recommended)? Or the same family only, or no borrowed set?
 4. **Reaction cap:** if the pool is shared, at most one reaction per unit (recommended)?
 5. **Equipment slots:** fixed 5, Weapon · Off-hand · Head · Body · Charm (recommended)? Or FFTA2's flexible 5, or a slim 3?
-6. **Armour gating:** by weight with a MOV/JUMP cost and open to every class (recommended)? Or by class list?
+6. **Armor gating:** by weight with a MOV/JUMP cost and open to every class (recommended)? Or by class list?
 7. **Charm slot:** 1 (recommended) or 2?
 8. **What gear teaches:** 1–2 abilities per item, tied to listed classes, shop-bought, with loot giving only variants (recommended)?
 9. **AP:** only for units that fought (recommended)? Or FFTA2's whole-clan AP? And how many battles per ability: 3–5 (recommended)?
@@ -309,7 +309,7 @@ On a phone that's one unit screen with about 10 rows (5 gear, 2 sets, 3 passives
 - [S6] GameFAQs, FFTA2 Guide by Dark_Vortex (1 R and 1 S; AP for non-participants): https://gamefaqs.gamespot.com/ds/937330-final-fantasy-tactics-a2-grimoire-of-the-rift/faqs/53446
 - [S7] LP Archive, FFTA2 "Jobs 101" (4 ability slots; about 22 quest jobs): https://lparchive.org/Final-Fantasy-Tactics-A2-Grimoire-of-the-Rift/Update%2077/
 - [S8] MythrilMoth, FFTA Skill List (2 A slots, 1 R, 1 S): http://www.mythrilmoth.net/ffta/skills.html
-- [S9] FF用語辞典 Wiki, FFTA equipment list (slot limits, two-hand and dual-wield rules, armour elements did nothing): https://wikiwiki.jp/ffdic/データ/装備品一覧/FFTA
+- [S9] FF用語辞典 Wiki, FFTA equipment list (slot limits, two-hand and dual-wield rules, armor elements did nothing): https://wikiwiki.jp/ffdic/データ/装備品一覧/FFTA
 - [S10] FF用語辞典 Wiki, FFTA2 equipment list (same, for FFTA2; Monkey Grip only useful on 6 jobs): https://wikiwiki.jp/ffdic/データ/装備品一覧/FFTA2
 - [S11] Wikipedia 2007 snapshot, FFTA (A, R, S and C ability types; Item as the default secondary): https://wikipedia2007.classicistranieri.com/en/f/i/n/Final_Fantasy_Tactics_Advance_1692.html
 - [S12] GameFAQs, FFTA Ability FAQ by NeoBlitz (AP costs): https://gamefaqs.gamespot.com/gba/560436-final-fantasy-tactics-advance/faqs/26226

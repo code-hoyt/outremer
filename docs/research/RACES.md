@@ -48,7 +48,7 @@ If Q13 later says races do not change movement, bake the movement notes below in
 
 ## 2. Mythology and folklore survey
 
-Favour Silk Road, Mediterranean and Near East-adjacent beings, because the other world should feel like a medieval person in Outremer might have believed it. The Crusades-era "marvels of the East" and Prester John letters are unusually fair game: they are how 12th- and 13th-century writers already imagined other peoples. Wildcards are included, then set down if they clash with Peri or with living religion.
+Favor Silk Road, Mediterranean and Near East-adjacent beings, because the other world should feel like a medieval person in Outremer might have believed it. The Crusades-era "marvels of the East" and Prester John letters are unusually fair game: they are how 12th- and 13th-century writers already imagined other peoples. Wildcards are included, then set down if they clash with Peri or with living religion.
 
 **Persian / Zoroastrian.** Peri are already in (later Persian folklore made them beautiful, often wing-bearing fairies; older Avestan *pairikā* were hostile witches). That later "doing good to be restored" flavour rhymes loosely with the Redeemed, but should not be turned into backstory unless we choose it later. **Div** (daevas) are better as profane enemies or as a path into the Redeemed, not a starting playable race. **Simurgh** (Avestan *Saēna*) is a great composite bird of healing and protection; Sasanian art often gives it a dog-like head, lion limbs and peacock wings. **Huma** is a later fortune-bird and is too close to Peri and Simurgh to be a third winged people.
 
@@ -64,7 +64,7 @@ Favour Silk Road, Mediterranean and Near East-adjacent beings, because the other
 
 **Norse, Celtic, Slavic.** Dvergr (craft, stone, underground), jotnar (size), álfar and sidhe (both drift toward "human with slight otherworld tells"), selkies (human until they shift), vila / samodiva (often winged warrior-nymphs: a Slavic Peri). These are playable in another game. Here they are wildcards, and most either overlap Peri or feel imported from a northern campaign.
 
-**Japanese, Chinese, Egyptian, African.** Tengu and kitsune, *huli jing* and dragon-blooded *long* descendants, ba-birds and sphinx-kin, Anansi-kin, the Abada, the Angolan kishi: all interesting, all a long way from Outremer unless someone is a far traveller from a Prester John east. A sphinx-kin would also collide with shedu. Skip as starting races; any one of them could appear later as a unique recruit without becoming a fourth anatomy.
+**Japanese, Chinese, Egyptian, African.** Tengu and kitsune, *huli jing* and dragon-blooded *long* descendants, ba-birds and sphinx-kin, Anansi-kin, the Abada, the Angolan kishi: all interesting, all a long way from Outremer unless someone is a far traveler from a Prester John east. A sphinx-kin would also collide with shedu. Skip as starting races; any one of them could appear later as a unique recruit without becoming a fourth anatomy.
 
 **What I am not recommending as a base race:** Biblical Nephilim or Anakim; generic elves or "Outlander humans with a slight glow" unless Q10 goes that way for the heroes only; Div, ghul, oni, rakshasa and similar as starting playable stocks (enemy or Redeemed material); Laguz-style shifters; nasnas, blemmyes and sciapods as the face of a people.
 
@@ -100,7 +100,7 @@ Eight candidates to pair with Humans and Peri. All names are placeholders. Movem
 - **Fantasy:** Stocky mountain craft-folk who raise storms and work metal as if it were a language.
 - **Silhouette at 60 px:** Shorter than a Human but much broader than a Peri; heavy shoulders, thick limbs, a distinctive cap, braid or smith's apron, perhaps faint spark or spine-like hair. No wings. Mass should read even without a horned head.
 - **Move / jump:** Strong on rubble, slope and mountain tiles; poorer on open sand or mud.
-- **Race-locked flavours:** smith-warrior; storm-caller; armourer or artificer (a craft class that is not a Moogle joke).
+- **Race-locked flavours:** smith-warrior; storm-caller; armorer or artificer (a craft class that is not a Moogle joke).
 - **Setting fit:** Unusually good. Georgia is a Christian kingdom on the edge of this world, and crusader-era writers knew the Caucasus as a place of marvels. Gives us a heavy people without going Biblical-giant or generic dwarf.
 - **Sensitivity:** Living heritage. Do not make them comic ugly goblins, even if some tales do. They are a people of craft and weather, not a punchline.
 
@@ -132,7 +132,7 @@ Eight candidates to pair with Humans and Peri. All names are placeholders. Movem
 - **Move / jump:** High MOV, a horizontal pounce (distance, not Peri's height hop). Perhaps weaker under heavy magic, as a trade-off.
 - **Race-locked flavours:** duellist; holy champion; berserker.
 - **Setting fit:** Lions are already the shared emblem of this region and this period (Persian, Assyrian, heraldic, Lionheart). The look is period, not a modern cat-person import.
-- **Sensitivity:** Keep the design heraldic and Near Eastern. Avoid tribal pastiche, "noble savage" copy, and generic furry-catalogue faces.
+- **Sensitivity:** Keep the design heraldic and Near Eastern. Avoid tribal pastiche, "noble savage" copy, and generic furry-catalog faces.
 
 ### Vishap
 
@@ -151,7 +151,7 @@ Eight candidates to pair with Humans and Peri. All names are placeholders. Movem
 - **Silhouette at 60 px:** Taller than Humans, a raptor or crested head, full wings. Very clear, and very close to Peri if the wings are the first thing you see. Differentiate with size and plumage, or do not pair them with Peri.
 - **Move / jump:** A real glide or a high JUMP, which is a different verb from Peri's short hop but still competes for the "air" niche.
 - **Race-locked flavours:** sky warden; healer (the Simurgh as all-healing tree-bird); messenger.
-- **Setting fit:** Excellent on paper, same cultural neighbourhood as Peri. That is also the problem: two Iranian winged peoples in a four-race game.
+- **Setting fit:** Excellent on paper, same cultural neighborhood as Peri. That is also the problem: two Iranian winged peoples in a four-race game.
 - **Sensitivity:** Folklore and court art, not a current cult image in the way Garuda can be. Still, do not copy sacred temple forms from living faiths under a new name.
 
 ---
@@ -160,7 +160,7 @@ Eight candidates to pair with Humans and Peri. All names are placeholders. Movem
 
 **Recommended four:** Humans, Peri, **Shedu**, and **Ifriti**.
 
-That is a clean triangle of roles around the Human generalist: Peri is small, quick, and hops; Shedu is large, heavy, and holds a gate; Ifriti are the magical, elemental middle, with horns and fire instead of wings. All three non-Human traditions sit in the same Near Eastern and Silk Road neighbourhood as Outremer, and Shedu in particular have a natural conversation with holy and profane ground (they are threshold wardens). Visually they should not collide if Shedu wings stay architectural and heavy, Peri wings stay faint and small, and Ifriti have no wings at all. The risk to watch in art is the Ifriti silhouette: if the horns and ember hair are timid, they will look like Humans. That is a brief for Guilhem, not a reason to drop them.
+That is a clean triangle of roles around the Human generalist: Peri is small, quick, and hops; Shedu is large, heavy, and holds a gate; Ifriti are the magical, elemental middle, with horns and fire instead of wings. All three non-Human traditions sit in the same Near Eastern and Silk Road neighborhood as Outremer, and Shedu in particular have a natural conversation with holy and profane ground (they are threshold wardens). Visually they should not collide if Shedu wings stay architectural and heavy, Peri wings stay faint and small, and Ifriti have no wings at all. The risk to watch in art is the Ifriti silhouette: if the horns and ember hair are timid, they will look like Humans. That is a brief for Guilhem, not a reason to drop them.
 
 **Alternate four:** Humans, Peri, **Kaji**, and **Cynocephali**.
 

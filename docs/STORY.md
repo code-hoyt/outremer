@@ -5,7 +5,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Core (locked 2026-11-09)
 - **What the player should feel at the end:** satisfied and happy. The heroes win, and the win is earned.
 - **Moral frame:** the Christian knights are the good guys. Show it through their deeds (keeping vows when it costs them, protecting the weak, mercy, staying true) rather than telling it.
-- **Tone:** a clear, triumphant, heroic story, closer to classic Final Fantasy or Tolkien than to something grim and grey.
+- **Tone:** a clear, triumphant, heroic story, closer to classic Final Fantasy or Tolkien than to something grim and gray.
 
 ## Antagonists (locked 2026-11-09)
 - **Both:** a human antagonist early on who turns out to serve a darker power.
@@ -27,7 +27,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 
 ## Mechanic idea: holy and profane ground (leaning, 2026-11-09)
 - Territory you hold is holy, and enemy territory is profane.
-- Map nodes are worth taking for what they offer (shops, mercenaries, upgrades, saint summons). Winning a node consecrates it; profane nodes favour demons.
+- Map nodes are worth taking for what they offer (shops, mercenaries, upgrades, saint summons). Winning a node consecrates it; profane nodes favor demons.
 - It comes out of which battles you choose. Different node priorities make each playthrough different.
 
 ## Opening and the scattered squad (locked 2026-11-09)
@@ -54,7 +54,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Classes and backstories (locked 2026-11-09)
 - **Tristan, Templar knight:** a sword and shield frontliner and solid all-rounder. A younger son of minor nobility who took the vows because the family had nothing else to give him. Sincere about the order, quietly unsure about God.
 - **Aveline, battlefield medic who grows into a Saint-Caller:** a healer who learns to call on saints in the other world. She served in the Hospital tending wounded soldiers and is the one in her family who always holds everything together.
-- **Godric, heavy hitter:** a big axe or mace, high damage and charges over defence. An English or Saxon-born common sergeant, quick to anger and fiercely loyal to Tristan, who once stood up for him.
+- **Godric, heavy hitter:** a big axe or mace, high damage and charges over defense. An English or Saxon-born common sergeant, quick to anger and fiercely loyal to Tristan, who once stood up for him.
 - **Lucien, skirmisher and scout:** fast and clever, with a bow or twin blades. Aveline's younger brother, bright and ambitious, resentful of being overlooked; the cult uses that resentment to turn him.
 
 ## Story beats to keep
@@ -79,7 +79,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Act 1 opening (LOCKED 2026-11-09)
 - **The mission:** the squad (Tristan, Aveline, Godric, Lucien) is part of a Templar detachment sent to Guérin de Montclair's castle after a call for help about Satanists.
 - **The call for help:** a frightened castle chaplain wrote to the Templars behind Guérin's back. When the squad arrives, the chaplain has "gone to visit his sister." His body is later found in the cellars.
-- **Guérin as gracious host:** he is warm, charming and dismissive ("Rumours, brothers. Peasants see devils in every shadow. But you're welcome to look, after supper."), and he quietly steers them away from the lower keep. Players should read it as pride or negligence, not villainy, so the Act 3 reveal still lands.
+- **Guérin as gracious host:** he is warm, charming and dismissive ("Rumors, brothers. Peasants see devils in every shadow. But you're welcome to look, after supper."), and he quietly steers them away from the lower keep. Players should read it as pride or negligence, not villainy, so the Act 3 reveal still lands.
 - **Pushing through:** a servant slips the squad a warning, and they inspect anyway.
 - **Lucien's seed:** he admires Guérin and argues that they should respect the baron's word. Tristan overrules him. This foreshadows Lucien's turn.
 - **The fight:** the descent into the cellars is the tutorial battle against human cultists, and it looks like an ordinary war fight. Then the ritual completes, the veil tears, and Tristan is pulled through. Aveline, Godric and Lucien see him fall and follow, and they are later separated.
@@ -117,7 +117,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 1. **The hunt:** Eighth Day puts the party on the trail of Vaskar and the shadowy figure. Missions close the distance, and the suspicion from the end of Act 2 gets harder to ignore.
 2. **The mask comes off:** they catch up at a rite where Simeon is opening or widening a tear. Lucien is there with Vaskar. The rescuer is confirmed. Aveline breaks, and Tristan steps up.
 3. **Two faces, one plan:** through the tear they glimpse Guérin in the real world, in communion with Simeon. The bound souls and the plan are revealed: the opening tear was only the first step, and they mean to take the real world for Sulthrane. Lucien hears it too. This is a glimpse, not a full return, so coming home in Act 4 still means something.
-4. **Lucien doubts:** he realises the war he joined is an invasion of his own home. He does not come back yet, but he also does not finish the party (a missed killing blow, or a path left open).
+4. **Lucien doubts:** he realizes the war he joined is an invasion of his own home. He does not come back yet, but he also does not finish the party (a missed killing blow, or a path left open).
 5. **The low point, and Vaskar's death:** Dismas kills Vaskar, finishing the beat that he cannot save his old friend, only end him. Lucien is there and fails to stop it. The rite still succeeds enough to matter, the battle still goes badly, and an Eighth Day stronghold falls, so the act does not end on a clean win. Tristan's faith is tested on the retreat and holds. No one dies here (none of the good guys die for good). The extra cost is a capture: a trusted hunter or an Eighth Day captain is taken in the fall of the stronghold (locked as capture for now, 2026-11-11), which can seed a rescue later.
 
 ## How Guérin dies (LOCKED 2026-11-09)
@@ -151,7 +151,7 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## The Hooded Figure and Lucien's encounters (WORKING DRAFT 2026-11-10, a good start, not loved yet; revisit)
 Goal: the player gets to know the Hooded Figure well before the unmasking, so the reveal lands as "I knew it!" or "No way!"
 1. **Mid Act 2, first sighting:** the Hooded Figure is seen at Vaskar's side, clearly a bad guy.
-2. **Act 2, the smuggling run:** the party learns Simeon's people are secretly smuggling weapons and sabotages the shipment. The Hooded Figure leads it; they fight him and he escapes. Clues begin, such as a fighting style Godric half-recognises, a bow or twin blades, a habit.
+2. **Act 2, the smuggling run:** the party learns Simeon's people are secretly smuggling weapons and sabotages the shipment. The Hooded Figure leads it; they fight him and he escapes. Clues begin, such as a fighting style Godric half-recognizes, a bow or twin blades, a habit.
 3. **Act 2, the false miracle:** he guards one of Simeon's "miracles" (a Fiend wearing a saint's light). The party exposes it, and he hesitates.
 4. **End of Act 2, the rescue (locked):** he pulls the beaten Vaskar out.
 5. **Act 3, the unmasking:** the hood comes off at Simeon's rite.

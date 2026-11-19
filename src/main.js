@@ -257,7 +257,7 @@ function resize() {
   const hz = (STEP * s) / dpr;
   const top = maxH * hz + tw / 4 + head * k;        // above oy
   const bottom = (n - 2) * tw / 4 + tw / 4 + hz;    // below oy
-  // Snap the origin so tile centres (and so sprite pixels) sit on the device-pixel grid.
+  // Snap the origin so tile centers (and so sprite pixels) sit on the device-pixel grid.
   const bx = Math.round((r.width / 2 - (S.w - S.h) * tw / 4) * dpr) / dpr;
   const by = Math.round(((r.height - top - bottom) / 2 + top) * dpr) / dpr;
   layout = { w: r.width, h: r.height, tw, k, hz, s, dpr,
@@ -271,7 +271,7 @@ function resize() {
 const cam = { x: 0, y: 0, tx: 0, ty: 0 };
 const clampCam = (c) => { c.x = Math.max(-layout.panX, Math.min(layout.panX, c.x)); c.y = Math.max(-layout.panY, Math.min(layout.panY, c.y)); };
 function applyCam() { clampCam(cam); layout.ox = layout.bx + cam.x; layout.oy = layout.by + cam.y; }
-// ease the camera so tile (x,y) is centred horizontally (only matters when zoomed past fit)
+// ease the camera so tile (x,y) is centered horizontally (only matters when zoomed past fit)
 function focusTile(x, y) {
   if (!layout) return;
   const c = { x: -(x - y) * layout.tw / 2 + (S.w - S.h) * layout.tw / 4, y: 0 };
@@ -414,7 +414,7 @@ function tristanPose(u, a, now) {
   if (a && a.type === 'move') return { sheet: 'walk', row: walkRow, col: Math.floor(now / ART.moveFrameMs) % 2 };
   return { sheet: 'walk', row: walkRow, col: Math.floor(now / ART.idleFrameMs) % 2 };
 }
-// Body-centred planting (locked, Cletus 2026-11-11): the torso centre sits on the tile centre.
+// Body-centered planting (locked, Cletus 2026-11-11): the torso center sits on the tile center.
 function tristanAnchorX(facingName) {
   const bx = ART.bodyCenterX && ART.bodyCenterX[facingName];
   return bx != null ? bx : ART.anchor[0];
@@ -733,7 +733,7 @@ function pointInDiamond(px, py, cx, cy, tw) {
   return Math.abs(px - cx) / (tw / 2) + Math.abs(py - cy) / (tw / 4) <= 1;
 }
 function pick(px, py) {
-  // units: among sprites under the finger, prefer valid targets while targeting, then the closest body centre
+  // units: among sprites under the finger, prefer valid targets while targeting, then the closest body center
   const now = performance.now();
   const k = layout.k;
   const hits = G.alive(S).map((u) => ({ u, p: unitScreenPos(u, now) }))
@@ -862,7 +862,7 @@ function pressDir(d) {
   setCursor(ui.cursor.x + dx, ui.cursor.y + dy);
 }
 
-function pressStep(step) { // vertical pad: move the menu highlight, skipping greyed items
+function pressStep(step) { // vertical pad: move the menu highlight, skipping grayed items
   if (picker) return pickerStep(step);
   if (!isPlayerTurn() || !(ui.mode === 'menu' || ui.mode === 'actmenu')) return;
   const items = menuItems();
@@ -966,7 +966,7 @@ async function doPlayerMove(x, y) {
   await moveWithBrace(u, ui.moveInfo.pathTo(x, y));
   if (S.over) return finish();
   if (u.hp <= 0) { G.endTurn(S); updatePanel(); setTimeout(nextTurn, 300); return; }
-  openMenu(); // menu returns; Move is greyed, B undoes the move (unless a brace stopped it)
+  openMenu(); // menu returns; Move is grayed, B undoes the move (unless a brace stopped it)
 }
 // walk a path; a braced foe's zone stops the walk and its thrust lands automatically (no prompt)
 async function moveWithBrace(u, path) {
@@ -1311,7 +1311,7 @@ function updatePanel() {
   syncPad();
 }
 
-// tap a menu item = highlight + A (stylus behaviour)
+// tap a menu item = highlight + A (stylus behavior)
 $('cmd').addEventListener('pointerdown', (e) => {
   const b = e.target.closest('[data-cmd]'); if (!b || b.disabled || !isPlayerTurn()) return;
   e.preventDefault();

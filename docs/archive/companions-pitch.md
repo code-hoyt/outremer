@@ -59,7 +59,7 @@
 
 **Who:** an Armenian whose family lost everything when Edessa fell. Now she hires out her bow to whichever lord is losing least. She's sharp-tongued and practical, and only pretends not to care. She keeps a ledger of what every side owes Armenians.
 
-**How she joins:** a defence map where she already holds a **watch-tower** as a green (allied AI) unit. If the tower is still yours at the end (no enemy standing on its top tiles), she joins "for now, at a price." If raiders take the tower, she slips away and may show up later on the other side as a sniper.
+**How she joins:** a defense map where she already holds a **watch-tower** as a green (allied AI) unit. If the tower is still yours at the end (no enemy standing on its top tiles), she joins "for now, at a price." If raiders take the tower, she slips away and may show up later on the other side as a sniper.
 
 **Trait: *Paid by the Height***
 - **Pro:** +1 max range and +10% crit when she shoots from **2+ levels above** her target, which turns Plunging Shot into her signature move.

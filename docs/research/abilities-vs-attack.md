@@ -7,10 +7,10 @@
 
 ## Summary
 - **"Just attack" is a math problem.** Players attack when Attack is free, full damage, always available and safe. They use abilities when the situation makes an ability clearly bigger, not +15%.
-- **In Outremer v0.4 the math favours Attack almost every time.** Every ability does 40–80% of Attack's damage and has a cooldown. The payoffs (fall 5 per level, slam 6) only roughly break even. Example: Shield Bash off a 1-level ledge does about 9 + 5 = 14, while a plain Knight attack does about 15.
+- **In Outremer v0.4 the math favors Attack almost every time.** Every ability does 40–80% of Attack's damage and has a cooldown. The payoffs (fall 5 per level, slam 6) only roughly break even. Example: Shield Bash off a 1-level ledge does about 9 + 5 = 14, while a plain Knight attack does about 15.
 - **What the best games did:**
   - make the situation decide the fight: displacement into hazards, objectives other than "kill all", and telegraphed enemy intent
-  - make plain hits cost something: counters and armour
+  - make plain hits cost something: counters and armor
   - make abilities "attack plus a rider" instead of a weaker attack
 - **The top five proposals for this slice:**
   1. Frontal riposte
@@ -61,8 +61,8 @@ Bash at best equals Attack and then goes on cooldown, and Feint loses. The 3000-
 | XCOM 2 | Cover makes plain shots bad; flanking shown in UI; abilities "big, obvious" | Fits (Overwatch is set on your own turn) |
 | Unicorn Overlord | Pre-set passive reactions (PP) with conditions, front/back rows | Fits very well ("from your own choices") |
 | Tactics Ogre Reborn | One MP pool for skills, auto-skills, buff cards on the field | Partly: random cards criticised |
-| Banner Saga | Strength = HP and damage; armour vs strength choice every hit; Willpower spend | Fits (Stage 2 material) |
-| DOS2 | Surfaces + teleport; armour gates control | Surfaces fit; armour gate is a warning |
+| Banner Saga | Strength = HP and damage; armor vs strength choice every hit; Willpower spend | Fits (Stage 2 material) |
+| DOS2 | Surfaces + teleport; armor gates control | Surfaces fit; armor gate is a warning |
 | Disgaea | Geo panels; Lift/Throw | Fits; can get busy |
 | FFTA / FFTA2 | Laws ban actions (e.g. swords); MP starts at 0 | Laws conflict with the pillars |
 | Tactical Breach Wizards | Knock enemies out of windows; rewind; each wizard's magic distinct | Fits |
@@ -89,12 +89,12 @@ Bash at best equals Attack and then goes on cooldown, and Feint loses. The 3000-
 - Smash weapons give up doubling for big damage plus a 1-tile knockback (extra damage into walls or units). This is an attack *upgrade*, not a replacement.
 - Backup units within range join an ally's attack automatically (Chain Attack).
 - Source: https://www.gamerguides.com/fire-emblem-engage/guide/walkthrough/gameplay/the-weapon-triangle-break-and-chain-attacks-explained
-- Three Houses shows the opposite. Most arts are slight damage boosts that cost durability and can't double, so players ignore them. The arts players praise change range or bypass a defence (Curved Shot, Point Blank Volley).
+- Three Houses shows the opposite. Most arts are slight damage boosts that cost durability and can't double, so players ignore them. The arts players praise change range or bypass a defense (Curved Shot, Point Blank Volley).
   - https://www.reddit.com/r/fireemblem/comments/l3z3y1/combat_arts_are_underutalised/
   - https://www.reddit.com/r/FireEmblemThreeHouses/comments/ck4ofh/are_combat_artes_spells_and_better_weapons_broken/
 
 ### Triangle Strategy: height, knockback, sandwiches
-- The devs' favourite moment: "knocking an enemy back while they're on higher ground… that feels good!" They also highlight the ice wall that blocks a path and lightning paralysis.
+- The devs' favorite moment: "knocking an enemy back while they're on higher ground… that feels good!" They also highlight the ice wall that blocks a path and lightning paralysis.
   - https://www.nintendo.com/us/whatsnew/get-insight-and-tips-for-triangle-strategy-from-the-devs-themselves/
 - How its systems work:
   - TP starts at 2 and grows by 1 per turn, while the basic attack is free.
@@ -121,7 +121,7 @@ Bash at best equals Attack and then goes on cooldown, and Feint loses. The 3000-
 
 ### Banner Saga: stats that make every hit a choice
 - Strength is both HP and damage, so a wounded unit hits weaker.
-- Every attack picks between hitting armour and hitting strength.
+- Every attack picks between hitting armor and hitting strength.
 - Classes have only one or two abilities, each distinctive.
 - Source: https://www.polygon.com/gaming/2012/9/28/3412786/the-banner-saga-is-a-strategy-rpg-that-makes-stats-matter/
 
@@ -132,7 +132,7 @@ Bash at best equals Attack and then goes on cooldown, and Feint loses. The 3000-
 - **Divinity: Original Sin 2.**
   - Teleport is loved because it moves enemies into surfaces or groups them.
     - https://www.reddit.com/r/DivinityOriginalSin2/comments/6mwur4/teleport_is_one_of_the_best_spell_and_maybe_needs/
-  - Its physical and magic armour, which blocks all crowd control until stripped, is criticised for turning fights back into a damage race.
+  - Its physical and magic armor, which blocks all crowd control until stripped, is criticised for turning fights back into a damage race.
     - https://www.reddit.com/r/DivinityOriginalSin/comments/71oo4u/physmag_armor_is_too_blackwhite_with_100_disable/
 - **Disgaea.** Lift/Throw and geo panels turn moving units into the main play.
   - https://disgaea.fandom.com/wiki/Geo_Effects
@@ -149,7 +149,7 @@ Bash at best equals Attack and then goes on cooldown, and Feint loses. The 3000-
 - **Displacement into something:** a ledge, a wall, a hazard, another enemy. Evidence: Into the Breach pushes, Triangle Strategy's height knockback, DOS2 teleport, Tactical Breach Wizards windows, Disgaea throws.
 - **Abilities that change the rules of a hit.** Examples:
   - range: Three Houses Curved Shot and Point Blank Volley
-  - ignoring a defence: Engage's Break and Smash
+  - ignoring a defense: Engage's Break and Smash
   - flank shot: XCOM
 - **Battlefield control you can see:** the ice wall that blocks a path, and paralysis (both from the Triangle Strategy devs).
 - **Free extras from positioning:** Triangle Strategy sandwich follow-ups, Engage chain attacks, and Unicorn Overlord passives. In the Triangle Strategy thread, players' carries were whoever "can exploit good positioning for follow-up and backstabs".
@@ -180,7 +180,7 @@ Bash at best equals Attack and then goes on cooldown, and Feint loses. The 3000-
 | Lever | Pillar verdict |
 |---|---|
 | Counters / riposte on frontal hits | Fits: automatic, and it makes facing matter more |
-| Enemies that resist plain hits (shields, armour) | Fits: keep it partial, since DOS2's all-or-nothing armour is the warning |
+| Enemies that resist plain hits (shields, armor) | Fits: keep it partial, since DOS2's all-or-nothing armor is the warning |
 | Terrain, ledges, hazards | Fits |
 | Objectives beyond kill-all | Fits |
 | Telegraphed intent | Fits (information, no prompts) |
