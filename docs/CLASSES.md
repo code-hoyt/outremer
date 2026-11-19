@@ -154,7 +154,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons (locked 2026-11-19):** perch staff only (a crook-topped staff the flock lands on).
 
-**Armor:** TBD.
+**Armor (locked 2026-11-19):** light armor only.
 
 **Signature:** not yet picked as a named signature action.
 
