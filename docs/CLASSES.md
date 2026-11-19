@@ -130,9 +130,12 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Reaction ideas not picked (2026-11-18):** Shield Ward (chance to fully block ranged physical attacks; needs a shield), Counterblow (weaker counter in melee that lowers the attacker's defense), Brace (ignore push and knockback, take a bit less damage), Stubborn Hide (ignore the first stat-lowering hit each battle).
 
-**Passives:** still to be designed. Kit ideas so far: **Christopher** (carry a wounded or stranded ally to safety, across water or up a ledge) and **Pack-Bulwark** (stronger the more Cynocephali are on the team) are equippable passives.
+**Passives (picked 2026-11-19):**
+- **Thick Skin**: physical damage taken is cut by a flat amount, but healing received is a bit weaker.
 
-**Kit status:** in progress. Weapons, armor and signature are locked; the rest of the kit is still to be designed.
+**Passive ideas not picked (2026-11-19):** Christopher (carry an adjacent wounded or stranded ally when moving, across water or up a ledge), Pack-Bulwark (+defense per other Cynocephalus on the team), Iron Jaw (immune to stun and sleep, slightly more magic damage taken), Heavy Footing (+1 defense per height tile above the attacker, −1 jump), Shoulder to Shoulder (+defense per adjacent ally, −defense alone), Scent of Blood (see every enemy's HP, small hit bonus under half HP), Loyal Hound (attack and defense up for the battle when an adjacent ally falls), Sure-Footed (no rough-ground move penalty, −1 jump), Watchdog (enemies entering an adjacent tile must stop).
+
+**Kit status:** complete (2026-11-19). Lean by design: 5 actions, 1 reaction, 1 passive; more can be added in balancing. Numbers go in `src/config.js`.
 
 **Ideas kept for later:** **Howler** (a war-cry guardian that draws attention and shakes enemy morale) is kept as its own future Cynocephali class.
 
