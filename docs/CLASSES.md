@@ -125,7 +125,10 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Action ideas not picked (2026-11-18):** Lock Shields (two adjacent Shieldbrothers get a big defense boost), Rally to Me (allies within 2 tiles step 1 tile toward it; costs its move).
 
-**Reactions:** still to be designed.
+**Reactions (picked 2026-11-18):**
+- **Pack Instinct**: when an adjacent ally is hit, this unit's next attack does extra damage.
+
+**Reaction ideas not picked (2026-11-18):** Shield Ward (chance to fully block ranged physical attacks; needs a shield), Counterblow (weaker counter in melee that lowers the attacker's defense), Brace (ignore push and knockback, take a bit less damage), Stubborn Hide (ignore the first stat-lowering hit each battle).
 
 **Passives:** still to be designed. Kit ideas so far: **Christopher** (carry a wounded or stranded ally to safety, across water or up a ledge) and **Pack-Bulwark** (stronger the more Cynocephali are on the team) are equippable passives.
 
