@@ -66,7 +66,7 @@ These are flagged because each one could change the plan, the schedule or the sc
    - How is the style kept consistent across chapters?
 
    If the bar isn't reached, M11 and M12 slip, or the scope narrows (fewer animations, shared bodies).
-6. **The audio trial (M4).** Nobody knows yet how good AI-made music and sound will be. The fallback is that Cletus makes them himself, which costs his time. Decide early so the slice schedule knows who owns audio.
+6. **The audio trial (M4).** Nobody knows yet how good AI-made music and sound will be. The fallback is that Cletus makes them himself, which costs his time. Decide early so the slice schedule knows who owns audio. **To-do at the start of M4 (Cletus, 2026-11-19):** add an audio plugin, ElevenLabs (sound effects, voice) and/or fal (music), to generate the trial set.
 7. **The story premise (before M11).** It's deliberately unwritten. M10 can be built with placeholder text, but Ch.1 content can't be final until the story session has happened.
 
 ## Not in the slice
