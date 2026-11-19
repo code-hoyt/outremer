@@ -116,7 +116,14 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Signature (locked 2026-11-17):** **Guard**, which picks one ally in range so that every attack on that ally hits the Shieldbrother instead until its next turn.
 
-**Actions:** still to be designed, besides Guard. Kit ideas so far: **Ridge-Warden** is an action ability (plant on a tile and become nearly immovable, holding high ground and chokepoints, but slow to move once dug in).
+**Actions (picked 2026-11-18):** five actions so far.
+- **Guard** (signature): pick one ally in range; every attack on that ally hits the Shieldbrother instead until its next turn.
+- **Ridge-Warden**: dig in on a tile and become almost impossible to move. Strong on high ground and chokepoints, but slow to get moving again.
+- **Shield Shove**: push an enemy back 1 tile (2 if it's light), with bonus damage if it hits a wall or falls off a ledge.
+- **Bonebreaker**: a mace blow that lowers the target's defense.
+- **Hold the Gate**: enemies can't move through the tiles next to the Shieldbrother until its next turn.
+
+**Action ideas not picked (2026-11-18):** Lock Shields (two adjacent Shieldbrothers get a big defense boost), Rally to Me (allies within 2 tiles step 1 tile toward it; costs its move).
 
 **Reactions:** still to be designed.
 
@@ -124,7 +131,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Kit status:** in progress. Weapons, armor and signature are locked; the rest of the kit is still to be designed.
 
-**Ideas kept for later:** Lock Shields, Bonebreaker and Shield Shove. **Howler** (a war-cry guardian that draws attention and shakes enemy morale) is kept as its own future Cynocephali class.
+**Ideas kept for later:** **Howler** (a war-cry guardian that draws attention and shakes enemy morale) is kept as its own future Cynocephali class.
 
 **Open questions:**
 - Tower shields might come later as separate equipment, but that isn't decided.
