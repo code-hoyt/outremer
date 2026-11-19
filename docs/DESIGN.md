@@ -192,7 +192,7 @@ CT, movement rules, the map-reachability rule, facing, the combat formula, enemy
 
 ## Classes (2026-11-09)
 - FFTA2-style: basic classes that unlock more advanced and unique options. This needs its own design discussion; it has not been designed yet.
-- **Class kits live in [CLASSES.md](CLASSES.md).** The five first race classes (Templar Knight kit complete 2026-11-18; Oath Mage, Shieldbrother, Rooster and Div-Hunter in progress) are at the top. The 2026-11-12 draft (13 core classes, older race-only sketches, hero unique-class sketches) is kept in the same file and marked where later locked decisions supersede it.
+- **Class kits live in [CLASSES.md](CLASSES.md).** The five first race classes (Templar Knight, Oath Mage and Shieldbrother kits complete; Rooster and Div-Hunter in progress) are at the top. The 2026-11-12 draft (13 core classes, older race-only sketches, hero unique-class sketches) is kept in the same file and marked where later locked decisions supersede it.
 
 ## Bestiary terms (LOCKED 2026-11-09)
 These words name different kinds of enemy, not competing labels for the same creature:
@@ -265,3 +265,6 @@ Research: [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md). Decided one questi
 12. **Extra systems (parked 2026-11-18):** meters/gauges, combo attacks and summons are parked for later; the core kit is proven first. Listed in TASKS.md Parking lot.
 13. **Equip abilities (locked 2026-11-18):** "Equip X" abilities (e.g. Equip Heavy Armor) use the single passive slot, so breaking a class's gear limits costs the unit its passive. No separate slot.
 14. **Item command (locked 2026-11-18):** Item is a set like any other and uses the borrowed (secondary) slot, so using items costs a unit its borrowed class set.
+
+## Field objects (locked 2026-11-19)
+Abilities can place **field objects** on the map, such as the Rooster's roost. A field object takes up one cell. Units next to it can interact with it through a command it grants (for example Use Roost). Enemies can use them too unless the object says otherwise. HP, whether objects can be destroyed, and limits per unit are still open.

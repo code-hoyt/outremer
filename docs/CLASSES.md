@@ -156,7 +156,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Armor (locked 2026-11-19):** light armor only.
 
-**Signature:** not yet picked as a named signature action.
+**Signature (locked 2026-11-19):** **Set Roost**. The Rooster places a roost, a field object that takes up one cell. Any unit standing next to a roost gets a **Use Roost** command: the flock picks it up and carries it to another roost (the teleport, called Flock Flight). Use Roost is open to enemies too. The roost is the move; the flight is what it enables (Cletus).
 
 **Actions (moves picked 2026-11-17):**
 - **Pecking Swarm:** the flock blankets a few tiles, lightly damaging and blinding enemies so they miss more
