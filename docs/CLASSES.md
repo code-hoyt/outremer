@@ -87,13 +87,17 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 - **Sworn Witness**: when an enemy hits this unit, that enemy is marked for 1 turn and allies deal more damage to it. Turns any tank into a target-painter.
 - **Last Word**: when a hit drops this unit below 25% HP, it immediately gets one free item or ability use.
 
-**Passives:** still to be designed. Candidates: Word Kept, Witness Me (should also be useful off-class).
+**Passives (picked 2026-11-18):**
+- **Word Kept**: any buff on this unit lasts 1 extra turn.
+- **Burden of the Law**: +1 to all stats while any law is active on this unit's team, −1 to all stats while none is.
 
-**Kit status:** in progress. Signature, actions and reactions done; passives still to be designed. Look notes (paper wards) live in [WORLD.md](WORLD.md#first-race-classes).
+**Kit status:** complete (2026-11-18). Numbers go in `src/config.js` during balancing. Look notes (paper wards) live in [WORLD.md](WORLD.md#first-race-classes).
 
 **Ideas kept for later:** Covenant-Keeper, Truthsayer, Ember-Sworn and Witness (other Ifriti class ideas).
 
 **Reaction ideas not picked (2026-11-18):** Ward Slip (chance to fully dodge magic), Debt Called (attacker of an adjacent ally loses MP), Steadfast Word (no knockback, move or interrupt when hit); earlier oath-dependent pitches Unbroken and Oathbound Retort.
+
+**Passive ideas not picked (2026-11-18):** Witness Me (allies within 2 tiles gain accuracy, this unit draws more aggro), Ink-Stained (items hit a 1-tile cross but weaker), Silver Tongue (enemy statuses and own buffs both expire a turn sooner).
 
 **Open questions:**
 - Still open: the list of limitations, and the numbers (which will go in `src/config.js`).
