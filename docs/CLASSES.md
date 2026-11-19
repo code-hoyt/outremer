@@ -161,6 +161,11 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 **Actions (moves picked 2026-11-17):**
 - **Pecking Swarm:** the flock blankets a few tiles, lightly damaging and blinding enemies so they miss more
 - **Murmuration:** a swirl of birds hides one ally, so attacks on them are likelier to miss until their next turn
+- **Messenger Bird (picked 2026-11-19):** send a bird to any ally on the map; that unit takes the very next turn, right after the Rooster's.
+
+**Roosts (locked 2026-11-19):** roosts have HP and can be destroyed by attacks from either side. Keeping your roosts up or knocking the enemy's down is a choice for the player, and enemies can wreck the player's plans by destroying them. There is no "remove roost" ability (Scatter the Roost rejected).
+
+**Action ideas not picked (2026-11-19):** Snatch, Carrion Call, Lookout.
 
 **Reactions:** still to be designed. The flock taking a hit for an ally is part of the toolkit, not yet slotted as a reaction.
 
@@ -168,7 +173,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Kit status:** in progress. Two moves are picked; the rest of the kit is still to be designed.
 
-**Ideas kept for later:** Snatch, Carrion Call, Messenger Bird, and Flock Size as a resource. Other Hoopoe-kin class ideas are listed under Racial callings above.
+**Ideas kept for later:** Flock Size as a resource. Other Hoopoe-kin class ideas are listed under Racial callings above.
 
 **Open questions:**
 - The numbers are still open.

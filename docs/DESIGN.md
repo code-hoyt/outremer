@@ -267,4 +267,6 @@ Research: [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md). Decided one questi
 14. **Item command (locked 2026-11-18):** Item is a set like any other and uses the borrowed (secondary) slot, so using items costs a unit its borrowed class set.
 
 ## Field objects (locked 2026-11-19)
-Abilities can place **field objects** on the map, such as the Rooster's roost. A field object takes up one cell. Units next to it can interact with it through a command it grants (for example Use Roost). Enemies can use them too unless the object says otherwise. HP, whether objects can be destroyed, and limits per unit are still open.
+Abilities can place **field objects** on the map, such as the Rooster's roost. A field object takes up one cell. Units next to it can interact with it through a command it grants (for example Use Roost). Enemies can use them too unless the object says otherwise.
+- **HP (locked 2026-11-19):** each object type is one of: has HP and can be destroyed by either side; indestructible; or not targetable at all. Destructible objects feed mission objectives (for example "destroy the obelisk before the timer runs out").
+- Limits on how many objects one unit can place are still open.
