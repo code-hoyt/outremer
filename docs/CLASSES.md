@@ -174,11 +174,11 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Reactions:** still to be designed. The flock taking a hit for an ally is part of the toolkit, not yet slotted as a reaction.
 
-**Passives:** still to be designed.
+**Passive:** **Featherfall (picked 2026-11-22):** this unit never takes fall damage; whenever it would, the birds catch it and lower it down. It can drop off high ledges, even on purpose, but it can't jump up them (no jump bonus) (Cletus).
 
-**Kit status:** in progress. Two moves are picked; the rest of the kit is still to be designed.
+**Kit status:** in progress. Nine actions and one passive are picked; reactions are next.
 
-**Reaction ideas (2026-11-22):** Flock Cover (chance the birds block a ranged attack) was liked. A general version, full immunity to ranged attacks (like the FFTA2 move), should go in the main archer class's move list (Cletus). Not picked yet: Scatter, Alarm Call, Peck Back, Stink Gland.
+**Reaction ideas (2026-11-22):** Flock Cover (chance the birds block a ranged attack) was liked. A general version, full immunity to ranged attacks (like the FFTA2 move), should go in the main archer class's move list (Cletus). Not picked yet: Scatter, Alarm Call, Peck Back, Stink Gland, Snake Hiss, Ruffle, Early Warning, Shared Burden.
 
 **Ideas kept for later:** Flock Size as a resource. Other Hoopoe-kin class ideas are listed under Racial callings above.
 
