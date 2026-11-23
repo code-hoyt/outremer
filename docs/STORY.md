@@ -160,6 +160,9 @@ Goal: the player gets to know the Hooded Figure well before the unmasking, so th
 - **Aveline never gives up on him (LOCKED):** she is always open to him and always asking him to come home, every time, right to the end. Her pleas start after the reveal.
 - **Set aside for now:** the spared village, the Dismas night ambush, the prisoner exchange, and fighting side by side against a Demon. Any of them could be swapped in.
 
+## Chapter 1 scope (locked 2026-11-23)
+- **Chapter 1 (the vertical slice) covers all of Act 1:** it opens with the castle prologue, where the cellar fight is the tutorial, and ends with the Demon fight at the holy stronghold, where Aveline arrives and the map game opens.
+
 ## Open questions
 - Refine the Hooded Figure and Lucien encounter run (Cletus is not in love with it yet).
 - The exact period.
