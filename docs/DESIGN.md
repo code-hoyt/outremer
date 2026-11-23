@@ -192,7 +192,7 @@ CT, movement rules, the map-reachability rule, facing, the combat formula, enemy
 
 ## Classes (2026-11-09)
 - FFTA2-style: basic classes that unlock more advanced and unique options. This needs its own design discussion; it has not been designed yet.
-- **Class kits live in [CLASSES.md](CLASSES.md).** The five first race classes (Templar Knight, Oath Mage and Shieldbrother kits complete; Rooster and Div-Hunter in progress) are at the top. The 2026-11-12 draft (13 core classes, older race-only sketches, hero unique-class sketches) is kept in the same file and marked where later locked decisions supersede it.
+- **Class kits live in [CLASSES.md](CLASSES.md).** The five first race classes (Templar Knight, Oath Mage, Shieldbrother and Rooster kits complete; Div-Hunter in progress) are at the top. The 2026-11-12 draft (13 core classes, older race-only sketches, hero unique-class sketches) is kept in the same file and marked where later locked decisions supersede it.
 
 ## Bestiary terms (LOCKED 2026-11-09)
 These words name different kinds of enemy, not competing labels for the same creature:
