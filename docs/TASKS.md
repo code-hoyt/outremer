@@ -13,7 +13,7 @@ Living list of open **design decisions**. Every locked decision is in [DECISIONS
 - All five first race-class kits are complete as of 2026-11-23 (numbers still open). Kits live in [CLASSES.md](CLASSES.md).
 
 ## Next
-- Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4. Locked story decisions already live in [STORY.md](STORY.md). **Locked 2026-11-23 (D-00211):** Chapter 1's multi-part mission is a 2-node quest that unlocks a hidden node. Still open for that session: what the 2-node quest is about, what the hidden node is or holds, Chapter 1's 6 side missions (including branch follow-ups and time-sensitive flags), and the Chapter 1 mythology hook. The Act 1 Demon's name stays in the Parking lot.
+- Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4. Locked story decisions already live in [STORY.md](STORY.md). **Locked 2026-11-23 (D-00211, D-00212):** Chapter 1's multi-part mission is a 2-node quest that unlocks a hidden forgotten chapel holding rare trade-off gear and a mythology clue. Still open for that session: what the 2-node quest is about, the chapel's name, the exact gear, the exact mythology clue, Chapter 1's 6 side missions (including branch follow-ups and time-sensitive flags), and the Chapter 1 mythology hook. The Act 1 Demon's name stays in the Parking lot.
 
 ## Waiting on Cletus
 Decisions only he can make.

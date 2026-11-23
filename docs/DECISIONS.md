@@ -1393,9 +1393,17 @@ Entry format:
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
-- Decision: Chapter 1's one multi-part mission is a 2-node quest that unlocks the hidden node discussed in the world-map research report. You can't return to town between the two legs (D-00045). The quest's plot and name, and what the hidden node is or holds, are still open.
+- Decision: Chapter 1's one multi-part mission is a 2-node quest that unlocks the hidden node discussed in the world-map research report. You can't return to town between the two legs (D-00045). The quest's plot and name are still open. What the hidden node is or holds is locked in D-00212.
 - Why: Cletus picked a two-node route that unlocks the hidden node from the world-map report, rather than the report's three-node pitch.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [research/2026-11-23-tactics-world-maps.md](research/2026-11-23-tactics-world-maps.md)
+
+### D-00212 · Chapter 1 hidden node: forgotten chapel
+- Date: 2026-11-23
+- Status: Active
+- Replaces: none
+- Decision: The hidden node unlocked by Chapter 1's 2-node multi-part mission (D-00211) is a forgotten chapel holding rare trade-off gear and an early mythology clue. The chapel's name, the exact gear, and the exact clue are still open.
+- Why: Cletus picked a forgotten chapel with rare trade-off gear and a mythology clue, to reward exploration in the slice and tie into the Templar and holy-ground feel.
+- Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
 ## Recruiting
 

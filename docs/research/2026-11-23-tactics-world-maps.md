@@ -1,6 +1,6 @@
 # How tactics RPGs build their world maps
 
-*Research report, 2026-11-23. Page: [How tactics RPGs build their world maps](https://cursor.com/canvas/store-77423492-0240-4ade-b23c-c31d2a9643f0/4b1991c2-f4e2-4bfc-809c-d820429048d9). Applied 2026-11-23: Option A for the slice, Option B from Chapter 2 (D-00210). Applied 2026-11-23: Chapter 1's multi-part mission is a 2-node quest that unlocks a hidden node (D-00211), not the report's 3-node pitch. Findings unchanged; see [README.md](README.md) for status.*
+*Research report, 2026-11-23. Page: [How tactics RPGs build their world maps](https://cursor.com/canvas/store-77423492-0240-4ade-b23c-c31d2a9643f0/4b1991c2-f4e2-4bfc-809c-d820429048d9). Applied 2026-11-23: Option A for the slice, Option B from Chapter 2 (D-00210). Applied 2026-11-23: Chapter 1's multi-part mission is a 2-node quest that unlocks a hidden node (D-00211), not the report's 3-node pitch. Applied 2026-11-23: that hidden node is a forgotten chapel holding rare trade-off gear and a mythology clue (D-00212). Findings unchanged; see [README.md](README.md) for status.*
 
 A reference for Outremer: how FFTA, FFTA2 and nine other tactics games structure the map between battles, written before we pick Chapter 1's multi-part mission. Facts I couldn't confirm are flagged.
 

@@ -165,7 +165,8 @@ Goal: the player gets to know the Hooded Figure well before the unmasking, so th
 - **No recruit missions in Chapter 1:** Dismas and his hunting party become the first members of the clan when Tristan joins them after the rescue fight. Side characters who join through their own side missions come in later chapters.
 - **Dismas's hunting party (locked 2026-11-23, for the slice):** Dismas plus two named hunters, each a different non-Human race, so the Chapter 1 squad is four with Tristan. Kept small for the art load. **Revisit during development:** Cletus would like the starting clan to have one of every base race, like FFTA2.
 - **The two hunters' races (locked 2026-11-23):** a Cynocephalus and a Hoopoe-kin. The Ifriti are held back because they lean on magic, which the slice doesn't bring in yet. Their classes don't need to suit a hunting party for now.
-- **Multi-part mission (locked 2026-11-23, D-00211):** a 2-node quest that unlocks the hidden node from the [world-map research report](research/2026-11-23-tactics-world-maps.md). You can't return to town between the two legs (D-00045). The quest's plot and name, and what the hidden node is or holds in Chapter 1, are still open.
+- **Multi-part mission (locked 2026-11-23, D-00211):** a 2-node quest that unlocks the hidden node from the [world-map research report](research/2026-11-23-tactics-world-maps.md). You can't return to town between the two legs (D-00045). The quest's plot and name are still open.
+- **Hidden node (locked 2026-11-23, D-00212):** the hidden node unlocked by that quest is a forgotten chapel holding rare trade-off gear and an early mythology clue. The chapel's name, the exact gear, and the exact clue are still open.
 
 ## Open questions
 - Refine the Hooded Figure and Lucien encounter run (Cletus is not in love with it yet).
