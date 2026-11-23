@@ -1,6 +1,6 @@
 # Outremer — Design Notes
 
-> Locked system decisions for the real game. Research reports (dated, not locked) are indexed in [research/README.md](research/README.md). Current stage: [ROADMAP.md](ROADMAP.md) (Stage 4, the vertical slice; see [SLICE-PLAN.md](SLICE-PLAN.md)). The agreed brief is [GAME-BRIEF.md](GAME-BRIEF.md) (as of Stage 3, with later locks noted there). Open design questions live in [TASKS.md](TASKS.md).
+> Locked system decisions for the real game. Every locked decision is in [DECISIONS.md](DECISIONS.md), the numbered decision log. Research reports (dated, not locked) are indexed in [research/README.md](research/README.md). Current stage: [ROADMAP.md](ROADMAP.md) (Stage 4, the vertical slice; see [SLICE-PLAN.md](SLICE-PLAN.md)). The agreed brief is [GAME-BRIEF.md](GAME-BRIEF.md) (as of Stage 3, with later locks noted there). Open design questions live in [TASKS.md](TASKS.md).
 
 > The Stage 2 prototype as built — campaign board, difficulty sims, two abilities per class, hero creation wizard, missions and recruitment, map catalog, and the FFTA2 control reference — is in [archive/DESIGN-prototype.md](archive/DESIGN-prototype.md). That build still runs on GitHub Pages. Its tuning is in [`src/config.js`](../src/config.js) (currently v0.14.2). See [The live prototype](#the-live-prototype) for what still drives it and where each topic went.
 

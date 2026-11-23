@@ -3,6 +3,7 @@
 Index of the design and research docs. Locked rules live in the living files below. `docs/archive/` is for things we don't need to move forward, kept so we can look back.
 
 ## Living
+- [DECISIONS.md](DECISIONS.md) — the decision log: every locked decision as a numbered entry (D-001…), grouped by topic, with what replaced what.
 - [GAME-BRIEF.md](GAME-BRIEF.md) — one-page brief, as of Stage 3, with later locks noted there.
 - [DESIGN.md](DESIGN.md) — locked system decisions (pillars, kit template, races, combat rules, art scale).
 - [TASKS.md](TASKS.md) — open design questions (Now / Next / Waiting / Parking lot).
