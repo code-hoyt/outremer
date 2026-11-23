@@ -191,7 +191,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Role:** The basic slayer: a fast striker with a light blade, deadly against demons, using wing hop, glide and dive to reach targets. No iron weakness. Flowers and lingering scent are the theme of all her attacks. (The iron weakness was scratched by Cletus on 2026-11-17.)
 
-**Weapons:** a light blade (described with the class, not separately locked).
+**Weapons (locked 2026-11-22):** two-handed sword only (Cletus). This replaces the earlier light-blade description, so she reads as a heavy-hitting slayer more than a quick striker; wing hop, glide and dive still get her to targets.
 
 **Armor:** TBD.
 
