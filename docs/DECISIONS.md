@@ -4,20 +4,21 @@ Every locked decision, one numbered entry each, grouped by topic. Open questions
 
 ## How to use this log
 
-- **Numbers are permanent.** A number is never reused or renumbered. Numbers were assigned in date order when the log was backfilled (2026-11-23), so D-001 is the oldest; new entries take the next free number, whatever their topic.
-- **Never delete an entry.** When a decision changes, add a new entry with `Replaces: D-xxx`, and set the old entry's Status to `Replaced by D-yyy (YYYY-MM-DD)`. A dropped decision with no replacement gets `Retired (YYYY-MM-DD)`.
+- **IDs are five digits**, zero-padded: D-00001, D-00201, and so on. Always write all five digits. (On 2026-11-23 every ID was padded from three digits to five; the numbers themselves did not change.)
+- **Numbers are permanent.** A number is never reused or renumbered. Numbers were assigned in date order when the log was backfilled (2026-11-23), so D-00001 is the oldest; new entries take the next free number, whatever their topic.
+- **Never delete an entry.** When a decision changes, add a new entry with `Replaces: D-xxxxx`, and set the old entry's Status to `Replaced by D-yyyyy (YYYY-MM-DD)`. A dropped decision with no replacement gets `Retired (YYYY-MM-DD)`.
 - **Open questions are not decisions.** They stay in [TASKS.md](TASKS.md) until Cletus locks them.
 - **Every lock gets an entry in the same commit** as the doc change that records it.
-- **Keep the format exact** so it can be searched: a `### D-NNN · Title` heading (grep `^### D-[0-9]`), then the six fields below, in this order. Find active decisions with `grep -A1 'Status: Active'`, or one topic by its section.
+- **Keep the format exact** so it can be searched: a `### D-NNNNN · Title` heading (grep -E `^### D-[0-9]{5} `), then the six fields below, in this order. Find active decisions with `grep -A1 'Status: Active'`, or one topic by its section.
 - Dates come from the docs; where a doc gave none, the date is when the text was first committed (git log).
 
 Entry format:
 
 ```
-### D-xxx · Short title
+### D-xxxxx · Short title
 - Date: YYYY-MM-DD
-- Status: Active | Replaced by D-xxx (YYYY-MM-DD) | Retired (YYYY-MM-DD)
-- Replaces: D-xxx (or none)
+- Status: Active | Replaced by D-xxxxx (YYYY-MM-DD) | Retired (YYYY-MM-DD)
+- Replaces: D-xxxxx (or none)
 - Decision: one or two sentences.
 - Why: one sentence, or Not recorded.
 - Source: relative doc link(s) with section anchor.
@@ -40,7 +41,7 @@ Entry format:
 
 ## Pillars & scope
 
-### D-001 · Pillar: no stop-and-press chores
+### D-00001 · Pillar: no stop-and-press chores
 - Date: 2026-10-31
 - Status: Retired (2026-11-15)
 - Replaces: none
@@ -48,7 +49,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Design pillars (from Cletus)](DESIGN.md#design-pillars-from-cletus)
 
-### D-002 · Pillar: customization and replay variety
+### D-00002 · Pillar: customization and replay variety
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -56,23 +57,23 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Design pillars (from Cletus)](DESIGN.md#design-pillars-from-cletus)
 
-### D-003 · Pillar: trade-off upgrades over pure power
+### D-00003 · Pillar: trade-off upgrades over pure power
 - Date: 2026-10-31
-- Status: Replaced by D-205 (2026-11-23)
+- Status: Replaced by D-00205 (2026-11-23)
 - Replaces: none
 - Decision: An upgrade should change how a unit plays, not just make numbers bigger.
 - Why: Not recorded
 - Source: [DESIGN.md → Design pillars (from Cletus)](DESIGN.md#design-pillars-from-cletus)
 
-### D-004 · Pillar: story later, with room for mythology
+### D-00004 · Pillar: story later, with room for mythology
 - Date: 2026-10-31
-- Status: Replaced by D-027 (2026-11-02)
+- Status: Replaced by D-00027 (2026-11-02)
 - Replaces: none
 - Decision: Story comes later, leaving room for mythology.
 - Why: Not recorded
 - Source: [DESIGN.md → Design pillars (from Cletus)](DESIGN.md#design-pillars-from-cletus)
 
-### D-005 · Pillar: classes move differently
+### D-00005 · Pillar: classes move differently
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -80,7 +81,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Design pillars (from Cletus)](DESIGN.md#design-pillars-from-cletus)
 
-### D-006 · Pillar: flanking and positioning are central
+### D-00006 · Pillar: flanking and positioning are central
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -88,7 +89,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Design pillars (from Cletus)](DESIGN.md#design-pillars-from-cletus)
 
-### D-007 · Goal: a commercial game Cletus releases
+### D-00007 · Goal: a commercial game Cletus releases
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -96,7 +97,7 @@ Entry format:
 - Why: Not recorded
 - Source: [ROADMAP.md → Goal](ROADMAP.md#goal)
 
-### D-022 · Combat stays our tactics system, not D&D
+### D-00022 · Combat stays our tactics system, not D&D
 - Date: 2026-11-01
 - Status: Active
 - Replaces: none
@@ -104,15 +105,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure)
 
-### D-027 · Mythology central from the start
+### D-00027 · Mythology central from the start
 - Date: 2026-11-02
 - Status: Active
-- Replaces: D-004
+- Replaces: D-00004
 - Decision: Relics and the uncanny drive the plot from the start; the premise is written in a dedicated story session and told in-engine, FFTA2-style.
 - Why: Stage 3 #10: Cletus rejected 'premise now, mythology door ajar' and historical-first.
 - Source: [DESIGN.md → Design pillars (from Cletus)](DESIGN.md#design-pillars-from-cletus), [archive/stage3-decisions.md → 10. Story & mythology ✅](archive/stage3-decisions.md#10-story--mythology-)
 
-### D-028 · Campaign of about 5 chapters
+### D-00028 · Campaign of about 5 chapters
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -120,7 +121,7 @@ Entry format:
 - Why: Linear chapters were weakest on replay variety; a roguelite fought the named-character story.
 - Source: [archive/stage3-decisions.md → 1. Campaign scope & structure ✅](archive/stage3-decisions.md#1-campaign-scope--structure-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-029 · Phone first plus Steam with controller
+### D-00029 · Phone first plus Steam with controller
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -128,7 +129,7 @@ Entry format:
 - Why: Switch as a target would force an engine change.
 - Source: [archive/stage3-decisions.md → 8. Platform & controls ✅](archive/stage3-decisions.md#8-platform--controls-), [GAME-BRIEF.md](GAME-BRIEF.md)
 
-### D-030 · Grow this codebase in TypeScript
+### D-00030 · Grow this codebase in TypeScript
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -136,7 +137,7 @@ Entry format:
 - Why: Godot would lose the JS sim; Unity meant licensing and a full rebuild.
 - Source: [archive/stage3-decisions.md → 9. Tech ✅](archive/stage3-decisions.md#9-tech-)
 
-### D-031 · Cletus solo; publishers after the slice
+### D-00031 · Cletus solo; publishers after the slice
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -144,7 +145,7 @@ Entry format:
 - Why: Contract art/music and a funded team were rejected.
 - Source: [archive/stage3-decisions.md → 12. Team & budget ✅](archive/stage3-decisions.md#12-team--budget-)
 
-### D-032 · What commercial quality means
+### D-00032 · What commercial quality means
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -152,17 +153,17 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 12. Team & budget ✅](archive/stage3-decisions.md#12-team--budget-), [GAME-BRIEF.md](GAME-BRIEF.md)
 
-### D-205 · Pillar: trade-off upgrades (no armor-weight example)
+### D-00205 · Pillar: trade-off upgrades (no armor-weight example)
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-003
+- Replaces: D-00003
 - Decision: An upgrade should change how a unit plays, not just make numbers bigger; the old 'heavier armor = shorter move / lower jump' example is struck.
-- Why: The no-general-armor-penalty lock (D-189) overrides the example.
+- Why: The no-general-armor-penalty lock (D-00189) overrides the example.
 - Source: [DESIGN.md → Pillars](DESIGN.md#design-pillars-from-cletus), [DESIGN.md → Armor penalties (locked 2026-11-23)](DESIGN.md#armor-penalties-locked-2026-11-23)
 
 ## Systems
 
-### D-008 · CT turn order
+### D-00008 · CT turn order
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -170,7 +171,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Turn order — CT system (FFTA-like)](DESIGN.md#turn-order--ct-system-ffta-like)
 
-### D-009 · Class decides movement
+### D-00009 · Class decides movement
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -178,7 +179,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Movement — classes move differently](DESIGN.md#movement--classes-move-differently), [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure)
 
-### D-011 · Facing, flanking and height modify combat
+### D-00011 · Facing, flanking and height modify combat
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -186,39 +187,39 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Facing, flanking & positioning](DESIGN.md#facing-flanking--positioning), [DESIGN.md → Combat formula](DESIGN.md#combat-formula)
 
-### D-012 · Height: plus or minus 10% per level
+### D-00012 · Height: plus or minus 10% per level
 - Date: 2026-10-31
-- Status: Replaced by D-035 (2026-11-02)
+- Status: Replaced by D-00035 (2026-11-02)
 - Replaces: none
 - Decision: Height gave ±10% damage per level (clamped 0.7–1.4), ±3% hit and +1 archer range per 2 levels.
 - Why: Not recorded
 - Source: [DESIGN.md → Facing, flanking & positioning](DESIGN.md#facing-flanking--positioning)
 
-### D-013 · Abilities with cooldowns (v0.4)
+### D-00013 · Abilities with cooldowns (v0.4)
 - Date: 2026-10-31
-- Status: Replaced by D-037 (2026-11-02)
+- Status: Replaced by D-00037 (2026-11-02)
 - Replaces: none
 - Decision: Two abilities per class, each with a cooldown.
 - Why: Not recorded
 - Source: [ROADMAP.md → Stage 1 — Combat prototype ✅ (closed into Stage 4)](ROADMAP.md#stage-1--combat-prototype--closed-into-stage-4)
 
-### D-024 · Hero creation: stats, class, portrait
+### D-00024 · Hero creation: stats, class, portrait
 - Date: 2026-11-01
-- Status: Replaced by D-202 (2026-11-23)
+- Status: Replaced by D-00202 (2026-11-23)
 - Replaces: none
 - Decision: Creation choices are stats, class and portrait only, with one fixed background; name entry is a formality.
 - Why: A fixed origin lets the story be written around it.
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [GAME-BRIEF.md](GAME-BRIEF.md)
 
-### D-025 · BG-style rolled stats
+### D-00025 · BG-style rolled stats
 - Date: 2026-11-01
-- Status: Replaced by D-203 (2026-11-23)
+- Status: Replaced by D-00203 (2026-11-23)
 - Replaces: none
 - Decision: Stats are rolled BG-style with unlimited rerolls, point moving within a floor and cap, and Store/Recall for one roll.
 - Why: Not recorded
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure)
 
-### D-026 · Six stats
+### D-00026 · Six stats
 - Date: 2026-11-01
 - Status: Active
 - Replaces: none
@@ -226,15 +227,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure)
 
-### D-035 · Softer, capped height (v0.10)
+### D-00035 · Softer, capped height (v0.10)
 - Date: 2026-11-02
 - Status: Active
-- Replaces: D-012
+- Replaces: D-00012
 - Decision: Height gives +5% melee/abilities and +3% ranged per level above, −5% per level below, clamped ×0.85–1.1, ±2% hit, archers +1 range per 3 levels.
 - Why: On The Breach the raider archer dominated from the wall and couldn't be countered.
 - Source: [DESIGN.md → Facing, flanking & positioning](DESIGN.md#facing-flanking--positioning)
 
-### D-036 · Every tile reachable at MOV 2 / JUMP 2
+### D-00036 · Every tile reachable at MOV 2 / JUMP 2
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -242,15 +243,15 @@ Entry format:
 - Why: High ground was unreachable for many units and gave the archer total dominance.
 - Source: [DESIGN.md → Map rule: everywhere is reachable (v0.10)](DESIGN.md#map-rule-everywhere-is-reachable-v010)
 
-### D-037 · No cooldowns; drawbacks are the cost
+### D-00037 · No cooldowns; drawbacks are the cost
 - Date: 2026-11-02
 - Status: Active
-- Replaces: D-013
+- Replaces: D-00013
 - Decision: An ability takes your Action and is usable every turn; its only cost is a drawback built into what it does.
 - Why: Not recorded
 - Source: [DESIGN.md → Abilities (cost model)](DESIGN.md#abilities-cost-model), [archive/stage3-decisions.md → 6. Abilities ✅](archive/stage3-decisions.md#6-abilities-)
 
-### D-038 · Build research fixes 1 and 4
+### D-00038 · Build research fixes 1 and 4
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -258,7 +259,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 6. Abilities ✅](archive/stage3-decisions.md#6-abilities-), [research/README.md](research/README.md)
 
-### D-039 · Magic and MP parked
+### D-00039 · Magic and MP parked
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -266,23 +267,23 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 6. Abilities ✅](archive/stage3-decisions.md#6-abilities-), [TASKS.md → Parking lot](TASKS.md#parking-lot)
 
-### D-040 · Fixed class for life
+### D-00040 · Fixed class for life
 - Date: 2026-11-02
-- Status: Replaced by D-101 (2026-11-11)
+- Status: Replaced by D-00101 (2026-11-11)
 - Replaces: none
 - Decision: Each unit keeps one class for life, which keeps its movement identity.
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 3. Classes & hero growth ✅](archive/stage3-decisions.md#3-classes--hero-growth-)
 
-### D-041 · Pick 1 of 2 class branches at milestones
+### D-00041 · Pick 1 of 2 class branches at milestones
 - Date: 2026-11-02
-- Status: Replaced by D-152 (2026-11-18)
+- Status: Replaced by D-00152 (2026-11-18)
 - Replaces: none
 - Decision: At milestones a unit picks 1 of 2 branches (e.g. Knight to Bulwark or Lancer).
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 3. Classes & hero growth ✅](archive/stage3-decisions.md#3-classes--hero-growth-)
 
-### D-042 · Gear teaches abilities you keep
+### D-00042 · Gear teaches abilities you keep
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -290,7 +291,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 3. Classes & hero growth ✅](archive/stage3-decisions.md#3-classes--hero-growth-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-043 · One borrowed secondary skill set
+### D-00043 · One borrowed secondary skill set
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -298,7 +299,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 3. Classes & hero growth ✅](archive/stage3-decisions.md#3-classes--hero-growth-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-044 · FFTA2-style XP leveling, stats 1–100, cap 50
+### D-00044 · FFTA2-style XP leveling, stats 1–100, cap 50
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -306,7 +307,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 3. Classes & hero growth ✅](archive/stage3-decisions.md#3-classes--hero-growth-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-045 · FFTA2-style world map between battles
+### D-00045 · FFTA2-style world map between battles
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -314,23 +315,23 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 5. Between battles ✅](archive/stage3-decisions.md#5-between-battles-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-046 · Prototype carry-over: party and flags only
+### D-00046 · Prototype carry-over: party and flags only
 - Date: 2026-11-02
-- Status: Replaced by D-047 (2026-11-02)
+- Status: Replaced by D-00047 (2026-11-02)
 - Replaces: none
 - Decision: Between prototype battles only the party and story flags carry over: full HP, no wounds, no loot.
 - Why: Not recorded
 - Source: [ROADMAP.md → Stage 2 — Core loop prototype ✅ DONE](ROADMAP.md#stage-2--core-loop-prototype--done)
 
-### D-047 · Wounds, not permadeath
+### D-00047 · Wounds, not permadeath
 - Date: 2026-11-02
 - Status: Active
-- Replaces: D-046
+- Replaces: D-00046
 - Decision: A fallen companion is Wounded for the next battle; if the hero falls the battle is lost.
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 5. Between battles ✅](archive/stage3-decisions.md#5-between-battles-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-048 · Gear is mostly stats; rare gear does more
+### D-00048 · Gear is mostly stats; rare gear does more
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -338,23 +339,23 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 5. Between battles ✅](archive/stage3-decisions.md#5-between-battles-)
 
-### D-049 · Squad of 3
+### D-00049 · Squad of 3
 - Date: 2026-11-02
-- Status: Replaced by D-067 (2026-11-09)
+- Status: Replaced by D-00067 (2026-11-09)
 - Replaces: none
 - Decision: The party is the hero plus 2 (squad of 3 all game), plus a few solo or duo story missions.
 - Why: Mass Effect feel.
 - Source: [archive/stage3-decisions.md → 2. Party size ✅](archive/stage3-decisions.md#2-party-size-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-067 · About 6 units deploy from a larger roster
+### D-00067 · About 6 units deploy from a larger roster
 - Date: 2026-11-09
 - Status: Active
-- Replaces: D-049
+- Replaces: D-00049
 - Decision: FFTA2-style clans: about 6 units deploy per battle from a larger roster; a few story missions may be solo or duo.
 - Why: Not recorded
 - Source: [DESIGN.md → Party size (2026-11-09)](DESIGN.md#party-size-2026-11-09), [DESIGN.md → Later locks that override Stage 3](DESIGN.md#later-locks-that-override-stage-3)
 
-### D-068 · FFTA2-style class progression
+### D-00068 · FFTA2-style class progression
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -362,15 +363,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Classes (2026-11-09)](DESIGN.md#classes-2026-11-09)
 
-### D-101 · Free class switching between battles
+### D-00101 · Free class switching between battles
 - Date: 2026-11-11
 - Status: Active
-- Replaces: D-040
+- Replaces: D-00040
 - Decision: Units can switch class freely between battles (FFT-style), never mid-fight; class sets MOV/JUMP/terrain and learned abilities are kept.
 - Why: The trade-off is time: battles spent on one class are not spent on another.
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11), [DESIGN.md → Later locks that override Stage 3](DESIGN.md#later-locks-that-override-stage-3)
 
-### D-102 · Classes unlock by gear mastery; special classes by quests
+### D-00102 · Classes unlock by gear mastery; special classes by quests
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -378,23 +379,23 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-103 · Teaching gear from shops, never loot-gated
+### D-00103 · Teaching gear from shops, never loot-gated
 - Date: 2026-11-11
-- Status: Replaced by D-159 (2026-11-18)
+- Status: Replaced by D-00159 (2026-11-18)
 - Replaces: none
 - Decision: Teaching gear must be obtainable in shops, not loot-gated.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11), [CLASSES.md → Older draft (v0.1, 2026-11-12)](CLASSES.md#older-draft-v01-2026-11-12)
 
-### D-104 · Class-gated weapons with an Equip X escape hatch
+### D-00104 · Class-gated weapons with an Equip X escape hatch
 - Date: 2026-11-11
-- Status: Replaced by D-165 (2026-11-18)
+- Status: Replaced by D-00165 (2026-11-18)
 - Replaces: none
 - Decision: Weapon types are gated by class, with an 'Equip X' ability that costs one carried ability slot.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-105 · Sideways class tree; every ability has a cost
+### D-00105 · Sideways class tree; every ability has a cost
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -402,7 +403,7 @@ Entry format:
 - Why: Avoid trap classes and a single dominant combo.
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-139 · No fog of war
+### D-00139 · No fog of war
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -410,15 +411,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → No fog of war (locked 2026-11-17)](DESIGN.md#no-fog-of-war-locked-2026-11-17)
 
-### D-152 · Class branches at milestones cut
+### D-00152 · Class branches at milestones cut
 - Date: 2026-11-18
 - Status: Active
-- Replaces: D-041
+- Replaces: D-00041
 - Decision: Stage 3's 'pick 1 of 2 branches at milestones' is cut; free class switching replaces it.
 - Why: Not recorded
 - Source: [DESIGN.md → Later locks that override Stage 3](DESIGN.md#later-locks-that-override-stage-3), [GAME-BRIEF.md](GAME-BRIEF.md)
 
-### D-153 · Kit: 1 reaction plus 1 passive
+### D-00153 · Kit: 1 reaction plus 1 passive
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -426,7 +427,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-154 · Kit: signatures are learned from gear
+### D-00154 · Kit: signatures are learned from gear
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -434,7 +435,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-155 · Kit: one borrowed set from any learned class
+### D-00155 · Kit: one borrowed set from any learned class
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -442,7 +443,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-156 · Kit: five flexible equipment slots
+### D-00156 · Kit: five flexible equipment slots
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -450,7 +451,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-157 · Kit: armor gated by class
+### D-00157 · Kit: armor gated by class
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -458,7 +459,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-158 · Kit: any gear can teach abilities
+### D-00158 · Kit: any gear can teach abilities
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -466,15 +467,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-159 · Kit: shops stock teaching gear; rares are found
+### D-00159 · Kit: shops stock teaching gear; rares are found
 - Date: 2026-11-18
 - Status: Active
-- Replaces: D-103
+- Replaces: D-00103
 - Decision: Shops are the main source of teaching gear and stock plenty; ordinary loot gives variants; rare items that teach rare skills have to be found.
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-160 · Kit: AP only for units that fought
+### D-00160 · Kit: AP only for units that fought
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -482,7 +483,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-161 · Kit: two-handers in; dual wield is a passive
+### D-00161 · Kit: two-handers in; dual wield is a passive
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -490,7 +491,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-162 · Kit: FFTA2-sized class sets
+### D-00162 · Kit: FFTA2-sized class sets
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -498,7 +499,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18), [CLASSES.md → 5. Supporting notes](CLASSES.md#5-supporting-notes)
 
-### D-163 · Kit: race-themed abilities via race-locked classes
+### D-00163 · Kit: race-themed abilities via race-locked classes
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -506,7 +507,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-164 · Kit: meters, combos and summons parked
+### D-00164 · Kit: meters, combos and summons parked
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -514,15 +515,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18), [TASKS.md → Parking lot](TASKS.md#parking-lot)
 
-### D-165 · Kit: Equip X uses the passive slot
+### D-00165 · Kit: Equip X uses the passive slot
 - Date: 2026-11-18
 - Status: Active
-- Replaces: D-104
+- Replaces: D-00104
 - Decision: 'Equip X' abilities use the single passive slot, so breaking a class's gear limits costs the unit its passive.
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18), [CLASSES.md → 5. Supporting notes](CLASSES.md#5-supporting-notes)
 
-### D-166 · Kit: Item uses the borrowed slot
+### D-00166 · Kit: Item uses the borrowed slot
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -530,7 +531,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Unit kit template (locked 2026-11-18)](DESIGN.md#unit-kit-template-locked-2026-11-18)
 
-### D-176 · Field objects
+### D-00176 · Field objects
 - Date: 2026-11-19
 - Status: Active
 - Replaces: none
@@ -538,7 +539,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Field objects (locked 2026-11-19)](DESIGN.md#field-objects-locked-2026-11-19)
 
-### D-189 · No general armor penalty
+### D-00189 · No general armor penalty
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -546,25 +547,25 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Armor penalties (locked 2026-11-23)](DESIGN.md#armor-penalties-locked-2026-11-23)
 
-### D-202 · No created character: you play as Tristan
+### D-00202 · No created character: you play as Tristan
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-024
+- Replaces: D-00024
 - Decision: There is no hero creation (no stats, class or portrait pick, no creation wizard); the player plays as Tristan, the fixed protagonist.
 - Why: Not recorded
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [GAME-BRIEF.md](GAME-BRIEF.md), [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order), [ROADMAP.md → Stage 4 — Vertical slice](ROADMAP.md#stage-4--vertical-slice--next)
 
-### D-203 · No rolled stats
+### D-00203 · No rolled stats
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-025
+- Replaces: D-00025
 - Decision: Stats are not rolled; Tristan's stats come from his class and growth like any other unit's.
-- Why: Follows from no created character (D-202).
+- Why: Follows from no created character (D-00202).
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
 ## Classes
 
-### D-050 · Physician and a magic class later
+### D-00050 · Physician and a magic class later
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -572,7 +573,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 3. Classes & hero growth ✅](archive/stage3-decisions.md#3-classes--hero-growth-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-106 · Story heroes get unique classes and generic ones
+### D-00106 · Story heroes get unique classes and generic ones
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -580,7 +581,7 @@ Entry format:
 - Why: To pull players into the side-quest trees.
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11), [CLASSES.md → 4. Hero unique classes (sketch only; story not locked)](CLASSES.md#4-hero-unique-classes-sketch-only-story-not-locked)
 
-### D-107 · FFTA2-style race locks on classes
+### D-00107 · FFTA2-style race locks on classes
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -588,15 +589,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-120 · Tristan's unique class named Templar (draft)
+### D-00120 · Tristan's unique class named Templar (draft)
 - Date: 2026-11-12
-- Status: Replaced by D-140 (2026-11-17)
+- Status: Replaced by D-00140 (2026-11-17)
 - Replaces: none
 - Decision: Tristan's sketched unique class was named Templar, with Beauséant and Non Nobis.
 - Why: Not recorded
 - Source: [CLASSES.md → 4. Hero unique classes (sketch only; story not locked)](CLASSES.md#4-hero-unique-classes-sketch-only-story-not-locked)
 
-### D-134 · Human race classes lean to leadership and faith
+### D-00134 · Human race classes lean to leadership and faith
 - Date: 2026-11-15
 - Status: Active
 - Replaces: none
@@ -604,15 +605,15 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Racial callings — class direction and other class ideas](CLASSES.md#racial-callings--class-direction-and-other-class-ideas)
 
-### D-135 · Ifriti magic is sworn
+### D-00135 · Ifriti magic is sworn
 - Date: 2026-11-15
-- Status: Replaced by D-143 (2026-11-17)
+- Status: Replaced by D-00143 (2026-11-17)
 - Replaces: none
 - Decision: Ifriti race-class magic is sworn: each vow grants power with a limit attached.
 - Why: Not recorded
 - Source: [CLASSES.md → Racial callings — class direction and other class ideas](CLASSES.md#racial-callings--class-direction-and-other-class-ideas)
 
-### D-136 · Cynocephali race classes start as protectors
+### D-00136 · Cynocephali race classes start as protectors
 - Date: 2026-11-15
 - Status: Active
 - Replaces: none
@@ -620,7 +621,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Racial callings — class direction and other class ideas](CLASSES.md#racial-callings--class-direction-and-other-class-ideas)
 
-### D-137 · Peri race class built for demon-slaying
+### D-00137 · Peri race class built for demon-slaying
 - Date: 2026-11-15
 - Status: Active
 - Replaces: none
@@ -628,15 +629,15 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Racial callings — class direction and other class ideas](CLASSES.md#racial-callings--class-direction-and-other-class-ideas)
 
-### D-140 · Templar Knight is the Human race class
+### D-00140 · Templar Knight is the Human race class
 - Date: 2026-11-17
 - Status: Active
-- Replaces: D-120
+- Replaces: D-00120
 - Decision: The Human race class is the Templar Knight, a fighter-leaning holy warrior whose weapon strikes carry holy damage; healing belongs to a future Hospitaller.
 - Why: Not recorded
 - Source: [CLASSES.md → Templar Knight](CLASSES.md#templar-knight), [WORLD.md → First race classes](WORLD.md#first-race-classes)
 
-### D-141 · Templar Knight weapons
+### D-00141 · Templar Knight weapons
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -644,7 +645,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Templar Knight](CLASSES.md#templar-knight)
 
-### D-142 · Templar Knight signature: Smite
+### D-00142 · Templar Knight signature: Smite
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -652,23 +653,23 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Templar Knight](CLASSES.md#templar-knight)
 
-### D-143 · Oath Mage is the Ifriti race class
+### D-00143 · Oath Mage is the Ifriti race class
 - Date: 2026-11-17
 - Status: Active
-- Replaces: D-135
+- Replaces: D-00135
 - Decision: Oaths buff one stat for the whole team and impose a random FFTA-style law; breaking it breaks the oath with a penalty that mirrors it.
 - Why: Not recorded
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-144 · Oath duration matched to strength
+### D-00144 · Oath duration matched to strength
 - Date: 2026-11-17
-- Status: Replaced by D-168 (2026-11-18)
+- Status: Replaced by D-00168 (2026-11-18)
 - Replaces: none
 - Decision: Every oath ends if the Oath Mage falls; stronger oaths last set rounds, milder ones until battle end or the law breaks.
 - Why: Not recorded
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-145 · Oaths stack, and so do laws
+### D-00145 · Oaths stack, and so do laws
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -676,7 +677,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-146 · Single-target oaths
+### D-00146 · Single-target oaths
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -684,7 +685,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-147 · Shieldbrother is the Cynocephali race class
+### D-00147 · Shieldbrother is the Cynocephali race class
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -692,7 +693,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Shieldbrother](CLASSES.md#shieldbrother)
 
-### D-148 · Shieldbrother weapons
+### D-00148 · Shieldbrother weapons
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -700,15 +701,15 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Shieldbrother](CLASSES.md#shieldbrother)
 
-### D-149 · Roost-Keeper is the Hoopoe-kin race class
+### D-00149 · Roost-Keeper is the Hoopoe-kin race class
 - Date: 2026-11-17
-- Status: Replaced by D-178 (2026-11-19)
+- Status: Replaced by D-00178 (2026-11-19)
 - Replaces: none
 - Decision: Sets up roosts that allies teleport between; reworked the same day into a bird whisperer whose flock carries units. Roosts are usable by enemies.
 - Why: Not recorded
 - Source: [CLASSES.md → Rooster](CLASSES.md#rooster), [WORLD.md → First race classes](WORLD.md#first-race-classes)
 
-### D-150 · Div-Hunter is the Peri race class
+### D-00150 · Div-Hunter is the Peri race class
 - Date: 2026-11-17
 - Status: Active
 - Replaces: none
@@ -716,15 +717,15 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Div-Hunter](CLASSES.md#div-hunter), [WORLD.md → First race classes](WORLD.md#first-race-classes)
 
-### D-151 · Div-Hunter uses a light blade
+### D-00151 · Div-Hunter uses a light blade
 - Date: 2026-11-17
-- Status: Replaced by D-185 (2026-11-22)
+- Status: Replaced by D-00185 (2026-11-22)
 - Replaces: none
 - Decision: The Div-Hunter is a fast striker with a light blade.
 - Why: Not recorded
 - Source: [CLASSES.md → Div-Hunter](CLASSES.md#div-hunter)
 
-### D-167 · Templar Knight kit
+### D-00167 · Templar Knight kit
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -732,15 +733,15 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Templar Knight](CLASSES.md#templar-knight)
 
-### D-168 · Oaths last 3 turns
+### D-00168 · Oaths last 3 turns
 - Date: 2026-11-18
 - Status: Active
-- Replaces: D-144
+- Replaces: D-00144
 - Decision: Every oath lasts 3 turns (starting value) and then is fulfilled; it still ends if the Oath Mage falls.
 - Why: Not recorded
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-169 · Oath Mage gear
+### D-00169 · Oath Mage gear
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -748,7 +749,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-170 · Oath Mage kit
+### D-00170 · Oath Mage kit
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -756,7 +757,7 @@ Entry format:
 - Why: Reactions and passives should be worth equipping on other classes.
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-171 · Shieldbrother armor
+### D-00171 · Shieldbrother armor
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -764,7 +765,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Shieldbrother](CLASSES.md#shieldbrother)
 
-### D-172 · Div-Hunter signature: Scent of Paradise
+### D-00172 · Div-Hunter signature: Scent of Paradise
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -772,7 +773,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Div-Hunter](CLASSES.md#div-hunter)
 
-### D-177 · Shieldbrother kit
+### D-00177 · Shieldbrother kit
 - Date: 2026-11-19
 - Status: Active
 - Replaces: none
@@ -780,15 +781,15 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Shieldbrother](CLASSES.md#shieldbrother)
 
-### D-178 · Roost-Keeper renamed Rooster
+### D-00178 · Roost-Keeper renamed Rooster
 - Date: 2026-11-19
 - Status: Active
-- Replaces: D-149
+- Replaces: D-00149
 - Decision: The class is renamed from Roost-Keeper to Rooster.
 - Why: Not recorded
 - Source: [CLASSES.md → Rooster](CLASSES.md#rooster)
 
-### D-179 · Rooster gear
+### D-00179 · Rooster gear
 - Date: 2026-11-19
 - Status: Active
 - Replaces: none
@@ -796,7 +797,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Rooster](CLASSES.md#rooster)
 
-### D-180 · Rooster signature: Set Roost
+### D-00180 · Rooster signature: Set Roost
 - Date: 2026-11-19
 - Status: Active
 - Replaces: none
@@ -804,7 +805,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Rooster](CLASSES.md#rooster)
 
-### D-181 · Roosts are destructible
+### D-00181 · Roosts are destructible
 - Date: 2026-11-19
 - Status: Active
 - Replaces: none
@@ -812,7 +813,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Rooster](CLASSES.md#rooster)
 
-### D-183 · Rooster kit
+### D-00183 · Rooster kit
 - Date: 2026-11-22
 - Status: Active
 - Replaces: none
@@ -820,7 +821,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Rooster](CLASSES.md#rooster)
 
-### D-184 · Ranged immunity belongs to the main archer class
+### D-00184 · Ranged immunity belongs to the main archer class
 - Date: 2026-11-22
 - Status: Active
 - Replaces: none
@@ -828,15 +829,15 @@ Entry format:
 - Why: Not recorded
 - Source: [CLASSES.md → Rooster](CLASSES.md#rooster)
 
-### D-185 · Div-Hunter: two-handed sword and heavy armor
+### D-00185 · Div-Hunter: two-handed sword and heavy armor
 - Date: 2026-11-22
 - Status: Active
-- Replaces: D-151
+- Replaces: D-00151
 - Decision: Two-handed sword only and heavy armor only; heavy armor doesn't limit wing hop, glide or dive.
 - Why: Not recorded
 - Source: [CLASSES.md → Div-Hunter](CLASSES.md#div-hunter)
 
-### D-190 · Oath Mage law pool
+### D-00190 · Oath Mage law pool
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -844,7 +845,7 @@ Entry format:
 - Why: Kept small for the slice as proof of concept.
 - Source: [CLASSES.md → Oath Mage](CLASSES.md#oath-mage)
 
-### D-191 · Div-Hunter kit
+### D-00191 · Div-Hunter kit
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -854,15 +855,15 @@ Entry format:
 
 ## Races & world
 
-### D-010 · No race movement modifiers; winged race parked
+### D-00010 · No race movement modifiers; winged race parked
 - Date: 2026-10-31
-- Status: Replaced by D-112 (2026-11-11)
+- Status: Replaced by D-00112 (2026-11-11)
 - Replaces: none
 - Decision: Races don't modify movement, and a winged race is parked.
 - Why: Not recorded
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [ROADMAP.md → Parking lot](ROADMAP.md#parking-lot)
 
-### D-069 · Bestiary terms
+### D-00069 · Bestiary terms
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -870,23 +871,23 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Bestiary terms (LOCKED 2026-11-09)](DESIGN.md#bestiary-terms-locked-2026-11-09), [STORY.md → Act 1 beats after the tear (LOCKED 2026-11-09)](STORY.md#act-1-beats-after-the-tear-locked-2026-11-09)
 
-### D-108 · Four races, a possible fifth later
+### D-00108 · Four races, a possible fifth later
 - Date: 2026-11-11
-- Status: Replaced by D-208 (2026-11-23)
+- Status: Replaced by D-00208 (2026-11-23)
 - Replaces: none
 - Decision: Four races (Humans plus three), with a possible fifth unlocked through quests later.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-109 · Races: Humans, Peri, Ifriti, Cynocephali
+### D-00109 · Races: Humans, Peri, Ifriti, Cynocephali
 - Date: 2026-11-11
-- Status: Replaced by D-126 (2026-11-12)
+- Status: Replaced by D-00126 (2026-11-12)
 - Replaces: none
 - Decision: The races are Humans, Peri, Ifriti and Cynocephali (working names).
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11), [research/README.md](research/README.md)
 
-### D-110 · Real-world heroes are plain Humans
+### D-00110 · Real-world heroes are plain Humans
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -894,23 +895,23 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-111 · All races recruitable from the start
+### D-00111 · All races recruitable from the start
 - Date: 2026-11-11
-- Status: Replaced by D-127 (2026-11-12)
+- Status: Replaced by D-00127 (2026-11-12)
 - Replaces: none
 - Decision: All races are recruitable from the start; race-specific quests unlock race classes.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-112 · Races have a stat lean and a movement quirk
+### D-00112 · Races have a stat lean and a movement quirk
 - Date: 2026-11-11
 - Status: Active
-- Replaces: D-010
+- Replaces: D-00010
 - Decision: Each race has a small stat lean and one movement quirk on top of class movement; stat growth still comes from class.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11), [DESIGN.md → Later locks that override Stage 3](DESIGN.md#later-locks-that-override-stage-3)
 
-### D-113 · Monsters plus Fallen versions of each race
+### D-00113 · Monsters plus Fallen versions of each race
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -918,7 +919,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-114 · Redeemed race on hold
+### D-00114 · Redeemed race on hold
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -926,7 +927,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-121 · Heroes land somewhere green, not desert
+### D-00121 · Heroes land somewhere green, not desert
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -934,7 +935,7 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Landing and first impression (locked 2026-11-12)](WORLD.md#landing-and-first-impression-locked-2026-11-12)
 
-### D-122 · Native Humans
+### D-00122 · Native Humans
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -942,7 +943,7 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Humans of this world (locked 2026-11-12)](WORLD.md#humans-of-this-world-locked-2026-11-12)
 
-### D-123 · Humans: balanced, no quirk, widest class list
+### D-00123 · Humans: balanced, no quirk, widest class list
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -950,7 +951,7 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Humans of this world (locked 2026-11-12)](WORLD.md#humans-of-this-world-locked-2026-11-12), [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-124 · Peri lore
+### D-00124 · Peri lore
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -958,7 +959,7 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Peri (in progress 2026-11-12)](WORLD.md#peri-in-progress-2026-11-12)
 
-### D-125 · Peri wings unlock through deeds
+### D-00125 · Peri wings unlock through deeds
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -966,23 +967,23 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Peri (in progress 2026-11-12)](WORLD.md#peri-in-progress-2026-11-12)
 
-### D-126 · Peri become the hidden rare fifth race
+### D-00126 · Peri become the hidden rare fifth race
 - Date: 2026-11-12
 - Status: Active
-- Replaces: D-109
+- Replaces: D-00109
 - Decision: Peri are hidden and unlock as recruits through a Peri side-quest tree; a new small fourth main race is needed.
 - Why: Not recorded
 - Source: [WORLD.md → Race roster change (2026-11-12)](WORLD.md#race-roster-change-2026-11-12), [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-127 · Peri not recruitable from the start
+### D-00127 · Peri not recruitable from the start
 - Date: 2026-11-12
-- Status: Replaced by D-192 (2026-11-23)
-- Replaces: D-111
+- Status: Replaced by D-00192 (2026-11-23)
+- Replaces: D-00111
 - Decision: Peri are the exception to all-races-from-the-start: they unlock through their side-quest tree.
 - Why: Not recorded
 - Source: [WORLD.md → Peri (in progress 2026-11-12)](WORLD.md#peri-in-progress-2026-11-12), [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-128 · Hoopoe-kin are the fourth main race
+### D-00128 · Hoopoe-kin are the fourth main race
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -990,7 +991,7 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Hoopoe-kin (fourth main race, picked 2026-11-12)](WORLD.md#hoopoe-kin-fourth-main-race-picked-2026-11-12)
 
-### D-129 · Ifriti lore
+### D-00129 · Ifriti lore
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -998,15 +999,15 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Ifriti](WORLD.md#ifriti)
 
-### D-130 · Ifriti: ashen skin with oath-brands
+### D-00130 · Ifriti: ashen skin with oath-brands
 - Date: 2026-11-12
-- Status: Replaced by D-173 (2026-11-18)
+- Status: Replaced by D-00173 (2026-11-18)
 - Replaces: none
 - Decision: Ifriti had ashen gray-pale skin and glowing oath-brands as the race signature.
 - Why: Not recorded
 - Source: [WORLD.md → Ifriti](WORLD.md#ifriti)
 
-### D-131 · Cynocephali lore
+### D-00131 · Cynocephali lore
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -1014,7 +1015,7 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Cynocephali](WORLD.md#cynocephali)
 
-### D-132 · Race footprint direction
+### D-00132 · Race footprint direction
 - Date: 2026-11-12
 - Status: Active
 - Replaces: none
@@ -1022,7 +1023,7 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Race footprint (Cletus 2026-11-12, direction)](WORLD.md#race-footprint-cletus-2026-11-12-direction)
 
-### D-138 · Racial callings
+### D-00138 · Racial callings
 - Date: 2026-11-15
 - Status: Active
 - Replaces: none
@@ -1030,33 +1031,33 @@ Entry format:
 - Why: Not recorded
 - Source: [WORLD.md → Racial callings (class groundwork, started 2026-11-15)](WORLD.md#racial-callings-class-groundwork-started-2026-11-15)
 
-### D-173 · Ifriti: dark leathery ancient skin
+### D-00173 · Ifriti: dark leathery ancient skin
 - Date: 2026-11-18
 - Status: Active
-- Replaces: D-130
+- Replaces: D-00130
 - Decision: Ifriti skin is dark and leathery, wrinkled and ancient but dignified; oath-brands dropped as a race trait (the oath look lives in the Oath Mage).
 - Why: Follows Guilhem's locked Oath Mage plate.
 - Source: [WORLD.md → Ifriti](WORLD.md#ifriti), [WORLD.md → First race classes](WORLD.md#first-race-classes)
 
-### D-192 · Four main races from the start plus hidden Peri
+### D-00192 · Four main races from the start plus hidden Peri
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-127
+- Replaces: D-00127
 - Decision: Human, Ifriti, Cynocephali and Hoopoe-kin are recruitable from the start, plus the hidden Peri.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-208 · Four main races plus the hidden Peri
+### D-00208 · Four main races plus the hidden Peri
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-108
+- Replaces: D-00108
 - Decision: Four main races (Human, Ifriti, Cynocephali, Hoopoe-kin) plus the hidden Peri as a fifth, unlocked through their side-quest tree.
 - Why: The old 'four races, a fifth later' wording predates Hoopoe-kin and the hidden Peri.
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
 ## Story
 
-### D-070 · Story core
+### D-00070 · Story core
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1064,7 +1065,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Core (locked 2026-11-09)](STORY.md#core-locked-2026-11-09)
 
-### D-071 · Antagonists
+### D-00071 · Antagonists
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1072,7 +1073,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Antagonists (locked 2026-11-09)](STORY.md#antagonists-locked-2026-11-09)
 
-### D-072 · The supernatural is open from the start
+### D-00072 · The supernatural is open from the start
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1080,7 +1081,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → How real the myth is (locked 2026-11-09)](STORY.md#how-real-the-myth-is-locked-2026-11-09)
 
-### D-073 · Lightly fictionalized Crusades
+### D-00073 · Lightly fictionalized Crusades
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1088,15 +1089,15 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Setting (locked 2026-11-09)](STORY.md#setting-locked-2026-11-09)
 
-### D-074 · The other side is a spiritual layer
+### D-00074 · The other side is a spiritual layer
 - Date: 2026-11-09
-- Status: Replaced by D-133 (2026-11-12)
+- Status: Replaced by D-00133 (2026-11-12)
 - Replaces: none
 - Decision: The story's other side was framed as a spiritual layer of our world.
 - Why: Not recorded
 - Source: [STORY.md → Setting (locked 2026-11-09)](STORY.md#setting-locked-2026-11-09)
 
-### D-075 · A Satanist cult tears the veil
+### D-00075 · A Satanist cult tears the veil
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1104,7 +1105,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Crossing over (locked 2026-11-09)](STORY.md#crossing-over-locked-2026-11-09)
 
-### D-076 · The squad is scattered by the tear
+### D-00076 · The squad is scattered by the tear
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1112,23 +1113,23 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Opening and the scattered squad (locked 2026-11-09)](STORY.md#opening-and-the-scattered-squad-locked-2026-11-09)
 
-### D-077 · Third squad member switches sides (direction TBD)
+### D-00077 · Third squad member switches sides (direction TBD)
 - Date: 2026-11-09
-- Status: Replaced by D-078 (2026-11-09)
+- Status: Replaced by D-00078 (2026-11-09)
 - Replaces: none
 - Decision: The third squad member switches sides; direction to be decided.
 - Why: Not recorded
 - Source: [STORY.md → Opening and the scattered squad (locked 2026-11-09)](STORY.md#opening-and-the-scattered-squad-locked-2026-11-09)
 
-### D-078 · Cast and reunion order
+### D-00078 · Cast and reunion order
 - Date: 2026-11-09
 - Status: Active
-- Replaces: D-077
+- Replaces: D-00077
 - Decision: A skeptical young Templar protagonist; reunions with the medic love interest, the hot-headed loyal friend, then the prodigal son who joined the enemy and returns.
 - Why: Not recorded
 - Source: [STORY.md → Cast so far (locked 2026-11-09)](STORY.md#cast-so-far-locked-2026-11-09)
 
-### D-079 · Hero names
+### D-00079 · Hero names
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1136,15 +1137,15 @@ Entry format:
 - Why: Making Lucien Aveline's brother makes his betrayal hit harder and his return pay off.
 - Source: [STORY.md → Names (locked 2026-11-09)](STORY.md#names-locked-2026-11-09)
 
-### D-080 · Hero classes and backstories
+### D-00080 · Hero classes and backstories
 - Date: 2026-11-09
-- Status: Replaced by D-206 (2026-11-23)
+- Status: Replaced by D-00206 (2026-11-23)
 - Replaces: none
 - Decision: Tristan a sword-and-shield Templar; Aveline a Hospital medic who grows into a Saint-Caller; Godric a heavy-hitting common sergeant; Lucien a fast skirmisher and scout.
 - Why: Not recorded
 - Source: [STORY.md → Classes and backstories (locked 2026-11-09)](STORY.md#classes-and-backstories-locked-2026-11-09)
 
-### D-081 · Villains and bound souls
+### D-00081 · Villains and bound souls
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1152,7 +1153,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Villains (locked 2026-11-09)](STORY.md#villains-locked-2026-11-09), [STORY.md → Villain names (locked 2026-11-09)](STORY.md#villain-names-locked-2026-11-09)
 
-### D-082 · Act 1 opening at Guérin's castle
+### D-00082 · Act 1 opening at Guérin's castle
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1160,7 +1161,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 1 opening (LOCKED 2026-11-09)](STORY.md#act-1-opening-locked-2026-11-09)
 
-### D-083 · Dismas and his hunting party
+### D-00083 · Dismas and his hunting party
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1168,7 +1169,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 1 opening (LOCKED 2026-11-09)](STORY.md#act-1-opening-locked-2026-11-09)
 
-### D-084 · Who comes from the real world
+### D-00084 · Who comes from the real world
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1176,7 +1177,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 1 opening (LOCKED 2026-11-09)](STORY.md#act-1-opening-locked-2026-11-09)
 
-### D-085 · Act 1 beats
+### D-00085 · Act 1 beats
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1184,7 +1185,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 1 beats after the tear (LOCKED 2026-11-09)](STORY.md#act-1-beats-after-the-tear-locked-2026-11-09)
 
-### D-086 · The Order of the Eighth Day
+### D-00086 · The Order of the Eighth Day
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1192,7 +1193,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → The Order of the Eighth Day (LOCKED 2026-11-09)](STORY.md#the-order-of-the-eighth-day-locked-2026-11-09)
 
-### D-087 · Act 2 beats
+### D-00087 · Act 2 beats
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1200,7 +1201,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 2 beats (LOCKED 2026-11-09)](STORY.md#act-2-beats-locked-2026-11-09)
 
-### D-088 · Act 3 beats
+### D-00088 · Act 3 beats
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1208,7 +1209,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 3 beats (LOCKED 2026-11-09)](STORY.md#act-3-beats-locked-2026-11-09)
 
-### D-089 · How Guérin dies
+### D-00089 · How Guérin dies
 - Date: 2026-11-09
 - Status: Active
 - Replaces: none
@@ -1216,7 +1217,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → How Guérin dies (LOCKED 2026-11-09)](STORY.md#how-guérin-dies-locked-2026-11-09)
 
-### D-090 · Act 4 beats
+### D-00090 · Act 4 beats
 - Date: 2026-11-10
 - Status: Active
 - Replaces: none
@@ -1224,7 +1225,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 4 beats (LOCKED 2026-11-10)](STORY.md#act-4-beats-locked-2026-11-10)
 
-### D-091 · Faith arcs
+### D-00091 · Faith arcs
 - Date: 2026-11-10
 - Status: Active
 - Replaces: none
@@ -1232,7 +1233,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 4 beats (LOCKED 2026-11-10)](STORY.md#act-4-beats-locked-2026-11-10)
 
-### D-092 · Scripture in the game
+### D-00092 · Scripture in the game
 - Date: 2026-11-10
 - Status: Active
 - Replaces: none
@@ -1240,7 +1241,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Scripture in the game (LOCKED 2026-11-10)](STORY.md#scripture-in-the-game-locked-2026-11-10)
 
-### D-093 · None of the good guys die for good
+### D-00093 · None of the good guys die for good
 - Date: 2026-11-10
 - Status: Active
 - Replaces: none
@@ -1248,7 +1249,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Deaths (LOCKED 2026-11-10)](STORY.md#deaths-locked-2026-11-10)
 
-### D-094 · Lucien rescues Vaskar at the end of Act 2
+### D-00094 · Lucien rescues Vaskar at the end of Act 2
 - Date: 2026-11-10
 - Status: Active
 - Replaces: none
@@ -1256,7 +1257,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → The Hooded Figure and Lucien's encounters (WORKING DRAFT 2026-11-10, a good start, not loved yet; revisit)](STORY.md#the-hooded-figure-and-luciens-encounters-working-draft-2026-11-10-a-good-start-not-loved-yet-revisit)
 
-### D-095 · Aveline never gives up on Lucien
+### D-00095 · Aveline never gives up on Lucien
 - Date: 2026-11-10
 - Status: Active
 - Replaces: none
@@ -1264,7 +1265,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → The Hooded Figure and Lucien's encounters (WORKING DRAFT 2026-11-10, a good start, not loved yet; revisit)](STORY.md#the-hooded-figure-and-luciens-encounters-working-draft-2026-11-10-a-good-start-not-loved-yet-revisit)
 
-### D-115 · Act 3 cost is a capture
+### D-00115 · Act 3 cost is a capture
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -1272,15 +1273,15 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Act 3 beats (LOCKED 2026-11-09)](STORY.md#act-3-beats-locked-2026-11-09)
 
-### D-133 · Two separate worlds
+### D-00133 · Two separate worlds
 - Date: 2026-11-12
 - Status: Active
-- Replaces: D-074
+- Replaces: D-00074
 - Decision: The other world is a separate world in its own right, not a spiritual side of ours; the story starts in the real world and crosses over.
 - Why: Not recorded
 - Source: [STORY.md → Setting (locked 2026-11-09)](STORY.md#setting-locked-2026-11-09), [WORLD.md → The Other World (working notes)](WORLD.md#the-other-world-working-notes)
 
-### D-193 · Chapter 1 covers all of Act 1
+### D-00193 · Chapter 1 covers all of Act 1
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1288,7 +1289,7 @@ Entry format:
 - Why: Not recorded
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23)
 
-### D-194 · Dismas plus two non-Human hunters
+### D-00194 · Dismas plus two non-Human hunters
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1296,7 +1297,7 @@ Entry format:
 - Why: Kept small for the art load.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23)
 
-### D-195 · Hunters are a Cynocephalus and a Hoopoe-kin
+### D-00195 · Hunters are a Cynocephalus and a Hoopoe-kin
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1304,7 +1305,7 @@ Entry format:
 - Why: The Ifriti lean on magic, which the slice doesn't bring in yet.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23)
 
-### D-207 · Dismas's hidden-Peri companion on hold
+### D-00207 · Dismas's hidden-Peri companion on hold
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1314,7 +1315,7 @@ Entry format:
 
 ## Characters
 
-### D-116 · Character looks signed off
+### D-00116 · Character looks signed off
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -1322,7 +1323,7 @@ Entry format:
 - Why: Not recorded
 - Source: [CHARACTERS.md → Looks signed off (Cletus, 2026-11-11)](CHARACTERS.md#looks-signed-off-cletus-2026-11-11)
 
-### D-117 · Sprite identity rules
+### D-00117 · Sprite identity rules
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -1330,17 +1331,17 @@ Entry format:
 - Why: Not recorded
 - Source: [CHARACTERS.md → Sprite and period constraints (locked art rules, open looks)](CHARACTERS.md#sprite-and-period-constraints-locked-art-rules-open-looks)
 
-### D-206 · Hero classes, backstories and weapons
+### D-00206 · Hero classes, backstories and weapons
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-080
+- Replaces: D-00080
 - Decision: Tristan a sword-and-shield Templar; Aveline a Hospital medic who grows into a Saint-Caller; Godric a heavy-hitting common sergeant with a mace; Lucien a fast skirmisher and scout with a bow.
-- Why: The weapons were settled with the 2026-11-11 looks sign-off (D-116).
+- Why: The weapons were settled with the 2026-11-11 looks sign-off (D-00116).
 - Source: [STORY.md → Classes and backstories (locked 2026-11-09)](STORY.md#classes-and-backstories-locked-2026-11-09), [CHARACTERS.md → Looks signed off (Cletus, 2026-11-11)](CHARACTERS.md#looks-signed-off-cletus-2026-11-11)
 
 ## Campaign & missions
 
-### D-051 · Mission trees with unlock types
+### D-00051 · Mission trees with unlock types
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1348,7 +1349,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 1. Campaign scope & structure ✅](archive/stage3-decisions.md#1-campaign-scope--structure-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-052 · Prototype mini-campaign: Option B
+### D-00052 · Prototype mini-campaign: Option B
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1356,7 +1357,7 @@ Entry format:
 - Why: Not recorded
 - Source: [ROADMAP.md → Stage 2 — Core loop prototype ✅ DONE](ROADMAP.md#stage-2--core-loop-prototype--done)
 
-### D-196 · Finale closes only time-sensitive branches
+### D-00196 · Finale closes only time-sensitive branches
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1364,7 +1365,7 @@ Entry format:
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
-### D-197 · Chapter 1 mission count
+### D-00197 · Chapter 1 mission count
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1372,7 +1373,7 @@ Entry format:
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
-### D-198 · Side-character join missions from Chapter 2
+### D-00198 · Side-character join missions from Chapter 2
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1382,39 +1383,39 @@ Entry format:
 
 ## Recruiting
 
-### D-023 · BG-style structure: created hero plus set companions
+### D-00023 · BG-style structure: created hero plus set companions
 - Date: 2026-11-01
-- Status: Replaced by D-186 (2026-11-23)
+- Status: Replaced by D-00186 (2026-11-23)
 - Replaces: none
 - Decision: One created hero; everyone else is a set companion with their own name, class and story who joins over the game (replacing FFTA-style squad building).
 - Why: Not recorded
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [archive/stage3-decisions.md](archive/stage3-decisions.md)
 
-### D-033 · Missed companions as replay driver (v0.11)
+### D-00033 · Missed companions as replay driver (v0.11)
 - Date: 2026-11-02
-- Status: Replaced by D-034 (2026-11-02)
+- Status: Replaced by D-00034 (2026-11-02)
 - Replaces: none
 - Decision: Beginning the prototype finale closes the third recruit mission, so that companion is missed.
 - Why: Not recorded
 - Source: [ROADMAP.md → Stage 2 — Core loop prototype ✅ DONE](ROADMAP.md#stage-2--core-loop-prototype--done)
 
-### D-034 · 10 companions, all gettable in one run
+### D-00034 · 10 companions, all gettable in one run
 - Date: 2026-11-02
 - Status: Active
-- Replaces: D-033
+- Replaces: D-00033
 - Decision: 10 companions, about 2 per chapter, and all can be recruited in one run; recruiting by how you win stays parked.
 - Why: Variety comes from the mission tree, branches and squad choice, not from locking people out.
 - Source: [archive/stage3-decisions.md → 4. Companions ✅](archive/stage3-decisions.md#4-companions-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-098 · Replay variety: optional recruits, random traits, story choices
+### D-00098 · Replay variety: optional recruits, random traits, story choices
 - Date: 2026-11-11
-- Status: Replaced by D-187 (2026-11-23)
+- Status: Replaced by D-00187 (2026-11-23)
 - Replaces: none
 - Decision: Replay variety comes from optional recruits (no run gets everyone), random recruit traits and a few story choices.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-099 · Recruits join at or below clan level
+### D-00099 · Recruits join at or below clan level
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -1422,7 +1423,7 @@ Entry format:
 - Why: In FFTA/FFTA2 late recruits join with better stats and push players off long-built favorites.
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-100 · Bench catch-up via level-gap experience
+### D-00100 · Bench catch-up via level-gap experience
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -1430,23 +1431,23 @@ Entry format:
 - Why: Cletus dislikes dispatch missions and free XP for not fighting.
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
-### D-186 · Recruiting copies FFTA2; no set companions
+### D-00186 · Recruiting copies FFTA2; no set companions
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-023
+- Replaces: D-00023
 - Decision: No set companions. Story characters join through the story, named side characters through optional quest chains (Chapter 2 on), and random generic recruits fill the roster with accept/decline.
 - Why: Cletus wants to recruit exactly the way FFTA2 does.
 - Source: [DESIGN.md → Recruiting: FFTA2-style (locked 2026-11-23)](DESIGN.md#recruiting-ffta2-style-locked-2026-11-23), [research/README.md](research/README.md)
 
-### D-187 · All companions gettable in one run; variety from random recruits
+### D-00187 · All companions gettable in one run; variety from random recruits
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-098
+- Replaces: D-00098
 - Decision: All companions are gettable in one run (limits may be explored later); replay variety comes from random generic recruits and their traits plus story choices.
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11), [DESIGN.md → Recruiting: FFTA2-style (locked 2026-11-23)](DESIGN.md#recruiting-ffta2-style-locked-2026-11-23)
 
-### D-188 · Story-companion recruit missions dropped
+### D-00188 · Story-companion recruit missions dropped
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1456,7 +1457,7 @@ Entry format:
 
 ## Slice plan
 
-### D-053 · Vertical slice is a polished 2-hour Chapter 1
+### D-00053 · Vertical slice is a polished 2-hour Chapter 1
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1464,15 +1465,15 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 11. Vertical slice (Stage 4) ✅](archive/stage3-decisions.md#11-vertical-slice-stage-4-), [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order)
 
-### D-054 · Slice includes 2 recruits
+### D-00054 · Slice includes 2 recruits
 - Date: 2026-11-02
-- Status: Replaced by D-199 (2026-11-23)
+- Status: Replaced by D-00199 (2026-11-23)
 - Replaces: none
 - Decision: The Chapter 1 mission tree includes 2 recruits.
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 11. Vertical slice (Stage 4) ✅](archive/stage3-decisions.md#11-vertical-slice-stage-4-)
 
-### D-055 · 12 milestones, unknowns first
+### D-00055 · 12 milestones, unknowns first
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1480,7 +1481,7 @@ Entry format:
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order)
 
-### D-056 · Not in the slice
+### D-00056 · Not in the slice
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1488,7 +1489,7 @@ Entry format:
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Not in the slice](SLICE-PLAN.md#not-in-the-slice)
 
-### D-182 · Audio plugin at the start of M4
+### D-00182 · Audio plugin at the start of M4
 - Date: 2026-11-19
 - Status: Active
 - Replaces: none
@@ -1496,17 +1497,17 @@ Entry format:
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
-### D-199 · Slice has no recruit missions
+### D-00199 · Slice has no recruit missions
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-054
+- Replaces: D-00054
 - Decision: Dismas's hunters become the clan after the rescue fight; no recruit missions in Chapter 1.
 - Why: Not recorded
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
 ## UI & controls
 
-### D-014 · FFTA2 control scheme
+### D-00014 · FFTA2 control scheme
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -1514,7 +1515,7 @@ Entry format:
 - Why: Tapping exact tiles on a phone was fiddly; Cletus wants controls to match FFTA2 to start.
 - Source: [DESIGN.md → Controls (FFTA2-style, as built)](DESIGN.md#controls-ffta2-style-as-built)
 
-### D-015 · Facing is an explicit end-of-turn choice
+### D-00015 · Facing is an explicit end-of-turn choice
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -1522,7 +1523,7 @@ Entry format:
 - Why: Auto-facing felt wrong in Cletus's playtest.
 - Source: [DESIGN.md → Facing, flanking & positioning](DESIGN.md#facing-flanking--positioning)
 
-### D-016 · Prediction before executing
+### D-00016 · Prediction before executing
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -1530,7 +1531,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Facing, flanking & positioning](DESIGN.md#facing-flanking--positioning)
 
-### D-017 · Context-aware d-pad
+### D-00017 · Context-aware d-pad
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -1538,23 +1539,23 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Controls (FFTA2-style, as built)](DESIGN.md#controls-ffta2-style-as-built)
 
-### D-018 · Diagonal quadrant d-pad
+### D-00018 · Diagonal quadrant d-pad
 - Date: 2026-10-31
-- Status: Replaced by D-057 (2026-11-02)
+- Status: Replaced by D-00057 (2026-11-02)
 - Replaces: none
 - Decision: The map pad used diagonal quadrants.
 - Why: Not recorded
 - Source: [DESIGN.md → Controls (FFTA2-style, as built)](DESIGN.md#controls-ffta2-style-as-built)
 
-### D-057 · Classic cross d-pad (v0.7)
+### D-00057 · Classic cross d-pad (v0.7)
 - Date: 2026-11-02
 - Status: Active
-- Replaces: D-018
+- Replaces: D-00018
 - Decision: The map pad is a ▲▶▼◀ cross with ▲ = up-right, rotating clockwise.
 - Why: Cletus found the diagonal quadrants weird.
 - Source: [DESIGN.md → Controls (FFTA2-style, as built)](DESIGN.md#controls-ffta2-style-as-built)
 
-### D-058 · No phone-only controls
+### D-00058 · No phone-only controls
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1562,7 +1563,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 8. Platform & controls ✅](archive/stage3-decisions.md#8-platform--controls-), [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order)
 
-### D-059 · Tap vs drag, and 'Begin mission?' confirm
+### D-00059 · Tap vs drag, and 'Begin mission?' confirm
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1570,7 +1571,7 @@ Entry format:
 - Why: Cletus accidentally started a mission while scrolling.
 - Source: [DESIGN.md → Controls (FFTA2-style, as built)](DESIGN.md#controls-ffta2-style-as-built)
 
-### D-060 · Allies stay in character
+### D-00060 · Allies stay in character
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1580,23 +1581,23 @@ Entry format:
 
 ## Art & audio
 
-### D-061 · 2D sprites on iso tiles, FFTA2-style portraits
+### D-00061 · 2D sprites on iso tiles, FFTA2-style portraits
 - Date: 2026-11-02
-- Status: Replaced by D-204 (2026-11-23)
+- Status: Replaced by D-00204 (2026-11-23)
 - Replaces: none
 - Decision: 2D sprites on iso tiles, Final Fantasy-based, FFTA2-style portraits, and a pre-made set of 8–12 hero portraits (no builder).
 - Why: HD-2D, low-poly 3D, a portrait builder and commissioned art were rejected.
 - Source: [archive/stage3-decisions.md → 7. Art direction ✅](archive/stage3-decisions.md#7-art-direction-)
 
-### D-062 · Tancred makes the art
+### D-00062 · Tancred makes the art
 - Date: 2026-11-02
-- Status: Replaced by D-096 (2026-11-10)
+- Status: Replaced by D-00096 (2026-11-10)
 - Replaces: none
 - Decision: Tancred (the AI partner) makes the art.
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 7. Art direction ✅](archive/stage3-decisions.md#7-art-direction-)
 
-### D-063 · Audio is a Tancred trial
+### D-00063 · Audio is a Tancred trial
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1604,7 +1605,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 12. Team & budget ✅](archive/stage3-decisions.md#12-team--budget-), [GAME-BRIEF.md](GAME-BRIEF.md)
 
-### D-064 · Scenes in-engine, no pre-rendered cutscenes
+### D-00064 · Scenes in-engine, no pre-rendered cutscenes
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1612,7 +1613,7 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 10. Story & mythology ✅](archive/stage3-decisions.md#10-story--mythology-), [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-066 · FFTA2 sprite animation with separate weapon layer
+### D-00066 · FFTA2 sprite animation with separate weapon layer
 - Date: 2026-11-03
 - Status: Active
 - Replaces: none
@@ -1620,15 +1621,15 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game)
 
-### D-096 · Guilhem makes the art
+### D-00096 · Guilhem makes the art
 - Date: 2026-11-10
 - Status: Active
-- Replaces: D-062
+- Replaces: D-00062
 - Decision: Guilhem · Illuminator makes the art.
 - Why: Not recorded
 - Source: [DESIGN.md → Later locks that override Stage 3](DESIGN.md#later-locks-that-override-stage-3), [GAME-BRIEF.md](GAME-BRIEF.md)
 
-### D-097 · Verse burn effect
+### D-00097 · Verse burn effect
 - Date: 2026-11-10
 - Status: Active
 - Replaces: none
@@ -1636,7 +1637,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Scripture presentation (2026-11-10)](DESIGN.md#scripture-presentation-2026-11-10)
 
-### D-118 · 60 px unit cap and integer scale
+### D-00118 · 60 px unit cap and integer scale
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -1644,7 +1645,7 @@ Entry format:
 - Why: So sprites use raw Retro Diffusion output with no shrink.
 - Source: [DESIGN.md → Art scale (LOCKED 2026-11-11)](DESIGN.md#art-scale-locked-2026-11-11)
 
-### D-119 · Units are body-centered on tiles
+### D-00119 · Units are body-centered on tiles
 - Date: 2026-11-11
 - Status: Active
 - Replaces: none
@@ -1652,17 +1653,17 @@ Entry format:
 - Why: Body-centered won the side-by-side.
 - Source: [DESIGN.md → Art scale (LOCKED 2026-11-11)](DESIGN.md#art-scale-locked-2026-11-11)
 
-### D-204 · 2D sprites on iso tiles, FFTA2-style portraits (no hero portrait set)
+### D-00204 · 2D sprites on iso tiles, FFTA2-style portraits (no hero portrait set)
 - Date: 2026-11-23
 - Status: Active
-- Replaces: D-061
+- Replaces: D-00061
 - Decision: 2D sprites on iso tiles, Final Fantasy-based, FFTA2-style portraits; the pre-made set of 8–12 hero portraits is dropped with hero creation.
-- Why: No created character (D-202), so there is no portrait pick.
+- Why: No created character (D-00202), so there is no portrait pick.
 - Source: [archive/stage3-decisions.md → 7. Art direction ✅](archive/stage3-decisions.md#7-art-direction-), [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order)
 
 ## Process
 
-### D-019 · Tuning lives in config
+### D-00019 · Tuning lives in config
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -1670,7 +1671,7 @@ Entry format:
 - Why: Not recorded
 - Source: [ROADMAP.md → Working rules](ROADMAP.md#working-rules), [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order)
 
-### D-020 · Phone-first playtesting on GitHub Pages
+### D-00020 · Phone-first playtesting on GitHub Pages
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -1678,7 +1679,7 @@ Entry format:
 - Why: Not recorded
 - Source: [ROADMAP.md → Working rules](ROADMAP.md#working-rules)
 
-### D-021 · Every feature serves the current stage
+### D-00021 · Every feature serves the current stage
 - Date: 2026-10-31
 - Status: Active
 - Replaces: none
@@ -1686,7 +1687,7 @@ Entry format:
 - Why: Not recorded
 - Source: [ROADMAP.md → Working rules](ROADMAP.md#working-rules)
 
-### D-065 · Balance sim stays green
+### D-00065 · Balance sim stays green
 - Date: 2026-11-02
 - Status: Active
 - Replaces: none
@@ -1694,7 +1695,7 @@ Entry format:
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order)
 
-### D-174 · Living TASKS.md for open design questions
+### D-00174 · Living TASKS.md for open design questions
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -1702,7 +1703,7 @@ Entry format:
 - Why: Not recorded
 - Source: [TASKS.md → How this works](TASKS.md#how-this-works)
 
-### D-175 · Docs index and archive
+### D-00175 · Docs index and archive
 - Date: 2026-11-18
 - Status: Active
 - Replaces: none
@@ -1710,7 +1711,7 @@ Entry format:
 - Why: Not recorded
 - Source: [README.md](README.md)
 
-### D-200 · Dated research reports with an index
+### D-00200 · Dated research reports with an index
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1718,7 +1719,7 @@ Entry format:
 - Why: Not recorded
 - Source: [research/README.md](research/README.md)
 
-### D-201 · Decision log
+### D-00201 · Decision log
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
@@ -1726,7 +1727,7 @@ Entry format:
 - Why: Not recorded
 - Source: [DECISIONS.md → How to use this log](DECISIONS.md#how-to-use-this-log)
 
-### D-209 · American spelling everywhere
+### D-00209 · American spelling everywhere
 - Date: 2026-11-19
 - Status: Active
 - Replaces: none

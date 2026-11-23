@@ -9,7 +9,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar. The story
 ## Design pillars (from Cletus)
 1. ~~No stop-and-press chores.~~ **Retired 2026-11-15:** Cletus said this came from an old game concept and no longer applies.
 2. **Customization, and every playthrough feels different.** Squad building, class mixes, and (later) variable maps/encounters.
-3. **Trade-off upgrades over pure power.** An upgrade should change *how* a unit plays ~~(e.g. heavier armor = tougher but shorter move / lower jump)~~ (**Superseded 2026-11-23:** there is no general armor penalty, see [Armor penalties](#armor-penalties-locked-2026-11-23); D-205), not just make numbers bigger.
+3. **Trade-off upgrades over pure power.** An upgrade should change *how* a unit plays ~~(e.g. heavier armor = tougher but shorter move / lower jump)~~ (**Superseded 2026-11-23:** there is no general armor penalty, see [Armor penalties](#armor-penalties-locked-2026-11-23); D-00205), not just make numbers bigger.
 4. ~~Story later, with room for mythology.~~ **Mythology central from the start** (Stage 3 #10): relics and the uncanny drive the plot. The premise is written in a dedicated story session; told in-engine, FFTA2-style.
 5. **Party building where classes move differently** (FFTA-style movement): class determines move, jump and terrain affinity. ~~The party is your created hero plus set companions (BG-style), not a menu-built squad.~~ **Superseded 2026-11-23:** there are no set companions. The clan is built the FFTA2 way: story characters, named side characters who join through quest chains, and random generic recruits you can accept or turn away ([Recruiting](#recruiting-ffta2-style-locked-2026-11-23)).
 6. **Flanking and positioning are central** to combat.
@@ -38,9 +38,9 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar. The story
 *Decided with Cletus (after the v0.5 playtest).* The structure borrows from Baldur's Gate 1/2; the rules don't. **Combat stays our tactics system, not D&D.**
 
 **Decisions**
-- ~~**One main character you create.**~~ **Superseded 2026-11-23:** there is no created character; you play as **Tristan**, the fixed protagonist (D-202). ~~Everyone else in the party is a **set companion** with their own name, class, personality and story, who joins over the course of the game (BG-style). This replaces generic FFTA-style squad building from a menu.~~ **Superseded 2026-11-23:** no set companions. The squad is built like FFTA2: named characters (story and side) with their own story join over the game, and random generic recruits fill the rest of the roster ([Recruiting](#recruiting-ffta2-style-locked-2026-11-23)).
-- ~~**Creation choices: stats, class, portrait. That's all.** The background is always the same (one fixed origin, so the story can be written around it). Name entry is a formality on the confirm step.~~ **Superseded 2026-11-23:** no hero creation; Tristan is fixed (D-202).
-- ~~**Stats are rolled, BG1/BG2-style.** Reroll as often as you like. You can take points out of one stat into a shared pool and spend them on another, within a floor and a cap. Store / Recall keeps one roll you liked.~~ **Superseded 2026-11-23:** no rolled stats; Tristan's stats are set like any other unit's (D-203).
+- ~~**One main character you create.**~~ **Superseded 2026-11-23:** there is no created character; you play as **Tristan**, the fixed protagonist (D-00202). ~~Everyone else in the party is a **set companion** with their own name, class, personality and story, who joins over the course of the game (BG-style). This replaces generic FFTA-style squad building from a menu.~~ **Superseded 2026-11-23:** no set companions. The squad is built like FFTA2: named characters (story and side) with their own story join over the game, and random generic recruits fill the rest of the roster ([Recruiting](#recruiting-ffta2-style-locked-2026-11-23)).
+- ~~**Creation choices: stats, class, portrait. That's all.** The background is always the same (one fixed origin, so the story can be written around it). Name entry is a formality on the confirm step.~~ **Superseded 2026-11-23:** no hero creation; Tristan is fixed (D-00202).
+- ~~**Stats are rolled, BG1/BG2-style.** Reroll as often as you like. You can take points out of one stat into a shared pool and spend them on another, within a floor and a cap. Store / Recall keeps one roll you liked.~~ **Superseded 2026-11-23:** no rolled stats; Tristan's stats are set like any other unit's (D-00203).
 - Classes keep their movement identity: **MOV and JUMP come from class only and are never rolled.** ~~No race movement modifiers either; winged race parked.~~ **Superseded (2026-11-11):** races have a movement quirk on top of class movement ([Q13](#classes-and-races--open-questions-2026-11-11)).
 - Story decisions now live in [STORY.md](STORY.md).
 
@@ -55,13 +55,13 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar. The story
 | **Aim** (AIM) | hit chance (today fixed by facing) and crit chance | ±2% hit, ±0.5% crit |
 | **Resolve** (RES) | resisting statuses and being shoved/pulled | ±5% resist |
 
-Class base stats from `CONFIG.roles` stay the backbone; ~~rolled stats nudge them~~ (**Superseded 2026-11-23:** no rolled stats, D-203). The Stage 2 prototype's creation formula, class minimums, and sim results are in [archive/DESIGN-prototype.md](archive/DESIGN-prototype.md#hero-creation-as-built-v06) and `CONFIG.creation`.
+Class base stats from `CONFIG.roles` stay the backbone; ~~rolled stats nudge them~~ (**Superseded 2026-11-23:** no rolled stats, D-00203). The Stage 2 prototype's creation formula, class minimums, and sim results are in [archive/DESIGN-prototype.md](archive/DESIGN-prototype.md#hero-creation-as-built-v06) and `CONFIG.creation`.
 
-**Mockups** (static, not in the game): [`docs/mockups/`](mockups/). A = classic BG roll sheet on one screen, B = step-by-step wizard (the one that was built), C = Templar dossier with a mini iso movement preview. (Historical: hero creation is cut, 2026-11-23, D-202.)
+**Mockups** (static, not in the game): [`docs/mockups/`](mockups/). A = classic BG roll sheet on one screen, B = step-by-step wizard (the one that was built), C = Templar dossier with a mini iso movement preview. (Historical: hero creation is cut, 2026-11-23, D-00202.)
 
 Still-open questions from this section (stat set, Aim swinginess, the 1–100 mapping, whether the hero's class limits who wants to join) live in [TASKS.md](TASKS.md). ~~A bigger party cap later?~~ **Superseded (2026-11-09):** about 6 units deploy from a larger roster. ~~Squad of 3~~ same lock. Wounds and portrait style were decided in Stage 3 (see above).
 
-The live prototype's creation wizard (Portrait → Class → Stats → Name, mockup B; Stage 2 only, cut from the game 2026-11-23, D-202) is documented in the [prototype archive](archive/DESIGN-prototype.md#hero-creation-as-built-v06).
+The live prototype's creation wizard (Portrait → Class → Stats → Name, mockup B; Stage 2 only, cut from the game 2026-11-23, D-00202) is documented in the [prototype archive](archive/DESIGN-prototype.md#hero-creation-as-built-v06).
 
 ## Combat systems
 
@@ -141,7 +141,7 @@ Cletus's playtest (v0.1): tapping exact tiles on a phone was fiddly, and auto-fa
   | Hero creation: **Stats** | **4-way cross** (from mockup B, which Cletus liked): ▲▼ pick a stat, ◀ ▶ −/+, hold to repeat. Taps on −/+ work too. **No A/B**: Reroll / Store / Recall and Back/Next are labelled buttons, so an A/B pair would be ambiguous. This is the one screen with many small repeated adjustments, which is where a pad beats tapping 34px buttons |
   | Hero creation: **Name & confirm** | **no pad, no A/B.** The phone keyboard covers the bottom of the screen; "Begin ✠" confirms |
   | Battle | cross on the map and in the facing step, ▲▼ in menus, dimmed otherwise (rows above) |
-  The four hero-creation rows describe the Stage 2 prototype only; the game has no hero creation (2026-11-23, D-202).
+  The four hero-creation rows describe the Stage 2 prototype only; the game has no hero creation (2026-11-23, D-00202).
   Desktop keys in the wizard: arrows/WASD move through portraits, change class, or drive the Stats cross; Enter/Z/Space = Next; Esc/X/Backspace = Back (on step 1, back to the title).
 - **A (right thumb, upper):** confirm. **B (lower-left of A):** cancel / back. Same layout as the DS.
 - Sizes: `controls.dpadSizePx` (156), `abSizePx` (70), `menuItemHeightPx` (44).
@@ -241,7 +241,7 @@ Questions for Cletus, answered one at a time:
 5. ~~Respec cost?~~ **Locked 2026-11-11: class switching is free between battles, never mid-fight.** The trade-off is time: battles spent learning one class are not spent on another.
 6. ~~Replay variety?~~ **Locked 2026-11-11: ~~optional recruits (no run gets everyone),~~ random recruit traits, and a few story choices.** **Superseded 2026-11-23:** all companions are gettable in one run (limits may be explored later). Replay variety comes from random generic recruits and their traits, plus story choices.
 7. ~~How do we avoid trap classes and a single dominant combo?~~ **Locked 2026-11-11: sideways class tree (later classes differ, not better; every class keeps a niche), every ability carries a cost, and battles/maps reward different builds. Effects that don't stack fully are a tuning safety net if needed.**
-8. ~~How many races?~~ **Locked 2026-11-11: four (Humans plus three), with a possible fifth race later, unlocked through quests (Redeemed on hold, see Q14).** **Updated 2026-11-23:** the four main races are Human, Ifriti, Cynocephali and Hoopoe-kin, and the hidden Peri are a fifth, unlocked through their side-quest tree (Q12, D-208).
+8. ~~How many races?~~ **Locked 2026-11-11: four (Humans plus three), with a possible fifth race later, unlocked through quests (Redeemed on hold, see Q14).** **Updated 2026-11-23:** the four main races are Human, Ifriti, Cynocephali and Hoopoe-kin, and the hidden Peri are a fifth, unlocked through their side-quest tree (Q12, D-00208).
 9. ~~Which races?~~ **Locked 2026-11-11: Humans, Peri (small, quick, short wing hop), Ifriti (smokeless-fire folk, magical, at home in heat and sand) and Cynocephali (dog-headed people of medieval travel tales, trackers). Names are working titles; see docs/research/RACES.md. Looks pending Guilhem's full-scale portraits.**
 10. ~~Real-world heroes: Humans or Outlanders?~~ **Locked 2026-11-11: plain Humans; unique classes set them apart.**
 11. ~~How strict are race locks?~~ **Locked 2026-11-11: FFTA2-style. A shared core of classes, but not every race can take every core class: Humans get almost all of the core, Peri the nimble core classes, Ifriti the magical ones and Cynocephali the fighters. Each race also has a few race-only classes.** (Written before Hoopoe-kin joined the roster; which core classes Hoopoe-kin can take is set per class in [CLASSES.md](CLASSES.md).)
