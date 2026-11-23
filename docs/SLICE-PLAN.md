@@ -50,8 +50,8 @@ These are flagged because each one could change the plan, the schedule or the sc
    - How do encounters on the way trigger?
    - How does the multi-part lock read to the player?
 3. **The mission tree data format (M6).** It has to express chain, branch, companion-only and ability-unlock missions, plus multi-part legs, and it should scale to about 5 chapters and 10 companions. Open questions:
-   - Does a finale close open branches?
-   - Which branches carry into later chapters?
+   - ~~Does a finale close open branches?~~ **Locked 2026-11-23:** most unfinished side branches carry into the next chapter; a few are marked **time-sensitive** and close for good when the finale begins (the finale's confirm warns which). Companions are never closed off; only side content can be.
+   - ~~Which branches carry into later chapters?~~ Answered by the rule above: every branch not marked time-sensitive carries over. Which Ch.1 branches are time-sensitive is set when Ch.1 content is written (M11).
    - ~~How many side missions does a chapter have?~~ **Locked 2026-11-23:** Chapter 1 has **6 side missions** (some are branch follow-ups), plus 2 recruit missions, 1 multi-part mission and the finale, for about 2 hours.
 
    Getting this wrong is expensive later, so it gets a validator from day one.
