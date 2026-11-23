@@ -9,10 +9,10 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 - Build work (slice milestones, engine, deploys) lives on the GitHub board, not here. Each build issue is a [SLICE-PLAN.md](SLICE-PLAN.md) milestone. The Stage 4 plan is in [ROADMAP.md](ROADMAP.md).
 
 ## Now
-- Kit template is locked (see [DESIGN.md](DESIGN.md) "Unit kit template"). All five first race-class kits (Templar Knight, Oath Mage, Shieldbrother, Rooster, Div-Hunter) are complete as of 2026-11-23. Numbers are still open. Kits live in [CLASSES.md](CLASSES.md).
+- Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [CLASSES.md](CLASSES.md#oath-mage).
+- All five first race-class kits are complete as of 2026-11-23 (numbers still open). Kits live in [CLASSES.md](CLASSES.md).
 
 ## Next
-- Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [CLASSES.md](CLASSES.md#oath-mage).
 - Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4. Locked story decisions already live in [STORY.md](STORY.md).
 - Settle remaining Stage 3 campaign-tree details for the slice: side missions per chapter, whether a finale closes unfinished branches, and which branches carry into later chapters. Copied from [archive/stage3-decisions.md](archive/stage3-decisions.md) #1 before that file was archived. See [SLICE-PLAN.md](SLICE-PLAN.md).
 
@@ -24,6 +24,8 @@ Decisions only he can make.
 - The Templar Knight's limitation is still open; leave it open until Cletus decides. See [CLASSES.md](CLASSES.md#templar-knight).
 
 ## Parking lot
+- How many field objects (for example roosts) one unit can have out at once. See [DESIGN.md](DESIGN.md) "Field objects".
+- Lingering area moves for other classes, maybe a whole class built around them (noted 2026-11-22). Also a full ranged-immunity move for the main archer class. See [DESIGN.md](DESIGN.md) and the Rooster notes in [CLASSES.md](CLASSES.md).
 - Kit extras parked 2026-11-18: meters/gauges, combo attacks, summons. Also: more places to hide rare teaching items, and other ways to earn AP besides battle. See [DESIGN.md](DESIGN.md) "Unit kit template".
 - Stage 3 planned 10 companions, all gettable in one run, with 4 still to be written beyond the old pitch list. The story cast later started in [STORY.md](STORY.md) / [CHARACTERS.md](CHARACTERS.md), and the Stage 2 pitch names were set aside. How that maps to the 10-companion lock is still open. Copied from [archive/stage3-decisions.md](archive/stage3-decisions.md) #4.
 - Recruiting by *how* you win (spare, protect, reach in time) stays parked; winning the mission is enough for now. Moved from the [ROADMAP.md](ROADMAP.md) parking lot.
