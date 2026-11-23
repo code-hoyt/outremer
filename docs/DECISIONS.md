@@ -1389,6 +1389,14 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Stage 3 decisions: what changes for the real game](DESIGN.md#stage-3-decisions-what-changes-for-the-real-game), [TASKS.md → Parking lot](TASKS.md#parking-lot)
 
+### D-00211 · Chapter 1 multi-part mission: 2 nodes, unlocks a hidden node
+- Date: 2026-11-23
+- Status: Active
+- Replaces: none
+- Decision: Chapter 1's one multi-part mission is a 2-node quest that unlocks the hidden node discussed in the world-map research report. You can't return to town between the two legs (D-00045). The quest's plot and name, and what the hidden node is or holds, are still open.
+- Why: Cletus picked a two-node route that unlocks the hidden node from the world-map report, rather than the report's three-node pitch.
+- Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [research/2026-11-23-tactics-world-maps.md](research/2026-11-23-tactics-world-maps.md)
+
 ## Recruiting
 
 ### D-00023 · BG-style structure: created hero plus set companions
