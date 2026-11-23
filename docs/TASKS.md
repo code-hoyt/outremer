@@ -34,6 +34,7 @@ Decisions only he can make.
 - Does the hero's class limit which companions want to join?
 - Side missions where a side character (unrelated to the main story) joins the clan: Chapter 2 or later, not the slice. (Replaces recruit missions, dropped 2026-11-23.)
 - Should a story guest (FFTA2-style) take orders, or stay AI-only?
+- Revisit the starting clan size during development: Cletus would like one of every base race at the start, like FFTA2 (the slice uses Dismas plus two hunters).
 - Should Shield Wall also cancel flank bonuses (it doesn't now)? Should shoves or pulls into a brace zone trigger Brace (they don't now)?
 - Should waiting (CT −60) be more visible as a tactic?
 - Keep the FFTA2 menu structure as ability sets arrive (Action → class set / borrowed secondary set)?
