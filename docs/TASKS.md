@@ -32,7 +32,8 @@ Decisions only he can make.
 - Magic and MP, parked for later: MP is for spells; physical abilities keep built-in drawbacks. See [DESIGN.md](DESIGN.md) Stage 3 #6 and [SLICE-PLAN.md](SLICE-PLAN.md).
 - Is the six-stat set (MGT, END, FOR, AGI, AIM, RES) right, and does Aim make facing's fixed hit chance too swingy? How creation rolls and class minimums map to the planned 1–100 / level-50 scale is open ([SLICE-PLAN.md](SLICE-PLAN.md) M5).
 - Does the hero's class limit which companions want to join?
-- Should the recruit-mission stranger (FFTA2-style guest) take orders, or stay AI-only?
+- Side missions where a side character (unrelated to the main story) joins the clan: Chapter 2 or later, not the slice. (Replaces recruit missions, dropped 2026-11-23.)
+- Should a story guest (FFTA2-style) take orders, or stay AI-only?
 - Should Shield Wall also cancel flank bonuses (it doesn't now)? Should shoves or pulls into a brace zone trigger Brace (they don't now)?
 - Should waiting (CT −60) be more visible as a tactic?
 - Keep the FFTA2 menu structure as ability sets arrive (Action → class set / borrowed secondary set)?

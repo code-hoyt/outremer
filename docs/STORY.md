@@ -162,6 +162,7 @@ Goal: the player gets to know the Hooded Figure well before the unmasking, so th
 
 ## Chapter 1 scope (locked 2026-11-23)
 - **Chapter 1 (the vertical slice) covers all of Act 1:** it opens with the castle prologue, where the cellar fight is the tutorial, and ends with the Demon fight at the holy stronghold, where Aveline arrives and the map game opens.
+- **No recruit missions in Chapter 1:** Dismas and his hunting party become the first members of the clan when Tristan joins them after the rescue fight. Side characters who join through their own side missions come in later chapters.
 
 ## Open questions
 - Refine the Hooded Figure and Lucien encounter run (Cletus is not in love with it yet).
