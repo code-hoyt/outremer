@@ -9,7 +9,7 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 - Build work (slice milestones, engine, deploys) lives on the GitHub board, not here. Each build issue is a [SLICE-PLAN.md](SLICE-PLAN.md) milestone. The Stage 4 plan is in [ROADMAP.md](ROADMAP.md).
 
 ## Now
-- Kit template is locked (see [DESIGN.md](DESIGN.md) "Unit kit template"). The Templar Knight, Oath Mage, Shieldbrother and Rooster kits are complete. Finish the last first race-class kit: Div-Hunter. Its signature move is picked; the rest of the kit is still to be designed. Kits live in [CLASSES.md](CLASSES.md).
+- Kit template is locked (see [DESIGN.md](DESIGN.md) "Unit kit template"). All five first race-class kits (Templar Knight, Oath Mage, Shieldbrother, Rooster, Div-Hunter) are complete as of 2026-11-23. Numbers are still open. Kits live in [CLASSES.md](CLASSES.md).
 
 ## Next
 - Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [CLASSES.md](CLASSES.md#oath-mage).

@@ -212,14 +212,15 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Reaction ideas not picked (2026-11-23):** Grudge Strike (free attack on whoever drops an ally within 2 tiles), Sweet Air (when hit, heals adjacent allies a little), Wingbeat (pushes a melee attacker back 1 tile).
 
-**Passives:** still to be designed.
+**Passive:** **Eternal Spring (picked 2026-11-23):** she regains a little HP at the start of each turn, but all healing she receives (items, spells, abilities) is reduced (Cletus).
 
-**Kit status:** in progress. Weapon, armor, signature, five actions and two reactions are picked; passives are next.
+**Passive ideas not picked (2026-11-23):** Demonbane, Two-Hand Grip, Old Grudge, Paradise Scent, Flower Feeder, Wide Swing, Heavy Wings, Penitent's Edge, Hallowed Ground, Hunter's Patience, Bloodhound Nose, Blooming Wounds, Vow of Thorns, Momentum.
+
+**Kit status:** complete as of 2026-11-23: six actions (Scent of Paradise plus five), two reactions, one passive. Numbers are still open.
 
 **Ideas kept for later:** Stooping Dive, Glide-Cut, Iron Cage Turned, Old Grudge, Featherfall Ward, Banish, Hunter's Mark, Unmask and Flurry. Other Peri class ideas: Cage-Breaker, Grudge-Bearer, Skyblade and Ward-Archer (plus the earlier list under Racial callings).
 
 **Open questions:**
-- The rest of the kit is still to be designed.
 - The numbers are still open and will go in `src/config.js` when built.
 
 ---
