@@ -9,7 +9,7 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 - Build work (slice milestones, engine, deploys) lives on the GitHub board, not here. Each build issue is a [SLICE-PLAN.md](SLICE-PLAN.md) milestone. The Stage 4 plan is in [ROADMAP.md](ROADMAP.md).
 
 ## Now
-- Draft the Oath Mage oath list and law pool: which oaths stack, durations, finishers, and the random-law pool. See [CLASSES.md](CLASSES.md#oath-mage).
+- The Oath Mage law pool is locked (six laws, 2026-11-23). Still open: which oaths stack and the numbers, set during balancing. See [CLASSES.md](CLASSES.md#oath-mage).
 - All five first race-class kits are complete as of 2026-11-23 (numbers still open). Kits live in [CLASSES.md](CLASSES.md).
 
 ## Next

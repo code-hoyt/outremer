@@ -83,6 +83,11 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 - **No attack skill (Cletus, 2026-11-18):** the Oath Mage needs no damage action; like every unit it can make a basic weapon attack (weak with a book). FFTA2 precedent: White Mage, Bard and Dancer had no damaging skills. **No escape move:** no way to end an oath safely early; making or breaking oaths is the player's choice (Release and Recitation rejected).
 - **Idea kept (2026-11-18):** some oaths aimed at enemies (timed like all oaths).
 
+**Law pool (locked 2026-11-23, kept small for the slice / proof of concept):** six laws in two halves. Each team oath draws one law from the whole pool; Covenant draws from the harsh half.
+- **Mild:** No items · No ranged attacks · No moving more than 3 tiles.
+- **Harsh:** No abilities (basic attacks only) · No healing of any kind · No attacking the same enemy twice in a row.
+More laws can be added after the slice. The Oath Mage may not be in the slice at all (magic classes are deferred in SLICE-PLAN.md).
+
 **Reactions (picked 2026-11-18):** chosen to be worth equipping on other classes too (Cletus: why would a unit that mastered it equip it elsewhere?).
 - **Sworn Witness**: when an enemy hits this unit, that enemy is marked for 1 turn and allies deal more damage to it. Turns any tank into a target-painter.
 - **Last Word**: when a hit drops this unit below 25% HP, it immediately gets one free item or ability use.
@@ -100,7 +105,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 **Passive ideas not picked (2026-11-18):** Witness Me (allies within 2 tiles gain accuracy, this unit draws more aggro), Ink-Stained (items hit a 1-tile cross but weaker), Silver Tongue (enemy statuses and own buffs both expire a turn sooner).
 
 **Open questions:**
-- Still open: the list of limitations, and the numbers (which will go in `src/config.js`).
+- ~~The list of limitations~~ locked 2026-11-23 (see Law pool above). Still open: the numbers (which will go in `src/config.js`).
 - ~~Whether oaths stack~~ **superseded (2026-11-17):** the same day's notes also lock stacking (oaths stack; which oaths stack, and any caps, are set per oath in `src/config.js`). The earlier "still open: … and whether oaths stack" line is kept here only so that wording is not lost.
 - Oath finishers stay open (2026-11-17), as above.
 
