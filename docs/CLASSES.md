@@ -193,17 +193,24 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons (locked 2026-11-22):** two-handed sword only (Cletus). This replaces the earlier light-blade description, so she reads as a heavy-hitting slayer more than a quick striker; wing hop, glide and dive still get her to targets.
 
-**Armor (locked 2026-11-22):** heavy armor only (Cletus). Open: whether heavy armor limits her wing hop, glide and dive.
+**Armor (locked 2026-11-22):** heavy armor only (Cletus). Heavy armor does not limit her wing hop, glide or dive (no general armor penalties; see DESIGN.md).
 
 **Signature (picked 2026-11-18):** **Scent of Paradise**, a strike that leaves a holy fragrance on the target, burning demons each turn and stopping them from healing (Peri live on the scent of flowers).
 
-**Actions:** still to be designed, besides Scent of Paradise.
+**Actions (picked 2026-11-22):**
+- **Thorn Sweep:** a wide arc hitting all three cells in front of her; leaves thorns that slow anyone walking through.
+- **Rosewater Edge:** she anoints her blade, so her attacks this turn and next deal holy damage (big against demons).
+- **Unmask:** a strike that strips a demon's disguise or illusion and cancels its buffs.
+- **Lingering Bloom:** she plants her sword; a 3x3 field of flowers lingers for a few turns, hurting demons standing in it (a lingering area move, see DESIGN.md).
+- **Banish:** a heavy finisher, lethal to a demon under 25% HP, weak against everything else.
+
+**Action ideas not picked (2026-11-22):** Stooping Dive (stays in ideas kept for later).
 
 **Reactions:** still to be designed.
 
 **Passives:** still to be designed.
 
-**Kit status:** in progress. Signature is picked; the rest of the kit is still to be designed.
+**Kit status:** in progress. Weapon, armor, signature and five actions are picked; reactions and passives are next.
 
 **Ideas kept for later:** Stooping Dive, Glide-Cut, Iron Cage Turned, Old Grudge, Featherfall Ward, Banish, Hunter's Mark, Unmask and Flurry. Other Peri class ideas: Cage-Breaker, Grudge-Bearer, Skyblade and Ward-Archer (plus the earlier list under Racial callings).
 

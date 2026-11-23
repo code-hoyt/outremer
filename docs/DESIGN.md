@@ -275,3 +275,7 @@ Abilities can place **field objects** on the map, such as the Rooster's roost. A
 
 Cletus likes area-of-effect moves that stay on the field for a few turns (for example the Rooster's Blackout). Keep this move type in mind for other classes. It could anchor its own class that fills the field with lingering effects. Open: duration, stacking, and whether these count as field objects.
 
+## Armor penalties (locked 2026-11-23)
+
+There is no general penalty for armor weight, heavy or not: no move, jump, flight or evasion loss just for wearing heavy armor. If a penalty exists, it belongs to a specific armor piece and comes from that armor's lore (Cletus).
+
