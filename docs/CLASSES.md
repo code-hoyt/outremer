@@ -206,11 +206,15 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Action ideas not picked (2026-11-22):** Stooping Dive (stays in ideas kept for later).
 
-**Reactions:** still to be designed.
+**Reactions (picked 2026-11-23):**
+- **Iron Will:** once per battle, a hit that would KO her leaves her at 1 HP instead.
+- **Ward of Petals:** the first magic attack against her each battle does half damage.
+
+**Reaction ideas not picked (2026-11-23):** Grudge Strike (free attack on whoever drops an ally within 2 tiles), Sweet Air (when hit, heals adjacent allies a little), Wingbeat (pushes a melee attacker back 1 tile).
 
 **Passives:** still to be designed.
 
-**Kit status:** in progress. Weapon, armor, signature and five actions are picked; reactions and passives are next.
+**Kit status:** in progress. Weapon, armor, signature, five actions and two reactions are picked; passives are next.
 
 **Ideas kept for later:** Stooping Dive, Glide-Cut, Iron Cage Turned, Old Grudge, Featherfall Ward, Banish, Hunter's Mark, Unmask and Flurry. Other Peri class ideas: Cage-Breaker, Grudge-Bearer, Skyblade and Ward-Archer (plus the earlier list under Racial callings).
 
