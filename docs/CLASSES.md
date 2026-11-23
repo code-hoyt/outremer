@@ -193,7 +193,7 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Weapons (locked 2026-11-22):** two-handed sword only (Cletus). This replaces the earlier light-blade description, so she reads as a heavy-hitting slayer more than a quick striker; wing hop, glide and dive still get her to targets.
 
-**Armor:** TBD.
+**Armor (locked 2026-11-22):** heavy armor only (Cletus). Open: whether heavy armor limits her wing hop, glide and dive.
 
 **Signature (picked 2026-11-18):** **Scent of Paradise**, a strike that leaves a holy fragrance on the target, burning demons each turn and stopping them from healing (Peri live on the scent of flowers).
 
