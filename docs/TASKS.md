@@ -14,7 +14,7 @@ Living list of open **design decisions**. Build work lives on the [GitHub issues
 
 ## Next
 - Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4. Locked story decisions already live in [STORY.md](STORY.md).
-- Settle remaining Stage 3 campaign-tree details for the slice: side missions per chapter, whether a finale closes unfinished branches, and which branches carry into later chapters. Copied from [archive/stage3-decisions.md](archive/stage3-decisions.md) #1 before that file was archived. See [SLICE-PLAN.md](SLICE-PLAN.md).
+- Settle remaining Stage 3 campaign-tree details for the slice (side missions locked 2026-11-23: 6 in Ch.1): whether a finale closes unfinished branches, and which branches carry into later chapters. Copied from [archive/stage3-decisions.md](archive/stage3-decisions.md) #1 before that file was archived. See [SLICE-PLAN.md](SLICE-PLAN.md).
 
 ## Waiting on Cletus
 Decisions only he can make.

@@ -52,7 +52,7 @@ These are flagged because each one could change the plan, the schedule or the sc
 3. **The mission tree data format (M6).** It has to express chain, branch, companion-only and ability-unlock missions, plus multi-part legs, and it should scale to about 5 chapters and 10 companions. Open questions:
    - Does a finale close open branches?
    - Which branches carry into later chapters?
-   - How many side missions does a chapter have?
+   - ~~How many side missions does a chapter have?~~ **Locked 2026-11-23:** Chapter 1 has **6 side missions** (some are branch follow-ups), plus 2 recruit missions, 1 multi-part mission and the finale, for about 2 hours.
 
    Getting this wrong is expensive later, so it gets a validator from day one.
 4. **The TypeScript and renderer migration (M1–M2).** It's a big refactor done by one developer, and the main risk is losing the sim parity and test coverage that make tuning safe. Open questions:
