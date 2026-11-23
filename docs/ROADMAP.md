@@ -46,7 +46,7 @@ Open design decisions live in [TASKS.md](TASKS.md). Build work lives on the [Git
 ---
 
 ## Stage 2 — Core loop prototype ✅ DONE
-**Purpose:** prove that making a hero and growing a party around them is fun. Baldur's Gate 1/2 structure (create one main character, set companions join), FFTA-style tactics combat, no D&D rules. See [DESIGN.md → Main character & party](DESIGN.md#main-character--party-baldurs-gate-style-structure).
+**Purpose:** prove that making a hero and growing a party around them is fun. Baldur's Gate 1/2 structure (create one main character, set companions join), FFTA-style tactics combat, no D&D rules. See [DESIGN.md → Main character & party](DESIGN.md#main-character--party-baldurs-gate-style-structure). **Superseded 2026-11-23:** set companions were a Stage 2 idea; the real game recruits FFTA2-style ([DESIGN.md](DESIGN.md) Recruiting). This stage is kept as history.
 
 **Loop:** create hero → fight → a set companion joins → next fight.
 

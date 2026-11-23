@@ -26,13 +26,15 @@ Decisions only he can make.
 - How many field objects (for example roosts) one unit can have out at once. See [DESIGN.md](DESIGN.md) "Field objects".
 - Lingering area moves for other classes, maybe a whole class built around them (noted 2026-11-22). Also a full ranged-immunity move for the main archer class. See [DESIGN.md](DESIGN.md) and the Rooster notes in [CLASSES.md](CLASSES.md).
 - Kit extras parked 2026-11-18: meters/gauges, combo attacks, summons. Also: more places to hide rare teaching items, and other ways to earn AP besides battle. See [DESIGN.md](DESIGN.md) "Unit kit template".
+- **Open (2026-11-23): side-character join level.** DESIGN.md Q15 says recruits join at or below clan level, but FFTA's secret characters join a few levels above the clan average. Do Outremer's named side characters follow Q15 or the FFTA rule? See [research/2026-11-23-ffta-recruiting.md](research/2026-11-23-ffta-recruiting.md).
+- FFTA2-style recruiting details (2026-11-23): clan cap and swap-when-full rule, how generics appear (map by region/season vs. after missions), and whether a "Clan Mates"-style pick-your-class quest comes back. See [DESIGN.md](DESIGN.md) Recruiting.
 - Stage 3 planned 10 companions, all gettable in one run, with 4 still to be written beyond the old pitch list. The story cast later started in [STORY.md](STORY.md) / [CHARACTERS.md](CHARACTERS.md), and the Stage 2 pitch names were set aside. How that maps to the 10-companion lock is still open. Copied from [archive/stage3-decisions.md](archive/stage3-decisions.md) #4.
 - Recruiting by *how* you win (spare, protect, reach in time) stays parked; winning the mission is enough for now. Moved from the [ROADMAP.md](ROADMAP.md) parking lot.
 - Re-recruiting a declined companion later? (A decline shouldn't lock one out for good if all companions are gettable in one run.) Moved from the [ROADMAP.md](ROADMAP.md) parking lot. In the v0.11 prototype, Decline is final for that run.
 - Magic and MP, parked for later: MP is for spells; physical abilities keep built-in drawbacks. See [DESIGN.md](DESIGN.md) Stage 3 #6 and [SLICE-PLAN.md](SLICE-PLAN.md).
 - Is the six-stat set (MGT, END, FOR, AGI, AIM, RES) right, and does Aim make facing's fixed hit chance too swingy? How creation rolls and class minimums map to the planned 1–100 / level-50 scale is open ([SLICE-PLAN.md](SLICE-PLAN.md) M5).
 - Does the hero's class limit which companions want to join?
-- Side missions where a side character (unrelated to the main story) joins the clan: Chapter 2 or later, not the slice. (Replaces recruit missions, dropped 2026-11-23.)
+- Side missions where a side character (unrelated to the main story) joins the clan: Chapter 2 or later, not the slice. (Replaces story-companion recruit missions, dropped 2026-11-23; FFTA-style generic recruit missions are still allowed.)
 - Should a story guest (FFTA2-style) take orders, or stay AI-only?
 - Revisit the starting clan size during development: Cletus would like one of every base race at the start, like FFTA2 (the slice uses Dismas plus two hunters).
 - Should Shield Wall also cancel flank bonuses (it doesn't now)? Should shoves or pulls into a brace zone trigger Brace (they don't now)?

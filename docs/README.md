@@ -18,7 +18,8 @@ Index of the design and research docs. Locked rules live in the living files bel
 - `BESTIARY.md` — enemy kits, once those are designed. The names (Imp, Fiend, Demon, and so on) already live in [DESIGN.md](DESIGN.md) (bestiary terms).
 
 ## Research only
-Nothing in [research/](research/) is locked. Locked answers live in DESIGN.md and WORLD.md.
+Nothing in [research/](research/) is locked. Locked answers live in DESIGN.md and WORLD.md. Dated reports are indexed in [research/README.md](research/README.md).
+- [research/2026-11-23-ffta-recruiting.md](research/2026-11-23-ffta-recruiting.md) — how FFTA and FFTA2 recruit clan members (basis for the 2026-11-23 Recruiting lock).
 - [research/KIT-SYSTEMS.md](research/KIT-SYSTEMS.md) — FFTA/FFTA2 kit research. Section 6 is out of date; the template was locked in DESIGN.md on 2026-11-18.
 - [research/RACES.md](research/RACES.md) — race shortlist for Q9. Locked race decisions are in WORLD.md and DESIGN.md.
 - [research/abilities-vs-attack.md](research/abilities-vs-attack.md) — Stage 1 research on why players just attack. Stage 3 picked some of its fixes; see DESIGN.md.
