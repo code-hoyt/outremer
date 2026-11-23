@@ -58,7 +58,7 @@ Entry format:
 
 ### D-003 · Pillar: trade-off upgrades over pure power
 - Date: 2026-10-31
-- Status: Active
+- Status: Replaced by D-205 (2026-11-23)
 - Replaces: none
 - Decision: An upgrade should change how a unit plays, not just make numbers bigger.
 - Why: Not recorded
@@ -152,6 +152,14 @@ Entry format:
 - Why: Not recorded
 - Source: [archive/stage3-decisions.md → 12. Team & budget ✅](archive/stage3-decisions.md#12-team--budget-), [GAME-BRIEF.md](GAME-BRIEF.md)
 
+### D-205 · Pillar: trade-off upgrades (no armor-weight example)
+- Date: 2026-11-23
+- Status: Active
+- Replaces: D-003
+- Decision: An upgrade should change how a unit plays, not just make numbers bigger; the old 'heavier armor = shorter move / lower jump' example is struck.
+- Why: The no-general-armor-penalty lock (D-189) overrides the example.
+- Source: [DESIGN.md → Pillars](DESIGN.md#design-pillars-from-cletus), [DESIGN.md → Armor penalties (locked 2026-11-23)](DESIGN.md#armor-penalties-locked-2026-11-23)
+
 ## Systems
 
 ### D-008 · CT turn order
@@ -196,7 +204,7 @@ Entry format:
 
 ### D-024 · Hero creation: stats, class, portrait
 - Date: 2026-11-01
-- Status: Active
+- Status: Replaced by D-202 (2026-11-23)
 - Replaces: none
 - Decision: Creation choices are stats, class and portrait only, with one fixed background; name entry is a formality.
 - Why: A fixed origin lets the story be written around it.
@@ -204,7 +212,7 @@ Entry format:
 
 ### D-025 · BG-style rolled stats
 - Date: 2026-11-01
-- Status: Active
+- Status: Replaced by D-203 (2026-11-23)
 - Replaces: none
 - Decision: Stats are rolled BG-style with unlimited rerolls, point moving within a floor and cap, and Store/Recall for one roll.
 - Why: Not recorded
@@ -538,6 +546,22 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Armor penalties (locked 2026-11-23)](DESIGN.md#armor-penalties-locked-2026-11-23)
 
+### D-202 · No created character: you play as Tristan
+- Date: 2026-11-23
+- Status: Active
+- Replaces: D-024
+- Decision: There is no hero creation (no stats, class or portrait pick, no creation wizard); the player plays as Tristan, the fixed protagonist.
+- Why: Not recorded
+- Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [GAME-BRIEF.md](GAME-BRIEF.md), [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order), [ROADMAP.md → Stage 4 — Vertical slice](ROADMAP.md#stage-4--vertical-slice--next)
+
+### D-203 · No rolled stats
+- Date: 2026-11-23
+- Status: Active
+- Replaces: D-025
+- Decision: Stats are not rolled; Tristan's stats come from his class and growth like any other unit's.
+- Why: Follows from no created character (D-202).
+- Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
+
 ## Classes
 
 ### D-050 · Physician and a magic class later
@@ -848,7 +872,7 @@ Entry format:
 
 ### D-108 · Four races, a possible fifth later
 - Date: 2026-11-11
-- Status: Active
+- Status: Replaced by D-208 (2026-11-23)
 - Replaces: none
 - Decision: Four races (Humans plus three), with a possible fifth unlocked through quests later.
 - Why: Not recorded
@@ -1022,6 +1046,14 @@ Entry format:
 - Why: Not recorded
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
+### D-208 · Four main races plus the hidden Peri
+- Date: 2026-11-23
+- Status: Active
+- Replaces: D-108
+- Decision: Four main races (Human, Ifriti, Cynocephali, Hoopoe-kin) plus the hidden Peri as a fifth, unlocked through their side-quest tree.
+- Why: The old 'four races, a fifth later' wording predates Hoopoe-kin and the hidden Peri.
+- Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
+
 ## Story
 
 ### D-070 · Story core
@@ -1106,7 +1138,7 @@ Entry format:
 
 ### D-080 · Hero classes and backstories
 - Date: 2026-11-09
-- Status: Active
+- Status: Replaced by D-206 (2026-11-23)
 - Replaces: none
 - Decision: Tristan a sword-and-shield Templar; Aveline a Hospital medic who grows into a Saint-Caller; Godric a heavy-hitting common sergeant; Lucien a fast skirmisher and scout.
 - Why: Not recorded
@@ -1272,6 +1304,14 @@ Entry format:
 - Why: The Ifriti lean on magic, which the slice doesn't bring in yet.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23)
 
+### D-207 · Dismas's hidden-Peri companion on hold
+- Date: 2026-11-23
+- Status: Active
+- Replaces: none
+- Decision: Dismas's hidden-Peri companion is on hold and not in the slice; the beat may be worked in after the slice is built.
+- Why: Cletus likes the story beat but it isn't needed for the slice.
+- Source: [WORLD.md → Peri (in progress 2026-11-12)](WORLD.md#peri-in-progress-2026-11-12), [TASKS.md → Parking lot](TASKS.md#parking-lot)
+
 ## Characters
 
 ### D-116 · Character looks signed off
@@ -1289,6 +1329,14 @@ Entry format:
 - Decision: Up to 60 art px tall; eyes and brow only; open faces for named units; no weapon at idle; one saturated identity color; Templar cross on the tabard front only.
 - Why: Not recorded
 - Source: [CHARACTERS.md → Sprite and period constraints (locked art rules, open looks)](CHARACTERS.md#sprite-and-period-constraints-locked-art-rules-open-looks)
+
+### D-206 · Hero classes, backstories and weapons
+- Date: 2026-11-23
+- Status: Active
+- Replaces: D-080
+- Decision: Tristan a sword-and-shield Templar; Aveline a Hospital medic who grows into a Saint-Caller; Godric a heavy-hitting common sergeant with a mace; Lucien a fast skirmisher and scout with a bow.
+- Why: The weapons were settled with the 2026-11-11 looks sign-off (D-116).
+- Source: [STORY.md → Classes and backstories (locked 2026-11-09)](STORY.md#classes-and-backstories-locked-2026-11-09), [CHARACTERS.md → Looks signed off (Cletus, 2026-11-11)](CHARACTERS.md#looks-signed-off-cletus-2026-11-11)
 
 ## Campaign & missions
 
@@ -1534,7 +1582,7 @@ Entry format:
 
 ### D-061 · 2D sprites on iso tiles, FFTA2-style portraits
 - Date: 2026-11-02
-- Status: Active
+- Status: Replaced by D-204 (2026-11-23)
 - Replaces: none
 - Decision: 2D sprites on iso tiles, Final Fantasy-based, FFTA2-style portraits, and a pre-made set of 8–12 hero portraits (no builder).
 - Why: HD-2D, low-poly 3D, a portrait builder and commissioned art were rejected.
@@ -1604,6 +1652,14 @@ Entry format:
 - Why: Body-centered won the side-by-side.
 - Source: [DESIGN.md → Art scale (LOCKED 2026-11-11)](DESIGN.md#art-scale-locked-2026-11-11)
 
+### D-204 · 2D sprites on iso tiles, FFTA2-style portraits (no hero portrait set)
+- Date: 2026-11-23
+- Status: Active
+- Replaces: D-061
+- Decision: 2D sprites on iso tiles, Final Fantasy-based, FFTA2-style portraits; the pre-made set of 8–12 hero portraits is dropped with hero creation.
+- Why: No created character (D-202), so there is no portrait pick.
+- Source: [archive/stage3-decisions.md → 7. Art direction ✅](archive/stage3-decisions.md#7-art-direction-), [SLICE-PLAN.md → Milestones, in build order](SLICE-PLAN.md#milestones-in-build-order)
+
 ## Process
 
 ### D-019 · Tuning lives in config
@@ -1669,3 +1725,11 @@ Entry format:
 - Decision: Every locked decision gets a numbered entry in DECISIONS.md; open questions stay in TASKS.md.
 - Why: Not recorded
 - Source: [DECISIONS.md → How to use this log](DECISIONS.md#how-to-use-this-log)
+
+### D-209 · American spelling everywhere
+- Date: 2026-11-19
+- Status: Active
+- Replaces: none
+- Decision: American spelling everywhere in chat, docs and code.
+- Why: Not recorded
+- Source: [README.md → Conventions](README.md#conventions), commit 97cb35b

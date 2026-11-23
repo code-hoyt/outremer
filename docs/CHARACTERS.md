@@ -155,14 +155,14 @@ Example lines (not locked):
 - **Vaskar:** the man he is found fighting; they have no older history unless one is written later.
 
 **Combat role (canon, class system still open)**
-Heavy hitter: a big axe or a mace (which one is not decided). High damage, charges over defense.
+Heavy hitter: ~~a big axe or a mace (which one is not decided)~~ a **mace** (decided 2026-11-11 with the looks sign-off, D-206). High damage, charges over defense.
 
 **Visual brief (approved 2026-11-11; see picks above)**
 
 - **Silhouette:** the broadest of the four heroes. A dark sergeant's mantle and a heavy, planted stance. He should be readable as "the big one" even as a black shape.
 - **Build and age:** bulky, late 20s to early 30s, a head shorter or simply thicker than a tall knight, with the weight in the shoulders and chest.
 - **Palette:** black or dark brown mantle (the historical sergeant's color, and a clear contrast with Tristan's cream), with a red cross on the dark ground. Identity color is that dark russet-brown, not the same bright cream. Fair or sandy hair and a fuller beard, to mark the English or Saxon origin without a caption.
-- **Gear and props:** mail under the dark mantle; coif or kettle hat, face open. The axe or mace is his signature in attacks and portraits, not at idle, so the bulk and dark mantle have to carry the sprite. A thick belt and heavy boots help the weight read.
+- **Gear and props:** mail under the dark mantle; coif or kettle hat, face open. The mace is his signature in attacks and portraits, not at idle, so the bulk and dark mantle have to carry the sprite. A thick belt and heavy boots help the weight read.
 - **At sprite size (60 px):** (1) dark mantle against Tristan's cream; (2) the broader, heavier body. Hair color is the backup cue, not the main one.
 - **Open:** English vs Saxon as a flavour note (it changes little on a sprite, more in voice and portrait); axe vs mace.
 
@@ -200,7 +200,7 @@ Example lines (not locked):
 - **Dismas:** a mirror he may not recognize at first: a man who already came back, and who could not save his own friend.
 
 **Combat role (canon, class system still open)**
-Skirmisher and scout: fast and clever, with a bow or twin blades. Which weapon is not decided. Whatever is chosen should be the same weapon the Hooded Figure uses, so the prologue can rhyme with the Act 2 fights.
+Skirmisher and scout: fast and clever, with ~~a bow or twin blades. Which weapon is not decided.~~ a **bow** (decided 2026-11-11 with the looks sign-off, D-206). The Hooded Figure uses the same weapon, so the prologue can rhyme with the Act 2 fights.
 
 **Visual brief (approved 2026-11-11; see picks above)**
 
@@ -453,5 +453,5 @@ These are notes for later story work, not design decisions.
 3. **Opening and the scattered squad** still describes the third squad member's direction as "to be decided," with a suggestion that this person starts on the wrong side. That is superseded by the locked Lucien: a prodigal from the heroes' own side.
 4. **Holy and profane ground** is still marked "leaning," but the locked Act 4 ending depends on it (Tristan's prayer consecrates the last profane ground and the whole map turns holy).
 5. **"None of the good guys die for good"** (locked) sits beside the Act 3 note that a trusted hunter or an Eighth Day captain can carry any extra cost of the lost battle. If "good guys" includes those people, the extra cost cannot be a death; if it does not, that should be said plainly.
-6. Still open, and already marked as such in the bible: the **exact period**; Godric's **English or Saxon** origin and **axe or mace**; Lucien's **bow or twin blades**; Lucien's exact standing in the Templar detachment; the **Act 1 Demon's name**; the **verse** Tristan speaks in the final prayer; the **epilogue** whereabouts; and almost all of **Sulthrane's** person and look.
+6. Still open, and already marked as such in the bible: the **exact period**; Godric's **English or Saxon** origin; ~~**axe or mace**; Lucien's **bow or twin blades**~~ (decided 2026-11-11: mace and bow, D-206); Lucien's exact standing in the Templar detachment; the **Act 1 Demon's name**; the **verse** Tristan speaks in the final prayer; the **epilogue** whereabouts; and almost all of **Sulthrane's** person and look.
 7. **Simeon's origin** is only implied (already in the other world; not named among those who come from ours). **Eighth Day's** visual language, leadership, and named members are unset, which will matter as soon as Aveline, Dismas, and the stronghold need a shared look.

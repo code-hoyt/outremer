@@ -14,6 +14,9 @@ Index of the design and research docs. Locked rules live in the living files bel
 - [STORY.md](STORY.md) — story bible (locked beats and open story questions).
 - [CHARACTERS.md](CHARACTERS.md) — character briefs for writing and art.
 
+## Conventions
+- **American spelling everywhere**: chat, docs and code (Cletus, 2026-11-19; D-209).
+
 ## Future (not written yet)
 - `ITEMS.md` (or `EQUIPMENT.md`) — item and teaching-gear lists, once shops and loot are designed. The slot and teaching rules already live in [DESIGN.md](DESIGN.md) (unit kit template).
 - `BESTIARY.md` — enemy kits, once those are designed. The names (Imp, Fiend, Demon, and so on) already live in [DESIGN.md](DESIGN.md) (bestiary terms).

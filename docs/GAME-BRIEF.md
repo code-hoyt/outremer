@@ -6,7 +6,7 @@
 
 **How it plays.**
 - **Battles:** about **6 units deploy** per battle from a larger roster ([DESIGN.md](DESIGN.md) Party size, 2026-11-09; this supersedes Stage 3's squad of 3). A few story missions may still be solo or duo. Hand-made iso maps. Where you stand matters most: facing, flanking, height, and maps with deadly edges or goals other than "defeat everyone". Each class moves differently. Abilities have no cooldowns or MP; each one's only cost is a drawback built into what it does.
-- **Your hero:** roll stats, pick a class and one of 8–12 portraits. **Class can be switched freely between battles** ([DESIGN.md](DESIGN.md) Q1, 2026-11-11; this supersedes Stage 3's "class is yours for life"). Class still sets MOV, JUMP and terrain. You grow by:
+- **Your hero:** ~~roll stats, pick a class and one of 8–12 portraits.~~ **Superseded 2026-11-23:** no created character; you play as **Tristan**, the fixed protagonist (no rolled stats, no portrait pick). **Class can be switched freely between battles** ([DESIGN.md](DESIGN.md) Q1, 2026-11-11; this supersedes Stage 3's "class is yours for life"). Class still sets MOV, JUMP and terrain. You grow by:
   - leveling from fights (stats only, up to level 50);
   - learning abilities from gear and keeping them;
   - borrowing one skill set from another class.

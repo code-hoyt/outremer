@@ -54,8 +54,8 @@ The working doc for story decisions, written with Cletus. Earlier test character
 ## Classes and backstories (locked 2026-11-09)
 - **Tristan, Templar knight:** a sword and shield frontliner and solid all-rounder. A younger son of minor nobility who took the vows because the family had nothing else to give him. Sincere about the order, quietly unsure about God.
 - **Aveline, battlefield medic who grows into a Saint-Caller:** a healer who learns to call on saints in the other world. She served in the Hospital tending wounded soldiers and is the one in her family who always holds everything together.
-- **Godric, heavy hitter:** a big axe or mace, high damage and charges over defense. An English or Saxon-born common sergeant, quick to anger and fiercely loyal to Tristan, who once stood up for him.
-- **Lucien, skirmisher and scout:** fast and clever, with a bow or twin blades. Aveline's younger brother, bright and ambitious, resentful of being overlooked; the cult uses that resentment to turn him.
+- **Godric, heavy hitter:** ~~a big axe or mace~~ a **mace** (decided 2026-11-11, D-206), high damage and charges over defense. An English or Saxon-born common sergeant, quick to anger and fiercely loyal to Tristan, who once stood up for him.
+- **Lucien, skirmisher and scout:** fast and clever, with ~~a bow or twin blades~~ a **bow** (decided 2026-11-11, D-206). Aveline's younger brother, bright and ambitious, resentful of being overlooked; the cult uses that resentment to turn him.
 
 ## Story beats to keep
 - **Aveline breaks:** a moment where she can no longer hold things together (likely on seeing Lucien with the enemy), and Tristan steps in. A natural midpoint for both his faith arc and the romance.
