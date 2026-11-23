@@ -51,7 +51,7 @@ Young Templar knight and protagonist.
 **Story role (canon)**
 Tristan is a younger son of minor nobility who took the vows because the family had nothing else to give him. He is sincere about the Order, and quietly unsure about God: sceptical, not bitter, because he has never seen anything supernatural himself.
 
-- **Act 1:** At Guérin de Montclair's castle he overrules Lucien and leads the squad into the cellars. The veil tears and he is pulled through with a cultist, who is killed by a Fiend. Dismas's hunters rescue him. He joins them, learns the other world, and finds Aveline at the holy stronghold during the first true Demon attack.
+- **Act 1:** At Guérin de Montclair's castle he overrules Lucien and leads the squad into the cellars. The veil tears and he is pulled through with a cultist, who is killed by a Fiend. Dismas's company rescues him. He joins them, learns the other world, and finds Aveline at the holy stronghold during the first true Demon attack.
 - **Act 2:** Aveline tells him that she, Godric and Lucien followed him through and were later separated. The party takes Eighth Day jobs, finds Godric facing Vaskar, and sees a shadowy figure pull Vaskar out.
 - **Act 3:** The figure is revealed as Lucien. When Aveline breaks, Tristan steps up (midpoint of his faith arc and of the romance). He sees Guérin and Simeon in communion through a tear, then holds his faith on the retreat after Vaskar's death and the fall of an Eighth Day stronghold.
 - **Act 4:** He helps retake land as holy ground spreads, meets Lucien in the later encounters, and fights Simeon, then Sulthrane. After Sulthrane falls, the former sceptic walks into the collapsing tear and prays. That prayer consecrates the last profane ground, the map turns holy, and the dying gate becomes the road home. This is the first time he speaks scripture. An epilogue will say where he ended up; that text is not written yet.
@@ -224,18 +224,18 @@ Lucien needs two readable looks that are clearly the same body: the young scout 
 
 ## Other-world natives
 
-Dismas, Vaskar, Simeon, Sulthrane, the Eighth Day, and the hunters are of the other world. They should not look like they just stepped out of a Crusader castle.
+Dismas, Vaskar, Simeon, Sulthrane, the Eighth Day, and Dismas's company are of the other world. They should not look like they just stepped out of a Crusader castle.
 
 ### Dismas
 
-Converted former cultist. Leader of the hunting party that rescues Tristan. Named after the penitent thief.
+Converted former cultist. Leader of ~~the hunting party~~ **Superseded 2026-11-23 (D-00214):** the quest-taking company that rescues Tristan. Named after the penitent thief.
 
 **Story role (canon)**
 A native of the other world who once served the profane side with his closest friend, a sworn brother in spirit but not by blood. When Dismas turned to the light he had to "betray" that friend. The friend stayed, rose to become Simeon's lieutenant, and is now Vaskar. Dismas cannot save him, only end him. He is living proof that someone can come back, which mirrors and foreshadows Lucien's return.
 
-- **Act 1:** His party arrives as the Fiend turns on Tristan. He fights beside him, is a little puzzled by how confused Tristan is, gives him a crash course, and takes him on for a few minor quests. The hunters work with Eighth Day as scouts.
+- **Act 1:** His party arrives as the Fiend turns on Tristan. He fights beside him, is a little puzzled by how confused Tristan is, gives him a crash course, and takes him on for a few minor quests. ~~The hunters work with Eighth Day as scouts.~~ **Superseded 2026-11-23 (D-00214):** His company takes jobs from Eighth Day. Dismas himself works with the Order as a scout.
 - **Act 2:** With the party through the Eighth Day jobs and the clash with Vaskar. He does not get to finish that fight.
-- **Act 3:** He kills Vaskar at the low point, which completes his beat. The extra cost of the lost battle is a capture (a trusted hunter or an Eighth Day captain is taken), not a death (locked 2026-11-11).
+- **Act 3:** He kills Vaskar at the low point, which completes his beat. The extra cost of the lost battle is a capture (~~a trusted hunter~~ **Superseded 2026-11-23 (D-00214):** a trusted member of his company or an Eighth Day captain is taken), not a death (locked 2026-11-11).
 - **Act 4:** Still with the party for the campaign and the finale (one of the later Lucien encounters may be his; that is only a recommendation in STORY.md). He does not die. Epilogue whereabouts are unwritten.
 
 **Personality and voice**
@@ -254,7 +254,7 @@ Example lines (not locked):
 - **Eighth Day:** he works with the Order as a scout, and is not described as a brother of it.
 
 **Combat role**
-Not classed in the story bible. He is a hunter and the leader of a hunting party. Treat him as a skirmish or light-frontliner until the class system is designed. Do not invent a kit here.
+Not classed in the story bible. He is a hunter ~~and the leader of a hunting party.~~ **Superseded 2026-11-23 (D-00214):** and the leader of a quest-taking company (they take varied jobs, including hunts). Treat him as a skirmish or light-frontliner until the class system is designed. Do not invent a kit here.
 
 **Visual brief (approved 2026-11-11; see picks above)**
 
@@ -436,7 +436,7 @@ Named or implied roles that do not have briefs yet. Looks, names, and voices her
 
 - **The castle chaplain.** Wrote to the Templars behind Guérin's back about Satanists. When the squad arrives he has "gone to visit his sister." His body is later found in the cellars. A real-world man; probably only needs a portrait and a corpse, not a battle kit.
 - **The servant who warns them.** Slips the squad a warning so they inspect the lower keep anyway. Real-world, unnamed, courage only, no other facts.
-- **Dismas's hunters.** The hunting party that rescues Tristan and becomes his first team. Natives of the other world, scouts working with Eighth Day. Individuals are undefined. A trusted hunter is mentioned as a possible bearer of the Act 3 "extra cost."
+- **Dismas's company.** ~~The hunting party~~ **Superseded 2026-11-23 (D-00214):** The quest-taking company that rescues Tristan and becomes his first team. Natives of the other world; they take varied jobs from Eighth Day, some of which may be hunts. For the slice the company is Dismas plus two named companions (a Cynocephalus and a Hoopoe-kin); names and individual briefs are still undefined. ~~A trusted hunter~~ **Superseded 2026-11-23 (D-00214):** A trusted member of the company is mentioned as a possible bearer of the Act 3 "extra cost."
 - **Eighth Day figures.** The Order of the Eighth Day is the native holy order, a spiritual counterpart to the Templars. It has a holy stronghold as a house, posts jobs, and is already opposing Simeon. Aveline (and the others, before they were separated) joined it; Tristan's clan then becomes part of it, or at least takes its missions. An Eighth Day captain is another possible bearer of the Act 3 cost. No grand master, no uniform, and no named brothers or sisters are set. Their look should be designed as a group before individual briefs.
 - **The Act 1 true Demon** (name TBD). Attacks the holy stronghold in the Act 1 finale ("Saint-Caller Calling for Aid"). The first true Demon the player faces, a step up from the opening Fiend, and a big deal for that reason. Needs a name, a look, and a fight identity of its own, distinct from later Demons and from Sulthrane.
 
@@ -452,6 +452,6 @@ These are notes for later story work, not design decisions.
 2. **Lucien's encounter run** is in two states at once. The locked Act 4 beats still say that a few meetings during the Act 4 campaign pull him back from the edge, with exact scenes still to be written. The later working draft moves the first sighting, the smuggling run, and the false miracle into Act 2 (as the Hooded Figure), and places the wounded-brother scene and the last stand after the reveal. That draft is flagged as a good start, not loved yet, and should be revisited.
 3. **Opening and the scattered squad** still describes the third squad member's direction as "to be decided," with a suggestion that this person starts on the wrong side. That is superseded by the locked Lucien: a prodigal from the heroes' own side.
 4. **Holy and profane ground** is still marked "leaning," but the locked Act 4 ending depends on it (Tristan's prayer consecrates the last profane ground and the whole map turns holy).
-5. **"None of the good guys die for good"** (locked) sits beside the Act 3 note that a trusted hunter or an Eighth Day captain can carry any extra cost of the lost battle. If "good guys" includes those people, the extra cost cannot be a death; if it does not, that should be said plainly.
+5. **"None of the good guys die for good"** (locked) sits beside the Act 3 note that a trusted member of Dismas's company or an Eighth Day captain can carry any extra cost of the lost battle. If "good guys" includes those people, the extra cost cannot be a death; if it does not, that should be said plainly.
 6. Still open, and already marked as such in the bible: the **exact period**; Godric's **English or Saxon** origin; ~~**axe or mace**; Lucien's **bow or twin blades**~~ (decided 2026-11-11: mace and bow, D-00206); Lucien's exact standing in the Templar detachment; the **Act 1 Demon's name**; the **verse** Tristan speaks in the final prayer; the **epilogue** whereabouts; and almost all of **Sulthrane's** person and look.
 7. **Simeon's origin** is only implied (already in the other world; not named among those who come from ours). **Eighth Day's** visual language, leadership, and named members are unset, which will matter as soon as Aveline, Dismas, and the stronghold need a shared look.

@@ -13,7 +13,7 @@ Living list of open **design decisions**. Every locked decision is in [DECISIONS
 - All five first race-class kits are complete as of 2026-11-23 (numbers still open). Kits live in [CLASSES.md](CLASSES.md).
 
 ## Next
-- Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4. Locked story decisions already live in [STORY.md](STORY.md). **Locked 2026-11-23 (D-00211, D-00212):** Chapter 1's multi-part mission is a 2-node quest that unlocks a hidden forgotten chapel holding rare trade-off gear and a mythology clue. Still open for that session: what the 2-node quest is about, the chapel's name, the exact gear, the exact mythology clue, Chapter 1's 6 side missions (including branch follow-ups and time-sensitive flags), and the Chapter 1 mythology hook. The Act 1 Demon's name stays in the Parking lot.
+- Hold the story-premise session before [SLICE-PLAN.md](SLICE-PLAN.md) M11 (Chapter 1 content). M10 can use placeholder text; Ch.1 cannot be final until this happens. See [STORY.md](STORY.md) and [ROADMAP.md](ROADMAP.md) Stage 4. Locked story decisions already live in [STORY.md](STORY.md). **Locked 2026-11-23 (D-00211, D-00212, D-00213):** Chapter 1's multi-part mission is a 2-node quest tracing a missing Order of the Eighth Day patrol (leg 1: the patrol's camp; leg 2: the forgotten chapel, where a survivor holed up), unlocking a hidden forgotten chapel holding rare trade-off gear and a mythology clue. Still open for that session: the quest's name, the chapel's name, the exact gear, the exact mythology clue, Chapter 1's 6 side missions (including branch follow-ups and time-sensitive flags), and the Chapter 1 mythology hook. The Act 1 Demon's name stays in the Parking lot.
 
 ## Waiting on Cletus
 Decisions only he can make.
@@ -38,12 +38,13 @@ Decisions only he can make.
 - **On hold (2026-11-23): Dismas's hidden-Peri companion.** Not in the slice. Cletus likes the story beat; after the slice is built, where and how does she come in (identity, reveal timing)? See [WORLD.md](WORLD.md) Peri (D-00207).
 - Side missions where a side character (unrelated to the main story) joins the clan: Chapter 2 or later, not the slice. (Replaces story-companion recruit missions, dropped 2026-11-23; FFTA-style generic recruit missions are still allowed.)
 - Should a story guest (FFTA2-style) take orders, or stay AI-only?
-- Revisit the starting clan size during development: Cletus would like one of every base race at the start, like FFTA2 (the slice uses Dismas plus two hunters).
+- Revisit the starting clan size during development: Cletus would like one of every base race at the start, like FFTA2 (the slice uses Dismas plus two companions).
 - Should Shield Wall also cancel flank bonuses (it doesn't now)? Should shoves or pulls into a brace zone trigger Brace (they don't now)?
 - Should waiting (CT −60) be more visible as a tactic?
 - Keep the FFTA2 menu structure as ability sets arrive (Action → class set / borrowed secondary set)?
 - Should facing protect more (for example shields blocking some front damage) to make flanking even more decisive? Also listed as a later build idea in [ROADMAP.md](ROADMAP.md).
 - Zones of control beyond the prototype's Brace (set on your own turn, resolved automatically): still open.
+- Flesh out world lore on where quests come from and why clans or companies form to complete them, including researching historical examples. Dismas's company takes varied jobs (not only hunts) (D-00214); the Order of the Eighth Day already posts jobs, but the deeper why is unset. See [STORY.md](STORY.md) and [WORLD.md](WORLD.md).
 - Ifriti lore: some see Humans as oath-breakers because of a past betrayal, still to be decided. See [WORLD.md](WORLD.md).
 - Tidy [STORY.md](STORY.md): the top-level act structure is still marked draft while the act beats are locked, and [CHARACTERS.md](CHARACTERS.md) lists other gaps and tensions to clean up.
 - Holy and profane ground is still marked "leaning" in [STORY.md](STORY.md), but the locked Act 4 ending depends on it.

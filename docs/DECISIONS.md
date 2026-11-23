@@ -1321,6 +1321,14 @@ Entry format:
 - Why: Cletus likes the story beat but it isn't needed for the slice.
 - Source: [WORLD.md → Peri (in progress 2026-11-12)](WORLD.md#peri-in-progress-2026-11-12), [TASKS.md → Parking lot](TASKS.md#parking-lot)
 
+### D-00214 · Dismas's crew is a quest-taking company, not only a hunting party
+- Date: 2026-11-23
+- Status: Active
+- Replaces: none
+- Decision: Dismas's crew is a general quest-taking clan or company, not narrowly a hunting party. They take varied jobs, some of which may be hunts.
+- Why: Cletus did not want the early game to focus too narrowly on hunting. This clarifies the wording of D-00083, D-00085, D-00194, D-00195, and D-00199; the rescue, first-team, roster-size, and race facts in those entries still stand.
+- Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [CHARACTERS.md → Dismas](CHARACTERS.md#dismas)
+
 ## Characters
 
 ### D-00116 · Character looks signed off
@@ -1393,7 +1401,7 @@ Entry format:
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
-- Decision: Chapter 1's one multi-part mission is a 2-node quest that unlocks the hidden node discussed in the world-map research report. You can't return to town between the two legs (D-00045). The quest's plot and name are still open. What the hidden node is or holds is locked in D-00212.
+- Decision: Chapter 1's one multi-part mission is a 2-node quest that unlocks the hidden node discussed in the world-map research report. You can't return to town between the two legs (D-00045). The quest's plot is locked in D-00213; the name is still open. What the hidden node is or holds is locked in D-00212.
 - Why: Cletus picked a two-node route that unlocks the hidden node from the world-map report, rather than the report's three-node pitch.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [research/2026-11-23-tactics-world-maps.md](research/2026-11-23-tactics-world-maps.md)
 
@@ -1403,6 +1411,14 @@ Entry format:
 - Replaces: none
 - Decision: The hidden node unlocked by Chapter 1's 2-node multi-part mission (D-00211) is a forgotten chapel holding rare trade-off gear and an early mythology clue. The chapel's name, the exact gear, and the exact clue are still open.
 - Why: Cletus picked a forgotten chapel with rare trade-off gear and a mythology clue, to reward exploration in the slice and tie into the Templar and holy-ground feel.
+- Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
+
+### D-00213 · Chapter 1 multi-part quest: missing Eighth Day patrol
+- Date: 2026-11-23
+- Status: Active
+- Replaces: none
+- Decision: Chapter 1's 2-node multi-part quest (D-00211) is tracing a missing Order of the Eighth Day patrol. Leg 1 finds the patrol's camp under attack, abandoned, or ambushed; leg 2 pushes straight through to the forgotten chapel (D-00212), where a survivor holed up, barricaded inside, unlocking that hidden node. The quest's name is still open.
+- Why: Cletus wanted a simple, grounded first multi-part quest for a player who doesn't know the world yet, and picked the missing Eighth Day patrol.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
 ## Recruiting
