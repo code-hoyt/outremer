@@ -163,10 +163,12 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 - **Murmuration:** a swirl of birds hides one ally, so attacks on them are likelier to miss until their next turn
 - **Messenger Bird (picked 2026-11-19):** send a bird to any ally on the map; that unit takes the very next turn, right after the Rooster's.
 - **Homing Call (picked 2026-11-22):** the Rooster flies itself to any of its own roosts, even when it isn't standing next to one.
+- **Mobbing (picked 2026-11-22):** the flock harasses one enemy, lowering its accuracy for a turn. No roost bonus (Cletus).
+- **Airlift (picked 2026-11-22):** the flock carries an adjacent ally up to 3 tiles in any direction, ignoring height and water. No roost needed.
 
 **Roosts (locked 2026-11-19):** roosts have HP and can be destroyed by attacks from either side. Keeping your roosts up or knocking the enemy's down is a choice for the player, and enemies can wreck the player's plans by destroying them. There is no "remove roost" ability (Scatter the Roost rejected).
 
-**Action ideas not picked (2026-11-19):** Snatch, Carrion Call, Lookout. (2026-11-22): Mend the Roost (repair a roost's HP), Hidden Roost (enemies can't see or use it until one walks next to it), Nesting Flock (roost takes less damage and hurts its attackers), Updraft (an ally next to a roost gets +2 jump).
+**Action ideas not picked (2026-11-19):** Snatch, Carrion Call, Lookout. (2026-11-22): Mend the Roost (repair a roost's HP), Hidden Roost (enemies can't see or use it until one walks next to it), Nesting Flock (roost takes less damage and hurts its attackers), Updraft (an ally next to a roost gets +2 jump). Also: Cuckoo's Egg (fake roost that sends enemies to a cell the Rooster picks), Crest Flare (confuse adjacent enemies), Stone Drop (damage scales with height advantage), Roost Swap (two units next to roosts trade places).
 
 **Reactions:** still to be designed. The flock taking a hit for an ally is part of the toolkit, not yet slotted as a reaction.
 
