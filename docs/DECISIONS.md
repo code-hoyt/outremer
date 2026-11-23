@@ -563,6 +563,14 @@ Entry format:
 - Why: Follows from no created character (D-00202).
 - Source: [DESIGN.md → Main character & party (Baldur's Gate-style structure)](DESIGN.md#main-character--party-baldurs-gate-style-structure), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
+### D-00210 · World map: Option A for the slice, Option B from Chapter 2
+- Date: 2026-11-23
+- Status: Active
+- Replaces: none
+- Decision: Chapter 1 uses Option A, a fixed hand-made node map split into regions, with a town in each, one-day travel per node, and consecration unlocking a node's fixed offering after Act 1. From Chapter 2, Option B layers on: when you consecrate a node you choose what it becomes from 2 or 3 options, and neighboring holy nodes could combine for a bonus. Slice node and map data should be built so Option B can sit on top. A walkable overworld (Option C) is not used.
+- Why: Option A already matches the Stage 3 node-map plan (D-00045) and fits a phone; Option B's chosen blessings wait until consecration is in play from Chapter 2.
+- Source: [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [research/2026-11-23-tactics-world-maps.md](research/2026-11-23-tactics-world-maps.md)
+
 ## Classes
 
 ### D-00050 · Physician and a magic class later

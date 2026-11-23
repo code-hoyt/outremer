@@ -20,7 +20,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar. The story
 - **Party:** ~~squad of 3 all game, plus a few solo/duo story missions.~~ **Superseded 2026-11-09:** about 6 units deploy from a larger roster (see Later locks below).
 - **Companions:** **10**, about 2 per chapter, **all gettable in one run** (v0.11's "missed companion" is no longer the replay driver). Recruiting by how you win stays parked. **Reaffirmed 2026-11-23:** all companions (story and named side characters) are gettable in one run; limits may be explored later. Generic recruits are on top of these ([Recruiting](#recruiting-ffta2-style-locked-2026-11-23)).
 - **Hero growth:** fixed class (movement identity) + gear that teaches abilities you keep + one borrowed secondary skill set (movement stays yours). FFTA2-style XP leveling: level-ups only raise stats, gains vary by class, **stats 1–100, level cap 50**. New classes later: Physician, and a magic class with magic.
-- **Between battles:** an FFTA2-style **world map** of nodes; party/equipment at any node; shops and missions only in towns; take a mission in town and travel to it; side jobs on the way; multi-part jobs can't return to town between parts. Replaces "full HP, no loot, no wounds" carry-over.
+- **Between battles:** an FFTA2-style **world map** of nodes; party/equipment at any node; shops and missions only in towns; take a mission in town and travel to it; side jobs on the way; multi-part jobs can't return to town between parts. Replaces "full HP, no loot, no wounds" carry-over. **Locked 2026-11-23 (D-00210):** Option A for the Chapter 1 slice, structured so Option B layers on from Chapter 2 (see [World map](#world-map-locked-2026-11-23)).
 - **Wounds:** a fallen companion is Wounded for the next battle; the hero falling loses the battle.
 - **Abilities:** no cooldowns (v0.13); build research fix 1 (forecast + tally) and fix 4 (deadly edges, non-kill goals). Rejected: attack-plus retune, frontal riposte, intent for everyone. Magic + MP later.
 - **Story:** mythology central; premise still to be written (dedicated story session); scenes in-engine with sprites and portrait text boxes, no pre-rendered cutscenes.
@@ -33,6 +33,7 @@ Working title. Isometric tactics, FFTA/FFTA2 lineage, Knights Templar. The story
 - **Story:** locked decisions live in [STORY.md](STORY.md). A remaining story-premise pass before Chapter 1 content is in [TASKS.md](TASKS.md).
 - **Art:** Guilhem · Illuminator makes the art.
 - **Kit template:** locked 2026-11-18; see [Unit kit template](#unit-kit-template-locked-2026-11-18). Shops are the main source of teaching gear; rare teaching items have to be found.
+- **World map:** Option A for the Chapter 1 vertical slice, built so Option B layers on from Chapter 2. Skip a walkable overworld (Option C). See [World map](#world-map-locked-2026-11-23) (D-00210).
 
 ## Main character & party (Baldur's Gate-style structure)
 *Decided with Cletus (after the v0.5 playtest).* The structure borrows from Baldur's Gate 1/2; the rules don't. **Combat stays our tactics system, not D&D.**
@@ -195,6 +196,15 @@ Cletus, 2026-11-23: copy the FFTA2 recruiting system. Reference: [research/2026-
 - **All companions are gettable in one run.** Limits may be explored later.
 - Replay variety comes from random generic recruits (and their rare traits) and story choices.
 - Open details (cap, swap rule, how generics appear, side-character join level) are tracked in [TASKS.md](TASKS.md).
+
+## World map (locked 2026-11-23)
+Cletus, 2026-11-23, from the [world-map research report](research/2026-11-23-tactics-world-maps.md) (D-00210). The Stage 3 node-map rule (D-00045) still holds; this lock picks the region structure and the consecration layer.
+
+- **Chapter 1 (the slice): Option A.** A fixed, hand-made node map split into regions, with a town in each. Travel is one day per node. After Act 1, profane nodes can be won and consecrated, unlocking that node's fixed offering (shop, mercenaries, upgrade or saint summon). Party and gear can be changed at any node; shops and missions stay in towns; take a mission in town and travel to it; side jobs on the way; multi-part jobs can't return to town between parts.
+- **From Chapter 2: Option B layers on.** The same fixed map, but when you consecrate a node you choose what it becomes from 2 or 3 options (for example a chapel, market, barracks or forge). Neighboring holy nodes could combine for a bonus. Slice node and map data should be shaped so this can sit on top without a rebuild.
+- **Not used: Option C**, a walkable overworld.
+
+The report's suggested Chapter 1 shape (one small region with one town, a few wild nodes and the holy stronghold) is the intended slice size; the exact nodes and the multi-part mission route are still to be set with the Chapter 1 mission tree.
 
 ## Party size (2026-11-09)
 - The game is moving from a 3-unit squad to FFTA2-style clans: about 6 units deploy per battle, chosen from a larger roster. The deploy cap should be a value in `src/config.js` once this is coded.

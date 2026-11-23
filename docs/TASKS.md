@@ -51,4 +51,4 @@ Decisions only he can make.
 - Revisit the Hooded Figure encounter order. It is a working draft, a good start, not locked, and Cletus is not in love with it yet. See [STORY.md](STORY.md).
 - Name the Act 1 Demon (the first true Demon, at the holy stronghold). See [STORY.md](STORY.md) and [CHARACTERS.md](CHARACTERS.md).
 - Decide the past holy event that gave the Order of the Eighth Day its name. See [WORLD.md](WORLD.md).
-- Older build-adjacent ideas stay in the [ROADMAP.md parking lot](ROADMAP.md). Slice engineering unknowns (stat rescale, world map, mission-tree format, TypeScript and renderer, art pipeline, audio trial) live with their milestones on the board; see [SLICE-PLAN.md](SLICE-PLAN.md).
+- Older build-adjacent ideas stay in the [ROADMAP.md parking lot](ROADMAP.md). Slice engineering unknowns (stat rescale, world-map implementation (M7; structure locked as D-00210), mission-tree format, TypeScript and renderer, art pipeline, audio trial) live with their milestones on the board; see [SLICE-PLAN.md](SLICE-PLAN.md).
