@@ -178,6 +178,8 @@ Moved from WORLD.md. Cultural callings stay there; the class-direction sentences
 
 **Kit status:** in progress. Two moves are picked; the rest of the kit is still to be designed.
 
+**Reaction ideas (2026-11-22):** Flock Cover (chance the birds block a ranged attack) was liked. A general version, full immunity to ranged attacks (like the FFTA2 move), should go in the main archer class's move list (Cletus). Not picked yet: Scatter, Alarm Call, Peck Back, Stink Gland.
+
 **Ideas kept for later:** Flock Size as a resource. Other Hoopoe-kin class ideas are listed under Racial callings above.
 
 **Open questions:**
