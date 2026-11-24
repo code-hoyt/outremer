@@ -1417,7 +1417,7 @@ Entry format:
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
-- Decision: The hidden node unlocked by Chapter 1's 2-node multi-part mission (D-00211) is a forgotten chapel holding rare trade-off gear and an early mythology clue. The kind of clue is locked in D-00216. The chapel's name, the exact gear, and the fragment's wording, physical form, and how much it reveals are still open.
+- Decision: The hidden node unlocked by Chapter 1's 2-node multi-part mission (D-00211) is a forgotten chapel holding an early mythology clue (kind locked in D-00216) and a reward. The chapel's reward is locked in D-00217, which replaces this entry's earlier "rare trade-off gear" wording; the chapel itself and the mythology clue still stand. The chapel's name, the sword's exact stats, name, and whether it has any minor trade-off, and the fragment's wording, physical form, and how much it reveals are still open.
 - Why: Cletus picked a forgotten chapel with rare trade-off gear and a mythology clue, to reward exploration in the slice and tie into the Templar and holy-ground feel.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
@@ -1436,6 +1436,14 @@ Entry format:
 - Decision: The forgotten chapel's early mythology clue (D-00212) is a fragment of the Ifriti's older covenant with God. The fragment's exact wording, what it physically is, and how much it reveals stay open; this does not lock covenant details, the Order's eighth-day founding event, or later story names.
 - Why: A sign of an earlier crossing would spend the "others crossed before Tristan" reveal too early. The covenant fragment introduces this world's own deep history and gives the Ifriti weight before the player meets one.
 - Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [WORLD.md → Ifriti](WORLD.md#ifriti)
+
+### D-00217 · Chapel reward: a good sword
+- Date: 2026-11-24
+- Status: Active
+- Replaces: none
+- Decision: The forgotten chapel's reward (D-00212) is simply a good sword: a solid upgrade with no lore tie and no special mythology mechanic. This replaces the "rare trade-off gear" wording of D-00212; the chapel itself and the mythology clue (D-00216) still stand. The sword's exact stats, name, and whether it has any minor trade-off stay open.
+- Why: Cletus did not want lore-related gear at this point, and thought it would be nice to give the player a good sword.
+- Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
 ## Recruiting
 
