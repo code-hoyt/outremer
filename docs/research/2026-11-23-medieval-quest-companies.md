@@ -1,6 +1,6 @@
 # How medieval companies took their work
 
-*Research report, 2026-11-23. Page: [How medieval companies took their work](https://cursor.com/canvas/store-77423492-0240-4ade-b23c-c31d2a9643f0/e33da840-3a2b-47a0-a10a-d8ef0c0b255d). Nothing here is locked; see [README.md](README.md) for status.*
+*Research report, 2026-11-23. Page: [How medieval companies took their work](https://cursor.com/canvas/store-77423492-0240-4ade-b23c-c31d2a9643f0/e33da840-3a2b-47a0-a10a-d8ef0c0b255d). Applied 2026-11-24: Option A (the Eighth Day writ-board) as the core model, with light touches of B, C, and D (D-00215). Findings unchanged; see [README.md](README.md) for status.*
 
 A reference for Outremer: why small armed groups formed to take outside jobs in the Middle Ages, where those contracts actually came from, and four lore options for clans and the town mission board. Facts I could not confirm, or that scholars dispute, are flagged.
 

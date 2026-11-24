@@ -1063,6 +1063,14 @@ Entry format:
 - Why: The old 'four races, a fifth later' wording predates Hoopoe-kin and the hidden Peri.
 - Source: [DESIGN.md → Classes and races — open questions (2026-11-11)](DESIGN.md#classes-and-races--open-questions-2026-11-11)
 
+### D-00215 · Eighth Day writ-board for quests and companies
+- Date: 2026-11-24
+- Status: Active
+- Replaces: none
+- Decision: Quests are sealed writs cried and posted at a public town board (church door, market cross, or Order gatehouse); the Order of the Eighth Day is the principal poster, and town councils, castellans, and abbeys can post too. Independent sworn companies form because the Order and the towns cannot cover every road themselves; a company may be a friend or term-servant of the Eighth Day without being the Order. Larger or multi-part commissions can carry written terms, and the starting town's roads can have road-brotherhood flavor. Exact in-world names for the writs and the board stay open.
+- Why: Cletus picked Option A from the medieval-companies report as the core model, with light touches of B, C, and D as the report recommended. This gives Dismas's quest-taking company (D-00214) and the Order's job-posting (D-00086) a shared in-world reason, without turning the board into a generic adventurers' guild or making the clan a branch of the Order.
+- Source: [WORLD.md → Companies and quests (locked 2026-11-24)](WORLD.md#companies-and-quests-locked-2026-11-24), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [STORY.md → The Order of the Eighth Day (LOCKED 2026-11-09)](STORY.md#the-order-of-the-eighth-day-locked-2026-11-09), [research/2026-11-23-medieval-quest-companies.md](research/2026-11-23-medieval-quest-companies.md)
+
 ## Story
 
 ### D-00070 · Story core

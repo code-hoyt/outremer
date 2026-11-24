@@ -22,6 +22,15 @@ Started 2026-11-12. The other world is its own world, not a spiritual layer of o
 - Faith: a cross or X symbol (Eighth Day's faith), under another name.
 - In battle: balanced all-rounders, widest class list; no racial quirk to show.
 
+## Companies and quests (locked 2026-11-24)
+How jobs are posted and why independent companies exist, locked from the [medieval-companies research report](research/2026-11-23-medieval-quest-companies.md) (D-00215). Exact in-world names for the writs and the town board are still open.
+
+- **Why companies form:** the Order of the Eighth Day and the towns cannot cover every road, raid, and frontier with their own standing men. Independent sworn companies take that work. People of different races can join a company by oath, term, or pay, which already fits Dismas's mixed-race quest-taking company (D-00214).
+- **Where quests come from:** a job is a sealed writ, cried in the market and posted at a public board at the church door, the market cross, or the Order's gatehouse. The Order is the principal poster (patrols, escorts, recoveries, and the defense of holy ground). Town councils, castellans, and abbeys can post too.
+- **Relation to the Order:** a company may be known as a friend or term-servant of the Eighth Day without being the Order itself. Professed brothers hold the strongholds; companies walk the roads.
+- **Larger commissions:** bigger or multi-part jobs can carry written terms (a term, headcount, pay, advance, shares, and a finish date), without making the company a mercenary band.
+- **Starting roads:** the first town's roads can have a road-brotherhood flavor, with the town and the Order sharing the work of keeping them, but that is flavor for the starting region, not the rule for every recruit.
+
 ## Race footprint (Cletus 2026-11-12, direction)
 - Some cities are mixed, but not every race is everywhere. Some races have a smaller footprint so they feel rare to the player.
 - Mixed cities should NOT feel like just 2 or 3 races; they should feel genuinely diverse (corrected by Cletus 2026-11-12).
