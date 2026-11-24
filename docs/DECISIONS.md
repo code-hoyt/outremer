@@ -1393,7 +1393,7 @@ Entry format:
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
-- Decision: Chapter 1 has 6 side missions plus the castle prologue, the rescue fight, 1 multi-part mission and the finale, for about 2 hours.
+- Decision: Chapter 1 has 6 side missions plus the castle prologue, the rescue fight, 1 multi-part mission and the finale, for about 2 hours. Unlock pacing for those side missions is locked in D-00218.
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
@@ -1444,6 +1444,14 @@ Entry format:
 - Decision: The forgotten chapel's reward (D-00212) is simply a good sword: a solid upgrade with no lore tie and no special mythology mechanic. This replaces the "rare trade-off gear" wording of D-00212; the chapel itself and the mythology clue (D-00216) still stand. The sword's exact stats, name, and whether it has any minor trade-off stay open.
 - Why: Cletus did not want lore-related gear at this point, and thought it would be nice to give the player a good sword.
 - Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
+
+### D-00218 · Chapter 1 side missions unlock a few at a time
+- Date: 2026-11-24
+- Status: Active
+- Replaces: none
+- Decision: Chapter 1 keeps 6 side missions (D-00197), posted on the writ-board (D-00215) and unlocked a few at a time, the way FFTA2's opening area (Targ Wood) works. The board opens with a single job and fills up as the story advances, instead of showing all six at once. This adds unlock pacing to D-00197; the mission count still stands. What the missions are, which have follow-ups, which are time-sensitive, and the exact unlock points stay open.
+- Why: Cletus wanted the Chapter 1 board to work like FFTA2's Targ Wood, where 3 story battles end with "The Yellow Wings," which clears bandits off the highroad and opens the world map; the first quest is the only one on the board at first, and a few optional quests appear later.
+- Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [TASKS.md → Next](TASKS.md#next)
 
 ## Recruiting
 
