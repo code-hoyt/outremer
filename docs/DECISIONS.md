@@ -1417,7 +1417,7 @@ Entry format:
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
-- Decision: The hidden node unlocked by Chapter 1's 2-node multi-part mission (D-00211) is a forgotten chapel holding rare trade-off gear and an early mythology clue. The chapel's name, the exact gear, and the exact clue are still open.
+- Decision: The hidden node unlocked by Chapter 1's 2-node multi-part mission (D-00211) is a forgotten chapel holding rare trade-off gear and an early mythology clue. The kind of clue is locked in D-00216. The chapel's name, the exact gear, and the fragment's wording, physical form, and how much it reveals are still open.
 - Why: Cletus picked a forgotten chapel with rare trade-off gear and a mythology clue, to reward exploration in the slice and tie into the Templar and holy-ground feel.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
@@ -1428,6 +1428,14 @@ Entry format:
 - Decision: Chapter 1's 2-node multi-part quest (D-00211) is tracing a missing Order of the Eighth Day patrol. Leg 1 finds the patrol's camp under attack, abandoned, or ambushed; leg 2 pushes straight through to the forgotten chapel (D-00212), where a survivor holed up, barricaded inside, unlocking that hidden node. The quest's name is still open.
 - Why: Cletus wanted a simple, grounded first multi-part quest for a player who doesn't know the world yet, and picked the missing Eighth Day patrol.
 - Source: [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
+
+### D-00216 · Chapel mythology clue: Ifriti covenant fragment
+- Date: 2026-11-24
+- Status: Active
+- Replaces: none
+- Decision: The forgotten chapel's early mythology clue (D-00212) is a fragment of the Ifriti's older covenant with God. The fragment's exact wording, what it physically is, and how much it reveals stay open; this does not lock covenant details, the Order's eighth-day founding event, or later story names.
+- Why: A sign of an earlier crossing would spend the "others crossed before Tristan" reveal too early. The covenant fragment introduces this world's own deep history and gives the Ifriti weight before the player meets one.
+- Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [WORLD.md → Ifriti](WORLD.md#ifriti)
 
 ## Recruiting
 
