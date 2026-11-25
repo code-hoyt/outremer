@@ -1433,7 +1433,7 @@ Entry format:
 - Date: 2026-11-24
 - Status: Active
 - Replaces: none
-- Decision: The forgotten chapel's early mythology clue (D-00212) is a fragment of the Ifriti's older covenant with God. The fragment's exact wording, what it physically is, and how much it reveals stay open; this does not lock covenant details, the Order's eighth-day founding event, or later story names.
+- Decision: The forgotten chapel's early mythology clue (D-00212) is a fragment of the Ifriti's older covenant with God. That fragment is Chapter 1's only mythology hook (D-00221). The fragment's exact wording, what it physically is, and how much it reveals stay open; this does not lock covenant details, the Order's eighth-day founding event, or later story names.
 - Why: A sign of an earlier crossing would spend the "others crossed before Tristan" reveal too early. The covenant fragment introduces this world's own deep history and gives the Ifriti weight before the player meets one.
 - Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [WORLD.md → Ifriti](WORLD.md#ifriti)
 
@@ -1467,6 +1467,14 @@ Entry format:
 - Replaces: none
 - Decision: No Chapter 1 side missions are time-sensitive or missable, including the one follow-up (D-00219). Expiring writs (FFTA2-style jobs that lapse after a while) are introduced from Chapter 2. This locks the time-sensitive question left open in D-00218 and D-00219; the count, unlock pacing, everyday-job flavor, and single follow-up still stand. How writs expire (timer, story beats, or flagging) stays open. The general rule that a finale can close time-sensitive branches (D-00196) still stands from Chapter 2.
 - Why: The player is still learning the writ-board.
+- Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [TASKS.md → Next](TASKS.md#next)
+
+### D-00221 · Chapter 1 mythology hook is the chapel covenant fragment
+- Date: 2026-11-24
+- Status: Active
+- Replaces: none
+- Decision: The forgotten chapel's fragment of the Ifriti's older covenant (D-00216) is Chapter 1's only mythology hook; there is no second mythology beat at the chapter's end. Because the chapel is a hidden node, a player who skips the 2-node quest (D-00211, D-00213) may finish Chapter 1 without seeing any mythology, and that is acceptable. The fragment's wording, physical form, and how much it reveals stay open, as in D-00216.
+- Why: It keeps the opening simple while the player knows nothing about the world yet.
 - Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [TASKS.md → Next](TASKS.md#next)
 
 ## Recruiting
