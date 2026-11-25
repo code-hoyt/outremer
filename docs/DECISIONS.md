@@ -1393,7 +1393,7 @@ Entry format:
 - Date: 2026-11-23
 - Status: Active
 - Replaces: none
-- Decision: Chapter 1 has 6 side missions plus the castle prologue, the rescue fight, 1 multi-part mission and the finale, for about 2 hours. Unlock pacing for those side missions is locked in D-00218.
+- Decision: Chapter 1 has 6 side missions plus the castle prologue, the rescue fight, 1 multi-part mission and the finale, for about 2 hours. Unlock pacing for those side missions is locked in D-00218. The jobs' everyday flavor and that exactly one has a follow-up, counted within the 6, are locked in D-00219.
 - Why: Not recorded
 - Source: [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns)
 
@@ -1449,8 +1449,16 @@ Entry format:
 - Date: 2026-11-24
 - Status: Active
 - Replaces: none
-- Decision: Chapter 1 keeps 6 side missions (D-00197), posted on the writ-board (D-00215) and unlocked a few at a time, the way FFTA2's opening area (Targ Wood) works. The board opens with a single job and fills up as the story advances, instead of showing all six at once. This adds unlock pacing to D-00197; the mission count still stands. What the missions are, which have follow-ups, which are time-sensitive, and the exact unlock points stay open.
+- Decision: Chapter 1 keeps 6 side missions (D-00197), posted on the writ-board (D-00215) and unlocked a few at a time, the way FFTA2's opening area (Targ Wood) works. The board opens with a single job and fills up as the story advances, instead of showing all six at once. This adds unlock pacing to D-00197; the mission count still stands. The jobs' everyday flavor and that exactly one has a follow-up are locked in D-00219. The specific missions, which one gets the follow-up, whether any are time-sensitive, and the exact unlock points stay open.
 - Why: Cletus wanted the Chapter 1 board to work like FFTA2's Targ Wood, where 3 story battles end with "The Yellow Wings," which clears bandits off the highroad and opens the world map; the first quest is the only one on the board at first, and a few optional quests appear later.
+- Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [TASKS.md → Next](TASKS.md#next)
+
+### D-00219 · Chapter 1 side missions: everyday jobs, one follow-up
+- Date: 2026-11-24
+- Status: Active
+- Replaces: none
+- Decision: Chapter 1's 6 side missions (D-00197) are mostly everyday writ-board jobs, like clearing a road, escorting a merchant or recovering stolen goods. Exactly one of them has a follow-up job, to give the player a first taste of branching; that follow-up counts within the 6. This supersedes the earlier "some are branch follow-ups" wording and adds job flavor and follow-up count to D-00197 and D-00218; the count and unlock pacing still stand. The specific missions, which one gets the follow-up, whether any are time-sensitive, and the exact unlock points stay open.
+- Why: Cletus wanted the Chapter 1 side jobs to stay grounded everyday writs, with a single follow-up so the player gets a first taste of branching without a thick mission tree.
 - Source: Cletus in chat, 2026-11-24; [STORY.md → Chapter 1 scope (locked 2026-11-23)](STORY.md#chapter-1-scope-locked-2026-11-23), [DESIGN.md → World map (locked 2026-11-23)](DESIGN.md#world-map-locked-2026-11-23), [SLICE-PLAN.md → Big unknowns](SLICE-PLAN.md#big-unknowns), [TASKS.md → Next](TASKS.md#next)
 
 ## Recruiting
